@@ -108,7 +108,7 @@
 <meta property="og:image" content="https://cl.ly/3z081H2e0y2Y/Screen%20recording%202017-06-09%20at%2004.29.26%20PM.gif">
 <meta property="og:image" content="https://cl.ly/2a0V0V152e37/Screen%20recording%202017-06-09%20at%2004.42.48%20PM.gif">
 <meta property="og:image" content="https://cl.ly/003r3J1w3h3L/Screen%20recording%202017-06-09%20at%2011.45.52%20AM.gif">
-<meta property="og:updated_time" content="2017-06-09T09:02:55.217Z">
+<meta property="og:updated_time" content="2017-06-12T10:09:47.741Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide使用详解">
 <meta name="twitter:description" content="英文原文： https://futurestud.io/tutorials/glide-getting-started中文译文：https://mrfu.me/2016/02/27/Glide_Getting_Started/郭霖原创： http://mp.weixin.qq.com/s/ccr1wqRYvZkVpeUT_V6fXQ  概述Glide是一款由 Bump Technologies">
@@ -390,7 +390,7 @@
 <p>要想使用Glide，首先需要将这个库引入到我们的项目当中。在你的 <code>build.gradle</code> 中添加下面这行代码：</p>
 <pre><code>compile &apos;com.github.bumptech.glide:glide:3.7.0&apos;
 </code></pre><p>我当前用的用3.7.0这个版本，这个版本的Glide相当成熟和稳定。</p>
-<p>注意：Glide中需要用到网络功能，因此你还得在AndroidManifest.xml中声明一下网络权限才行：</p>
+<p><strong>注意：</strong>Glide中需要用到网络功能，因此你还得在AndroidManifest.xml中声明一下网络权限才行：</p>
 <pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
 </code></pre><p>如果权限没加，虽然不会报错，但是图片加载没有反应。</p>
 <h2 id="加载图片"><a href="#加载图片" class="headerlink" title="加载图片"></a>加载图片</h2><p>如果你想从网络上加载一张图片到 <code>ImageView</code> 上，只需要这样写：</p>
@@ -532,6 +532,260 @@ Glide.with(this).load(url).animat(animatorObject).into(iv_image);
 </code></pre><p>效果如下：</p>
 <p><img src="https://cl.ly/003r3J1w3h3L/Screen%20recording%202017-06-09%20at%2011.45.52%20AM.gif" alt=""></p>
 <p>没错，跟之前的占位图效果一样，即使是正常的图片链接，但是我们显式设置了要显示 GIF ，那只能是加载失败了。</p>
+<h2 id="缓存基础"><a href="#缓存基础" class="headerlink" title="缓存基础"></a>缓存基础</h2><p>Glide 通过使用默认的内存和硬盘缓存去避免不必要的网络请求。这两个缓存模块的作用各不相同，内存缓存的主要作用是防止应用重复将图片数据读取到内存当中，而硬盘缓存的主要作用是防止应用重复从网络或其他地方重复下载和读取数据。</p>
+<p>你也可以改变 Glide 的默认缓存行为，我们可以调用 <code>.skipMemoryCache(true)</code> 跳过内存缓存。这样 Glide将不会把这张图片缓存到内存中去了。</p>
+<p><strong>注意：</strong>对于相同的URL，如果一开始没有跳过内存缓存，后面再调用的话，也还是会从内存中获取缓存的。</p>
+<p>对于硬盘缓存，可以用 <code>.diskCacheStrategy()</code> 方法改变默认行为，该方法需要传入一个枚举而不是一个简单的布尔值 。如果你想禁用硬盘缓存，则使用 DiskCacheStrategy.NONE 作为参数。</p>
+<pre><code>Glide.with(this).load(url)
+.skipMemoryCache(true)
+.diskCacheStrategy(DiskCacheStrategy.NONE)
+.into(iv_image);
+</code></pre><p>在了解其他枚举值的时候，我们先了解一下 Glide 的缓存策略。 Glide 默认会缓存原始图片和小版本的图片。比如，你请求的图片是 1000<em>1000 像素的，但是你的 <code>ImageView</code> 是 500</em>500 像素的，Glide将会把这两个尺寸都进行缓存。下面对枚举参数进行说明：</p>
+<ul>
+<li>DiskCacheStrategy.NONE 什么都不缓存，就像刚讨论的那样</li>
+<li>DiskCacheStrategy.SOURCE 仅仅只缓存原来的全分辨率的图像。在我们上面的例子中，将会只有一个 1000x1000 像素的图片</li>
+<li>DiskCacheStrategy.RESULT 仅仅缓存最终的图像，即，降低分辨率后的（或者是转换后的）</li>
+<li>DiskCacheStrategy.ALL 缓存所有版本的图像（默认行为）</li>
+</ul>
+<h2 id="请求优化级"><a href="#请求优化级" class="headerlink" title="请求优化级"></a>请求优化级</h2><p>假设一下有这样一个场景，你需要显示一组图片，中间有一张非常大的，底部有两张小的。怎样才体验友好呢？最好是优化加载中间大图，再显示底部小图了，这就涉及优先级的问题了。 Glide 可以用 priority 枚举来设置优先级，调用 <code>.priority()</code> 方法。</p>
+<p>priority 枚举的值如下：</p>
+<ul>
+<li>Priority.LOW</li>
+<li>Priority.NORMAL</li>
+<li>Priority.HIGH</li>
+<li>Priority.IMMEDIATE</li>
+</ul>
+<p><strong>注意：</strong>虽然设置了优先级，但是不一定是按优先级的顺序显示图片，但是会尽可能地做优先级的处理显示。</p>
+<pre><code>Glide.with(this).load(url).priority(Priority.HIGH).into(iv_image);
+</code></pre><h2 id="缩略图"><a href="#缩略图" class="headerlink" title="缩略图"></a>缩略图</h2><p>缩略图是动态占位符。它也可以从网络中加载。如果缩略图比全尺寸图先加载完，就显示缩略图，否则就不显示。方法为 <code>.thumbnail(float sizeMultiplier)</code> ，sizeMultiplier 范围从 0~1f ，如果你传了 0.1f 作为参数， Glide将会显示原始图像的10%的大小。</p>
+<pre><code>Glide.with(this)
+      .load(url2)
+      .thumbnail(0.1f).skipMemoryCache(true)
+      .diskCacheStrategy(DiskCacheStrategy.NONE)
+       into(iv_image);
+</code></pre><p>如果你想加载网络图片来做缩略图，可以使用令一个重载方法，代码如下：</p>
+<pre><code>DrawableRequestBuilder&lt;String&gt; thumbnailRequest = Glide.with(this).load;
+
+Glide.with(this)
+       .load(url2)
+       .thumbnail(thumbnailRequest).skipMemoryCache(true)
+       .diskCacheStrategy(DiskCacheStrategy.NONE)
+        into(iv_image);
+</code></pre><h2 id="Glide-中的回调：Targets"><a href="#Glide-中的回调：Targets" class="headerlink" title="Glide 中的回调：Targets"></a>Glide 中的回调：Targets</h2><p>有时候我们加载图片，不一定要显示到 ImageView 中的，我们只想获取 Bitmap 图片。 Targets 是在做完所有加载和处理之后返回的结果。Targets 有很多种类，下面我们将一一介绍一下：</p>
+<p><strong>SimpleTarget</strong></p>
+<pre><code>private SimpleTarget drawableTarget = new SimpleTarget&lt;GlideBitmapDrawable&gt;() {
+    @Override
+    public void onResourceReady(GlideBitmapDrawable resource, GlideAnimation&lt;? super GlideBitmapDrawable&gt; glideAnimation) {
+        iv_image.setImageDrawable(resource);
+    }
+};
+
+private SimpleTarget bitmapTarget = new SimpleTarget&lt;Bitmap&gt;() {
+    @Override
+    public void onResourceReady(Bitmap resource, GlideAnimation&lt;? super Bitmap&gt; glideAnimation) {
+        iv_image.setImageBitmap(resource);
+    }
+};
+
+Glide.with(this)
+     .load(url2)
+     .asBitmap()
+     .into(bitmapTarget);
+</code></pre><p>其实我们拿到了 Drawable 或 Bitmap 后可以做很多处理，这里我直接加载到 ImageView ，效果跟之前一样。</p>
+<p><strong>注意：</strong></p>
+<ol>
+<li><p>如果我们想要 Bitmap 类型，必须加上 <code>.asBitmap()</code> 方法 ，明确告诉 Glide 我们需要 Bitmap 类型，不然会报错。</p>
+</li>
+<li><p>确保声明的回调对象是作为一个字段对象的，这样可以避免当图像加载完成后，回调不被调用的问题。如果作为匿名内部类对象，因为 Android 回收机制，可能会因为图片加载完成之前被移除掉。</p>
+</li>
+</ol>
+<p>之前我们说过，Glide 将自动和我们加载 ImageView宽高尺寸的图片，这样更加高效。但是当我们传入 Target 的时候， Glide将无法知道宽高是多少了，只能加载源图，其实我们是可以自动 Target的大小的，下面请看：</p>
+<pre><code>private SimpleTarget bitmapTarget = new SimpleTarget&lt;Bitmap&gt;(250,250) {
+    @Override
+    public void onResourceReady(Bitmap resource, GlideAnimation&lt;? super Bitmap&gt; glideAnimation) {
+        iv_image.setImageBitmap(resource);
+    }
+};
+</code></pre><p>在之前代码的基础上，我们指定了宽高为 250 个像素，这样我们的加载效率会大大提高，如果源图尺寸很大的时候。 </p>
+<p><strong>ViewTarget</strong></p>
+<p>如果你自定义了一个 View ，我们能不能直接通过 into（）来展示呢？ 答案是肯定的，我们可以通过 ViewTarget 来实现。让我们看一个简单的自定义 View，它继承自 FrameLayout 并内部使用了一个 ImageView 以及覆盖了一个 TextView 。</p>
+<pre><code>public class FutureStudioView extends FrameLayout {  
+    ImageView iv;
+    TextView tv;
+
+    public void initialize(Context context) {
+        inflate( context, R.layout.custom_view_futurestudio, this );
+
+        iv = (ImageView) findViewById( R.id.custom_view_image );
+        tv = (TextView) findViewById( R.id.custom_view_text );
+    }
+
+    public FutureStudioView(Context context, AttributeSet attrs) {
+        super( context, attrs );
+        initialize( context );
+    }
+
+    public FutureStudioView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super( context, attrs, defStyleAttr );
+        initialize( context );
+    }
+
+    public void setImage(Drawable drawable) {
+        iv = (ImageView) findViewById( R.id.custom_view_image );
+
+        iv.setImageDrawable( drawable );
+    }
+}
+</code></pre><p>你不能使用常规的 Glide 的方法 .into()，因为我们的自定义 view 并不继承自 ImageView。因此，我们必须创建一个 ViewTarget，并用 .into() 方法：</p>
+<pre><code>private void loadImageViewTarget() {  
+    FutureStudioView customView = (FutureStudioView) findViewById( R.id.custom_view );
+
+    viewTarget = new ViewTarget&lt;FutureStudioView, GlideDrawable&gt;( customView ) {
+        @Override
+        public void onResourceReady(GlideDrawable resource, GlideAnimation&lt;? super GlideDrawable&gt; glideAnimation) {
+            this.view.setImage( resource.getCurrent() );
+        }
+    };
+
+    Glide
+        .with( context.getApplicationContext() ) // safer!
+        .load( eatFoodyImages[2] )
+        .into( viewTarget );
+}
+</code></pre><p>在 target 回调方法中，我们使用我们创建的方法 setImage(Drawable drawable) 在自定义 view 类中去设置图片。另外确保你注意到我们必须在 ViewTarget 的构造函数中传递我们自定义 view 作为参数： <code>new ViewTarget&lt;FutureStudioView, GlideDrawable&gt;(customView)</code> 。</p>
+<p><strong>NotificationTarget</strong></p>
+<p>下面我们用 RemoteViews 创建自定义界面的通知栏，布局和代码如下：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;LinearLayout  
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:background=&quot;@android:color/white&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;
+        android:padding=&quot;2dp&quot;&gt;
+        &lt;ImageView
+            android:id=&quot;@+id/remoteview_notification_icon&quot;
+            android:layout_width=&quot;50dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            android:layout_marginRight=&quot;2dp&quot;
+            android:layout_weight=&quot;0&quot;
+            android:scaleType=&quot;centerCrop&quot;/&gt;
+        &lt;LinearLayout
+            android:layout_width=&quot;0dp&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;1&quot;
+            android:orientation=&quot;vertical&quot;&gt;
+            &lt;TextView
+                android:id=&quot;@+id/remoteview_notification_headline&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:ellipsize=&quot;end&quot;
+                android:singleLine=&quot;true&quot;
+                android:textSize=&quot;12sp&quot;/&gt;
+            &lt;TextView
+                android:id=&quot;@+id/remoteview_notification_short_message&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:ellipsize=&quot;end&quot;
+                android:paddingBottom=&quot;2dp&quot;
+                android:singleLine=&quot;true&quot;
+                android:textSize=&quot;14sp&quot;
+                android:textStyle=&quot;bold&quot;/&gt;
+        &lt;/LinearLayout&gt;
+    &lt;/LinearLayout&gt;
+&lt;/LinearLayout&gt;  
+
+final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.remoteview_notification);
+
+rv.setImageViewResource(R.id.remoteview_notification_icon, R.mipmap.future_studio_launcher);
+
+rv.setTextViewText(R.id.remoteview_notification_headline, &quot;Headline&quot;);  
+rv.setTextViewText(R.id.remoteview_notification_short_message, &quot;Short Message&quot;);
+
+// build notification
+NotificationCompat.Builder mBuilder =  
+new NotificationCompat.Builder(context)
+    .setSmallIcon(R.mipmap.future_studio_launcher)
+    .setContentTitle(&quot;Content Title&quot;)
+    .setContentText(&quot;Content Text&quot;)
+    .setContent(rv)
+    .setPriority( NotificationCompat.PRIORITY_MIN);
+
+final Notification notification = mBuilder.build();
+
+// set big content view for newer androids
+if (android.os.Build.VERSION.SDK_INT &gt;= 16) {  
+    notification.bigContentView = rv;
+}
+
+NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);  
+mNotificationManager.notify(NOTIFICATION_ID, notification); 
+</code></pre><p>这个代码片段为我们创建了三个重要的对象， notification 和 RemoteViews 以及常量 NOTIFICATION_ID。我们会需要这些去创建一个 NotificationTarget。</p>
+<pre><code>private NotificationTarget notificationTarget;
+
+...
+
+notificationTarget = new NotificationTarget(  
+    context,
+    rv,
+    R.id.remoteview_notification_icon,
+    notification,
+    NOTIFICATION_ID); 
+</code></pre><p>最后，我们像之前那样加载图片即可，只不过 into 传入的是 NotificationTarget 。</p>
+<p><strong>App Widgets</strong></p>
+<p>应用小部件加载网络图片，可以使用 Glide 提供的 AppWidgetTarget 来实现。</p>
+<pre><code>public class FSAppWidgetProvider extends AppWidgetProvider {
+
+private AppWidgetTarget appWidgetTarget;
+
+@Override
+public void onUpdate(Context context, AppWidgetManager appWidgetManager,
+                     int[] appWidgetIds) {
+
+    RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.custom_view_futurestudio);
+
+    appWidgetTarget = new AppWidgetTarget( context, rv, R.id.custom_view_image, appWidgetIds );
+
+    Glide
+            .with( context.getApplicationContext() ) // safer!
+            .load( GlideExampleActivity.eatFoodyImages[3] )
+            .asBitmap()
+            .into( appWidgetTarget );
+
+    pushWidgetUpdate(context, rv);
+}
+
+public static void pushWidgetUpdate(Context context, RemoteViews rv) {
+    ComponentName myWidget = new ComponentName(context, FSAppWidgetProvider.class);
+    AppWidgetManager manager = AppWidgetManager.getInstance(context);
+    manager.updateAppWidget(myWidget, rv);
+}
+}
+</code></pre><p>只需要把对应要传的参数都传入 Targets 即可，所有的操作都由 Glide 来完成 。</p>
+<h2 id="回调监听"><a href="#回调监听" class="headerlink" title="回调监听"></a>回调监听</h2><p>Glide 的回调监听跟大多数的回调一样，创建一个监听并传入 <code>.listener()</code> 方法即可。监听器用字段声明的形式，跟之前一样。</p>
+<pre><code>RequestListener&lt;String, Bitmap&gt; requestListener = new RequestListener&lt;String, Bitmap&gt;() {
+        @Override
+        public boolean onException(Exception e, String model, Target&lt;Bitmap&gt; target, boolean isFirstResource) {
+            ToastUtils.showShortToast(MainActivity.this,e.getMessage());
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Bitmap resource, String model, Target&lt;Bitmap&gt; target, boolean isFromMemoryCache, boolean isFirstResource) {
+            return false;
+        }
+    };
+
+    Glide.with(this)
+            .load(url2)
+            .asBitmap()
+            .listener(requestListener)
+            .into(drawableTarget);
+</code></pre><p>上述回调中，onException 是加载错误时会回调，默认返回 false ，这样 Glide 会显示错误占位图等，返回 true 则没有后续处理。onResourceReady 是加载成功时会回调，我们可以在这里拿到 Bitmap 做相应处理。</p>
 
       
     </div>
@@ -713,7 +967,7 @@ Glide.with(this).load(url).animat(animatorObject).into(iv_image);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载图片"><span class="nav-number">2.</span> <span class="nav-text">加载图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载进阶"><span class="nav-number">3.</span> <span class="nav-text">加载进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#占位图"><span class="nav-number">4.</span> <span class="nav-text">占位图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载动画"><span class="nav-number">5.</span> <span class="nav-text">加载动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定图片大小"><span class="nav-number">6.</span> <span class="nav-text">指定图片大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩放图像"><span class="nav-number">7.</span> <span class="nav-text">缩放图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定图片格式"><span class="nav-number">8.</span> <span class="nav-text">指定图片格式</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载图片"><span class="nav-number">2.</span> <span class="nav-text">加载图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载进阶"><span class="nav-number">3.</span> <span class="nav-text">加载进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#占位图"><span class="nav-number">4.</span> <span class="nav-text">占位图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载动画"><span class="nav-number">5.</span> <span class="nav-text">加载动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定图片大小"><span class="nav-number">6.</span> <span class="nav-text">指定图片大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩放图像"><span class="nav-number">7.</span> <span class="nav-text">缩放图像</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定图片格式"><span class="nav-number">8.</span> <span class="nav-text">指定图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存基础"><span class="nav-number">9.</span> <span class="nav-text">缓存基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求优化级"><span class="nav-number">10.</span> <span class="nav-text">请求优化级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩略图"><span class="nav-number">11.</span> <span class="nav-text">缩略图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Glide-中的回调：Targets"><span class="nav-number">12.</span> <span class="nav-text">Glide 中的回调：Targets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调监听"><span class="nav-number">13.</span> <span class="nav-text">回调监听</span></a></li></ol></div>
             
 
           </div>
