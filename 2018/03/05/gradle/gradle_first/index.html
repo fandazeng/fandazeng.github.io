@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="脚本语言," />
 
 
 
@@ -93,15 +93,20 @@
 
 
 
-<meta name="description" content="Android技术">
-<meta property="og:type" content="website">
-<meta property="og:title" content="FandaCode">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="Gradle入门Gradle是一门非常优秀的构建系统工具。 配置Gradle环境安装之前要配置好 java 环境，要求JDK6以上，并且在环境变量里配置了JAVA_HOME，命令 java -version 可以查看是否安装成功。去官网下载 Gradle，直接安装并配置环境变量即可，可以运行 gradle -v 来验证是否安装成功。 第一个Gradle脚本task helloWorld  {">
+<meta name="keywords" content="脚本语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle 入门">
+<meta property="og:url" content="http://yoursite.com/2018/03/05/gradle/gradle_first/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="Android技术">
+<meta property="og:description" content="Gradle入门Gradle是一门非常优秀的构建系统工具。 配置Gradle环境安装之前要配置好 java 环境，要求JDK6以上，并且在环境变量里配置了JAVA_HOME，命令 java -version 可以查看是否安装成功。去官网下载 Gradle，直接安装并配置环境变量即可，可以运行 gradle -v 来验证是否安装成功。 第一个Gradle脚本task helloWorld  {">
+<meta property="og:image" content="https://cl.ly/190E3E2r402E/Image%202018-03-05%20at%203.13.31%20PM.png">
+<meta property="og:image" content="https://cl.ly/3K08442z2Q3g/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180305153446.jpg">
+<meta property="og:updated_time" content="2018-03-05T08:21:56.719Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="FandaCode">
-<meta name="twitter:description" content="Android技术">
+<meta name="twitter:title" content="Gradle 入门">
+<meta name="twitter:description" content="Gradle入门Gradle是一门非常优秀的构建系统工具。 配置Gradle环境安装之前要配置好 java 环境，要求JDK6以上，并且在环境变量里配置了JAVA_HOME，命令 java -version 可以查看是否安装成功。去官网下载 Gradle，直接安装并配置环境变量即可，可以运行 gradle -v 来验证是否安装成功。 第一个Gradle脚本task helloWorld  {">
+<meta name="twitter:image" content="https://cl.ly/190E3E2r402E/Image%202018-03-05%20at%203.13.31%20PM.png">
 
 
 
@@ -129,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/05/gradle/gradle_first/"/>
 
 
 
 
 
-  <title>FandaCode</title>
+  <title>Gradle 入门 | FandaCode</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -161,9 +166,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -266,9 +269,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -294,9 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/05/gradle/gradle_first/" itemprop="url">Gradle 入门</a></h1>
+          <h1 class="post-title" itemprop="name headline">Gradle 入门</h1>
         
 
         <div class="post-meta">
@@ -365,363 +366,94 @@
       
 
       
+        <h1 id="Gradle入门"><a href="#Gradle入门" class="headerlink" title="Gradle入门"></a>Gradle入门</h1><p>Gradle是一门非常优秀的构建系统工具。</p>
+<h2 id="配置Gradle环境"><a href="#配置Gradle环境" class="headerlink" title="配置Gradle环境"></a>配置Gradle环境</h2><p>安装之前要配置好 java 环境，要求JDK6以上，并且在环境变量里配置了JAVA_HOME，命令 <code>java -version</code> 可以查看是否安装成功。去官网下载 Gradle，直接安装并配置环境变量即可，可以运行 <code>gradle -v</code> 来验证是否安装成功。</p>
+<h2 id="第一个Gradle脚本"><a href="#第一个Gradle脚本" class="headerlink" title="第一个Gradle脚本"></a>第一个Gradle脚本</h2><pre><code>task helloWorld  {
+    doLast {
+        println &quot;Hello world&quot;
+    }
+}
+</code></pre><p>使用命令 <code>gradle -q hW</code> 运行脚本： hello world</p>
+<p>下面我们一步步分析结果产生的步骤和原因，<code>build.gradle</code> 是 Gradle 默认的构建脚本文件，执行 Gradle 命令的时候，会默认加载当前目录下<code>build. gradle</code> 脚本文件。可以通过 <code>-b</code> 参数指定加载文件，比如：<code>gradle -b test.gradle -q hW</code> ，就会执行 <code>test.gradle</code> 这个指定的文件。</p>
+<h2 id="Gradle-Wrapper"><a href="#Gradle-Wrapper" class="headerlink" title="Gradle Wrapper"></a>Gradle Wrapper</h2><p>顾名思义，其实就是对 Gradle的一层包装，便于在团队开发过程中统一 Gradle 构建的版本，这样大家都可以使用统一的 Gradle 版本进行构建，避免因为 Gradle 版本不统一带来的不必要的问题。我们在项目开发过程中，用的都是 Wrapper 这种方式，而不是自己下载 ZIP 压缩包，配置 Gradle 的环境的方式。 </p>
+<p>Wrapper 在 Windows 下是一个批处理脚本，在 Linux 下是一个 shell 脚本。当你使用  Wrapper 启动 Gradle 的时候， Wrapper 会检查 Gradle 有没有被下载关联，如果没有将会从配置的地址（一般是 Gradle 官方库）进行下载并运行构建。这对我们每个开发人员是非常方便的，因为你不用去专门配置环境了，只要执行 Wrapper 命令，它会帮你搞定一切。</p>
+<h3 id="生成-Wrapper"><a href="#生成-Wrapper" class="headerlink" title="生成 Wrapper"></a>生成 Wrapper</h3><p>在一个项目的根目录中输入 gradle wrapper 命令即可生成，生成的文件如下：</p>
+<p><img src="https://cl.ly/190E3E2r402E/Image%202018-03-05%20at%203.13.31%20PM.png" alt=""></p>
+<p><code>gradew</code> 和 <code>gradlew.bat</code> 分别是 Linux 和 Windows 下的可执行脚本，它们们的用法和 Gradle 原生命令是一样的， Gradle 怎么用，它们也就可以怎么用。 Wrapper 文件可以作为你项目工程的一部分提交到代码版本控制系统里(Git，这样其他开发人员就会使用这里配置好的、统一的 Gradle 进行构建开发。</p>
+<p>我们在生成 Wrapper 的时候也可以配置一些参数，比如指定使用的 Gradle 版本，命令如下：</p>
+<pre><code>gradle wrapper --gradle-version 2.4
+</code></pre><p>这样就会加载 2.4 版本的 Gradle ,它会影响<code>gradle-wrapper properties</code> 中的 distributional的值，该值的规则是<a href="http://services" target="_blank" rel="external">http://services</a>. gradle. org/distributions/gradle-sgradle Version)-bin. zip 。如果我们在调用 gradle wrapper的时候不添加任何参数，那么就会使用你当前 Gradle的版本作为生成的 Wrapper的 gradle version。例如，你当前安装的 Gradle是2.8版本的，那么生成的 Wrapper也是2.8版本的。</p>
+<h2 id="Gradle-日志"><a href="#Gradle-日志" class="headerlink" title="Gradle 日志"></a>Gradle 日志</h2><h3 id="日志级别"><a href="#日志级别" class="headerlink" title="日志级别"></a>日志级别</h3><p><img src="https://cl.ly/3K08442z2Q3g/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180305153446.jpg" alt=""></p>
+<p>我们第一个脚本用的主是 <code>-q</code> 级别的日志输出。如果我们想要输出堆栈信息，可以用 <code>-s</code> 比如 <code>gradle -s hW</code> 我们除了可以用第一个脚本写的 <code>println &quot;helloWorld&quot;</code> 来打印日志，也可以用内置的 <code>logger</code> 来打印，比如： <code>logger.quiet(&quot;helloWorld&quot;)</code> ，<code>logger.info(&quot;helloWorld&quot;)</code> 等。</p>
+<p>有时候，我们需要同时运行多个任务，比如先运行 clean 任务，然后运行 jar 任务，只需要按顺序以空格分开即可，比如： <code>gradle clean jar</code></p>
+<p>最后说明一下，我们之前的命令 <code>gradle -q hW</code> 中的 hW 其实是任务名字的缩写（helloWorld）, Gradle 提供了基于驼峰命名的缩写调用，比如 <code>connectCheck</code> 任务，可以这样写： <code>gradle -q cC</code></p>
+
+      
+    </div>
+
+    <div>
+      
         
-          
-          Gradle入门Gradle是一门非常优秀的构建系统工具。
-配置Gradle环境安装之前要配置好 java 环境，要求JDK6以上，并且在环境变量里配置了JAVA_HOME，命令 java -version 可以查看是否安装成功。去官网下载 Gradle，直接安装并配置环境变量即可，可以运行 gra
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/03/05/gradle/gradle_first/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
-      
-    </div>
-
-    <div>
       
     </div>
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/09/github/glide/Glide使用详解/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fanda">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FandaCode">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/09/github/glide/Glide使用详解/" itemprop="url">Glide使用详解</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-09T10:40:48+08:00">
-                2017-06-09
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/github/" itemprop="url" rel="index">
-                    <span itemprop="name">github</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/github/glide/" itemprop="url" rel="index">
-                    <span itemprop="name">glide</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          
-          
-英文原文： https://futurestud.io/tutorials/glide-getting-started中文译文：https://mrfu.me/2016/02/27/Glide_Getting_Started/郭霖原创： http://mp.weixin.qq.com/s/ccr1
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/09/github/glide/Glide使用详解/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/09/github/glide/Glide使用详解/" rel="next" title="Glide使用详解">
+                <i class="fa fa-chevron-left"></i> Glide使用详解
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
 
-    <div>
-      
-    </div>
+          <span class="post-nav-divider"></span>
 
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/08/book_notes/expert/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Fanda">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="FandaCode">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/06/08/book_notes/expert/" itemprop="url">从小工到专家</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T16:06:59+08:00">
-                2017-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">我的笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的笔记/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-          注重实效的哲学语录
-每天为提炼你所拥有的技能而工作，为把新的工具增加到你的技能列表中而工作。
-
-我们可以为我们的能力自豪，但对于我们的缺点、无和和错误，我们必须诚实。
-
-提供各种选择，不要找鳖脚的借口。不要害怕提出要求，也不要害怕承认你需要帮助。
-
-不要容忍“破窗户”（低劣的设计、错误决定或糟糕的代
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/06/08/book_notes/expert/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -729,6 +461,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -748,8 +484,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/images/avatar.jpg"
@@ -811,6 +556,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Gradle入门"><span class="nav-number">1.</span> <span class="nav-text">Gradle入门</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Gradle环境"><span class="nav-number">1.1.</span> <span class="nav-text">配置Gradle环境</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#第一个Gradle脚本"><span class="nav-number">1.2.</span> <span class="nav-text">第一个Gradle脚本</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-Wrapper"><span class="nav-number">1.3.</span> <span class="nav-text">Gradle Wrapper</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#生成-Wrapper"><span class="nav-number">1.3.1.</span> <span class="nav-text">生成 Wrapper</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Gradle-日志"><span class="nav-number">1.4.</span> <span class="nav-text">Gradle 日志</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#日志级别"><span class="nav-number">1.4.1.</span> <span class="nav-text">日志级别</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -931,10 +692,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
 
-  
+
 
   
 
