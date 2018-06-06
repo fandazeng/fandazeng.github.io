@@ -77,7 +77,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="实用,笔记," />
+  <meta name="keywords" content="脚本语言," />
 
 
 
@@ -93,17 +93,19 @@
 
 
 
-<meta name="description" content="注重实效的哲学语录 每天为提炼你所拥有的技能而工作，为把新的工具增加到你的技能列表中而工作。  我们可以为我们的能力自豪，但对于我们的缺点、无和和错误，我们必须诚实。  提供各种选择，不要找鳖脚的借口。不要害怕提出要求，也不要害怕承认你需要帮助。  不要容忍“破窗户”（低劣的设计、错误决定或糟糕的代码）。  让别人看见未来，你就能让他们聚集在你周围 ，做变化的催化剂。  留心大图景，要持续不断地观">
-<meta name="keywords" content="实用,笔记">
+<meta name="description" content="多种方式创建任务1.直接以任务名字创建任务的方式： def Task taskOne = task(task1)  taskOne.doLast{     println &amp;quot;创建方法原型为：Task task(String name) throws InvalidUserDataException&amp;quot; } 以上代码中的 task1 是任务名字，默认转为字符串类型，task方法返回">
+<meta name="keywords" content="脚本语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="从小工到专家">
-<meta property="og:url" content="http://yoursite.com/2017/06/08/book_notes/expert/index.html">
+<meta property="og:title" content="Gradle 任务">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/gradle/gradle_fourth/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="注重实效的哲学语录 每天为提炼你所拥有的技能而工作，为把新的工具增加到你的技能列表中而工作。  我们可以为我们的能力自豪，但对于我们的缺点、无和和错误，我们必须诚实。  提供各种选择，不要找鳖脚的借口。不要害怕提出要求，也不要害怕承认你需要帮助。  不要容忍“破窗户”（低劣的设计、错误决定或糟糕的代码）。  让别人看见未来，你就能让他们聚集在你周围 ，做变化的催化剂。  留心大图景，要持续不断地观">
-<meta property="og:updated_time" content="2017-06-08T09:59:50.874Z">
+<meta property="og:description" content="多种方式创建任务1.直接以任务名字创建任务的方式： def Task taskOne = task(task1)  taskOne.doLast{     println &amp;quot;创建方法原型为：Task task(String name) throws InvalidUserDataException&amp;quot; } 以上代码中的 task1 是任务名字，默认转为字符串类型，task方法返回">
+<meta property="og:image" content="https://cl.ly/3E1n2N2G273R/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180313102238.jpg">
+<meta property="og:updated_time" content="2018-03-13T07:56:25.277Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="从小工到专家">
-<meta name="twitter:description" content="注重实效的哲学语录 每天为提炼你所拥有的技能而工作，为把新的工具增加到你的技能列表中而工作。  我们可以为我们的能力自豪，但对于我们的缺点、无和和错误，我们必须诚实。  提供各种选择，不要找鳖脚的借口。不要害怕提出要求，也不要害怕承认你需要帮助。  不要容忍“破窗户”（低劣的设计、错误决定或糟糕的代码）。  让别人看见未来，你就能让他们聚集在你周围 ，做变化的催化剂。  留心大图景，要持续不断地观">
+<meta name="twitter:title" content="Gradle 任务">
+<meta name="twitter:description" content="多种方式创建任务1.直接以任务名字创建任务的方式： def Task taskOne = task(task1)  taskOne.doLast{     println &amp;quot;创建方法原型为：Task task(String name) throws InvalidUserDataException&amp;quot; } 以上代码中的 task1 是任务名字，默认转为字符串类型，task方法返回">
+<meta name="twitter:image" content="https://cl.ly/3E1n2N2G273R/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180313102238.jpg">
 
 
 
@@ -131,13 +133,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/06/08/book_notes/expert/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/gradle/gradle_fourth/"/>
 
 
 
 
 
-  <title>从小工到专家 | FandaCode</title>
+  <title>Gradle 任务 | FandaCode</title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -277,7 +279,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/08/book_notes/expert/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/gradle/gradle_fourth/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -294,7 +296,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">从小工到专家</h1>
+          <h1 class="post-title" itemprop="name headline">Gradle 任务</h1>
         
 
         <div class="post-meta">
@@ -306,8 +308,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T16:06:59+08:00">
-                2017-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T15:30:17+08:00">
+                2018-03-15
               </time>
             
 
@@ -329,19 +331,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">我的笔记</span>
-                  </a>
-                </span>
-
-                
-                
-                  ， 
-                
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的笔记/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/gradle/" itemprop="url" rel="index">
+                    <span itemprop="name">gradle</span>
                   </a>
                 </span>
 
@@ -374,84 +365,88 @@
       
 
       
-        <h1 id="注重实效的哲学语录"><a href="#注重实效的哲学语录" class="headerlink" title="注重实效的哲学语录"></a>注重实效的哲学语录</h1><ul>
-<li><p>每天为提炼你所拥有的技能而工作，为把新的工具增加到你的技能列表中而工作。</p>
-</li>
-<li><p>我们可以为我们的能力自豪，但对于我们的缺点、无和和错误，我们必须诚实。</p>
-</li>
-<li><p>提供各种选择，不要找鳖脚的借口。不要害怕提出要求，也不要害怕承认你需要帮助。</p>
-</li>
-<li><p>不要容忍“破窗户”（低劣的设计、错误决定或糟糕的代码）。</p>
-</li>
-<li><p>让别人看见未来，你就能让他们聚集在你周围 ，做变化的催化剂。</p>
-</li>
-<li><p>留心大图景，要持续不断地观察周围发生的事件，而不只是你自己在做的事情。</p>
-</li>
-<li><p>必须定期为你的知识资产投资，即使投资量很少，习惯自身也和总量一样重要。</p>
-</li>
-<li><p>知道的事情越多，就越有价值，需要知道你目前所用的特定技术的各种特征，但不能就此止步，技术的面貌变化很快。掌握的技术越多，你就越能更好地进行调整，赶上变化。</p>
-</li>
-<li><p>把找到答案视为对你个人的挑战，如果自己找不到答案，就去找能找到答案的人。</p>
-</li>
-<li><p>批判地思考你读到和听到的，需要确保你的资产中的知识是准确的，并且没有受到供应商或媒体炒作的影响。</p>
-</li>
-<li><p>问题不只是你有什么，还要看你怎样包装它，如果没有有效的交流，一个好想法就只是一个无人关心的孤儿。</p>
-</li>
-<li><p>规划你想要说的东西，写出大纲，提炼它。面临重要事情前，简略记下你想要交流的想法，并准备好几种把它们讲清楚的策略。</p>
-</li>
-<li><p>了解你的听众的需要、兴趣、能力，才能传达信息，才是在交流，否则就是让人厌烦的空谈。选择好的时机去交谈，面对不同的人选择不同的风格去交谈。做一个倾听者，如果你不听别人说话，别人也不会听你说话。喜欢大家通过提问来交流，或是让他们总结你告诉他们的东西，把会议变成对话，你也许还能学到点什么。</p>
-</li>
-<li><p>你应该总是对别人的消息给予回应，哪怕是“我稍后回复你”，随时通知别人，会让他们更容易原谅你偶然的疏忽，并让他们觉得你没有忘记他们。</p>
-</li>
-<li><p>你说的内容和你说话的方式同样重要，交流越有效，你就越有影响力。</p>
-</li>
-<li><p>如果某个想法是你惟一的想法，再没有什么比这更危险的事情了。</p>
-</li>
-</ul>
-<h2 id="与别人打交道的礼节与教养"><a href="#与别人打交道的礼节与教养" class="headerlink" title="与别人打交道的礼节与教养"></a>与别人打交道的礼节与教养</h2><ol>
-<li><p>确切地知道你想要问什么，并尽量明确具体。</p>
-</li>
-<li><p>小心而得体地组织你的问题。记住你是在请求帮助，不要显得好像是在要求对方回答。</p>
-</li>
-<li><p>组织好问题之后，停下来，再找找答案。选出一些关键字，查找适当的FAQ（ Frequently Asked Questions 常见问题的解答列表）。</p>
-</li>
-<li><p>决定你是想公开提问还是私下提问，也可以直接发电子邮件。</p>
-</li>
-<li><p>耐心等待，感谢任何回应你的人。如果看到有人提出你能够解答的问题，尽你的一份力，参与解答。</p>
-</li>
-</ol>
-<h2 id="发送电子邮件的注意事项"><a href="#发送电子邮件的注意事项" class="headerlink" title="发送电子邮件的注意事项"></a>发送电子邮件的注意事项</h2><ol>
-<li><p>发送之前进行校对</p>
-</li>
-<li><p>检查拼写</p>
-</li>
-<li><p>让格式保持简洁</p>
-</li>
-<li><p>设法让引文减至最少</p>
-</li>
-<li><p>如果引用别人的电子邮件，一定要注明出处。并在正文中进行引用，而不是当做附件</p>
-</li>
-<li><p>不要用言语攻击别人</p>
-</li>
-<li><p>检查你的收件人名单</p>
-</li>
-<li><p>将你收到和发送的重要邮件加以组织并存档</p>
-</li>
-</ol>
-<h2 id="了解听众的一些问题"><a href="#了解听众的一些问题" class="headerlink" title="了解听众的一些问题"></a>了解听众的一些问题</h2><ol>
-<li><p>你想让他们学到什么？</p>
-</li>
-<li><p>他们对你讲的什么感兴趣？</p>
-</li>
-<li><p>他们有多富有经验？</p>
-</li>
-<li><p>他们想要多少细节？</p>
-</li>
-<li><p>你想要让谁拥有这些信息？</p>
-</li>
-<li><p>你如何促使他们听你说话？</p>
-</li>
-</ol>
+        <h2 id="多种方式创建任务"><a href="#多种方式创建任务" class="headerlink" title="多种方式创建任务"></a>多种方式创建任务</h2><p>1.直接以任务名字创建任务的方式：</p>
+<pre><code>def Task taskOne = task(task1)
+
+taskOne.doLast{
+    println &quot;创建方法原型为：Task task(String name) throws InvalidUserDataException&quot;
+}
+</code></pre><p>以上代码中的 <code>task1</code> 是任务名字，默认转为字符串类型，<code>task</code>方法返回一个 <code>Task</code> 类型，我们将对象赋给了 <code>taskOne</code> 这个变量，再通过 <code>taskOne</code> 做了一个 <code>doLast</code> 操作 ，任务的操作命令为 <code>gradle -q task1</code></p>
+<p>2.以一个任务名字和一个对该任务配置的 <code>Map</code> 对象来创建任务：</p>
+<pre><code>def Task taskTwo = task(task2,group:BasePlugin.BUILD_GROUP)
+
+taskTwo.doLast {
+    println &quot;创建方法原型为：Task task(Map&lt;String, ?&gt; args, String name) throws InvalidUserDataException&quot;
+    println &quot;任务分组：${taskTwo.group}&quot;
+}
+</code></pre><p>和第一种方式大同小异，只是多了一个 <code>Map</code> 参数 ，用于对要创建的 <code>Task</code> 进行配置，我们的代码指定了分组为 <code>BUILD</code> ，下面是 <code>Map</code> 中可用的配置列出来。</p>
+<p><img src="https://cl.ly/3E1n2N2G273R/%E5%BE%AE%E4%BF%A1%E5%9B%BE%E7%89%87_20180313102238.jpg" alt=""></p>
+<p>3.任务名字和闭包配置的方式：</p>
+<pre><code>task taskThree {
+    description &apos;演示任务创建&apos;
+    enabled true
+    doLast {
+        println &quot;创建方法原型为：Task task(String name, Closure configureClosure)&quot;
+        println &quot;任务描述：${description}&quot;
+        println &quot;enabled${enabled}&quot;
+    }
+}
+</code></pre><p>因为第二种方式可配置的项有限，所以可以通过闭包的方式进行更多灵活的配置。闭包里面委托的对象就是 <code>Task</code> 本身，所以我们可以使用 <code>Task</code> 的任务属性和方法。</p>
+<p>4.使用 <code>TaskContainer</code> 创建任务 ，其实之前的创建方法在源码上，都是调用该方式创建的，<code>Project</code> 帮我们定义的 <code>TaskContainer</code> 的名字为 <code>tasks</code> ，这是 <code>Project</code> 的属性，我们可以直接调用 <code>tasks</code> 来创建任务，示例代码如下：</p>
+<pre><code>tasks.create(&apos;taskFour&apos;) {
+        description &apos;演示任务创建&apos;
+        enabled true
+        doLast {
+        println &quot;创建方法原型为：Task create(String name, Closure configureClosure) throws InvalidUserDataException&quot;
+        println &quot;任务描述：${description}&quot;
+            println &quot;enabled${enabled}&quot;
+        }
+    }
+</code></pre><h2 id="多种方式访问任务"><a href="#多种方式访问任务" class="headerlink" title="多种方式访问任务"></a>多种方式访问任务</h2><p>1.我们可以通过该任务名称访问和操作任务：</p>
+<pre><code>task task1
+task1.doLast {
+    println &apos;task1.doLast&apos;
+}
+</code></pre><p>2.通过 <code>TaskContainer</code> 来访问 ，其实 <code>TaskContainer</code> 是我们创建任务的集合：</p>
+<pre><code>task task2
+tasks[&apos;task2&apos;].doLast {
+    println &apos;task2.doLast&apos;
+}
+</code></pre><p>其实上述的方式在源码上是调用了 <code>findByName(String name)</code> 实现的。</p>
+<p>3.通过路径来访问，有两种方式，分别是 <code>get</code> 和 <code>find</code> ，它们的区别在于 <code>get</code> 方法找不到任务时会抛出异常，<code>find</code> 方法找不到会直接返回 <code>null</code>：</p>
+<pre><code>task task3
+tasks[&apos;task3&apos;].doLast {
+    println tasks.findByPath(&apos;task3&apos;)
+    println tasks.getByPath(&apos;task3&apos;)
+    println tasks.findByPath(&apos;afasdf&apos;)
+}
+</code></pre><p>上述的方式的参数值可以是任务路径，也可以是任务名字。</p>
+<p>4.通过名字来访问，也有两种方式，跟第3种方式的区别一样：</p>
+<pre><code>task task4
+tasks[&apos;task4&apos;].doLast {
+    println tasks.findByName(&apos;task4&apos;)
+    println tasks.getByName(&apos;task4&apos;)
+    println tasks.findByName(&apos;afasdf&apos;)
+}
+</code></pre><p>这种方式只能传入任务名字，不能为路径。</p>
+<h2 id="任务的执行分析"><a href="#任务的执行分析" class="headerlink" title="任务的执行分析"></a>任务的执行分析</h2><p>当我们在执行一个 <code>Task</code> 的时候，其实就是执行其拥有的 <code>actions</code> 列表，这个列表保存在 <code>Task</code> 对象实例中的 <code>actions</code> 成员变量中，其类型是一个 <code>List</code>，现在我们把 <code>Task</code> 之前执行、<code>Task</code> 本身执行以及 <code>Task</code> 之后执行分别称为 <code>doFirst</code> 、<code>doSelf</code> 、<code>doLast</code> ,示例如下：</p>
+<pre><code>def Task myTask = task customTask(type: CustomTask)
+myTask.doFirst{
+    println &apos;Task执行之前执行 in doFirst&apos;
+}
+myTask.doLast{
+    println &apos;Task执行之后执行 in doLast&apos;
+}
+
+class CustomTask extends  DefaultTask {
+
+    @TaskAction
+    def doSelf() {
+        println &apos;Task自己本身在执行 in doSelf&apos;
+    }
+
+}
+</code></pre><p>我们定义了一种 <code>Task</code> 类型 <code>CustomTask</code> ,并声明了一个方法 <code>doSelf</code>，该方法被 <code>TaskAction</code> 注解标注，意思是该方法是 <code>Task</code> 本身执行的方法，执行顺序跟预期一样。</p>
 
       
     </div>
@@ -481,9 +476,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/实用/" rel="tag"># 实用</a>
-          
-            <a href="/tags/笔记/" rel="tag"># 笔记</a>
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
           
         </div>
       
@@ -496,14 +489,18 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/03/06/gradle/gradle_third/" rel="next" title="Gradle 构建脚本基础">
+                <i class="fa fa-chevron-left"></i> Gradle 构建脚本基础
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/06/09/github/glide/Glide使用详解/" rel="prev" title="Glide使用详解">
-                Glide使用详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/16/gradle/gradle_fivth/" rel="prev" title="Gradle 插件">
+                Gradle 插件 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -633,7 +630,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#注重实效的哲学语录"><span class="nav-number">1.</span> <span class="nav-text">注重实效的哲学语录</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#与别人打交道的礼节与教养"><span class="nav-number">1.1.</span> <span class="nav-text">与别人打交道的礼节与教养</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送电子邮件的注意事项"><span class="nav-number">1.2.</span> <span class="nav-text">发送电子邮件的注意事项</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#了解听众的一些问题"><span class="nav-number">1.3.</span> <span class="nav-text">了解听众的一些问题</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#多种方式创建任务"><span class="nav-number">1.</span> <span class="nav-text">多种方式创建任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多种方式访问任务"><span class="nav-number">2.</span> <span class="nav-text">多种方式访问任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务的执行分析"><span class="nav-number">3.</span> <span class="nav-text">任务的执行分析</span></a></li></ol></div>
             
 
           </div>
