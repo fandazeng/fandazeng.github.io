@@ -1,0 +1,848 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="脚本语言," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Python简介python的创始人为吉多·范罗苏姆（Guido van Rossum）。1989年的圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。Python的哲学就是简单优雅，尽量写容易看明白的代码，尽量写少的代码。 Python适合开发哪些类型的应用呢？ 首选是网络应用，包括网站、后台服务等等； 其次是许多日常需要的小工具，包括系">
+<meta name="keywords" content="脚本语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基础">
+<meta property="og:url" content="http://yoursite.com/2018/07/18/python/python基础/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Python简介python的创始人为吉多·范罗苏姆（Guido van Rossum）。1989年的圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。Python的哲学就是简单优雅，尽量写容易看明白的代码，尽量写少的代码。 Python适合开发哪些类型的应用呢？ 首选是网络应用，包括网站、后台服务等等； 其次是许多日常需要的小工具，包括系">
+<meta property="og:updated_time" content="2018-07-18T08:40:01.475Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python基础">
+<meta name="twitter:description" content="Python简介python的创始人为吉多·范罗苏姆（Guido van Rossum）。1989年的圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。Python的哲学就是简单优雅，尽量写容易看明白的代码，尽量写少的代码。 Python适合开发哪些类型的应用呢？ 首选是网络应用，包括网站、后台服务等等； 其次是许多日常需要的小工具，包括系">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/18/python/python基础/"/>
+
+
+
+
+
+  <title>Python基础 | FandaCode</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/18/python/python基础/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-18T14:20:15+08:00">
+                2018-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Python简介"><a href="#Python简介" class="headerlink" title="Python简介"></a>Python简介</h1><p>python的创始人为吉多·范罗苏姆（Guido van Rossum）。1989年的圣诞节期间，吉多·范罗苏姆为了在阿姆斯特丹打发时间，决心开发一个新的脚本解释程序，作为ABC语言的一种继承。Python的哲学就是简单优雅，尽量写容易看明白的代码，尽量写少的代码。</p>
+<h2 id="Python适合开发哪些类型的应用呢？"><a href="#Python适合开发哪些类型的应用呢？" class="headerlink" title="Python适合开发哪些类型的应用呢？"></a>Python适合开发哪些类型的应用呢？</h2><ol>
+<li>首选是网络应用，包括网站、后台服务等等；</li>
+<li>其次是许多日常需要的小工具，包括系统管理员需要的脚本任务等等；</li>
+<li>另外就是把其他语言开发的程序再包装起来，方便使用。</li>
+</ol>
+<h2 id="Python的优缺点"><a href="#Python的优缺点" class="headerlink" title="Python的优缺点"></a>Python的优缺点</h2><p>优点：Python的类库齐全并且使用简洁，如果要实现同样的功能，Python 10行代码可以解决，C可能就需要100行甚至更多.</p>
+<p>缺点：运行速度慢，和C程序相比非常慢，因为Python是解释型语言，你的代码在执行时会一行一行地翻译成CPU能理解的机器码，这个翻译过程非常耗时，所以很慢。而C程序是运行前直接编译成CPU能执行的机器码，所以非常快。但是大量的应用程序不需要这么快的运行速度，因为用户根本感觉不出来。</p>
+<h2 id="Python的解释器种类"><a href="#Python的解释器种类" class="headerlink" title="Python的解释器种类"></a>Python的解释器种类</h2><ul>
+<li>Cpython<br>  Python的官方版本，使用C语言实现，使用最为广泛，CPython实现会将源文件（py文件）转换成字节码文件（pyc文件），然后运行在Python虚拟机上。</li>
+<li>Jyhton<br>  Python的Java实现，Jython会将Python代码动态编译成Java字节码，然后在JVM上运行。</li>
+<li>IronPython<br>  Python的C#实现，IronPython将Python代码编译成C#字节码，然后在CLR上运行。（与Jython类似）</li>
+<li>PyPy（特殊）<br>  Python实现的Python，将Python的字节码再编译成机器码。</li>
+<li>RubyPython、Brython …</li>
+</ul>
+<h2 id="Python头部注释"><a href="#Python头部注释" class="headerlink" title="Python头部注释"></a>Python头部注释</h2><p>如果想要像执行<code>shell</code>脚本一样执行python脚本，例：<code>./hello.py</code> ，那么就需要在 <code>hello.py</code> 文件的头部指定解释器，<code>#!/usr/bin/env python3</code> （<code>env</code>是兼容<code>unix</code>路径的），在<code>linux</code>上其实不需要。如果不加，则需要指定解释器执行 <code>python hello.py</code> 。 <code>python</code>解释器在加载 <code>.py</code> 文件中的代码时，会对内容进行编码（默认<code>ascill</code>），ascii码无法表示中文，所以要用 <code># -*- coding: utf-8 -*-</code> 来显式地告诉解释器，用什么编码来执行源代码。</p>
+<h2 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h2><p>当行注释：# 被注释内容<br>多行注释：””” 被注释内容 “”” 或 ‘’’ 被注释内容 ‘’’</p>
+<h2 id="导入模块"><a href="#导入模块" class="headerlink" title="导入模块"></a>导入模块</h2><p>Python有大量的模块，从而使得开发Python程序非常简洁。类库包括三类：</p>
+<ul>
+<li>Python内部提供的模块</li>
+<li>业内开源的模块</li>
+<li>程序员自己开发的模块</li>
+</ul>
+<p>导入模块用 <code>import</code> 关键词，<code>import</code> 会找找到对应的<code>.py</code>文件，并将文件内容导进来。比如说，有一个<code>lib.py</code>文件，有一个<code>test.py</code>文件</p>
+<p><code>lib.py</code>的内容如下：</p>
+<pre><code>#!/usr/bind/env python3
+# -*- coding: utf-8 -*-
+
+print(&apos;lib&apos;)
+</code></pre><p><code>test.py</code>的内容如下：</p>
+<pre><code>#!/usr/bind/env python3
+# -*- coding: utf-8 -*-
+
+import lib
+
+print(&apos;test&apos;)
+</code></pre><p>执行<code>test.py</code>后，输出结果是 <code>lib ,test</code> ，先输出<code>lib</code> ，证明已经把<code>lib.py</code>的内容导入了<code>test.py</code>文件。</p>
+<h2 id="pyc文件"><a href="#pyc文件" class="headerlink" title="pyc文件"></a>pyc文件</h2><p>执行Python代码时，如果导入了其他的 <code>.py</code> 文件，那么，执行过程中会自动生成一个与其同名的 <code>.pyc</code> 文件，该文件就是Python解释器编译之后产生的字节码。</p>
+<p>ps：代码经过编译可以产生字节码；字节码通过反编译也可以得到代码。</p>
+<h2 id="查看对象的类，或对象所具备的功能"><a href="#查看对象的类，或对象所具备的功能" class="headerlink" title="查看对象的类，或对象所具备的功能"></a>查看对象的类，或对象所具备的功能</h2><ul>
+<li>type()方法，显示类型</li>
+<li>dir()方法,显示类的各种功能</li>
+<li>help(type()),显示详细功能</li>
+</ul>
+<h2 id="流程控制和缩进"><a href="#流程控制和缩进" class="headerlink" title="流程控制和缩进"></a>流程控制和缩进</h2><h3 id="条件语句"><a href="#条件语句" class="headerlink" title="条件语句"></a>条件语句</h3><pre><code>user = input(&quot;please input name&quot;)
+pwd = input(&quot;please input pwd&quot;)
+
+if user == &quot;fanda&quot;:
+    print(&quot;right&quot;)
+elif pwd ==&quot;123&quot;:
+    print(&quot;error&quot;)
+else :
+    print(&quot;other&quot;)
+</code></pre><p>注意：input() ，用户输入的内容都是字符串，就算输入123，也会变成“123”</p>
+<h3 id="循环语句"><a href="#循环语句" class="headerlink" title="循环语句"></a>循环语句</h3><pre><code>import time
+
+n = 1
+while True:
+    print(n)
+    n +=1
+    if n &gt;30:
+        break
+    time.sleep(1)
+print(&quot;end&quot;)
+</code></pre><p>上述代码当 <code>n&gt;30</code>时，会退出循环，<code>break</code> 用于退出所有循环。</p>
+<pre><code>while True:
+    print(123)
+    time.sleep(1)
+    continue
+    print(456)
+    time.sleep(1)
+</code></pre><p>上述代码只会输出<code>123</code>，<code>continue</code> 只会退出当前的循环，会继续下一次循环。</p>
+<h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><p>例子：使用while循环输出 1 2 3 4 5 6   8 9 10</p>
+<pre><code>n = 1
+while n &lt; 11:
+    if n==7:
+        n+=1
+        continue
+    print(n)
+    n+=1
+</code></pre><p>注意 <code>in==7</code> 时，<code>n+=1</code>，不然会一直返回7，下面的代码 执行不了</p>
+<p>例子2：求1-100的所有数的和</p>
+<pre><code>n = 1
+sum = 0
+while n &lt; 101:
+    sum+=n
+    n+=1
+print(sum)
+</code></pre><p>例子3：输出 1-100 内的所有奇数</p>
+<pre><code>n = 1
+while n &lt; 101:
+    if n % 2 != 0:
+        print(n)
+    n += 1
+</code></pre><p>例子4：求1-2+3-4+5 … 99的所有数的和</p>
+<pre><code>n = 1
+total = 0
+while n &lt; 100:
+    if n%2 ==0:
+        total-=n
+    else:
+        total+=n
+    n+=1
+print(total)
+</code></pre><p>例子5：用户登录（三次机会重试）</p>
+<pre><code>n =0
+while n&lt;3:
+    user = input(&quot;please input name&quot;)
+    if user == &quot;fanda&quot;:
+        print(&quot;success&quot;)
+        break
+    n+=1
+print(&quot;程序结束&quot;)
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/06/book_notes/growth_hackers/" rel="next" title="增长黑客第一章">
+                <i class="fa fa-chevron-left"></i> 增长黑客第一章
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">Android技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Python简介"><span class="nav-number">1.</span> <span class="nav-text">Python简介</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Python适合开发哪些类型的应用呢？"><span class="nav-number">1.1.</span> <span class="nav-text">Python适合开发哪些类型的应用呢？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的优缺点"><span class="nav-number">1.2.</span> <span class="nav-text">Python的优缺点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python的解释器种类"><span class="nav-number">1.3.</span> <span class="nav-text">Python的解释器种类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Python头部注释"><span class="nav-number">1.4.</span> <span class="nav-text">Python头部注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注释"><span class="nav-number">1.5.</span> <span class="nav-text">注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#导入模块"><span class="nav-number">1.6.</span> <span class="nav-text">导入模块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pyc文件"><span class="nav-number">1.7.</span> <span class="nav-text">pyc文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看对象的类，或对象所具备的功能"><span class="nav-number">1.8.</span> <span class="nav-text">查看对象的类，或对象所具备的功能</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#流程控制和缩进"><span class="nav-number">1.9.</span> <span class="nav-text">流程控制和缩进</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#条件语句"><span class="nav-number">1.9.1.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#循环语句"><span class="nav-number">1.9.2.</span> <span class="nav-text">循环语句</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习题"><span class="nav-number">1.10.</span> <span class="nav-text">练习题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
