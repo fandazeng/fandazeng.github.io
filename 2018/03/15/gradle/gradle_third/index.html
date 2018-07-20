@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="脚本语言," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Settings 文件在 Gradle 中，定义了一个设置文件，用于初始化以及工程树的配置。设置文件的默认名字是 settings.gradle ，放在根工程目录下。设置文件大多数的作用都是为了配置子工程。在 Gradle 中多工程是通过工程树表示的，就相当于我们在 Android Studio 看到的 Project 和 Module 概念一样。根工程相当于 Android Studio 中的">
+<meta name="keywords" content="脚本语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Gradle 构建脚本基础">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/gradle/gradle_third/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Settings 文件在 Gradle 中，定义了一个设置文件，用于初始化以及工程树的配置。设置文件的默认名字是 settings.gradle ，放在根工程目录下。设置文件大多数的作用都是为了配置子工程。在 Gradle 中多工程是通过工程树表示的，就相当于我们在 Android Studio 看到的 Project 和 Module 概念一样。根工程相当于 Android Studio 中的">
+<meta property="og:image" content="https://cl.ly/1F2j220k1Y0G/Image%202018-03-06%20at%202.32.04%20PM.png">
+<meta property="og:updated_time" content="2018-03-06T07:24:01.830Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Gradle 构建脚本基础">
+<meta name="twitter:description" content="Settings 文件在 Gradle 中，定义了一个设置文件，用于初始化以及工程树的配置。设置文件的默认名字是 settings.gradle ，放在根工程目录下。设置文件大多数的作用都是为了配置子工程。在 Gradle 中多工程是通过工程树表示的，就相当于我们在 Android Studio 看到的 Project 和 Module 概念一样。根工程相当于 Android Studio 中的">
+<meta name="twitter:image" content="https://cl.ly/1F2j220k1Y0G/Image%202018-03-06%20at%202.32.04%20PM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/gradle/gradle_third/"/>
+
+
+
+
+
+  <title>Gradle 构建脚本基础 | FandaCode</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/gradle/gradle_third/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Gradle 构建脚本基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T15:30:17+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gradle/" itemprop="url" rel="index">
+                    <span itemprop="name">gradle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Settings-文件"><a href="#Settings-文件" class="headerlink" title="Settings 文件"></a>Settings 文件</h2><p>在 <code>Gradle</code> 中，定义了一个设置文件，用于初始化以及工程树的配置。设置文件的默认名字是 <code>settings.gradle</code> ，放在根工程目录下。设置文件大多数的作用都是为了配置子工程。在 <code>Gradle</code> 中多工程是通过工程树表示的，就相当于我们在 <code>Android Studio</code> 看到的 <code>Project</code> 和 <code>Module</code> 概念一样。根工程相当于 <code>Android Studio</code> 中的 <code>Project</code>，一个根工程可以有很多子工程，也就是很多 <code>Module</code> ，这样就和 <code>Android Studio</code> 定义的 <code>Module</code> 概念对应上了。一个子工程只有在 <code>Settings</code> 文件里配置了 <code>Gradle</code> 才会识别，才会在构建的时候被包含进去。</p>
+<pre><code>rootProject.name = &apos;GradleTest&apos;
+
+include &apos;:example02&apos;
+project(&apos;:example02&apos;).projectDir = new File(rootDir, &apos;chapter01/example02&apos;)
+</code></pre><p>上例这就是我们示例工程的 <code>setting</code> 配置，可以看到我定义了很多子项目，并且为它们指定了相应的目录，如果不指定，默认目录是其同级的目录。比如 <code>include： example02</code>，如果我不指定， <code>Gradle</code> 就会把当前同级的 <code>example02</code> 目录作为 <code>example02</code> 工程的目录，但是没有这个目录，就会报错。利用这个特性，我们可以把我们的工程放到任何目录下，可以非常灵活地对我们的工程进行分级、分类等，只要 <code>Settings</code> 文件里指定好路径就可以了。</p>
+<h2 id="Build-文件"><a href="#Build-文件" class="headerlink" title="Build 文件"></a>Build 文件</h2><p>每个 <code>Project</code> 都会有一个 <code>Build</code> 文件，该文件是该 <code>Project</code> 构建的入口，可以在这里针对该 <code>Project</code> 进行配置，比如配置版本，需要哪些插件，依赖哪些库等。既然每个 <code>Project</code> 都会有一个 <code>Build</code> 文件，那么 <code>Root project</code> 也不例外。 <code>Root project</code> 可以获取到所有的 <code>Child Project</code>，所以在 <code>Root Project</code> 的 <code>Build</code> 文件里我们可以对 <code>Child Project</code> 统一配置，比如应用的插件，依赖的 <code>Maven</code> 中心库等。</p>
+<h2 id="Projects-以及-tasks"><a href="#Projects-以及-tasks" class="headerlink" title="Projects 以及 tasks"></a>Projects 以及 tasks</h2><p>在 <code>Gradle</code> 中，可以有很多 <code>Project</code> ，你可以定义创建一个 <code>Project</code> 用于生成一个 <code>jar</code>，也可以定义另外一个 <code>Project</code> 用于生成一个 <code>war</code> 包，还可以定义一个 <code>Project</code> 用于发布上传你的 <code>war</code> 等。其实一个 <code>Project</code> 就是在你的业务范围内，被你抽象出来的一个个独立的模块，你可以根据项目的情况抽象归类，最后这一个个的 <code>Project</code> 组成了你的整个 <code>gradle</code> 构建。从我们编程的角度讲，它就是一个个独立的模块。好好利用它们，这样你的代码就能够做到低耦合、高内聚。</p>
+<p>一个 <code>Project</code> 又包含很多个 <code>Task</code> ，也就是说每个 <code>Project</code> 是由多个 <code>Task</code> 组成的。<code>Task</code> 就是一个操作，一个原子性的操作，比如打个 <code>jar</code> 包，复制一份文件，编译一次 <code>Java</code> 代码，上传一个 <code>jar</code> 到 <code>Maven</code> 中心库等，这就是一个 <code>Task</code> ，和 <code>Ant</code> 里的 <code>Target</code>， <code>Maven</code> 中的 <code>goal</code> 是一样的。</p>
+<h2 id="创建一个任务"><a href="#创建一个任务" class="headerlink" title="创建一个任务"></a>创建一个任务</h2><pre><code>task customTask {
+    doFirst {
+        println &apos;customTask:doFirst&apos;
+    }
+    doLast {
+        println &apos;customTask:doLast&apos;
+    }
+}
+</code></pre><p>这里的 <code>Task</code> 看着像一个关键字，其实它是 <code>Project</code> 对象的一个函数，原型为 <code>create(Sting name, Closure configure Closure)</code>。 <code>customTask</code> 为任务的名字，我们可以自定义；第二个参数是个闭包，也就是我们花括号里的代码块。根据我们前面讲的 <code>Groovy</code> 知识，最后一个参数是闭包的时候，可以放到括号外面，然后方法的括号可以省略，就生成了我们上面的写法，很简洁。该闭包的作用就是用来对我们创建的任务进行配置，例子中我们用了任务的 <code>dofirst</code> 和 <code>dolast</code> 方法，分别在任务执行前后输出一段文字。</p>
+<p>除了上面的方法，我们还可以通过 <code>TaskContainer</code> 创建任务。在 <code>Gradle</code> 中，<code>Project</code> 对象已经帮我们定义好了一个 <code>TaskContainer</code> ，就是 <code>tasks</code> 。</p>
+<pre><code>tasks.create (&apos;customTask2&apos;){
+    doFirst {
+        println &apos;customTask:doFirst&apos;
+    }
+    doLast {
+        println &apos;customTask:doLast&apos;
+    }
+}
+</code></pre><p>这种创建任务的方法跟上一种效果是一样的，只是名字不一样。</p>
+<h2 id="任务依赖"><a href="#任务依赖" class="headerlink" title="任务依赖"></a>任务依赖</h2><p>任务之间是可以有依赖关系的，这样我们就能控制哪些任务先于哪些任务执行；哪些任务执行后，其他任务才能执行。比如我们运行 <code>jar</code> 任务之前， <code>compile</code> 任务一定要执行过，也就是 <code>jar</code> 依赖于 <code>compile</code> ； <code>Android</code> 的 <code>install</code> 任务一定要依赖 <code>package</code> 任务进行打包生成 <code>apk</code> ，然后才能 <code>install</code> 设备里。</p>
+<pre><code>task test2 &lt;&lt; {
+    println &apos;test2&apos;
+}
+
+task test(dependsOn: test2){
+    doLast {
+        println &apos;test&apos;
+    }
+}
+</code></pre><p>在创建任务的时候，通过 <code>dependsOn</code> 可以指定其依赖的任务。</p>
+<pre><code>task test2 &lt;&lt; {
+    println &apos;test2&apos;
+}
+
+task test(dependsOn: test2){
+    doLast {
+        println &apos;test&apos;
+    }
+}
+
+
+task test3 {
+    dependsOn test,test2
+    doLast {
+        println &apos;test3&apos;
+    }
+}
+</code></pre><p><code>dependsOn</code> 是 <code>Task</code> 类的一个方法，可以接收多个依赖的任务作为参数。同时我们也可以使用 <code>Task</code> 的 <code>API</code> 访问它的方法属性或者对任务重新配置。</p>
+<pre><code>task ex36Hello &lt;&lt; {
+    println &apos;dowLast1&apos;
+}
+
+ex36Hello.doFirst {
+    println &apos;dowFirst&apos;
+}
+
+ex36Hello.doLast {
+    println project.hasProperty(&apos;ex36Hello&apos;)
+    println &apos;dowLast2&apos;
+}
+</code></pre><p>和变量一样，要使用任务名操纵任务，必须先定义声明，因为脚本是顺序执行的。运行上述代码后：</p>
+<p><img src="https://cl.ly/1F2j220k1Y0G/Image%202018-03-06%20at%202.32.04%20PM.png" alt=""></p>
+<p>由结果可知，<code>Project</code> 在创建任务的时候，同时把该任务对应的任务名注册为 <code>Project</code> 的一个属性，类型是 <code>Task</code> 。</p>
+<h2 id="自定义属性"><a href="#自定义属性" class="headerlink" title="自定义属性"></a>自定义属性</h2><p><code>Project</code> 和 <code>Task</code> 都允许用户添加额外的自定义属性，要添加额外的属性，通过应用所属对应的 <code>ext</code> 属性即可实现。添加之后可以通过 <code>ext</code> 属性对自定义属性读取和设置，如果要同时添加多个自定义属性，可以通过 <code>ext</code> 代码块：</p>
+<pre><code>//自定义一个Project的属性
+ext.age = 18
+
+//通过代码块同时自定义多个属性
+ext{
+    phone = 183207612
+    address = &apos;nanshan&apos;
+}
+
+task hello &lt;&lt; {
+    println &quot;年龄是：${age}&quot;
+    println &quot;电话是：${phone}&quot;
+    println &quot;地址是：${address}&quot;  
+}
+</code></pre><p>在我们的项目中一般使用它来自定义版本号和版本名称，把版本号和版本名称单独放在一个 <code>Gradle</code> 文件中。因为它们每次发布版本都会改变，变动频繁，放到一个单独的 <code>Gradle</code> 文件中，便于管理，而且改动的时候也不会因为 <code>Git</code> 冲突影响整个 <code>Buid</code> 文件，便于解决冲突。</p>
+<h2 id="脚本即代码-代码也是脚本"><a href="#脚本即代码-代码也是脚本" class="headerlink" title="脚本即代码 代码也是脚本"></a>脚本即代码 代码也是脚本</h2><p>虽然我们在一个 <code>Gradle</code> 文件中写脚本，但是我们写的都是代码，这一点一定要记清楚，这样你才能时刻使用 <code>Groovy</code>、<code>Java以及</code> <code>Gradle</code> 的任何语法和 <code>API</code> 帮你完成你想做的事情。在这脚本文件上你可以定义 <code>Class</code> 内部类、导入包、定义方法、常量、接口、枚举等。<br>我们在项目中需要给生成的 <code>APK</code> 包以当前日期的格式命名，我们就定义了一个获取日期格式的方法，用于生成 <code>APK</code> 的文件名：</p>
+<pre><code>def buildTime(){
+    new Date().format(&apos;yyyyMMdd&apos;)    
+}
+</code></pre><p>这只是使用的一个例子，目的是让大家灵活搭配 <code>Java</code>、 <code>Groovy</code> 和 <code>Gradle</code>，不要把它当成普通的脚本文件。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/gradle/gradle_second/" rel="next" title="Groovy 基础">
+                <i class="fa fa-chevron-left"></i> Groovy 基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/16/gradle/gradle_fivth/" rel="prev" title="Gradle 插件">
+                Gradle 插件 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">Android技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Settings-文件"><span class="nav-number">1.</span> <span class="nav-text">Settings 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Build-文件"><span class="nav-number">2.</span> <span class="nav-text">Build 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Projects-以及-tasks"><span class="nav-number">3.</span> <span class="nav-text">Projects 以及 tasks</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建一个任务"><span class="nav-number">4.</span> <span class="nav-text">创建一个任务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#任务依赖"><span class="nav-number">5.</span> <span class="nav-text">任务依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#自定义属性"><span class="nav-number">6.</span> <span class="nav-text">自定义属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#脚本即代码-代码也是脚本"><span class="nav-number">7.</span> <span class="nav-text">脚本即代码 代码也是脚本</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

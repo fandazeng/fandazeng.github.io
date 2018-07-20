@@ -1,0 +1,1206 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="脚本语言," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="运算符算数运算：  不同的数据类型几乎不能做算数运算，比如print(&amp;quot;a&amp;quot;+123)，会报错，但是有一个例外，str类型和int类型可以相乘print(&amp;quot;a&amp;quot;*3)，结果是str文本的倍数,即aaa  除法得到的结果是浮点型而不是整型（这点不同于java语言，java语言的结果是整型），要想得到整型，可以用//运算符   比较运算： 赋值运算： 逻辑运算：">
+<meta name="keywords" content="脚本语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基本数据类型">
+<meta property="og:url" content="http://yoursite.com/2018/07/19/python/python数据类型/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="运算符算数运算：  不同的数据类型几乎不能做算数运算，比如print(&amp;quot;a&amp;quot;+123)，会报错，但是有一个例外，str类型和int类型可以相乘print(&amp;quot;a&amp;quot;*3)，结果是str文本的倍数,即aaa  除法得到的结果是浮点型而不是整型（这点不同于java语言，java语言的结果是整型），要想得到整型，可以用//运算符   比较运算： 赋值运算： 逻辑运算：">
+<meta property="og:image" content="https://cl.ly/2G0u1c1t2i0w/Image%202018-07-19%20at%209.58.36%20AM.png">
+<meta property="og:image" content="https://cl.ly/0M3X0R2G0618/Image%202018-07-19%20at%2010.13.48%20AM.png">
+<meta property="og:image" content="https://cl.ly/0O2C1E3n0l0J/Image%202018-07-19%20at%2010.15.06%20AM.png">
+<meta property="og:image" content="https://cl.ly/433g3E0E0y3D/Image%202018-07-19%20at%2010.18.33%20AM.png">
+<meta property="og:image" content="https://cl.ly/1E3E45381N10/Image%202018-07-19%20at%2010.20.04%20AM.png">
+<meta property="og:image" content="https://cl.ly/3c0O401i3n1h/Image%202018-07-19%20at%202.30.19%20PM.png">
+<meta property="og:updated_time" content="2018-07-20T03:47:30.175Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python基本数据类型">
+<meta name="twitter:description" content="运算符算数运算：  不同的数据类型几乎不能做算数运算，比如print(&amp;quot;a&amp;quot;+123)，会报错，但是有一个例外，str类型和int类型可以相乘print(&amp;quot;a&amp;quot;*3)，结果是str文本的倍数,即aaa  除法得到的结果是浮点型而不是整型（这点不同于java语言，java语言的结果是整型），要想得到整型，可以用//运算符   比较运算： 赋值运算： 逻辑运算：">
+<meta name="twitter:image" content="https://cl.ly/2G0u1c1t2i0w/Image%202018-07-19%20at%209.58.36%20AM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/19/python/python数据类型/"/>
+
+
+
+
+
+  <title>Python基本数据类型 | FandaCode</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/19/python/python数据类型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python基本数据类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-19T09:52:36+08:00">
+                2018-07-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h1><h2 id="算数运算："><a href="#算数运算：" class="headerlink" title="算数运算："></a>算数运算：</h2><p><img src="https://cl.ly/2G0u1c1t2i0w/Image%202018-07-19%20at%209.58.36%20AM.png" alt=""></p>
+<ul>
+<li><p>不同的数据类型几乎不能做算数运算，比如<code>print(&quot;a&quot;+123)</code>，会报错，但是有一个例外，str类型和int类型可以相乘<code>print(&quot;a&quot;*3)</code>，结果是str文本的倍数,即<code>aaa</code></p>
+</li>
+<li><p>除法得到的结果是浮点型而不是整型（这点不同于java语言，java语言的结果是整型），要想得到整型，可以用<code>//</code>运算符</p>
+</li>
+</ul>
+<h2 id="比较运算："><a href="#比较运算：" class="headerlink" title="比较运算："></a>比较运算：</h2><p><img src="https://cl.ly/0M3X0R2G0618/Image%202018-07-19%20at%2010.13.48%20AM.png" alt=""></p>
+<h2 id="赋值运算："><a href="#赋值运算：" class="headerlink" title="赋值运算："></a>赋值运算：</h2><p><img src="https://cl.ly/0O2C1E3n0l0J/Image%202018-07-19%20at%2010.15.06%20AM.png" alt=""></p>
+<h2 id="逻辑运算："><a href="#逻辑运算：" class="headerlink" title="逻辑运算："></a>逻辑运算：</h2><p><img src="https://cl.ly/433g3E0E0y3D/Image%202018-07-19%20at%2010.18.33%20AM.png" alt=""></p>
+<h2 id="成员运算："><a href="#成员运算：" class="headerlink" title="成员运算："></a>成员运算：</h2><p><img src="https://cl.ly/1E3E45381N10/Image%202018-07-19%20at%2010.20.04%20AM.png" alt=""></p>
+<h1 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h1><h2 id="整型（int）"><a href="#整型（int）" class="headerlink" title="整型（int）"></a>整型（int）</h2><pre><code>n =123
+n2 = 123
+print(id(n))
+print(id(n2))
+</code></pre><p>上述<code>id()</code>方法用来查看内存地址，输出结果也是相同的，这是因为python内部机制优化，n和n2指向的是一同一块内存。<br>定义整型类型的方法有如下3种：</p>
+<pre><code>n =123
+n = int(123)
+n = int.__int__(123)
+</code></pre><p>实际上内部调用方式也是这样的。Python的整数没有大小限制，而某些语言的整数根据其存储长度是有大小限制的，例如Java对32位整数的范围限制在-2147483648-2147483647。</p>
+<h2 id="布尔值"><a href="#布尔值" class="headerlink" title="布尔值"></a>布尔值</h2><p>布尔值和布尔代数的表示完全一致，一个布尔值只有<code>True</code>、<code>False</code>两种值，要么是<code>True</code>，要么是<code>False</code>，在Python中，可以直接用True、False表示布尔值（请注意大小写），也可以通过布尔运算计算出来：</p>
+<pre><code>&gt;&gt;&gt; True
+True
+&gt;&gt;&gt; False
+False
+&gt;&gt;&gt; 3 &gt; 2
+True
+&gt;&gt;&gt; 3 &gt; 5
+False
+</code></pre><h2 id="字符串-str"><a href="#字符串-str" class="headerlink" title="字符串(str)"></a>字符串(str)</h2><p>在最新的Python 3版本中，字符串是以<code>Unicode</code>编码的，也就是说，Python的字符串支持多语言，例如：</p>
+<pre><code>&gt;&gt;&gt; print(&apos;包含中文的str&apos;)
+包含中文的str
+</code></pre><p>对于单个字符的编码，Python提供了<code>ord()</code>函数获取字符的整数表示，<code>chr()</code>函数把编码转换为对应的字符：</p>
+<pre><code>&gt;&gt;&gt; ord(&apos;A&apos;)
+65
+&gt;&gt;&gt; ord(&apos;中&apos;)
+20013
+&gt;&gt;&gt; chr(66)
+&apos;B&apos;
+&gt;&gt;&gt; chr(25991)
+&apos;文&apos;    
+</code></pre><p>字符串的定义方式有如下几种：</p>
+<pre><code>test = &quot;中国&quot;
+test = str(&quot;中国&quot;)
+# 无参，创建空字符串
+# 一个参数，普通字符串
+# 两个参数，str(字节，编码)    
+</code></pre><p>字符串和字节可以互转，但是要注意编码的一致，例如：</p>
+<pre><code>content = str(bytes(&quot;中国&quot;, encoding=&quot;utf-8&quot;), encoding=&quot;utf-8&quot;)
+print(content)
+</code></pre><p>字符串是可以遍历的，3.x以上版本默认字符形式输出，我们可以通过<code>bytes()</code>方法转为字节，例如：</p>
+<pre><code>test = &quot;中国&quot;
+for item in test:
+    # 默认16进制输出
+    print(item, bytes(item, encoding=&apos;gbk&apos;))
+    # for循环后以十进制输出
+    for b in bytes(item, encoding=&apos;gbk&apos;):
+        print(b)
+</code></pre><p>输出结果如下：</p>
+<pre><code>中 b&apos;\xd6\xd0&apos;
+214
+208
+国 b&apos;\xb9\xfa&apos;
+185
+250
+</code></pre><p>Python对bytes类型的数据用带b前缀的单引号或双引号表示，一个汉字，（utf-8编码）三个字节，（GBK）两个字节表示 ，\x代表16进制。</p>
+<h3 id="字符串格式化"><a href="#字符串格式化" class="headerlink" title="字符串格式化"></a>字符串格式化</h3><p>我们经常会输出类似’亲爱的xxx你好！你xx月的话费是xx，余额是xx’之类的字符串，而xxx的内容都是根据变量变化的，所以，需要一种简便的格式化字符串的方式。在Python中，采用的格式化方式和C语言是一致的，用%实现。常见的点位符有：</p>
+<p><img src="https://cl.ly/3c0O401i3n1h/Image%202018-07-19%20at%202.30.19%20PM.png" alt=""></p>
+<p>其中，格式化整数和浮点数还可以指定是否补0和整数与小数的位数，举例如下：</p>
+<pre><code>print(&quot;小明是一个%s人&quot; % &quot;好&quot;)
+print(&quot;小明考了%.1f分，这有%d个苹果，只有%s吃&quot; % (99.8, 18, &quot;小明&quot;))
+print(&apos;亲爱的%s你好！你%02d月的话费是%.2f，余额是%.2f&apos; % (&quot;小明&quot;, 6, 30.34, 105.33))
+print(&apos;growth rate: %d %%&apos; % 7)
+</code></pre><p>输出结果如下：</p>
+<pre><code>小明是一个好人
+小明考了99.8分，这有18个苹果，只有小明吃
+亲爱的小明你好！你06月的话费是30.34，余额是105.33
+growth rate: 7 %
+</code></pre><p><code>%</code>运算符就是用来格式化字符串的。在字符串内部，<code>%s</code>表示用字符串替换，<code>%d</code>表示用整数替换，有几个%?占位符，后面就跟几个变量或者值，顺序要对应好。如果只有一个%?，括号可以省略。有些时候，字符串里面的%是一个普通字符怎么办？这个时候就需要转义，用<code>%%</code>来表示一个%：</p>
+<h3 id="字符串常用方法"><a href="#字符串常用方法" class="headerlink" title="字符串常用方法"></a>字符串常用方法</h3><pre><code>content = &apos;good&apos;
+test = &quot;小黑 is {0} ,小白 is {1}&quot;
+num = &quot;一&quot;
+name = [&quot;fanda&quot;, &quot;fdf&quot;, &quot;ed&quot;, &quot;23ds&quot;, &quot;9jss&quot;]
+
+# 首字母变大写
+print(content.capitalize()) 
+
+# 字符串内容居中，至少传一个 参数（总长度），第二个参数是需要     填充的内容，默认是&quot;&quot;
+print(content.center(10,&quot;*&quot;))
+
+# 从0位开始，判断字符串出现的次数，可以传入开始和结束索引位
+print(content.count(&quot;o&quot;))
+print(content.count(&quot;o&quot;, 2))
+
+# 判断什么后缀结尾，可以选定范围来判断，下述是大于等于1，小于3的范围 ，索引从0开始
+print(content.endswith(&quot;d&quot;,1, 3))
+
+# 索引从0开始,如果有匹配的，后面不继续找，找到就返回索引位置，没找到就返回-1
+print(content.find(&quot;d&quot;))
+
+# 字符串格式化
+print(test.format(&quot;good&quot;, &quot;well&quot;))
+
+print(&quot;是否是字母或数字&quot;, num.isalnum())
+
+print(&quot;是否是字母或中文&quot;, num.isalpha())
+
+# 判断的是Unicode数字，byte数字（单字节），全角数字（双字节），罗马数字
+print(&quot;是否是数字&quot;, num.isdigit())
+
+# 判断的是Unicode数字，全角数字（双字节），罗马数字，汉字数字
+print(&quot;是否是数字&quot;, num.isnumeric())
+
+# 用什么字符串来连接，传入可迭代对象
+print(&quot;_&quot;.join(name))
+
+# 去除左侧空格
+print(content.lstrip())
+
+# 去除右侧空格
+print(content.rstrip())
+
+# 去除两侧空格
+print(content.strip())
+
+# 分割，分割的字符串是一部分，之前的是一部分，后面的是一部分，结果是元组
+print(content.partition(&quot;o&quot;))
+
+# 替换，用新的字符替换旧的，最后的数量参数，是可以替换的个数，超过的部分，就算匹配了也不替换，不传数量，默认替换所有
+print(content.replace(&quot;o&quot;, &quot;e&quot;,1))
+
+# 分割，分割的字符串会消失，返回的是个列表，加数量参数后，超过分割字符串数量不再分割
+content = &quot;fnadafanda&quot;
+print(content.split(&quot;a&quot;, 1))
+print(content.split(&quot;a&quot;))
+
+# 大写变小写，小写变成大写
+content = &quot;Fanda&quot;
+print(content.swapcase())
+
+content = &quot;fanda is good fanda fanda fanda&quot;
+# 变成标题，每个单词的首字母会大写
+print(content.title())
+
+# 全部变成大写
+print(content.upper())
+</code></pre><p>输出结果：</p>
+<pre><code>Good
+***good***
+o出现的次数= 2
+o出现的次数= 1
+False
+3
+小黑 is good ,小白 is well
+是否是字母或数字 True
+是否是字母或中文 True
+是否是数字 False
+是否是数字 True
+fanda_fdf_ed_23ds_9jss
+(&apos;g&apos;, &apos;o&apos;, &apos;od&apos;)
+geod
+[&apos;fn&apos;, &apos;dafanda&apos;]
+[&apos;fn&apos;, &apos;d&apos;, &apos;f&apos;, &apos;nd&apos;, &apos;&apos;]
+fANDA
+Fanda Is Good Fanda Fanda Fanda
+FANDA IS GOOD FANDA FANDA FANDA
+</code></pre><h3 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h3><p>索引，从0开始，可以通过索引来获取字符串中的字符，例如：</p>
+<pre><code>content = &apos;good&apos;
+print(content[0])
+</code></pre><p>切片，用来批量获取内容，例如：</p>
+<pre><code># &gt;=0 ,&lt;4，即0，1，2，3
+print(content[0:4])
+</code></pre><p>遍历，用来获取每个元素，例如：</p>
+<pre><code>for item in content:
+    print(item)
+</code></pre><h2 id="列表-list"><a href="#列表-list" class="headerlink" title="列表(list)"></a>列表(list)</h2><p>list是一种有序的集合,<code>list()</code>方法传可迭代对象，内部将循环每一个元素，当做列表的元素，可迭代对象可以是字符串，元组或字典。</p>
+<pre><code>content1 = &quot;小明&quot;
+content2 = (&quot;fanda&quot;, &quot;dfdf&quot;, &quot;sd&quot;)
+content3 = {&quot;key1&quot;: &quot;fanda&quot;, &quot;key2&quot;: &quot;hehe&quot;}
+
+print(list(content1))
+print(list(content2))
+print(list(content3))
+#拿字典的值做为元素，默认拿的是字典的key
+print(list(content3.values()))
+</code></pre><p>输出结果：</p>
+<pre><code>[&apos;小&apos;, &apos;明&apos;]
+[&apos;fanda&apos;, &apos;dfdf&apos;, &apos;sd&apos;]
+[&apos;key1&apos;, &apos;key2&apos;]
+[&apos;fanda&apos;, &apos;hehe&apos;]
+</code></pre><p>列表也可以用索引和切片功能，索引-1代表最后一个元素，-2代表倒数第二个元素，以此类推，例如：</p>
+<pre><code>classlist = [&quot;fanda&quot;, &quot;fanda&quot;, &quot;sd&quot;, &quot;kou&quot;, &quot;good&quot;]
+print(len(classlist))
+print(classlist[0])
+print(classlist[:2])
+print(classlist[-3:])
+print(classlist[-1])
+</code></pre><p>输出结果：</p>
+<pre><code>5
+fanda
+[&apos;fanda&apos;, &apos;fanda&apos;]
+[&apos;sd&apos;, &apos;kou&apos;, &apos;good&apos;]
+good
+</code></pre><h3 id="列表常用方法"><a href="#列表常用方法" class="headerlink" title="列表常用方法"></a>列表常用方法</h3><pre><code>classlist = [&quot;fanda&quot;,&quot;kou&quot;, &quot;good&quot;]
+
+# 追加元素到末尾
+classlist.append(&quot;ewr&quot;)
+
+# 追加可迭代对象，相当于批量追加
+classlist.extend(&quot;good&quot;)
+
+# 在相应位置插入数据
+print(classlist.insert(1, &quot;hehe&quot;))
+
+# 移除最后一个元素，并返回最后的元素，加参数则表示移除对应索引的元素，索引是从0开始的
+last =classlist.pop()
+index =classlist.pop(1)
+print(&quot;pop的元素=&quot;, last)
+print(&quot;pop的元素=&quot;, index)
+
+# 移除对应的元素，只移除找到的第一个元素，其他重复的元素不管，没有返回参数，即返回None
+classlist.remove(&quot;fanda&quot;)
+
+# 用关键字的方式移除元素，可以通过切片批量删除
+del classlist[1:3]
+
+# 反转元素
+classlist.reverse()
+
+# 查询对应元素的索引
+print(classlist.index(&apos;kou&apos;))
+
+# 遍历元素
+for item in classlist:
+    print(item)
+
+# enumerate 方法可以给可迭代对象增加索引，下述方法就能给出列表每个元素加索引了，默认索引从0开始，可以指定开始的索引，如果不用这方法，只能自己算了
+for k, v in enumerate(classlist):
+    print(k, v)
+
+print(classlist)
+</code></pre><p>输出结果：</p>
+<pre><code>[&apos;fanda&apos;, &apos;kou&apos;, &apos;good&apos;, &apos;ewr&apos;]
+[&apos;fanda&apos;, &apos;kou&apos;, &apos;good&apos;, &apos;ewr&apos;, &apos;g&apos;, &apos;o&apos;, &apos;o&apos;, &apos;d&apos;]
+[&apos;fanda&apos;, &apos;kou&apos;, &apos;good&apos;, &apos;ewr&apos;, &apos;g&apos;, &apos;o&apos;, &apos;o&apos;, &apos;d&apos;, 123, 7, 3]
+[&apos;fanda&apos;, &apos;hehe&apos;, &apos;kou&apos;, &apos;good&apos;, &apos;ewr&apos;, &apos;g&apos;, &apos;o&apos;, &apos;o&apos;, &apos;d&apos;, 123, 7, 3]
+pop的元素= 3
+pop的元素= hehe
+[&apos;kou&apos;, &apos;g&apos;, &apos;o&apos;, &apos;o&apos;, &apos;d&apos;, 123, 7]
+[7, 123, &apos;d&apos;, &apos;o&apos;, &apos;o&apos;, &apos;g&apos;, &apos;kou&apos;]
+kou的索引= 6
+0 7
+1 123
+2 d
+3 o
+4 o
+5 g
+6 kou
+</code></pre><h2 id="元组-tuple"><a href="#元组-tuple" class="headerlink" title="元组(tuple)"></a>元组(tuple)</h2><p>另一种有序列表叫元组：tuple。tuple和list非常类似，但是tuple一旦初始化就不能修改。</p>
+<pre><code>classmates = (&apos;Michael&apos;, &apos;Bob&apos;, &apos;Tracy&apos;)
+</code></pre><p>现在，classmates这个tuple不能变了，它也没有<code>append()</code>，<code>insert()</code>这样的方法。其他获取元素的方法和list是一样的，你可以正常地使用<code>classmates[0]</code>，<code>classmates[-1]</code>，但不能赋值成另外的元素。</p>
+<p>如果要定义一个空的tuple，可以写成()，比如 <code>t = ()</code>,但是，要定义一个只有1个元素的tuple ，如果这么定义<code>t = (1)</code>，定义的不是tuple，是1这个数！这是因为括号()既可以表示tuple，又可以表示数学公式中的小括号，这就产生了歧义，因此，Python规定，这种情况下，按小括号进行计算，计算结果自然是1。所以，只有1个元素的tuple定义时必须加一个逗号,，来消除歧义，即要这样定义<code>t = (1,)</code>。</p>
+<p>tuple里面的元素可以是列表或元组，当元素是列表或元组时，列表和元组是可以修改的，比如：</p>
+<pre><code>t = (11, 22, [&quot;fanda&quot;, {&quot;k1&quot;: &quot;v1&quot;}])
+t[2][1][&quot;k1&quot;] = &quot;v2&quot;
+t[2][1][&quot;k2&quot;] = &quot;v3&quot;
+t[2][0] = &quot;v3&quot;
+print(t)
+</code></pre><p>输出结果：</p>
+<pre><code>(11, 22, [&apos;v3&apos;, {&apos;k1&apos;: &apos;v2&apos;, &apos;k2&apos;: &apos;v3&apos;}])
+</code></pre><p>表面上看，tuple的元素确实变了，但其实变的不是tuple的元素，而是list的元素。tuple一开始指向的list并没有改成别的list，所以，tuple所谓的“不变”是说，tuple的每个元素，指向永远不变。即指向’11’，就不能改成指向’12’，指向一个list，就不能改成指向其他对象，但指向的这个list本身是可变的！比如：</p>
+<pre><code>t[2] = [1, 2, 3]
+</code></pre><p>上述代码就会报错，不能重新指向集合[1,2,3]。</p>
+<p>理解了“指向不变”后，要创建一个内容也不变的tuple怎么做？那就必须保证tuple的每一个元素本身也不能变。元组也有索引的，也可以遍历和切片，是可迭代对象，其功能与列表类似。</p>
+<h2 id="字典-dict"><a href="#字典-dict" class="headerlink" title="字典(dict)"></a>字典(dict)</h2><p>dict全称dictionary，在其他语言中也称为map，使用键-值（key-value）存储，,键必须是不可变对象，在Python中，字符串、整数等都是不可变的，因此，可以放心地作为key。而list是可变的，就不能作为key 。dict内部存放的顺序和key放入的顺序是没有关系的，没有切片,具有极快的查找速度。<br>字典也有索引，索引就是对应的key，通过key可以获取值，比如：</p>
+<pre><code>user_info = {0: &quot;fanda&quot;, &quot;age&quot;: 18, &quot;gender&quot;: &quot;man&quot;}
+# 索引
+ print(user_info[&quot;age&quot;])
+</code></pre><p>如果直接遍历字典，输出的也是key，比如：</p>
+<pre><code># 输出的是所有的key，相当于user_info.keys()
+ for item in user_info:
+     print(item)
+</code></pre><p>输出结果：</p>
+<pre><code>0
+age
+gender
+</code></pre><p>如果想输出字典的值，可以这样：</p>
+<pre><code>for item in user_info.values():
+    print(item)
+</code></pre><p>输出结果：</p>
+<pre><code>fanda
+18
+man
+</code></pre><p>如果想要获取所有的键值对，可以这样：</p>
+<pre><code>for item in user_info.items():
+    print(item)
+</code></pre><p>输出结果：</p>
+<pre><code>(0, &apos;fanda&apos;)
+(&apos;age&apos;, 18)
+(&apos;gender&apos;, &apos;man&apos;)
+</code></pre><p>每个元素以元组的形式表示</p>
+<h3 id="字典常用方法"><a href="#字典常用方法" class="headerlink" title="字典常用方法"></a>字典常用方法</h3><pre><code># 清空所有内容
+user_info.clear()
+
+#遍历直接拿出所有的key,value
+for k, v in user_info.items():
+    print(k, v)
+</code></pre><p>输出结果：</p>
+<pre><code>0 fanda
+age 18
+gender man
+</code></pre><p>其他方法：</p>
+<pre><code># 这种方式取值，若不存在，返回None，也可以返回指定的值，如果用索引的方式会报错
+print(user_info.get(1, &quot;234&quot;))
+
+# 移除了第一个键值对 
+print(user_info.pop(0))
+
+# 用关键字的方式移除元素，移除了key为&quot;age&quot;的键值对
+del user_info[&quot;age&quot;]
+print(user_info)
+
+# 3.x 版本没有了haskey方法，但是我们可以用in方式来判断
+print(&quot;age&quot; in user_info.keys())
+</code></pre><p>列表和字典也可以相互转换，但是需要通过<code>enumerate()</code>方法增加索引列，默认索引从0开始，比如：</p>
+<pre><code>content = [&quot;fanda&quot;, &quot;fa&quot;, &quot;da&quot;]
+print(dict(enumerate(content, 10)))
+</code></pre><p>输出结果：</p>
+<pre><code>{10: &apos;fanda&apos;, 11: &apos;fa&apos;, 12: &apos;da&apos;}
+</code></pre><p>这里说一个特殊的方法，其源码如下：</p>
+<pre><code>@staticmethod  # known case
+def fromkeys(*args, **kwargs):  # real signature     unknown
+    &quot;&quot;&quot; Returns a new dict with keys from iterable and values equal to value. &quot;&quot;&quot;
+     pass
+</code></pre><p>@staticmethod,有这个注释时，可以通过类来直接调用，相当于java的静态方法，比如：</p>
+<pre><code>content = dict.fromkeys([&quot;key1&quot;, &quot;key2&quot;, &quot;key3&quot;], [])
+# 通过这种方式改变列表数据的时候，所有的数据都会改变
+content[&quot;key1&quot;].append(&quot;fanda&quot;)
+print(content)
+</code></pre><p>输出结果：</p>
+<pre><code>{&apos;key1&apos;: [&apos;fanda&apos;], &apos;key2&apos;: [&apos;fanda&apos;], &apos;key3&apos;: [&apos;fanda&apos;]}
+</code></pre><h2 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h2><p>set和dict类似，也是一组key的集合，但不存储value。由于key不能重复，所以，在set中，没有重复的key，例如：</p>
+<pre><code>s = set([1, 1, 2, 3])
+s = {1, 1, 2, 3}
+print(s)
+</code></pre><p>输出结果：</p>
+<pre><code>{1, 2, 3}
+</code></pre><p>上述代码有两种创建set的方法，从结果可以知道自动过滤重复的key。注意显示的顺序也不表示set是有序的。</p>
+<p>通过add(key)方法可以添加元素到set中，可以重复添加，但不会有效果：</p>
+<pre><code>s.add(5)
+s.add(6)
+s.add(6)
+</code></pre><p>输出结果：</p>
+<pre><code>{1, 2, 3, 5, 6}
+</code></pre><p>通过remove(key)方法可以删除元素：</p>
+<pre><code># 找不到会报错
+s.remove(6)
+
+# 找不到不会报错
+s.discard(6)
+
+# 找不到会报错，这个方法有返回值
+s.pop(6)
+# 不一定删除最后的元素，因为是无序的
+s.pop()
+</code></pre><p>输出结果：</p>
+<pre><code>{1, 2, 3, 5}
+</code></pre><p>set可以看成数学意义上的无序和无重复元素的集合，因此，两个set可以做数学意义上的交集、并集等操作：</p>
+<pre><code>s = {1, 2, 3}
+s2 = {2, 3, 4}
+print(s &amp; s2)
+print(s | s2)
+</code></pre><p>输出结果：</p>
+<pre><code>{2, 3}
+{1, 2, 3, 4}
+</code></pre><p>set和dict的唯一区别仅在于没有存储对应的value，但是，set的原理和dict一样，所以，同样不可以放入可变对象，因为无法判断两个可变对象是否相等，也就无法保证set内部“不会有重复元素”，所以key不能是list等。</p>
+<p>其他一些方法：</p>
+<pre><code># 清空内容
+# s.clear()
+
+# 返回 A中存在，B中不存在的元素
+s = {1, 2, 3}
+s2 = {1, 3, 4}
+print(s.difference(s2))
+
+# 返回 A中存在，B中不存在的元素，不用新变量来接收，直接更新A的集合（从当前集合中删除和B中相同的元素）
+print(s.difference_update(s2))
+print(s2.difference(s))
+
+# 返回A和B的交集
+print(s.intersection(s2))
+
+# 返回A和B的交集，交更新给A
+print(s.intersection_update(s2))
+
+# 是否不相交，如果没交集则返回True
+print(s.isdisjoint(s2))
+
+# A是否是B的子集
+print(s.issubset(s2))
+
+# A是否是B的父集
+print(s.issuperset(s2))
+
+# 返回 A中存在，B中不存在的元素和B中存在，A中不存在的元素的总和
+print(s.symmetric_difference(s2))
+
+# 返回A和B的并集
+print(s.union(s2))
+
+# 更新集合，即批量添加
+s.update([11,22,33])
+</code></pre><h2 id="课外知识"><a href="#课外知识" class="headerlink" title="课外知识"></a>课外知识</h2><p>range()方法，用来获取指定范围内的数，只有在拿数据的时候才会动态生成，不占内存。比如：</p>
+<pre><code># 获取的值是取第一个值1，不取最后的值10，中间每隔2拿下一个数
+for item in range(1, 10, 2):
+    print(item)
+</code></pre><p>输出结果：</p>
+<pre><code>1
+3
+5
+7
+9
+</code></pre><p>比如：</p>
+<pre><code>for item in range(10, 1, -2):
+    print(item)
+</code></pre><p>输出结果：</p>
+<pre><code>10
+8
+6
+4
+2
+</code></pre><h2 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h2><p>1.有两个dict</p>
+<pre><code>old_dict = {&quot;#1&quot;: 11, &quot;#2&quot;: 22, &quot;#3&quot;: 100}
+new_dict = {&quot;#1&quot;: 33, &quot;#4&quot;: 24, &quot;#7&quot;: 150}
+</code></pre><p>要求一：相同key的new_dict中的值更新到old_dict中</p>
+<p>要求二：old_dict中存在且new_dict中不存在的元素在old_dict中全部删除。</p>
+<p>要求三：new_dict中存在且old_dict中不存在的元素在old_dict中全部添加。</p>
+<p>代码如下：</p>
+<pre><code>old_key = set(old_dict.keys())
+new_key = set(new_dict.keys())
+
+for key in old_key.intersection(new_key):
+    old_dict[key] = new_dict[key]
+
+for key in new_key.difference(old_key):
+    old_dict[key] = new_dict[key]
+
+for key in old_key.difference(new_key):
+    old_dict.pop(key)
+
+print(old_dict)
+</code></pre><p>输出结果：</p>
+<pre><code>{&apos;#1&apos;: 33, &apos;#4&apos;: 24, &apos;#7&apos;: 150}
+</code></pre><p>2.有如下值集合 [11,22,33,44,55,66,77,88,99,…]，将所有大于 66 的值保存至字典的第一个key中，将小于 66 的值保存至第二个key的值中。即： {‘k1’: 大于66的所有值, ‘k2’: 小于66的所有值}</p>
+<p>代码如下：</p>
+<pre><code>result = {&quot;k1&quot;: [], &quot;k2&quot;: []}
+for item in list(range(11, 101, 11)):
+    if item &gt; 66:
+    result[&quot;k1&quot;].append(item)
+    elif item &lt; 66:
+    result[&quot;k2&quot;].append(item)
+print(result)
+</code></pre><p>输出结果：</p>
+<pre><code>{&apos;k1&apos;: [77, 88, 99], &apos;k2&apos;: [11, 22, 33, 44, 55]}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/18/python/python基础/" rel="next" title="Python基础">
+                <i class="fa fa-chevron-left"></i> Python基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">Android技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#运算符"><span class="nav-number">1.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#算数运算："><span class="nav-number">1.1.</span> <span class="nav-text">算数运算：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#比较运算："><span class="nav-number">1.2.</span> <span class="nav-text">比较运算：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#赋值运算："><span class="nav-number">1.3.</span> <span class="nav-text">赋值运算：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逻辑运算："><span class="nav-number">1.4.</span> <span class="nav-text">逻辑运算：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员运算："><span class="nav-number">1.5.</span> <span class="nav-text">成员运算：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">基本数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#整型（int）"><span class="nav-number">2.1.</span> <span class="nav-text">整型（int）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#布尔值"><span class="nav-number">2.2.</span> <span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串-str"><span class="nav-number">2.3.</span> <span class="nav-text">字符串(str)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串格式化"><span class="nav-number">2.3.1.</span> <span class="nav-text">字符串格式化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串常用方法"><span class="nav-number">2.3.2.</span> <span class="nav-text">字符串常用方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级功能"><span class="nav-number">2.3.3.</span> <span class="nav-text">高级功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#列表-list"><span class="nav-number">2.4.</span> <span class="nav-text">列表(list)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#列表常用方法"><span class="nav-number">2.4.1.</span> <span class="nav-text">列表常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#元组-tuple"><span class="nav-number">2.5.</span> <span class="nav-text">元组(tuple)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#字典-dict"><span class="nav-number">2.6.</span> <span class="nav-text">字典(dict)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#字典常用方法"><span class="nav-number">2.6.1.</span> <span class="nav-text">字典常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#set集合"><span class="nav-number">2.7.</span> <span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#课外知识"><span class="nav-number">2.8.</span> <span class="nav-text">课外知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#练习题"><span class="nav-number">2.9.</span> <span class="nav-text">练习题</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

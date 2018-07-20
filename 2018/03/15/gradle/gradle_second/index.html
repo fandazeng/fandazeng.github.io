@@ -1,0 +1,908 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="脚本语言," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="字符串在 Groovy 中，分号是不必需的，所以很多 Gradle 脚本没有分号，这是 Groovy 的特性，而不是 Gradle 的。在 Groovy 中，单引号和双引号都可以表示字符串，但是单引号标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下： task printStringClass &amp;lt;&amp;lt; {     def str1 = &amp;apos;单引号&amp;apos;     d">
+<meta name="keywords" content="脚本语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Groovy 基础">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/gradle/gradle_second/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="字符串在 Groovy 中，分号是不必需的，所以很多 Gradle 脚本没有分号，这是 Groovy 的特性，而不是 Gradle 的。在 Groovy 中，单引号和双引号都可以表示字符串，但是单引号标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下： task printStringClass &amp;lt;&amp;lt; {     def str1 = &amp;apos;单引号&amp;apos;     d">
+<meta property="og:image" content="https://cl.ly/2w1k191r2F0l/Image%202018-03-05%20at%204.54.47%20PM.png">
+<meta property="og:image" content="https://cl.ly/2H1t352o3i08/Image%202018-03-05%20at%205.14.41%20PM.png">
+<meta property="og:image" content="https://cl.ly/1g312i2p362z/Image%202018-03-05%20at%205.32.45%20PM.png">
+<meta property="og:updated_time" content="2018-03-06T01:10:19.188Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Groovy 基础">
+<meta name="twitter:description" content="字符串在 Groovy 中，分号是不必需的，所以很多 Gradle 脚本没有分号，这是 Groovy 的特性，而不是 Gradle 的。在 Groovy 中，单引号和双引号都可以表示字符串，但是单引号标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下： task printStringClass &amp;lt;&amp;lt; {     def str1 = &amp;apos;单引号&amp;apos;     d">
+<meta name="twitter:image" content="https://cl.ly/2w1k191r2F0l/Image%202018-03-05%20at%204.54.47%20PM.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/gradle/gradle_second/"/>
+
+
+
+
+
+  <title>Groovy 基础 | FandaCode</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Android技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/gradle/gradle_second/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Groovy 基础</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T15:30:17+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/gradle/" itemprop="url" rel="index">
+                    <span itemprop="name">gradle</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在 <code>Groovy</code> 中，分号是不必需的，所以很多 <code>Gradle</code> 脚本没有分号，这是 <code>Groovy</code> 的特性，而不是 <code>Gradle</code> 的。在 <code>Groovy</code> 中，单引号和双引号都可以表示字符串，但是单引号<br>标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下：</p>
+<pre><code>task printStringClass &lt;&lt; {
+    def str1 = &apos;单引号&apos;
+    def str2 = &quot;双引号&quot;
+
+    println &quot;单引号定义的字符串类型:&quot;+str1.getClass().name
+    println &quot;双引号定义的字符串类型:&quot;+str2.getClass().name
+    }
+
+    task printStringVar &lt;&lt; {
+    def name = &quot;张三&quot;
+
+    println &apos;单引号的变量计算:${name}&apos;
+    println &quot;单引号的变量计算:$name&quot;
+    println &quot;单引号的变量计算:${name}&quot;
+    println &quot;单引号的变量计算:${1+1}&quot;
+}
+</code></pre><p>输出：</p>
+<p><img src="https://cl.ly/2w1k191r2F0l/Image%202018-03-05%20at%204.54.47%20PM.png" alt=""></p>
+<p>运算格式如下：一个美元符号跟一对花括号，花括号里放表达式($｛name + age｝)，只有一个变量的时候可以省略花括号($name)。</p>
+<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>先看代码：</p>
+<pre><code>task printList &lt;&lt; {
+    def numList =[1,2,3,4,5,6]
+    println numList.getClass().name
+
+    println numList[1]//访问第二个元素
+    println numList[-1]//访问最后一个元素
+    println numList[-2]//访问倒数第二个元素
+    println numList[1..3]//f访问第二个到第四个元素
+
+    numList.each {
+        println it
+    }
+}
+</code></pre><p>结果：</p>
+<p><img src="https://cl.ly/2H1t352o3i08/Image%202018-03-05%20at%205.14.41%20PM.png" alt=""></p>
+<p>由结果可知，<code>numList</code> 是一个 <code>ArrayList</code> 类型， <code>Groovy</code> 提供了下标索引的方式访问数据，就像数组一样，除此之外，还提供了负下标索引。负下标索引代表从右边开始，-1 就代表从右侧数第一个，-2 代表从右侧数第二个，以此类推； <code>1..3</code> 这种是一个范围索引，中间用两个 “.” 分开。</p>
+<p>上述代码中的 <code>each</code> 是方法，用来遍历数据的，<code>it</code> 代码正在遍历的数据本身，传过来的参数是一个闭包类型的。</p>
+<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p><code>Map</code> 用法和 <code>List</code> 很像，只不过它的值是一个 <code>K:V</code> 键值对，代码如下：</p>
+<pre><code>task printlnMap &lt;&lt; {
+    def map1 =[&apos;width&apos;:1024,&apos;height&apos;:768]
+    println map1.getClass().name
+
+    println map1[&apos;width&apos;]
+    println map1.height
+
+    map1.each {
+        println &quot;Key:${it.key},Value:${it.value}&quot;
+    }
+}
+</code></pre><p>结果：</p>
+<p><img src="https://cl.ly/1g312i2p362z/Image%202018-03-05%20at%205.32.45%20PM.png" alt=""></p>
+<p>由结果可知，map1 是一个 <code>LinkedHasMap</code> 类型，map1 的 KEY 可以不带引号，但是如果用 map1[]方式输出的话，一定要带引号。Map 遍历的对象是一个 <code>Map.Entry</code> 的对象。上述代码用到了双引号的运算。</p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="括号可以省略"><a href="#括号可以省略" class="headerlink" title="括号可以省略"></a>括号可以省略</h3><p>在 <code>Ｇroovy</code> 中 ，当方法的参数不少于一个的时候，可以省略（），例如如下代码：</p>
+<pre><code>task invokeMethod &lt;&lt; {
+    method1(1,2)
+    method1 1,2 //省略括号
+}
+
+def method1(int a,int b){
+    println a+b
+}
+</code></pre><p>Groovy 中的方法都是调用省略（）的形式的。</p>
+<h3 id="return可以省略"><a href="#return可以省略" class="headerlink" title="return可以省略"></a>return可以省略</h3><p>当没有 return 的时候，Groovy 会把方法执行过程中的最后一句代码作为其返回值，代码如下：</p>
+<pre><code>task printMethodReturn &lt;&lt; {
+    def add1 = method2 1,2
+    def add2 = method2 5,3
+    println &quot;add1:${add1},add2:${add2}&quot;
+}
+
+def method2(int a,int b){
+    if(a&gt;b){
+        a
+    }else{
+        b
+    }
+}
+</code></pre><p>输出结果：<code>add1:2,add2:5</code> ，说明是有返回值的，而是最后一行代码作为返回值。</p>
+<h3 id="代码块可以作为参数"><a href="#代码块可以作为参数" class="headerlink" title="代码块可以作为参数"></a>代码块可以作为参数</h3><p>代码块： 一段被｛｝包围的代码，其实就是闭包。 <code>Groovy</code> 允许其作为参数传递，以集合的 <code>each</code> 方法为例，它接受的参数其实就是一个闭包。</p>
+<pre><code>numList.each({println it}) //呆板的写法是这样的
+
+numList.each({  //格式化之后是这样的
+    println it
+})
+
+numList.each {  //省略括号之后是这样的
+    println it
+}
+</code></pre><p>所以 <code>each</code> 是一个方法调用，关于闭包，我们后面再说。</p>
+<h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><p>先看代码：</p>
+<pre><code>task helloJavaBean &lt;&lt; {
+    Person p = new Person()
+
+    println &quot;名字是：${p.name}&quot;
+    p.name = &quot;张三&quot;
+    println &quot;名字是：${p.name}&quot;
+    println &quot;年龄是：${p.age}&quot;
+}
+
+class Person {
+    private String name
+
+    public int getAge(){
+        12
+    }
+}
+</code></pre><p>上述代码能正常输出名字和年龄，所以在 <code>Groovy</code> 中，我们不需要调用 <code>getter/setter</code>方法 ，底层会通过 <code>getter/setter</code> 方法处理我们需要的值，上述的 <code>age</code> 只会获取到值，不能设置值，因为没给出 <code>setter</code> 方法 ，<code>name</code> 是成员变量，系统会自动添加 <code>getter/setter</code> 方法的。</p>
+<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包是 <code>Groovy</code> 非常重要的特性，它是 <code>DSL</code> 的基础。闭包其实是一段代码块，我们可以仿集合的 <code>each</code> 实现一个类似的闭包功能。</p>
+<pre><code>task helloClosure &lt;&lt; {
+    //使用我们自定义的闭包
+    customEach {
+        println it
+    }
+
+}
+
+def customEach(Closure closure){
+    //模拟一个有10个元素的集合，开始迭代
+    for(int i in 1..10){
+        closure(i)
+    }
+}
+</code></pre><p>运行上述代码，就会遍历，跟之前的 List 遍历是一样的效果，<code>customEach</code> 接收一个闭包参数，闭包后面跟（）就是执行了，如果只有一个参数，默认就是 <code>it</code> 变量。当有多个参数时， <code>it</code> 就不能表示了，我们需要把参数一一列出：</p>
+<pre><code>def eachMap (Closure closure){
+    def map = [name : &quot;zhangsan&quot;,age:18]
+    map.each {
+        closure(it.key ,it.value)
+    }
+}
+
+task helloClosure &lt;&lt; {
+    eachMap{ k,v -&gt;
+        println &quot;${k} is ${v}&quot;
+    }
+}
+</code></pre><p>例子中为闭包传递了两个参数，所以不能用 <code>it</code> 了，要显式声明出来，<code>-&gt;</code> 是用于把闭包的参数和主体区分出来的，这是闭包的格式。</p>
+<h3 id="闭包委托"><a href="#闭包委托" class="headerlink" title="闭包委托"></a>闭包委托</h3><p><code>Groovy</code> 闭包的强大之处在于它支持闭包方法的委托。 <code>Groovy</code> 的闭包有<code>thisObject</code>、 <code>owner</code>、<code>delegate</code> 三个属性，当你在闭包内调用方法时，由它们来确定使用哪个对象来处理。默认情况下 <code>delegate</code> 和 <code>owner</code> 是相等的，但是 <code>delegate</code> 是可以被修改的，这个功能是非常强大的， Gradle 中的闭包的很多功能都是通过修改 <code>delegate</code> 实现的。</p>
+<p><code>thisObject</code> 的优先级是最高的，默认优先使用 <code>thisObject</code> 来处理闭包中调用的方法，其实 <code>thisObject</code> 就是这个构建脚本的上下文，它和脚本中的 <code>this</code> 对象是相等的。闭包的处理顺序如下：<code>thisObject &gt; owner &gt; delegate</code> 。</p>
+<p>在 <code>DSL</code> 中，一般会指定 <code>delegate</code> 为当前的 <code>it</code> ，这样我们在闭包内就可以对该 <code>it</code> 进行配置，或者调用其方法。</p>
+<pre><code>task configClosure &lt;&lt; {
+    person {
+        personName = &quot;张三&quot;
+        personAge = 20
+        println it.personName
+        //dumpPerson()
+    }
+}
+
+class Person {
+    String personName
+    int personAge
+
+    def dumpPerson(){
+        println &quot;name is ${personName},age is ${personAge}&quot;
+    }
+}
+
+def person(Closure&lt;Person&gt; closure){
+    Person p = new Person();
+    closure.delegate = p
+    //委托模式优先
+    closure.setResolveStrategy(Closure.DELEGATE_FIRST);
+    closure(p)
+}
+</code></pre><p>上述代码就是用当前的 <code>it</code> ，即 <code>Person</code> 实例配置了 <code>delegate</code> ，所以我们可以在闭包内设置 <code>Person</code> 的属性和调用它的方法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/gradle/gradle_fourth/" rel="next" title="Gradle 任务">
+                <i class="fa fa-chevron-left"></i> Gradle 任务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/15/gradle/gradle_third/" rel="prev" title="Gradle 构建脚本基础">
+                Gradle 构建脚本基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">Android技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">2.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-number">2.1.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.2.</span> <span class="nav-text">Map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#括号可以省略"><span class="nav-number">3.1.</span> <span class="nav-text">括号可以省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return可以省略"><span class="nav-number">3.2.</span> <span class="nav-text">return可以省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码块可以作为参数"><span class="nav-number">3.3.</span> <span class="nav-text">代码块可以作为参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaBean"><span class="nav-number">3.4.</span> <span class="nav-text">JavaBean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">3.5.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包委托"><span class="nav-number">3.6.</span> <span class="nav-text">闭包委托</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
