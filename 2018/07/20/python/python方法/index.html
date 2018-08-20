@@ -1,0 +1,925 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="脚本语言," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="FandaCode" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
+<meta name="keywords" content="脚本语言">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python函数">
+<meta property="og:url" content="http://yoursite.com/2018/07/20/python/python方法/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
+<meta property="og:updated_time" content="2018-08-20T08:01:09.027Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Python函数">
+<meta name="twitter:description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/07/20/python/python方法/"/>
+
+
+
+
+
+  <title>Python函数 | FandaCode</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/20/python/python方法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Python函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T14:19:21+08:00">
+                2018-07-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="三元运算"><a href="#三元运算" class="headerlink" title="三元运算"></a>三元运算</h2><pre><code># 书写格式
+result = 值1 if 条件 else 值2
+# 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量
+</code></pre><p>比如：</p>
+<pre><code>result = &quot;good&quot; if 1 &gt; 0 else &quot;well&quot;
+print(result)
+</code></pre><p>输出结果：</p>
+<pre><code>good
+</code></pre><h2 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h2><p>对于 数字 和 字符串 而言，赋值、浅拷贝和深拷贝无意义，因为其永远指向同一个内存地址。对于字典、元祖、列表 而言，进行赋值、浅拷贝和深拷贝时，其内存地址的变化是不同的。</p>
+<p>浅拷贝，在内存中只额外创建第一层数据。<br>深拷贝，在内存中将所有的数据重新创建一份（排除最后一层，即：python内部对字符串和数字的优化）</p>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
+<li><p>定义函数 </p>
+<p>  def 函数名(形参，形参，形参):<br>  函数体<br>  return ‘###’</p>
+</li>
+<li><p>执行函数 </p>
+<p>   //这种方式传的实参默认一一对应形参</p>
+<p>  函数名(实参)</p>
+<p>  //这种方式传参，可以不用管形参的顺序，因为传的参数已经指定了形参</p>
+<p>  函数名(形参=实参，形参=实参，形参=实参)</p>
+</li>
+</ol>
+<p>注意：方法默认有返回值，默认返回None，可以用return 返回任何想要返回的值，可以没有return，最后一行执行的结果作为返回值</p>
+<h3 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h3><h4 id="位置参数（普通参数）"><a href="#位置参数（普通参数）" class="headerlink" title="位置参数（普通参数）"></a>位置参数（普通参数）</h4><pre><code>def power(x):
+    return x**2
+</code></pre><p>上述函数，参数x就是一个位置参数，如果有位置参数，必传。</p>
+<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><pre><code>def power(x, n=3):
+    return x ** n
+</code></pre><p>上述函数，参数n就是一个默认参数，我们可以只传一个参数，也可以传两个，如果只传一个，n参数默认为3。</p>
+<p>注意：必选参数在前，默认参数在后，否则Python的解释器会报错。当函数有多个参数时，把变化大的参数放前面，变化小的参数放后面。变化小的参数就可以作为默认参数。默认参数必须指向不变对象。</p>
+<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><p>参数前面加了一个<em>号就表示接收一个可变参数，实际上会把传入的参数变成一个tuple，Python允许你在list或tuple前面加一个</em>号，把list或tuple的元素变成可变参数传进去。</p>
+<pre><code>def calc(*arg):
+    for item in arg:
+        print(item)
+
+data = [5, 6, 7]
+//如果直接这样传，列表会变成tuple的一个元素([5, 6, 7],)
+calc(data)
+calc(*data)
+</code></pre><h4 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h4><p>可变参数允许你传入0个或任意个参数，这些可变参数在函数调用时自动组装为一个tuple。而关键字参数允许你传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict 。</p>
+<pre><code>def calc(**arg):
+    for item in arg:
+        print(item)
+
+
+extra = {&apos;city&apos;: &apos;Beijing&apos;, &apos;job&apos;: &apos;Engineer&apos;}
+// Python允许你在dict前面加两个*号，把dict的元素变成可变参数传进去
+calc(**extra)
+</code></pre><h4 id="命名关键字参数"><a href="#命名关键字参数" class="headerlink" title="命名关键字参数"></a>命名关键字参数</h4><p>如果要限制关键字参数的名字，就可以用命名关键字参数，例如，只接收city和job作为关键字参数。这种方式定义的函数如下：</p>
+<pre><code>def person(name, age, *, city, job):
+    print(name, age, city, job)
+
+person(&apos;Jack&apos;, 24, city=&apos;Beijing&apos;, job=&apos;Engineer&apos;)
+</code></pre><p>和关键字参数<em>*kw不同，命名关键字参数需要一个特殊分隔符</em>，*后面的参数被视为命名关键字参数。</p>
+<p>如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了：</p>
+<pre><code>def person(name, age, *args, city, job):
+    print(name, age, args, city, job)
+</code></pre><p>命名关键字参数必须传入参数名，这和位置参数不同。如果没有传入参数名，调用将报错，因为系统会错认为是位置参数，但是实际上位置参数只有两个。命名关键字参数可以有缺省值，从而简化调用：</p>
+<pre><code>def person(name, age, *, city=&apos;Beijing&apos;, job):
+    print(name, age, city, job)
+</code></pre><p>由于命名关键字参数city具有默认值，调用时，可不传入city参数：</p>
+<pre><code>person(&apos;Jack&apos;, 24, job=&apos;Engineer&apos;)
+</code></pre><p>使用命名关键字参数时，要特别注意，如果没有可变参数，就必须加一个<em>作为特殊分隔符。如果缺少</em>，Python解释器将无法识别位置参数和命名关键字参数：</p>
+<pre><code>def person(name, age, city, job):
+    //缺少 *，city和job被视为位置参数
+    pass
+</code></pre><h3 id="全局和局部变量"><a href="#全局和局部变量" class="headerlink" title="全局和局部变量"></a>全局和局部变量</h3><p>全局变量，在任何位置都可以使用（约定，全局变量名字全部大写）<br>局部变量，在局部内使用，局部外使用不了。</p>
+<pre><code>PERSON = &quot;good&quot;
+
+def fun1():
+    # 局部变量，只能内部使用
+    a = 123
+    # 局部变量和全局变量一样，不影响全局变量，只是局部内部有一个名字和全局一样的变量而已
+    # 如果这样声明，则修改的是全局的变量
+    # global PERSON
+    PERSON = &quot;fanda&quot;
+    print(a)
+    print(PERSON)
+
+fun1()
+print(PERSON)
+</code></pre><h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><pre><code>def test(args1, args2):
+    print(args1 + args2)
+
+test2 = lambda args1, args2: print(args1 + args2)
+</code></pre><p>上述两个方法的的实现是等价的。</p>
+<h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><pre><code>abs 取绝对值
+print(abs(-123))
+
+all 传入可迭代对象，循环参数，如果每个元素都为真，返回True，否则，返回False
+假的数据，0，None,&quot;&quot;,(),{}，即0，None，空值，返回False
+print(bool(0))
+print(bool(&quot;&quot;))
+print(bool(()))
+print(bool({}))
+返回False
+print(all([11, &quot;34&quot;, &quot;&quot;]))
+
+any 传入可迭代对象，循环参数，如果有一个元素为真，返回True
+返回True
+print(any([11, &quot;34&quot;, &quot;&quot;]))
+
+ascii，传入对象，找到对象中的__repr__方法，返回其执行结果
+print(ascii(&quot;fsfsdfsf&quot;))
+
+a = bin(11)  # 二进制
+b = oct(11)  # 八进制
+c = int(11)  # 十进制
+d = hex(11)  # 十六进制
+
+print(a, b, c, d)
+结果 ，0b1011 0o13 11 0xb
+
+结果是一个元祖，元素分别是商和余数
+result = divmod(10,3)
+print(result)
+
+把字符串变成表达式，只处理简单的表达式，有返回值
+print(eval(&quot;1+3&quot;))
+print(eval(&quot;a+100+b&quot;, {&quot;a&quot;: 100, &quot;b&quot;: 50}))
+
+这个方法才可执行复杂的表达式，没返回值，相当于直接执行python代码
+exec(&quot;for i in range(10) : print(i)&quot;)
+
+li = [22, 3, 53]
+判断某个对象是否是某个类型的
+print(isinstance(li, list))
+</code></pre><p>map() 方法，map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</p>
+<pre><code>result = filter(lambda x: x &gt; 10, [1, 4, 9, 11, 34, 43, 64])
+print(type(result))
+print(list(result))
+for item in result:
+    print(item)
+</code></pre><p>由于结果result是一个Iterator，Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</p>
+<p>再看reduce的用法。reduce把一个函数作用在一个序列[x1, x2, x3, …]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：</p>
+<pre><code>reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
+</code></pre><p>如果要把序列[1, 3, 5, 7, 9]变换成整数13579，用reduce实现如下：</p>
+<pre><code>print(reduce(lambda x, y: x * 10 + y, [1, 3, 5, 7, 9]))
+</code></pre><p>和map()类似，filter()也接收一个函数和一个序列。和map()不同的是，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素。</p>
+<pre><code>result = filter(lambda x: x &gt; 10, [1, 4, 9, 11, 34, 43, 64])
+print(type(result))
+print(list(result))
+for item in result:
+    print(item)
+</code></pre><p>可见用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
+<p>注意到filter()函数返回的是一个Iterator，也就是一个惰性序列，所以要强迫filter()完成计算结果，需要用list()函数获得所有结果并返回list。</p>
+<p>sorted()函数可以对list进行排序：</p>
+<pre><code>li = [1, 4, 5, -3, -64, 0, -43]
+这个方法返回一个新的值 ，之前的值不变
+print(sorted(li))
+
+//结果[-64, -43, -3, 0, 1, 4, 5]
+</code></pre><p>此外，sorted()函数也是一个高阶函数，它还可以接收一个key函数来实现自定义的排序，例如按绝对值大小排序：</p>
+<pre><code>print(sorted(li, key=abs))
+
+//结果[0, 1, -3, 4, 5, -43, -64]
+</code></pre><p>key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序，然后按照对应关系返回list相应的元素。默认是从小到大排序的，如果想要从大到小排序，可以再增加一个参数，如下：</p>
+<pre><code>print(sorted(li, key=abs, reverse=True))
+
+//结果[-64, -43, 5, 4, -3, 1, 0]
+</code></pre><p>sorted()是一个高阶函数。用sorted()排序的关键在于实现一个映射函数。</p>
+<h3 id="递归函数"><a href="#递归函数" class="headerlink" title="递归函数"></a>递归函数</h3><p>在函数内部，可以调用其他函数。如果一个函数在内部调用自身本身，这个函数就是递归函数。</p>
+<p>举个例子，我们来计算阶乘n! = 1 x 2 x 3 x … x n，用函数fact(n)表示，可以看出：</p>
+<p>fact(n) = n! = 1 x 2 x 3 x … x (n-1) x n = (n-1)! x n = fact(n-1) x n</p>
+<p>所以，fact(n)可以表示为n x fact(n-1)，只有n=1时需要特殊处理。</p>
+<p>于是，fact(n)用递归的方式写出来就是：</p>
+<pre><code>def fact(n):
+    if n==1:
+        return 1
+    return n * fact(n - 1)
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/脚本语言/" rel="tag"># 脚本语言</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/07/19/python/python数据类型/" rel="next" title="Python基本数据类型">
+                <i class="fa fa-chevron-left"></i> Python基本数据类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三元运算"><span class="nav-number">1.</span> <span class="nav-text">三元运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深浅拷贝"><span class="nav-number">2.</span> <span class="nav-text">深浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的参数"><span class="nav-number">3.1.</span> <span class="nav-text">函数的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位置参数（普通参数）"><span class="nav-number">3.1.1.</span> <span class="nav-text">位置参数（普通参数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认参数"><span class="nav-number">3.1.2.</span> <span class="nav-text">默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可变参数"><span class="nav-number">3.1.3.</span> <span class="nav-text">可变参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字参数"><span class="nav-number">3.1.4.</span> <span class="nav-text">关键字参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名关键字参数"><span class="nav-number">3.1.5.</span> <span class="nav-text">命名关键字参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局和局部变量"><span class="nav-number">3.2.</span> <span class="nav-text">全局和局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda表达式"><span class="nav-number">3.3.</span> <span class="nav-text">lambda表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置函数"><span class="nav-number">3.4.</span> <span class="nav-text">内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归函数"><span class="nav-number">3.5.</span> <span class="nav-text">递归函数</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
