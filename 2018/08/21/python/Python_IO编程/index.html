@@ -109,21 +109,17 @@
 
 
 
-<meta name="description" content="字符串在 Groovy 中，分号是不必需的，所以很多 Gradle 脚本没有分号，这是 Groovy 的特性，而不是 Gradle 的。在 Groovy 中，单引号和双引号都可以表示字符串，但是单引号标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下： task printStringClass &amp;lt;&amp;lt; {     def str1 = &amp;apos;单引号&amp;apos;     d">
+<meta name="description" content="IO编程读写文件前，我们先必须了解一下，在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。 open函数该函数用于文件处理，传入文件路径和标示符。打开文件时，需要指定文件路径和以何等方式打开文">
 <meta name="keywords" content="脚本语言">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Groovy 基础">
-<meta property="og:url" content="http://yoursite.com/2018/03/15/gradle/gradle_second/index.html">
+<meta property="og:title" content="Python IO编程">
+<meta property="og:url" content="http://yoursite.com/2018/08/21/python/Python_IO编程/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="字符串在 Groovy 中，分号是不必需的，所以很多 Gradle 脚本没有分号，这是 Groovy 的特性，而不是 Gradle 的。在 Groovy 中，单引号和双引号都可以表示字符串，但是单引号标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下： task printStringClass &amp;lt;&amp;lt; {     def str1 = &amp;apos;单引号&amp;apos;     d">
-<meta property="og:image" content="https://cl.ly/2w1k191r2F0l/Image%202018-03-05%20at%204.54.47%20PM.png">
-<meta property="og:image" content="https://cl.ly/2H1t352o3i08/Image%202018-03-05%20at%205.14.41%20PM.png">
-<meta property="og:image" content="https://cl.ly/1g312i2p362z/Image%202018-03-05%20at%205.32.45%20PM.png">
-<meta property="og:updated_time" content="2018-03-06T01:10:19.188Z">
+<meta property="og:description" content="IO编程读写文件前，我们先必须了解一下，在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。 open函数该函数用于文件处理，传入文件路径和标示符。打开文件时，需要指定文件路径和以何等方式打开文">
+<meta property="og:updated_time" content="2018-08-21T08:41:52.401Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Groovy 基础">
-<meta name="twitter:description" content="字符串在 Groovy 中，分号是不必需的，所以很多 Gradle 脚本没有分号，这是 Groovy 的特性，而不是 Gradle 的。在 Groovy 中，单引号和双引号都可以表示字符串，但是单引号标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下： task printStringClass &amp;lt;&amp;lt; {     def str1 = &amp;apos;单引号&amp;apos;     d">
-<meta name="twitter:image" content="https://cl.ly/2w1k191r2F0l/Image%202018-03-05%20at%204.54.47%20PM.png">
+<meta name="twitter:title" content="Python IO编程">
+<meta name="twitter:description" content="IO编程读写文件前，我们先必须了解一下，在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。 open函数该函数用于文件处理，传入文件路径和标示符。打开文件时，需要指定文件路径和以何等方式打开文">
 
 
 
@@ -151,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/15/gradle/gradle_second/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/21/python/Python_IO编程/"/>
 
 
 
 
 
-     <title> Groovy 基础 | FandaCode </title>
+     <title> Python IO编程 | FandaCode </title>
 </head>
 
 
@@ -307,7 +303,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/gradle/gradle_second/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/21/python/Python_IO编程/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -324,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Groovy 基础</h1>
+          <h1 class="post-title" itemprop="name headline">Python IO编程</h1>
         
 
         <div class="post-meta">
@@ -336,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T15:30:17+08:00">
-                2018-03-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-21T15:05:37+08:00">
+                2018-08-21
               </time>
             
 
@@ -359,8 +355,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/gradle/" itemprop="url" rel="index">
-                    <span itemprop="name">gradle</span>
+                  <a href="/categories/python/" itemprop="url" rel="index">
+                    <span itemprop="name">python</span>
                   </a>
                 </span>
 
@@ -376,7 +372,7 @@
 
           
           
-             <span id="/2018/03/15/gradle/gradle_second/" class="leancloud_visitors" data-flag-title="Groovy 基础">
+             <span id="/2018/08/21/python/Python_IO编程/" class="leancloud_visitors" data-flag-title="Python IO编程">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -404,172 +400,155 @@
       
 
       
-        <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>在 <code>Groovy</code> 中，分号是不必需的，所以很多 <code>Gradle</code> 脚本没有分号，这是 <code>Groovy</code> 的特性，而不是 <code>Gradle</code> 的。在 <code>Groovy</code> 中，单引号和双引号都可以表示字符串，但是单引号<br>标记的是纯粹的字符串变量，而双引号可以做运算，具体实例如下：</p>
-<pre><code>task printStringClass &lt;&lt; {
-    def str1 = &apos;单引号&apos;
-    def str2 = &quot;双引号&quot;
+        <h2 id="IO编程"><a href="#IO编程" class="headerlink" title="IO编程"></a>IO编程</h2><p>读写文件前，我们先必须了解一下，在磁盘上读写文件的功能都是由操作系统提供的，现代操作系统不允许普通的程序直接操作磁盘，所以，读写文件就是请求操作系统打开一个文件对象（通常称为文件描述符），然后，通过操作系统提供的接口从这个文件对象中读取数据（读文件），或者把数据写入这个文件对象（写文件）。</p>
+<h3 id="open函数"><a href="#open函数" class="headerlink" title="open函数"></a>open函数</h3><p>该函数用于文件处理，传入文件路径和标示符。打开文件时，需要指定文件路径和以何等方式打开文件，打开后，即可获取该文件句柄，日后通过此文件句柄对该文件操作。</p>
+<p>打开文件的模式有：</p>
+<ul>
+<li>r ，只读模式【默认，不存在则报错】】</li>
+<li>w，只写模式【不可读；不存在则创建；存在则清空内容；】</li>
+<li>x， 只写模式【不可读；不存在则创建，存在则报错】</li>
+<li>a， 追加模式【可读；   不存在则创建；存在则只追加内容；】</li>
+</ul>
+<p>“+” 表示可以同时读写某个文件：</p>
+<ul>
+<li>r+， 读写【可读，可写】</li>
+<li>w+，写读【可读，可写】</li>
+<li>x+ ，写读【可读，可写】</li>
+<li>a+， 写读【可读，可写】</li>
+</ul>
+<p>“b”表示以字节的方式操作：</p>
+<ul>
+<li>rb  或 r+b</li>
+<li>wb 或 w+b</li>
+<li>xb 或 w+b</li>
+<li>ab 或 a+b</li>
+</ul>
+<p>注：以b方式打开时，读取到的内容是字节类型，写入时也需要提供字节类型</p>
+<h4 id="只读模式"><a href="#只读模式" class="headerlink" title="只读模式"></a>只读模式</h4><pre><code>只读，文本文件
+f = open(&quot;writeFile.txt&quot;, &quot;r&quot;)
+data = f.read()
+f.close()
+print(data)
+</code></pre><p><code>read()</code>方法可以一次读取文件的全部内容，Python把内容读到内存，用一个str对象表示。<code>close()</code>方法关闭文件，文件使用完毕后必须关闭，因为文件对象会占用操作系统的资源，并且操作系统同一时间能打开的文件数量也是有限的。</p>
+<p>调用<code>read()</code>会一次性读取文件的全部内容，如果文件有10G，内存就爆了，所以，要保险起见，可以反复调用<code>read(size)</code>方法，每次最多读取<code>size</code>个字节的内容。另外，调用<code>readline()</code>可以每次读取一行内容，调用<code>readlines()</code>一次读取所有内容并按行返回<code>list</code>。因此，要根据需要决定怎么调用。</p>
+<p>如果文件很小，<code>read()</code>一次性读取最方便；如果不能确定文件大小，反复调用<code>read(size)</code>比较保险；如果是配置文件，调用<code>readlines()</code>最方便。</p>
+<pre><code>只读，二进制文件
+f = open(&quot;writeFile.txt&quot;, &quot;rb&quot;)
+data = f.read()
+f.close()
+print(data)
 
-    println &quot;单引号定义的字符串类型:&quot;+str1.getClass().name
-    println &quot;双引号定义的字符串类型:&quot;+str2.getClass().name
-    }
+//结果
+b&apos;\xe5\x8e\x89\xe5\xae\xb3\xe5\x93\x88\xe5\x93\x88\xe5\x8e\...
+</code></pre><p>要读取二进制文件，可以用二进制方式打开，读到的内容是十六进制表示的字节。</p>
+<p>要读取非<code>UTF-8</code>编码的文本文件，需要给<code>open()</code>函数传入<code>encoding</code>参数，例如，读取GBK编码的文件：</p>
+<pre><code>f = open(&quot;writeFile.txt&quot;, &quot;r&quot;，encoding=&apos;gbk&apos;)
+</code></pre><p>遇到有些编码不规范的文件，你可能会遇到UnicodeDecodeError，因为在文本文件中可能夹杂了一些非法编码的字符。遇到这种情况，<code>open()</code>函数还接收一个<code>errors</code>参数，表示如果遇到编码错误后如何处理。最简单的方式是直接忽略：</p>
+<pre><code>f = open(&quot;writeFile.txt&quot;, &quot;r&quot;，encoding=&apos;gbk&apos;,errors=&apos;ignore&apos;)
+</code></pre><h4 id="只写模式"><a href="#只写模式" class="headerlink" title="只写模式"></a>只写模式</h4><pre><code>先清空数据，再写
+f2 = open(&quot;writeFile.txt&quot;, &quot;w&quot;)
+追加数据，只写
+f2 = open(&quot;writeFile.txt&quot;, &quot;a&quot;)
+f2.write(&quot;sdfsdfsfsfs&quot;)
+f2.close()
 
-    task printStringVar &lt;&lt; {
-    def name = &quot;张三&quot;
+//二进制方式打开
+先清空数据，再写
+f2 = open(&quot;writeFile.txt&quot;, &quot;wb&quot;)
+追加数据，只写
+f2 = open(&quot;writeFile.txt&quot;, &quot;ab&quot;)
+f2.write(bytes(&quot;中国&quot;, encoding=&quot;utf-8&quot;))
+f2.close()
+</code></pre><p>你可以反复调用<code>write()</code>来写入文件，但是务必要调用<code>f.close()</code>来关闭文件。当我们写文件时，操作系统往往不会立刻把数据写入磁盘，而是放到内存缓存起来，空闲的时候再慢慢写入。只有调用<code>close()</code>方法时，操作系统才保证把没有写入的数据全部写入磁盘。</p>
+<h4 id="读写模式"><a href="#读写模式" class="headerlink" title="读写模式"></a>读写模式</h4><p> r+模式的读写：</p>
+<pre><code># 读写，如果有中文，默认会变成gbk编码
+# r+ ，末尾追加，指定在最后
+f = open(&quot;writeFile.txt&quot;, &quot;r+&quot;, encoding=&apos;utf-8&apos;)
+data = f.read()
+# 读或写完数据之后，指定会在最后的位置，指针位置以字节算,tell用来获取指针位置，seek用来改变指定位置
+print(f.tell())
 
-    println &apos;单引号的变量计算:${name}&apos;
-    println &quot;单引号的变量计算:$name&quot;
-    println &quot;单引号的变量计算:${name}&quot;
-    println &quot;单引号的变量计算:${1+1}&quot;
-}
-</code></pre><p>输出：</p>
-<p><img src="https://cl.ly/2w1k191r2F0l/Image%202018-03-05%20at%204.54.47%20PM.png" alt=""></p>
-<p>运算格式如下：一个美元符号跟一对花括号，花括号里放表达式($｛name + age｝)，只有一个变量的时候可以省略花括号($name)。</p>
-<h2 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h2><h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>先看代码：</p>
-<pre><code>task printList &lt;&lt; {
-    def numList =[1,2,3,4,5,6]
-    println numList.getClass().name
+f.write(&quot;厉害&quot;)
+print(f.tell())
 
-    println numList[1]//访问第二个元素
-    println numList[-1]//访问最后一个元素
-    println numList[-2]//访问倒数第二个元素
-    println numList[1..3]//f访问第二个到第四个元素
+data = f.read()
+print(f.tell())
 
-    numList.each {
-        println it
-    }
-}
-</code></pre><p>结果：</p>
-<p><img src="https://cl.ly/2H1t352o3i08/Image%202018-03-05%20at%205.14.41%20PM.png" alt=""></p>
-<p>由结果可知，<code>numList</code> 是一个 <code>ArrayList</code> 类型， <code>Groovy</code> 提供了下标索引的方式访问数据，就像数组一样，除此之外，还提供了负下标索引。负下标索引代表从右边开始，-1 就代表从右侧数第一个，-2 代表从右侧数第二个，以此类推； <code>1..3</code> 这种是一个范围索引，中间用两个 “.” 分开。</p>
-<p>上述代码中的 <code>each</code> 是方法，用来遍历数据的，<code>it</code> 代码正在遍历的数据本身，传过来的参数是一个闭包类型的。</p>
-<h3 id="Map"><a href="#Map" class="headerlink" title="Map"></a>Map</h3><p><code>Map</code> 用法和 <code>List</code> 很像，只不过它的值是一个 <code>K:V</code> 键值对，代码如下：</p>
-<pre><code>task printlnMap &lt;&lt; {
-    def map1 =[&apos;width&apos;:1024,&apos;height&apos;:768]
-    println map1.getClass().name
+f.write(&quot;哈哈&quot;)
+print(f.tell())
 
-    println map1[&apos;width&apos;]
-    println map1.height
+f.close()
+print(data)
 
-    map1.each {
-        println &quot;Key:${it.key},Value:${it.value}&quot;
-    }
-}
-</code></pre><p>结果：</p>
-<p><img src="https://cl.ly/1g312i2p362z/Image%202018-03-05%20at%205.32.45%20PM.png" alt=""></p>
-<p>由结果可知，map1 是一个 <code>LinkedHasMap</code> 类型，map1 的 KEY 可以不带引号，但是如果用 map1[]方式输出的话，一定要带引号。Map 遍历的对象是一个 <code>Map.Entry</code> 的对象。上述代码用到了双引号的运算。</p>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="括号可以省略"><a href="#括号可以省略" class="headerlink" title="括号可以省略"></a>括号可以省略</h3><p>在 <code>Ｇroovy</code> 中 ，当方法的参数不少于一个的时候，可以省略（），例如如下代码：</p>
-<pre><code>task invokeMethod &lt;&lt; {
-    method1(1,2)
-    method1 1,2 //省略括号
-}
+//结果，120，126，126，132
+</code></pre><p>w+模式的读写：</p>
+<pre><code># 写读，如果有中文，默认会变成gbk编码
+# w+ ，先清空，在写之后，才可以读
 
-def method1(int a,int b){
-    println a+b
-}
-</code></pre><p>Groovy 中的方法都是调用省略（）的形式的。</p>
-<h3 id="return可以省略"><a href="#return可以省略" class="headerlink" title="return可以省略"></a>return可以省略</h3><p>当没有 return 的时候，Groovy 会把方法执行过程中的最后一句代码作为其返回值，代码如下：</p>
-<pre><code>task printMethodReturn &lt;&lt; {
-    def add1 = method2 1,2
-    def add2 = method2 5,3
-    println &quot;add1:${add1},add2:${add2}&quot;
-}
+f = open(&quot;writeFile.txt&quot;, &quot;w+&quot;, encoding=&apos;utf-8&apos;)
+#此时内容已清空，所以读到的内容为空，指针为0
+data = f.read()
+# 读或写完数据之后，指定会在最后的位置，指针位置以字节算,tell用来获取指针位置，seek用来改变指定位置
+print(f.tell())
 
-def method2(int a,int b){
-    if(a&gt;b){
-        a
-    }else{
-        b
-    }
-}
-</code></pre><p>输出结果：<code>add1:2,add2:5</code> ，说明是有返回值的，而是最后一行代码作为返回值。</p>
-<h3 id="代码块可以作为参数"><a href="#代码块可以作为参数" class="headerlink" title="代码块可以作为参数"></a>代码块可以作为参数</h3><p>代码块： 一段被｛｝包围的代码，其实就是闭包。 <code>Groovy</code> 允许其作为参数传递，以集合的 <code>each</code> 方法为例，它接受的参数其实就是一个闭包。</p>
-<pre><code>numList.each({println it}) //呆板的写法是这样的
+f.write(&quot;厉害&quot;)
+print(f.tell())
 
-numList.each({  //格式化之后是这样的
-    println it
-})
+data = f.read()
+print(f.tell())
 
-numList.each {  //省略括号之后是这样的
-    println it
-}
-</code></pre><p>所以 <code>each</code> 是一个方法调用，关于闭包，我们后面再说。</p>
-<h3 id="JavaBean"><a href="#JavaBean" class="headerlink" title="JavaBean"></a>JavaBean</h3><p>先看代码：</p>
-<pre><code>task helloJavaBean &lt;&lt; {
-    Person p = new Person()
+f.write(&quot;哈哈&quot;)
+print(f.tell())
 
-    println &quot;名字是：${p.name}&quot;
-    p.name = &quot;张三&quot;
-    println &quot;名字是：${p.name}&quot;
-    println &quot;年龄是：${p.age}&quot;
-}
+//结果，0，6，6，12
+</code></pre><p>a+模式的读写：</p>
+<pre><code># 追加，如果有中文，默认会变成gbk编码
+# a+ ，打开文件时就将指针移到最后的位置
+f = open(&quot;writeFile.txt&quot;, &quot;a+&quot;, encoding=&apos;utf-8&apos;)
+data = f.read()
+# 读或写完数据之后，指定会在最后的位置，指针位置以字节算,tell用来获取指针位置，seek用来改变指定位置
+print(f.tell())
 
-class Person {
-    private String name
+f.write(&quot;厉害&quot;)
+print(f.tell())
 
-    public int getAge(){
-        12
-    }
-}
-</code></pre><p>上述代码能正常输出名字和年龄，所以在 <code>Groovy</code> 中，我们不需要调用 <code>getter/setter</code>方法 ，底层会通过 <code>getter/setter</code> 方法处理我们需要的值，上述的 <code>age</code> 只会获取到值，不能设置值，因为没给出 <code>setter</code> 方法 ，<code>name</code> 是成员变量，系统会自动添加 <code>getter/setter</code> 方法的。</p>
-<h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><p>闭包是 <code>Groovy</code> 非常重要的特性，它是 <code>DSL</code> 的基础。闭包其实是一段代码块，我们可以仿集合的 <code>each</code> 实现一个类似的闭包功能。</p>
-<pre><code>task helloClosure &lt;&lt; {
-    //使用我们自定义的闭包
-    customEach {
-        println it
-    }
+data = f.read()
+print(f.tell())
 
-}
+f.write(&quot;哈哈&quot;)
+print(f.tell())
 
-def customEach(Closure closure){
-    //模拟一个有10个元素的集合，开始迭代
-    for(int i in 1..10){
-        closure(i)
-    }
-}
-</code></pre><p>运行上述代码，就会遍历，跟之前的 List 遍历是一样的效果，<code>customEach</code> 接收一个闭包参数，闭包后面跟（）就是执行了，如果只有一个参数，默认就是 <code>it</code> 变量。当有多个参数时， <code>it</code> 就不能表示了，我们需要把参数一一列出：</p>
-<pre><code>def eachMap (Closure closure){
-    def map = [name : &quot;zhangsan&quot;,age:18]
-    map.each {
-        closure(it.key ,it.value)
-    }
-}
+# 此时指针是最后，要想读所有数据，把指针放到0位置，再读一次，就有数据了
+f.seek(0)
+data = f.read()
+f.close()
+print(data)
 
-task helloClosure &lt;&lt; {
-    eachMap{ k,v -&gt;
-        println &quot;${k} is ${v}&quot;
-    }
-}
-</code></pre><p>例子中为闭包传递了两个参数，所以不能用 <code>it</code> 了，要显式声明出来，<code>-&gt;</code> 是用于把闭包的参数和主体区分出来的，这是闭包的格式。</p>
-<h3 id="闭包委托"><a href="#闭包委托" class="headerlink" title="闭包委托"></a>闭包委托</h3><p><code>Groovy</code> 闭包的强大之处在于它支持闭包方法的委托。 <code>Groovy</code> 的闭包有<code>thisObject</code>、 <code>owner</code>、<code>delegate</code> 三个属性，当你在闭包内调用方法时，由它们来确定使用哪个对象来处理。默认情况下 <code>delegate</code> 和 <code>owner</code> 是相等的，但是 <code>delegate</code> 是可以被修改的，这个功能是非常强大的， Gradle 中的闭包的很多功能都是通过修改 <code>delegate</code> 实现的。</p>
-<p><code>thisObject</code> 的优先级是最高的，默认优先使用 <code>thisObject</code> 来处理闭包中调用的方法，其实 <code>thisObject</code> 就是这个构建脚本的上下文，它和脚本中的 <code>this</code> 对象是相等的。闭包的处理顺序如下：<code>thisObject &gt; owner &gt; delegate</code> 。</p>
-<p>在 <code>DSL</code> 中，一般会指定 <code>delegate</code> 为当前的 <code>it</code> ，这样我们在闭包内就可以对该 <code>it</code> 进行配置，或者调用其方法。</p>
-<pre><code>task configClosure &lt;&lt; {
-    person {
-        personName = &quot;张三&quot;
-        personAge = 20
-        println it.personName
-        //dumpPerson()
-    }
-}
+//结果，12，18，18，24，厉害哈哈
+</code></pre><h4 id="IO的一些方法"><a href="#IO的一些方法" class="headerlink" title="IO的一些方法"></a>IO的一些方法</h4><pre><code>刷新文件内部缓冲区
+f.flush()
+读取一行数据
+f.readline()
+一次读取所有内容并按行返回list
+f.readlines()
+截取当前指针前面的数据，指针后面的数据全部删除
+f.truncate()
+读取数据，可以指定读取的字节数量
+f.read()
 
-class Person {
-    String personName
-    int personAge
+注意 ，f是可以遍历的，每个元素是一行数据
+for line in f:
+    print(line)
 
-    def dumpPerson(){
-        println &quot;name is ${personName},age is ${personAge}&quot;
-    }
-}
+可以用with 关键字来避免每次都调用close
+with open(&quot;writeFile.txt&quot;, &quot;r&quot;, encoding=&apos;utf-8&apos;) as f:
+    print(f.readline())
 
-def person(Closure&lt;Person&gt; closure){
-    Person p = new Person();
-    closure.delegate = p
-    //委托模式优先
-    closure.setResolveStrategy(Closure.DELEGATE_FIRST);
-    closure(p)
-}
-</code></pre><p>上述代码就是用当前的 <code>it</code> ，即 <code>Person</code> 实例配置了 <code>delegate</code> ，所以我们可以在闭包内设置 <code>Person</code> 的属性和调用它的方法。</p>
-
+可以同时打开两个文件，下面的例子是复制文件内容到一个新的文件里面
+with open(&quot;writeFile.txt&quot;, &quot;r&quot;, encoding=&apos;utf-8&apos;) as f, open(&quot;copyFile.txt&quot;, &quot;w&quot;, encoding=&apos;utf-8&apos;) as f2:
+    for data in f:
+        f2.write(data)
+</code></pre>
       
     </div>
 
@@ -611,8 +590,8 @@ def person(Closure&lt;Person&gt; closure){
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/15/gradle/gradle_fourth/" rel="next" title="Gradle 任务">
-                <i class="fa fa-chevron-left"></i> Gradle 任务
+              <a href="/2018/07/20/python/python方法/" rel="next" title="Python函数">
+                <i class="fa fa-chevron-left"></i> Python函数
               </a>
             
           </div>
@@ -620,10 +599,6 @@ def person(Closure&lt;Person&gt; closure){
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/15/gradle/gradle_third/" rel="prev" title="Gradle 构建脚本基础">
-                Gradle 构建脚本基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -790,7 +765,7 @@ def person(Closure&lt;Person&gt; closure){
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合"><span class="nav-number">2.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#List"><span class="nav-number">2.1.</span> <span class="nav-text">List</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Map"><span class="nav-number">2.2.</span> <span class="nav-text">Map</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">3.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#括号可以省略"><span class="nav-number">3.1.</span> <span class="nav-text">括号可以省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#return可以省略"><span class="nav-number">3.2.</span> <span class="nav-text">return可以省略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码块可以作为参数"><span class="nav-number">3.3.</span> <span class="nav-text">代码块可以作为参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JavaBean"><span class="nav-number">3.4.</span> <span class="nav-text">JavaBean</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包"><span class="nav-number">3.5.</span> <span class="nav-text">闭包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#闭包委托"><span class="nav-number">3.6.</span> <span class="nav-text">闭包委托</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#IO编程"><span class="nav-number">1.</span> <span class="nav-text">IO编程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#open函数"><span class="nav-number">1.1.</span> <span class="nav-text">open函数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#只读模式"><span class="nav-number">1.1.1.</span> <span class="nav-text">只读模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#只写模式"><span class="nav-number">1.1.2.</span> <span class="nav-text">只写模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读写模式"><span class="nav-number">1.1.3.</span> <span class="nav-text">读写模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#IO的一些方法"><span class="nav-number">1.1.4.</span> <span class="nav-text">IO的一些方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

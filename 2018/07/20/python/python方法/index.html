@@ -116,7 +116,7 @@
 <meta property="og:url" content="http://yoursite.com/2018/07/20/python/python方法/index.html">
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
-<meta property="og:updated_time" content="2018-08-21T06:06:03.008Z">
+<meta property="og:updated_time" content="2018-08-21T07:03:28.934Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python函数">
 <meta name="twitter:description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
@@ -128,7 +128,7 @@
   var CONFIG = {
     root: '/',
     scheme: 'Muse',
-    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":true},
     fancybox: true,
     motion: true,
     duoshuo: {
@@ -582,7 +582,18 @@ print(sorted(li))
 ===&gt; 5 * (4 * 6)
 ===&gt; 5 * 24
 ===&gt; 120
-</code></pre>
+</code></pre><p>利用函数编写如下数列：</p>
+<p>斐波那契数列指的是这样一个数列 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233，377，610，987，1597，2584，4181，6765，10946，17711，28657，46368…</p>
+<pre><code>def func(arg1, arg2):
+    if arg1 == 0:
+        print(arg1, arg2)
+    arg3 = arg1 + arg2
+    print(arg3)
+    if arg3 &gt; 10000:
+        return
+    func(arg2, arg3)
+</code></pre><p>使用递归函数需要注意防止栈溢出。在计算机中，函数调用是通过栈（stack）这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层栈帧。由于栈的大小不是无限的，所以，递归调用的次数过多，会导致栈溢出。上述代码如果不加判断来终结函数，将会报错</p>
+
       
     </div>
 
@@ -633,6 +644,10 @@ print(sorted(li))
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/21/python/Python_IO编程/" rel="prev" title="Python IO编程">
+                Python IO编程 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -704,7 +719,7 @@ print(sorted(li))
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -856,6 +871,8 @@ print(sorted(li))
     
       <div class="back-to-top">
         <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
         
       </div>
     
