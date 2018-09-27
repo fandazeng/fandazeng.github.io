@@ -109,17 +109,25 @@
 
 
 
-<meta name="description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理： ![](https://cl.ly/3c54288fddcd/Image%202018-09-">
+<meta name="description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理：  基本颜色像素的基本颜色，根据绘制内容的不同而有不同的控制方式： Canvas 的颜色填充类方">
 <meta name="keywords" content="自定义View,android,绘制">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Paint基础练习">
 <meta property="og:url" content="http://yoursite.com/2018/09/21/android/view/Paint基础练习/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理： ![](https://cl.ly/3c54288fddcd/Image%202018-09-">
-<meta property="og:updated_time" content="2018-09-27T08:04:56.806Z">
+<meta property="og:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理：  基本颜色像素的基本颜色，根据绘制内容的不同而有不同的控制方式： Canvas 的颜色填充类方">
+<meta property="og:image" content="https://cl.ly/3c54288fddcd/Image%202018-09-25%20at%2010.15.25%20AM.png">
+<meta property="og:image" content="https://cl.ly/3158d526ca64/Image%202018-09-25%20at%202.14.28%20PM.png">
+<meta property="og:image" content="https://cl.ly/617d6a502924/Image%202018-09-25%20at%204.42.09%20PM.png">
+<meta property="og:image" content="https://cl.ly/17f46d0b89e0/Image%202018-09-26%20at%209.43.37%20AM.png">
+<meta property="og:image" content="https://cl.ly/f0798e3b581c/Image%202018-09-26%20at%209.45.30%20AM.png">
+<meta property="og:image" content="https://cl.ly/3fb80efd8567/Image%202018-09-26%20at%209.48.23%20AM.png">
+<meta property="og:image" content="https://cl.ly/fcf3febddb23/Image%202018-09-27%20at%2010.08.06%20AM.png">
+<meta property="og:updated_time" content="2018-09-27T08:15:47.924Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paint基础练习">
-<meta name="twitter:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理： ![](https://cl.ly/3c54288fddcd/Image%202018-09-">
+<meta name="twitter:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理：  基本颜色像素的基本颜色，根据绘制内容的不同而有不同的控制方式： Canvas 的颜色填充类方">
+<meta name="twitter:image" content="https://cl.ly/3c54288fddcd/Image%202018-09-25%20at%2010.15.25%20AM.png">
 
 
 
@@ -420,10 +428,10 @@
 <li>初始化</li>
 </ul>
 <h2 id="一-颜色"><a href="#一-颜色" class="headerlink" title="一.颜色"></a>一.颜色</h2><p>Canvas 绘制的内容，有三层对颜色的处理：</p>
-<pre><code>![](https://cl.ly/3c54288fddcd/Image%202018-09-25%20at%2010.15.25%20AM.png)
-</code></pre><h3 id="基本颜色"><a href="#基本颜色" class="headerlink" title="基本颜色"></a>基本颜色</h3><p>像素的基本颜色，根据绘制内容的不同而有不同的控制方式： Canvas 的颜色填充类方法  drawColor/RGB/ARGB() 的颜色，是直接写在方法的参数里，通过参数来设置的；  drawBitmap() 的颜色，是直接由 Bitmap 对象来提供的；除此之外，是图形和文字的绘制，它们的颜色就需要使用 paint 参数来额外设置了。</p>
-<pre><code>![](https://cl.ly/3158d526ca64/Image%202018-09-25%20at%202.14.28%20PM.png)
-</code></pre><p>Paint 设置颜色的方法有两种：一种是直接用 Paint.setColor/ARGB() 来设置颜色，另一种是使用 Shader 来指定着色方案。上一篇已经用过第一种了，这里只说第二种。</p>
+<p><img src="https://cl.ly/3c54288fddcd/Image%202018-09-25%20at%2010.15.25%20AM.png" alt=""></p>
+<h3 id="基本颜色"><a href="#基本颜色" class="headerlink" title="基本颜色"></a>基本颜色</h3><p>像素的基本颜色，根据绘制内容的不同而有不同的控制方式： Canvas 的颜色填充类方法  drawColor/RGB/ARGB() 的颜色，是直接写在方法的参数里，通过参数来设置的；  drawBitmap() 的颜色，是直接由 Bitmap 对象来提供的；除此之外，是图形和文字的绘制，它们的颜色就需要使用 paint 参数来额外设置了。</p>
+<p><img src="https://cl.ly/3158d526ca64/Image%202018-09-25%20at%202.14.28%20PM.png" alt=""></p>
+<p>Paint 设置颜色的方法有两种：一种是直接用 Paint.setColor/ARGB() 来设置颜色，另一种是使用 Shader 来指定着色方案。上一篇已经用过第一种了，这里只说第二种。</p>
 <h4 id="setShader-Shader-shader-设置-Shader"><a href="#setShader-Shader-shader-设置-Shader" class="headerlink" title="setShader(Shader shader) 设置 Shader"></a>setShader(Shader shader) 设置 Shader</h4><p>Shader 是着色器的意思，设置的是一个颜色方案，或者说是一套着色规则。当设置了 Shader 之后，Paint 在绘制图形和文字时就不使用  setColor/ARGB() 设置的颜色了，而是使用 Shader 的方案中的颜色。</p>
 <p>Shader 是一个超类，我们主要用的是它的子类，共有5个，分别是 LinearGradient 、 RadialGradient 、 SweepGradient 、 BitmapShader 、 ComposeShader 。</p>
 <h4 id="LinearGradient-线性渐变"><a href="#LinearGradient-线性渐变" class="headerlink" title="LinearGradient 线性渐变"></a>LinearGradient 线性渐变</h4><p>设置两个点和两种颜色，以这两个点作为端点，使用两种颜色的渐变来绘制颜色</p>
@@ -457,9 +465,8 @@ mPaint.setShader(new BitmapShader(BitmapFactory.decodeResource(getResources(),
 R.drawable.batman), Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
 
 canvas.drawCircle(300, 300, 200, mPaint);
-
-![](https://cl.ly/617d6a502924/Image%202018-09-25%20at%204.42.09%20PM.png)
-</code></pre><p>如果你想绘制圆形的 Bitmap，就别用 drawBitmap() 了，改用 drawCircle() + BitmapShader<br>就可以了（其他形状同理）</p>
+</code></pre><p><img src="https://cl.ly/617d6a502924/Image%202018-09-25%20at%204.42.09%20PM.png" alt=""></p>
+<p>如果你想绘制圆形的 Bitmap，就别用 drawBitmap() 了，改用 drawCircle() + BitmapShader<br>就可以了（其他形状同理）</p>
 <h4 id="ComposeShader-混合着色器"><a href="#ComposeShader-混合着色器" class="headerlink" title="ComposeShader 混合着色器"></a>ComposeShader 混合着色器</h4><p>所谓混合，就是把两个 Shader 一起使用</p>
 <p>构造方法：<br>ComposeShader(Shader shaderA, Shader shaderB, PorterDuff.Mode mode)</p>
 <p>参数：<br>shaderA, shaderB：两个相继使用的 Shader<br>mode: 两个 Shader 的叠加模式，即 shaderA 和 shaderB 应该怎样共同绘制。<br>它的类型是 PorterDuff.Mode</p>
@@ -483,12 +490,12 @@ setLayerType(LAYER_TYPE_SOFTWARE,mPaint);
 </ol>
 <p>效果如下：</p>
 <p>源图像和目标图像：</p>
-<pre><code>![](https://cl.ly/17f46d0b89e0/Image%202018-09-26%20at%209.43.37%20AM.png)
-</code></pre><p>Alpha 合成：</p>
-<pre><code>![](https://cl.ly/f0798e3b581c/Image%202018-09-26%20at%209.45.30%20AM.png)
-</code></pre><p>混合，也就是 Photoshop 等制图软件里都有的那些混合模式：</p>
-<pre><code>![](https://cl.ly/3fb80efd8567/Image%202018-09-26%20at%209.48.23%20AM.png)
-</code></pre><h3 id="setColorFilter-ColorFilter-colorFilter"><a href="#setColorFilter-ColorFilter-colorFilter" class="headerlink" title="setColorFilter(ColorFilter colorFilter)"></a>setColorFilter(ColorFilter colorFilter)</h3><p>为绘制设置颜色过滤。颜色过滤的意思，就是为绘制的内容设置一个统一的过滤策略，然后<br>Canvas.drawXXX() 方法会对每个像素都进行过滤后再绘制出来。</p>
+<p><img src="https://cl.ly/17f46d0b89e0/Image%202018-09-26%20at%209.43.37%20AM.png" alt=""></p>
+<p>Alpha 合成：</p>
+<p><img src="https://cl.ly/f0798e3b581c/Image%202018-09-26%20at%209.45.30%20AM.png" alt=""></p>
+<p>混合，也就是 Photoshop 等制图软件里都有的那些混合模式：</p>
+<p><img src="https://cl.ly/3fb80efd8567/Image%202018-09-26%20at%209.48.23%20AM.png" alt=""></p>
+<h3 id="setColorFilter-ColorFilter-colorFilter"><a href="#setColorFilter-ColorFilter-colorFilter" class="headerlink" title="setColorFilter(ColorFilter colorFilter)"></a>setColorFilter(ColorFilter colorFilter)</h3><p>为绘制设置颜色过滤。颜色过滤的意思，就是为绘制的内容设置一个统一的过滤策略，然后<br>Canvas.drawXXX() 方法会对每个像素都进行过滤后再绘制出来。</p>
 <p>在 Paint 里设置 ColorFilter ，使用的是 Paint.setColorFilter(ColorFilter filter) 方法。<br>ColorFilter 并不直接使用，而是使用它的子类。它共有三个子类：LightingColorFilter 、<br>PorterDuffColorFilter 和  ColorMatrixColorFilter 。</p>
 <h4 id="LightingColorFilter"><a href="#LightingColorFilter" class="headerlink" title="LightingColorFilter"></a>LightingColorFilter</h4><p>用来模拟简单的光照效果的。</p>
 <p>LightingColorFilter 的构造方法是 LightingColorFilter(int mul, int add) ，<br>参数里的 mul 和 add 都是和颜色值格式相同的 int 值，其中 mul 用来和目标像素相乘，<br>add 用来和目标像素相加：</p>
@@ -543,9 +550,8 @@ canvas.drawBitmap(batman, 0, 0, mPaint);
 </code></pre><h3 id="setXfermode-Xfermode-xfermode"><a href="#setXfermode-Xfermode-xfermode" class="headerlink" title="setXfermode(Xfermode xfermode)"></a>setXfermode(Xfermode xfermode)</h3><p>Xfermode 指的是你要绘制的内容和 Canvas 的目标位置的内容应该怎样结合计算出最终的颜色。<br>但通俗地说，其实就是要你以绘制的内容作为源图像，以 View 中已有的内容作为目标图像，<br>选取一个  PorterDuff.Mode 作为绘制内容的颜色处理方案。</p>
 <p>创建 Xfermode 的时候其实是创建的它的子类 PorterDuffXfermode。<br>而事实上，Xfermode 也只有这一个子类。</p>
 <p>PorterDuff.Mode 在 Paint 一共有三处 API ，它们的工作原理都一样，只是用途不同：</p>
-<pre><code>![](https://cl.ly/fcf3febddb23/Image%202018-09-27%20at%2010.08.06%20AM.png)
-
-示例代码：
+<p><img src="https://cl.ly/fcf3febddb23/Image%202018-09-27%20at%2010.08.06%20AM.png" alt=""></p>
+<pre><code>示例代码：
 
 Bitmap batman = BitmapFactory.decodeResource(getResources(), R.drawable.batman);
 Bitmap logo = BitmapFactory.decodeResource(getResources(), R.drawable.batman_logo);
