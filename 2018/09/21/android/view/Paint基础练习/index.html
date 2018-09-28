@@ -123,7 +123,9 @@
 <meta property="og:image" content="https://cl.ly/f0798e3b581c/Image%202018-09-26%20at%209.45.30%20AM.png">
 <meta property="og:image" content="https://cl.ly/3fb80efd8567/Image%202018-09-26%20at%209.48.23%20AM.png">
 <meta property="og:image" content="https://cl.ly/fcf3febddb23/Image%202018-09-27%20at%2010.08.06%20AM.png">
-<meta property="og:updated_time" content="2018-09-27T08:15:47.924Z">
+<meta property="og:image" content="https://cl.ly/c698971d931d/paint_base_pratice.gif">
+<meta property="og:image" content="https://cl.ly/a7d8ac668fae/paint_base_pratice2.gif">
+<meta property="og:updated_time" content="2018-09-28T10:35:23.698Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Paint基础练习">
 <meta name="twitter:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Paint 的 API 大致分为4类：  颜色 效果 drawText()相关 初始化  一.颜色Canvas 绘制的内容，有三层对颜色的处理：  基本颜色像素的基本颜色，根据绘制内容的不同而有不同的控制方式： Canvas 的颜色填充类方">
@@ -569,18 +571,18 @@ canvas.restoreToCount(saved);
 <p>setLayerType(LAYER_TYPE_SOFTWARE,mPaint);</p>
 <p>到此为止，前面讲的就是 Paint 的第一类 API——关于颜色的三层设置：直接设置颜色的 API 用来给图形和<br>文字设置颜色； setColorFilter() 用来基于颜色进行过滤处理； setXfermode() 用来处理源图像和<br>View 已有内容的关系。</p>
 <h2 id="二-效果"><a href="#二-效果" class="headerlink" title="二.效果"></a>二.效果</h2><h3 id="线条形状"><a href="#线条形状" class="headerlink" title="线条形状"></a>线条形状</h3><p>设置线条形状的一共有 4 个方法：setStrokeWidth(float width), setStrokeCap(Paint.Cap cap),<br>setStrokeJoin(Paint.Join join), setStrokeMiter(float miter)。</p>
-<h4 id="setStrokeWidth-float-width"><a href="#setStrokeWidth-float-width" class="headerlink" title="setStrokeWidth(float width)"></a>setStrokeWidth(float width)</h4><p>设置线条宽度。单位为像素，默认值是 0</p>
+<h4 id="1-setStrokeWidth-float-width"><a href="#1-setStrokeWidth-float-width" class="headerlink" title="1.setStrokeWidth(float width)"></a>1.setStrokeWidth(float width)</h4><p>设置线条宽度。单位为像素，默认值是 0</p>
 <pre><code>示例代码：
 
 mPaint.setStrokeWidth(20);
 mPaint.setStrokeWidth(100);
-</code></pre><h4 id="setStrokeCap-Paint-Cap-cap"><a href="#setStrokeCap-Paint-Cap-cap" class="headerlink" title="setStrokeCap(Paint.Cap cap)"></a>setStrokeCap(Paint.Cap cap)</h4><p>设置线头的形状。线头形状有三种：BUTT 平头、ROUND 圆头、SQUARE 方头。默认为 BUTT</p>
+</code></pre><h4 id="2-setStrokeCap-Paint-Cap-cap"><a href="#2-setStrokeCap-Paint-Cap-cap" class="headerlink" title="2.setStrokeCap(Paint.Cap cap)"></a>2.setStrokeCap(Paint.Cap cap)</h4><p>设置线头的形状。线头形状有三种：BUTT 平头、ROUND 圆头、SQUARE 方头。默认为 BUTT</p>
 <pre><code>示例代码：
 
 mPaint.setStrokeCap(Paint.Cap.BUTT);
 mPaint.setStrokeCap(Paint.Cap.ROUND);
 mPaint.setStrokeCap(Paint.Cap.SQUARE);
-</code></pre><h4 id="setStrokeJoin-Paint-Join-join"><a href="#setStrokeJoin-Paint-Join-join" class="headerlink" title="setStrokeJoin(Paint.Join join)"></a>setStrokeJoin(Paint.Join join)</h4><p>设置拐角的形状。有三个值可以选择：MITER 尖角、 BEVEL 平角和 ROUND 圆角。默认为 MITER</p>
+</code></pre><h4 id="3-setStrokeJoin-Paint-Join-join"><a href="#3-setStrokeJoin-Paint-Join-join" class="headerlink" title="3.setStrokeJoin(Paint.Join join)"></a>3.setStrokeJoin(Paint.Join join)</h4><p>设置拐角的形状。有三个值可以选择：MITER 尖角、 BEVEL 平角和 ROUND 圆角。默认为 MITER</p>
 <pre><code>示例代码：
 
 canvas.save();
@@ -599,39 +601,39 @@ canvas.drawPath(mPath, mPaint);
 
 canvas.restore();
 </code></pre><h3 id="色彩优化"><a href="#色彩优化" class="headerlink" title="色彩优化"></a>色彩优化</h3><p>Paint 的色彩优化有两个方法： setDither(boolean dither) 和 setFilterBitmap(boolean filter) 。<br>它们的作用都是让画面颜色变得更加「顺眼」，但原理和使用场景是不同的。</p>
-<h4 id="setDither-boolean-dither"><a href="#setDither-boolean-dither" class="headerlink" title="setDither(boolean dither)"></a>setDither(boolean dither)</h4><p>设置图像的抖动，现在不太实用</p>
+<h4 id="1-setDither-boolean-dither"><a href="#1-setDither-boolean-dither" class="headerlink" title="1.setDither(boolean dither)"></a>1.setDither(boolean dither)</h4><p>设置图像的抖动，现在不太实用</p>
 <pre><code>示例代码：
 
 paint.setDither(true);
-</code></pre><h4 id="setFilterBitmap-boolean-filter"><a href="#setFilterBitmap-boolean-filter" class="headerlink" title="setFilterBitmap(boolean filter)"></a>setFilterBitmap(boolean filter)</h4><p>设置是否使用双线性过滤来绘制 Bitmap，图像在放大绘制的时候，默认使用的是最近邻插值过滤，<br>这种算法简单，但会出现马赛克现象；而如果开启了双线性过滤，就可以让结果图像显得更加平滑。</p>
+</code></pre><h4 id="2-setFilterBitmap-boolean-filter"><a href="#2-setFilterBitmap-boolean-filter" class="headerlink" title="2.setFilterBitmap(boolean filter)"></a>2.setFilterBitmap(boolean filter)</h4><p>设置是否使用双线性过滤来绘制 Bitmap，图像在放大绘制的时候，默认使用的是最近邻插值过滤，<br>这种算法简单，但会出现马赛克现象；而如果开启了双线性过滤，就可以让结果图像显得更加平滑。</p>
 <pre><code>示例代码：
 
 paint.setFilterBitmap(true);
 </code></pre><p>以上就是 Paint 的两个色彩优化的方法： setDither(dither) ，设置抖动来优化色彩深度降低时的绘制效果；<br>setFilterBitmap(filterBitmap) ，设置双线性过滤来优化 Bitmap 放大绘制的效果。</p>
 <h3 id="setPathEffect-PathEffect-effect"><a href="#setPathEffect-PathEffect-effect" class="headerlink" title="setPathEffect(PathEffect effect)"></a>setPathEffect(PathEffect effect)</h3><p>使用 PathEffect 来给图形的轮廓设置效果。对 Canvas 所有的图形绘制有效，也就是<br>drawLine() drawCircle() drawPath() 这些方法。</p>
 <p>共有6种 PathEffect 。PathEffect 分为两类，单一效果的 CornerPathEffect 、DiscretePathEffect 、<br>DashPathEffect 、PathDashPathEffect ，和组合效果的 SumPathEffect 、ComposePathEffect。</p>
-<h4 id="CornerPathEffect"><a href="#CornerPathEffect" class="headerlink" title="CornerPathEffect"></a>CornerPathEffect</h4><p>把所有拐角变成圆角。</p>
+<h4 id="1-CornerPathEffect"><a href="#1-CornerPathEffect" class="headerlink" title="1.CornerPathEffect"></a>1.CornerPathEffect</h4><p>把所有拐角变成圆角。</p>
 <p>它的构造方法 CornerPathEffect(float radius) 的参数 radius 是圆角的半径</p>
 <pre><code>示例代码：
 
 PathEffect cornerPathEffect = new CornerPathEffect(20);
 mPaint.setPathEffect(cornerPathEffect);
 canvas.drawPath(mPath, mPaint);
-</code></pre><h4 id="DiscretePathEffect"><a href="#DiscretePathEffect" class="headerlink" title="DiscretePathEffect"></a>DiscretePathEffect</h4><p>把线条进行随机的偏离，让轮廓变得乱七八糟。</p>
+</code></pre><h4 id="2-DiscretePathEffect"><a href="#2-DiscretePathEffect" class="headerlink" title="2.DiscretePathEffect"></a>2.DiscretePathEffect</h4><p>把线条进行随机的偏离，让轮廓变得乱七八糟。</p>
 <p>DiscretePathEffect 具体的做法是，把绘制改为使用定长的线段来拼接，并且在拼接的时候<br>对路径进行随机偏离。它的构造方法 DiscretePathEffect(float segmentLength, float deviation)<br>的两个参数中，segmentLength 是用来拼接的每个线段的长度，deviation 是偏离量。</p>
 <pre><code>示例代码：
 
 PathEffect discretePathEffect = new DiscretePathEffect(20, 5);
 mPaint.setPathEffect(discretePathEffect);
 canvas.drawPath(mPath, mPaint);
-</code></pre><h4 id="DashPathEffect"><a href="#DashPathEffect" class="headerlink" title="DashPathEffect"></a>DashPathEffect</h4><p>使用虚线来绘制线条。</p>
+</code></pre><h4 id="3-DashPathEffect"><a href="#3-DashPathEffect" class="headerlink" title="3.DashPathEffect"></a>3.DashPathEffect</h4><p>使用虚线来绘制线条。</p>
 <p>它的构造方法 DashPathEffect(float[] intervals, float phase) 中， 第一个参数 intervals<br>是一个数组，它指定了虚线的格式：数组中元素必须为偶数（最少是 2 个），按照「画线长度、空白长度、<br>画线长度、空白长度」……的顺序排列，例如上面代码中的 20, 5, 10, 5 就表示虚线是按照「画 20 像素、<br>空 5 像素、画 10 像素、空 5 像素」的模式来绘制；第二个参数 phase 是虚线的偏移量。</p>
 <pre><code>示例代码：
 
 PathEffect dashPathEffect = new DashPathEffect(new float[]{20, 10, 5, 10}, 0);
 mPaint.setPathEffect(dashPathEffect);
 canvas.drawPath(mPath, mPaint);
-</code></pre><h4 id="PathDashPathEffect"><a href="#PathDashPathEffect" class="headerlink" title="PathDashPathEffect"></a>PathDashPathEffect</h4><p>使用一个 Path 来绘制「虚线」。</p>
+</code></pre><h4 id="4-PathDashPathEffect"><a href="#4-PathDashPathEffect" class="headerlink" title="4.PathDashPathEffect"></a>4.PathDashPathEffect</h4><p>使用一个 Path 来绘制「虚线」。</p>
 <p>它的构造方法 PathDashPathEffect(Path shape, float advance, float phase, PathDashPathEffect.Style style) 中，<br>shape 参数是用来绘制的 Path ； advance 是两个相邻的 shape 段之间的间隔，不过注意，这个间隔是两个 shape 段的起点的间隔，<br>而不是前一个的终点和后一个的起点的距离； phase 和 DashPathEffect 中一样，是虚线的偏移；最后一个参数 style，是用来指定<br>拐弯改变的时候 shape 的转换方式。style 的类型为 PathDashPathEffect.Style ，是一个 enum ，具体有三个值：</p>
 <p>TRANSLATE：位移 、ROTATE：旋转、MORPH：变体</p>
 <pre><code>示例代码：
@@ -644,14 +646,14 @@ dashPath.close();
 mPathDashPathEffect = new PathDashPathEffect(dashPath, 50, 0, PathDashPathEffect.Style.MORPH);
 mPaint.setPathEffect(mPathDashPathEffect);
 canvas.drawPath(mPath, mPaint);
-</code></pre><h4 id="SumPathEffect"><a href="#SumPathEffect" class="headerlink" title="SumPathEffect"></a>SumPathEffect</h4><p>这是一个组合效果类的 PathEffect 。它的行为特别简单，就是分别按照两种 PathEffect 分别对目标进行绘制。即有两条线。</p>
+</code></pre><h4 id="5-SumPathEffect"><a href="#5-SumPathEffect" class="headerlink" title="5.SumPathEffect"></a>5.SumPathEffect</h4><p>这是一个组合效果类的 PathEffect 。它的行为特别简单，就是分别按照两种 PathEffect 分别对目标进行绘制。即有两条线。</p>
 <p>构造方法传入两个 PathEffect 对象。</p>
 <pre><code>示例代码：
 
 PathEffect sumPathEffect = new SumPathEffect(dashPathEffect, discretePathEffect);
 mPaint.setPathEffect(sumPathEffect);
 canvas.drawPath(mPath, mPaint);
-</code></pre><h4 id="ComposePathEffect"><a href="#ComposePathEffect" class="headerlink" title="ComposePathEffect"></a>ComposePathEffect</h4><p>这也是一个组合效果类的 PathEffect 。不过它是先对目标 Path 使用一个 PathEffect，然后再对这个改变后<br>的 Path 使用另一个 PathEffect。即只有一条线。</p>
+</code></pre><h4 id="6-ComposePathEffect"><a href="#6-ComposePathEffect" class="headerlink" title="6.ComposePathEffect"></a>6.ComposePathEffect</h4><p>这也是一个组合效果类的 PathEffect 。不过它是先对目标 Path 使用一个 PathEffect，然后再对这个改变后<br>的 Path 使用另一个 PathEffect。即只有一条线。</p>
 <p>构造方法传入两个 PathEffect 对象。 innerpe 是先应用的， outerpe 是后应用的</p>
 <pre><code>示例代码：
 
@@ -703,6 +705,9 @@ canvas.drawBitmap(bitmap, 100, 50, mPaint);
 <pre><code>paint.setAntiAlias(true);  
 paint.setDither(true); 
 </code></pre><p>颜色类、效果类、文字绘制相关以及初始化类。其中颜色类、效果类和初始化类都已经在这节里面讲过了，剩下的一类——文字绘制类，下一节单独讲。</p>
+<p>练习演示：</p>
+<p><img src="https://cl.ly/c698971d931d/paint_base_pratice.gif" alt=""></p>
+<p><img src="https://cl.ly/a7d8ac668fae/paint_base_pratice2.gif" alt=""></p>
 
       
     </div>
@@ -758,6 +763,10 @@ paint.setDither(true);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/28/android/view/绘制文本/" rel="prev" title="Paint绘制文本">
+                Paint绘制文本 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -829,7 +838,7 @@ paint.setDither(true);
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -924,7 +933,7 @@ paint.setDither(true);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-颜色"><span class="nav-number">1.</span> <span class="nav-text">一.颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本颜色"><span class="nav-number">1.1.</span> <span class="nav-text">基本颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setShader-Shader-shader-设置-Shader"><span class="nav-number">1.1.1.</span> <span class="nav-text">setShader(Shader shader) 设置 Shader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinearGradient-线性渐变"><span class="nav-number">1.1.2.</span> <span class="nav-text">LinearGradient 线性渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RadialGradient-辐射渐变"><span class="nav-number">1.1.3.</span> <span class="nav-text">RadialGradient 辐射渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SweepGradient-扫描渐变"><span class="nav-number">1.1.4.</span> <span class="nav-text">SweepGradient 扫描渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BitmapShader-图片着色器"><span class="nav-number">1.1.5.</span> <span class="nav-text">BitmapShader 图片着色器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ComposeShader-混合着色器"><span class="nav-number">1.1.6.</span> <span class="nav-text">ComposeShader 混合着色器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PorterDuff-Mode"><span class="nav-number">1.1.7.</span> <span class="nav-text">PorterDuff.Mode</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setColorFilter-ColorFilter-colorFilter"><span class="nav-number">1.2.</span> <span class="nav-text">setColorFilter(ColorFilter colorFilter)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LightingColorFilter"><span class="nav-number">1.2.1.</span> <span class="nav-text">LightingColorFilter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PorterDuffColorFilter"><span class="nav-number">1.2.2.</span> <span class="nav-text">PorterDuffColorFilter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ColorMatrixColorFilter"><span class="nav-number">1.2.3.</span> <span class="nav-text">ColorMatrixColorFilter</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setXfermode-Xfermode-xfermode"><span class="nav-number">1.3.</span> <span class="nav-text">setXfermode(Xfermode xfermode)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Canvas-saveLayer"><span class="nav-number">1.3.1.</span> <span class="nav-text">Canvas.saveLayer()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-setLayerType"><span class="nav-number">1.3.2.</span> <span class="nav-text">View.setLayerType()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-效果"><span class="nav-number">2.</span> <span class="nav-text">二.效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线条形状"><span class="nav-number">2.1.</span> <span class="nav-text">线条形状</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setStrokeWidth-float-width"><span class="nav-number">2.1.1.</span> <span class="nav-text">setStrokeWidth(float width)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setStrokeCap-Paint-Cap-cap"><span class="nav-number">2.1.2.</span> <span class="nav-text">setStrokeCap(Paint.Cap cap)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setStrokeJoin-Paint-Join-join"><span class="nav-number">2.1.3.</span> <span class="nav-text">setStrokeJoin(Paint.Join join)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#色彩优化"><span class="nav-number">2.2.</span> <span class="nav-text">色彩优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setDither-boolean-dither"><span class="nav-number">2.2.1.</span> <span class="nav-text">setDither(boolean dither)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setFilterBitmap-boolean-filter"><span class="nav-number">2.2.2.</span> <span class="nav-text">setFilterBitmap(boolean filter)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setPathEffect-PathEffect-effect"><span class="nav-number">2.3.</span> <span class="nav-text">setPathEffect(PathEffect effect)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#CornerPathEffect"><span class="nav-number">2.3.1.</span> <span class="nav-text">CornerPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DiscretePathEffect"><span class="nav-number">2.3.2.</span> <span class="nav-text">DiscretePathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#DashPathEffect"><span class="nav-number">2.3.3.</span> <span class="nav-text">DashPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PathDashPathEffect"><span class="nav-number">2.3.4.</span> <span class="nav-text">PathDashPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SumPathEffect"><span class="nav-number">2.3.5.</span> <span class="nav-text">SumPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ComposePathEffect"><span class="nav-number">2.3.6.</span> <span class="nav-text">ComposePathEffect</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setShadowLayer-float-radius-float-dx-float-dy-int-shadowColor"><span class="nav-number">2.4.</span> <span class="nav-text">setShadowLayer(float radius, float dx, float dy, int shadowColor)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setMaskFilter-MaskFilter-maskfilter"><span class="nav-number">2.5.</span> <span class="nav-text">setMaskFilter(MaskFilter maskfilter)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化类"><span class="nav-number">3.</span> <span class="nav-text">初始化类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reset"><span class="nav-number">3.1.</span> <span class="nav-text">reset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-Paint-src"><span class="nav-number">3.2.</span> <span class="nav-text">set(Paint src)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setFlags-int-flags"><span class="nav-number">3.3.</span> <span class="nav-text">setFlags(int flags)</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-颜色"><span class="nav-number">1.</span> <span class="nav-text">一.颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本颜色"><span class="nav-number">1.1.</span> <span class="nav-text">基本颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#setShader-Shader-shader-设置-Shader"><span class="nav-number">1.1.1.</span> <span class="nav-text">setShader(Shader shader) 设置 Shader</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#LinearGradient-线性渐变"><span class="nav-number">1.1.2.</span> <span class="nav-text">LinearGradient 线性渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#RadialGradient-辐射渐变"><span class="nav-number">1.1.3.</span> <span class="nav-text">RadialGradient 辐射渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SweepGradient-扫描渐变"><span class="nav-number">1.1.4.</span> <span class="nav-text">SweepGradient 扫描渐变</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#BitmapShader-图片着色器"><span class="nav-number">1.1.5.</span> <span class="nav-text">BitmapShader 图片着色器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ComposeShader-混合着色器"><span class="nav-number">1.1.6.</span> <span class="nav-text">ComposeShader 混合着色器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PorterDuff-Mode"><span class="nav-number">1.1.7.</span> <span class="nav-text">PorterDuff.Mode</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setColorFilter-ColorFilter-colorFilter"><span class="nav-number">1.2.</span> <span class="nav-text">setColorFilter(ColorFilter colorFilter)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#LightingColorFilter"><span class="nav-number">1.2.1.</span> <span class="nav-text">LightingColorFilter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#PorterDuffColorFilter"><span class="nav-number">1.2.2.</span> <span class="nav-text">PorterDuffColorFilter</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ColorMatrixColorFilter"><span class="nav-number">1.2.3.</span> <span class="nav-text">ColorMatrixColorFilter</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setXfermode-Xfermode-xfermode"><span class="nav-number">1.3.</span> <span class="nav-text">setXfermode(Xfermode xfermode)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Canvas-saveLayer"><span class="nav-number">1.3.1.</span> <span class="nav-text">Canvas.saveLayer()</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#View-setLayerType"><span class="nav-number">1.3.2.</span> <span class="nav-text">View.setLayerType()</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二-效果"><span class="nav-number">2.</span> <span class="nav-text">二.效果</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#线条形状"><span class="nav-number">2.1.</span> <span class="nav-text">线条形状</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-setStrokeWidth-float-width"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.setStrokeWidth(float width)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-setStrokeCap-Paint-Cap-cap"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.setStrokeCap(Paint.Cap cap)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-setStrokeJoin-Paint-Join-join"><span class="nav-number">2.1.3.</span> <span class="nav-text">3.setStrokeJoin(Paint.Join join)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#色彩优化"><span class="nav-number">2.2.</span> <span class="nav-text">色彩优化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-setDither-boolean-dither"><span class="nav-number">2.2.1.</span> <span class="nav-text">1.setDither(boolean dither)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-setFilterBitmap-boolean-filter"><span class="nav-number">2.2.2.</span> <span class="nav-text">2.setFilterBitmap(boolean filter)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setPathEffect-PathEffect-effect"><span class="nav-number">2.3.</span> <span class="nav-text">setPathEffect(PathEffect effect)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-CornerPathEffect"><span class="nav-number">2.3.1.</span> <span class="nav-text">1.CornerPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-DiscretePathEffect"><span class="nav-number">2.3.2.</span> <span class="nav-text">2.DiscretePathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-DashPathEffect"><span class="nav-number">2.3.3.</span> <span class="nav-text">3.DashPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-PathDashPathEffect"><span class="nav-number">2.3.4.</span> <span class="nav-text">4.PathDashPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-SumPathEffect"><span class="nav-number">2.3.5.</span> <span class="nav-text">5.SumPathEffect</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6-ComposePathEffect"><span class="nav-number">2.3.6.</span> <span class="nav-text">6.ComposePathEffect</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setShadowLayer-float-radius-float-dx-float-dy-int-shadowColor"><span class="nav-number">2.4.</span> <span class="nav-text">setShadowLayer(float radius, float dx, float dy, int shadowColor)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setMaskFilter-MaskFilter-maskfilter"><span class="nav-number">2.5.</span> <span class="nav-text">setMaskFilter(MaskFilter maskfilter)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化类"><span class="nav-number">3.</span> <span class="nav-text">初始化类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#reset"><span class="nav-number">3.1.</span> <span class="nav-text">reset()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#set-Paint-src"><span class="nav-number">3.2.</span> <span class="nav-text">set(Paint src)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#setFlags-int-flags"><span class="nav-number">3.3.</span> <span class="nav-text">setFlags(int flags)</span></a></li></ol></li></ol></div>
             
 
           </div>
