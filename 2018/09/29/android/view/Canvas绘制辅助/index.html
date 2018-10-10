@@ -93,7 +93,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="实用,笔记," />
+  <meta name="keywords" content="自定义View,android,绘制," />
 
 
 
@@ -109,17 +109,19 @@
 
 
 
-<meta name="description" content="增长黑客是什么？ 这是一群以数据驱动营销、以市场指导产品，通过技术化手段贯彻增长目    标的人。他们通常既了解技术，又深谙用户心理，擅长发挥创意、绕过限制，通过低成本的手段解决初创公司产品早期的增长问题，这个增长的对象不仅包含用户量的累加，更囊括了产品生命周期中各个阶段的重要指标。  为什么需要增长黑客？增长的目标是什么？根据不同阶段用户参与行为的深度和类型，我们可以将增长目标拆分并概括为一个转">
-<meta name="keywords" content="实用,笔记">
+<meta name="description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Canvas 范围裁切范围裁切有两个方法： clipRect() 和 clipPath()。裁切方法之后的绘制代码，都会被限制在裁切范围内 clipRect()剪切一定的矩形区域，绘制的内容只会显示在该区域内。 //保存状态 canvas.">
+<meta name="keywords" content="自定义View,android,绘制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="增长黑客第一章">
-<meta property="og:url" content="http://yoursite.com/2018/06/06/book_notes/growth_hackers/index.html">
+<meta property="og:title" content="Canvas 绘制辅助">
+<meta property="og:url" content="http://yoursite.com/2018/09/29/android/view/Canvas绘制辅助/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="增长黑客是什么？ 这是一群以数据驱动营销、以市场指导产品，通过技术化手段贯彻增长目    标的人。他们通常既了解技术，又深谙用户心理，擅长发挥创意、绕过限制，通过低成本的手段解决初创公司产品早期的增长问题，这个增长的对象不仅包含用户量的累加，更囊括了产品生命周期中各个阶段的重要指标。  为什么需要增长黑客？增长的目标是什么？根据不同阶段用户参与行为的深度和类型，我们可以将增长目标拆分并概括为一个转">
-<meta property="og:updated_time" content="2018-06-06T10:41:08.672Z">
+<meta property="og:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Canvas 范围裁切范围裁切有两个方法： clipRect() 和 clipPath()。裁切方法之后的绘制代码，都会被限制在裁切范围内 clipRect()剪切一定的矩形区域，绘制的内容只会显示在该区域内。 //保存状态 canvas.">
+<meta property="og:image" content="https://cl.ly/57911ba6424f/Camera%E7%9A%84%E6%A8%A1%E5%9E%8B.jpg">
+<meta property="og:updated_time" content="2018-10-10T09:42:56.929Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="增长黑客第一章">
-<meta name="twitter:description" content="增长黑客是什么？ 这是一群以数据驱动营销、以市场指导产品，通过技术化手段贯彻增长目    标的人。他们通常既了解技术，又深谙用户心理，擅长发挥创意、绕过限制，通过低成本的手段解决初创公司产品早期的增长问题，这个增长的对象不仅包含用户量的累加，更囊括了产品生命周期中各个阶段的重要指标。  为什么需要增长黑客？增长的目标是什么？根据不同阶段用户参与行为的深度和类型，我们可以将增长目标拆分并概括为一个转">
+<meta name="twitter:title" content="Canvas 绘制辅助">
+<meta name="twitter:description" content="参考：https://hencoder.com/ui-1-1/练习github地址：https://github.com/fandazeng/ViewDemo Canvas 范围裁切范围裁切有两个方法： clipRect() 和 clipPath()。裁切方法之后的绘制代码，都会被限制在裁切范围内 clipRect()剪切一定的矩形区域，绘制的内容只会显示在该区域内。 //保存状态 canvas.">
+<meta name="twitter:image" content="https://cl.ly/57911ba6424f/Camera%E7%9A%84%E6%A8%A1%E5%9E%8B.jpg">
 
 
 
@@ -147,13 +149,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/06/book_notes/growth_hackers/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/29/android/view/Canvas绘制辅助/"/>
 
 
 
 
 
-     <title> 增长黑客第一章 | FandaCode </title>
+     <title> Canvas 绘制辅助 | FandaCode </title>
 </head>
 
 
@@ -303,7 +305,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/book_notes/growth_hackers/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/29/android/view/Canvas绘制辅助/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -320,7 +322,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">增长黑客第一章</h1>
+          <h1 class="post-title" itemprop="name headline">Canvas 绘制辅助</h1>
         
 
         <div class="post-meta">
@@ -332,8 +334,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T18:13:41+08:00">
-                2018-06-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-29T09:46:39+08:00">
+                2018-09-29
               </time>
             
 
@@ -355,8 +357,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">我的笔记</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
                   </a>
                 </span>
 
@@ -366,8 +368,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/我的笔记/读书笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">读书笔记</span>
+                  <a href="/categories/android/view/" itemprop="url" rel="index">
+                    <span itemprop="name">view</span>
                   </a>
                 </span>
 
@@ -383,7 +385,7 @@
 
           
           
-             <span id="/2018/06/06/book_notes/growth_hackers/" class="leancloud_visitors" data-flag-title="增长黑客第一章">
+             <span id="/2018/09/29/android/view/Canvas绘制辅助/" class="leancloud_visitors" data-flag-title="Canvas 绘制辅助">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -411,56 +413,140 @@
       
 
       
-        <h1 id="增长黑客是什么？"><a href="#增长黑客是什么？" class="headerlink" title="增长黑客是什么？"></a>增长黑客是什么？</h1><ul>
-<li>这是一群以数据驱动营销、以市场指导产品，通过技术化手段贯彻增长目    标的人。他们通常既了解技术，又深谙用户心理，擅长发挥创意、绕过限制，通过低成本的手段解决初创公司产品早期的增长问题，这个增长的对象不仅包含用户量的累加，更囊括了产品生命周期中各个阶段的重要指标。</li>
-</ul>
-<h1 id="为什么需要增长黑客？"><a href="#为什么需要增长黑客？" class="headerlink" title="为什么需要增长黑客？"></a>为什么需要增长黑客？</h1><h2 id="增长的目标是什么？"><a href="#增长的目标是什么？" class="headerlink" title="增长的目标是什么？"></a>增长的目标是什么？</h2><p>根据不同阶段用户参与行为的深度和类型，我们可以将增长目标拆分并概括为一个转化漏斗模型：</p>
+        <p>参考：<a href="https://hencoder.com/ui-1-4/" target="_blank" rel="external">https://hencoder.com/ui-1-1/</a><br>练习github地址：<a href="https://github.com/fandazeng/ViewDemo" target="_blank" rel="external">https://github.com/fandazeng/ViewDemo</a></p>
+<h1 id="Canvas-范围裁切"><a href="#Canvas-范围裁切" class="headerlink" title="Canvas 范围裁切"></a>Canvas 范围裁切</h1><p>范围裁切有两个方法： clipRect() 和 clipPath()。裁切方法之后的绘制代码，都会被限制在裁切范围内</p>
+<h2 id="clipRect"><a href="#clipRect" class="headerlink" title="clipRect()"></a>clipRect()</h2><p>剪切一定的矩形区域，绘制的内容只会显示在该区域内。</p>
+<pre><code>//保存状态
+canvas.save();
+
+canvas.clipRect(550, 450, 800, 1000);
+canvas.drawBitmap(mBitmap,500,400,mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><h2 id="clipPath"><a href="#clipPath" class="headerlink" title="clipPath()"></a>clipPath()</h2><p>其实和 clipRect() 用法完全一样，只是把参数换成了 Path ，所以能裁切的形状更多一些。</p>
+<pre><code>//设置填充的类型
+mPath2.setFillType(Path.FillType.INVERSE_WINDING);
+mPath2.addCircle(800, 500, 200, Path.Direction.CW);
+
+//保存状态
+canvas.save();
+canvas.clipPath(mPath2);
+canvas.drawBitmap(mBitmap, 800, 200, mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><h1 id="Canvas-几何变换"><a href="#Canvas-几何变换" class="headerlink" title="Canvas 几何变换"></a>Canvas 几何变换</h1><p>几何变换的使用大概分为三类：</p>
 <ul>
-<li><p>（用户量）：获取用户，指让潜在用户首次接触到产品，或者可以更宽泛地理解为“吸引流量”、“用户量增长”（通过搜索引擎，广告，媒体等方式）。</p>
-<p>  饭馆类比：发传单，开展免费试吃活动，邀请当地的美食节目拍摄一期宣传特辑等。</p>
-</li>
-<li><p>（活跃度）：激发活跃，获取到用户后下一步是引导用户完成某些“指定动作”，使之成为长期活跃的忠实用户（填写一份表单、下载一个软件、发表一篇内容、上传一张照片，或是任何促使他们正确而高效使用产品的行为）。</p>
-<p>  饭馆类比：服务员主动引导，让顾客马上明白：哪里有空位可以就座，从何处获取菜单，如何使用优惠券，怎样办理会员卡等。</p>
-</li>
-<li><p>（留存率）：提高留存，产品缺乏黏性，导致的结果是，一方面新用户不断涌入，另一方面他们又迅速流失（通过提高产品粘性，真正做用户需要、解决痛点的产品）。</p>
-<p>  饭馆类比：物美价廉、独具特色，或者在某方面有别人难以复制的核心优势，那么顾客就愿意反复光临，“一锤子买卖”在市场上难以立足，要成为一家百年老店。</p>
-</li>
-<li><p>（盈利率）：增加收入，商业主体都是逐利的，绝大多数创业者最关心的就是收入，即使是互联网时代的免费产品，也应该有其盈利模式。（直接向用户收费，通过广告展示、业务分成等方式向其他利益方收取费用）</p>
-<p>  饭馆类比：制定营销策略、拓展外送业务、提高用餐高峰期翻台率等。</p>
-</li>
-<li><p>（传播率）：传播推荐，通过社交网络这种低成本的方式传递等（口碑的力量是无穷的，来自熟人的好评往往比广告更具说服力）</p>
-<p>  饭馆类比：一家饭馆是否足够有人气，就看有多少顾客愿意主动向身边的朋友推荐。</p>
-</li>
+<li>使用 Canvas 来做常见的二维变换；</li>
+<li>使用 Matrix 来做常见和不常见的二维变换；</li>
+<li>使用 Camera 来做三维变换。</li>
 </ul>
-<h4 id="总结：这是一条螺旋上升的产品使用周期闭环。"><a href="#总结：这是一条螺旋上升的产品使用周期闭环。" class="headerlink" title="总结：这是一条螺旋上升的产品使用周期闭环。"></a>总结：这是一条螺旋上升的产品使用周期闭环。</h4><h2 id="职责是什么？"><a href="#职责是什么？" class="headerlink" title="职责是什么？"></a>职责是什么？</h2><ul>
-<li><p>通过不断地“头脑风暴-排定优先级-测试-分析-常态化部署”来优化产品策略，减少这当中每个环节的不必要损耗于用户关系的病毒传播，提高转化效率，从而不断扩大自己用户群体的数量和质量。</p>
-</li>
-<li><p>营销费用水涨船高，对于成本吃紧的初创团队而言，大量的经费投入是无法负担的，寻求砸钱之外的突破口就成为当务之急。而增长黑客懂得产品的核心价值，能用最简单的语言描述这个产品是什么、解决什么问题，在此基础上清晰定位有关增长的问题，并寻求解答。</p>
-</li>
-</ul>
-<h2 id="特质是什么？"><a href="#特质是什么？" class="headerlink" title="特质是什么？"></a>特质是什么？</h2><ul>
-<li><p>数据为王，没有数据就没有比较，没有比较就没有进步。增长黑客的一切工作都是建立在数据分析的指导之上，而非拍脑门式地碰运气。增长黑客需要在纷繁复杂的数字中抽丝剥茧，抓住问题的本质。</p>
-</li>
-<li><p>专注目标，增长黑客的工作必须时刻围绕增长展开，但有时通往目标的道路处于一团迷雾之中，并没有现成的套路和方法论可以直接借鉴。增长黑客必须自己设法找到破解的途径。整个过程可能冗长而沉闷，需经历不断地测试、改进、学习、再测试，这要求相当强的毅力和抗压能力。</p>
-</li>
-<li><p>关注细节，任何一处细微的改动，都可能对产品全局的增长造成影响，需要对这些看似微不足道的改动作出评估，通盘衡量得失，甚至决定某个功能是否应当上线。（如果新上线的功能会让我们的访问速度跌落30％，这时候就要充分考虑。相反，如果每个月都设法在某一方面优化10％，那么一年后将会产生高达3倍的显著提升）</p>
-</li>
-<li><p>富于创意，一方面，通过缜密的分析衡量自己的想法是否可行，另一方面，天马行空地提出解决问题的方案构想。（比如“博客小挂件”，访问量剧增）</p>
-</li>
-<li><p>信息通透，一方面深入理解自己产品用户的活跃渠道，扎根建立环环相扣的转化漏洞；另一方面抬眼看世界，时刻掌握海内外最新的产品和市场动向，尤其关注新生渠道和业界趋势。</p>
-</li>
-</ul>
-<h2 id="成功案例（Twitter）"><a href="#成功案例（Twitter）" class="headerlink" title="成功案例（Twitter）"></a>成功案例（Twitter）</h2><p>最早的着陆页由一家外包公司负责设计，页面上包含了大量繁杂的元素，如热门话题、用户头像、搜索框等。而注册和登录按钮则挤在一个极不起眼的角落里。</p>
-<p>措施：</p>
+<h2 id="Canvas-二维变换"><a href="#Canvas-二维变换" class="headerlink" title="Canvas 二维变换"></a>Canvas 二维变换</h2><h3 id="1-Canvas-translate-float-dx-float-dy-平移"><a href="#1-Canvas-translate-float-dx-float-dy-平移" class="headerlink" title="1.Canvas.translate(float dx, float dy) 平移"></a>1.Canvas.translate(float dx, float dy) 平移</h3><p>参数里的 dx 和 dy 表示横向和纵向的位移，位移是基于当前位置移动，而不是每次基于屏幕左上角的(0,0)点移动。</p>
+<pre><code>//保存状态
+canvas.save();
+
+canvas.translate(450,200);
+canvas.drawBitmap(mBitmap,400,300,mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><h3 id="2-Canvas-rotate-float-degrees-float-px-float-py-旋转"><a href="#2-Canvas-rotate-float-degrees-float-px-float-py-旋转" class="headerlink" title="2.Canvas.rotate(float degrees, float px, float py) 旋转"></a>2.Canvas.rotate(float degrees, float px, float py) 旋转</h3><p>参数里的 degrees 是旋转角度，单位是度（也就是一周有 360° 的那个单位），方向是顺时针为正向； px 和 py 是轴心的位置。</p>
+<pre><code>//保存状态
+canvas.save();
+
+//代码顺序要跟绘制顺序相反，实际效果是先平移后旋转的
+canvas.rotate(45f, 800 + mBitmap.getWidth() / 2, 300 + mBitmap.getHeight() / 2);
+canvas.translate(500, 0);
+canvas.drawBitmap(mBitmap, 400, 300, mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><h3 id="3-Canvas-scale-float-sx-float-sy-float-px-float-py-缩放"><a href="#3-Canvas-scale-float-sx-float-sy-float-px-float-py-缩放" class="headerlink" title="3.Canvas.scale(float sx, float sy, float px, float py) 缩放"></a>3.Canvas.scale(float sx, float sy, float px, float py) 缩放</h3><p>参数里的 sx sy 是横向和纵向的放缩倍数； px py 是缩放的轴心。缩放的源码如下：</p>
+<pre><code>public final void scale(float sx, float sy, float px, float py) {
+    translate(px, py);
+    scale(sx, sy);
+    translate(-px, -py);
+}
+</code></pre><p>实现方式为：先平移到缩放中心点，缩放完成后再平移回去，默认缩放轴心是原点。</p>
+<pre><code>//保存状态
+canvas.save();
+
+//代码顺序要跟绘制顺序相反，实际效果是先平移后缩放的
+//canvas.scale(1.3f,1.3f,900 + mBitmap.getWidth() / 2, 300 + mBitmap.getHeight() / 2);
+canvas.scale(1.3f,1.3f,900 , 300);
+canvas.translate(500, 0);
+canvas.drawBitmap(mBitmap, 400, 300, mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><h3 id="4-skew-float-sx-float-sy-错切"><a href="#4-skew-float-sx-float-sy-错切" class="headerlink" title="4.skew(float sx, float sy) 错切"></a>4.skew(float sx, float sy) 错切</h3><p>参数里的 sx 和 sy 是 x 方向和 y 方向的错切系数。</p>
+<pre><code>//保存状态
+canvas.save();
+canvas.skew(0.5f,0f);
+canvas.drawBitmap(mBitmap, 100, 300, mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><h2 id="使用-Matrix-来做常见变换"><a href="#使用-Matrix-来做常见变换" class="headerlink" title="使用 Matrix 来做常见变换"></a>使用 Matrix 来做常见变换</h2><p>步骤：</p>
 <ol>
-<li><p>砍掉了热门微博和搜索框，减少了用户头像的显示面积，精简了文案，而将需要重点突出的登录注册区域扩大到占据整个页面的三分之一，以便让用户的注意力聚焦到这里，24小时内用户注册率提升了约250％。</p>
+<li>创建 Matrix 对象</li>
+<li>调用 Matrix 的 pre/postTranslate/Rotate/Scale/Skew() 方法来设置几何变换</li>
+<li>使用 Canvas.setMatrix(matrix) 或 Canvas.concat(matrix) 来把几何变换应用到 Canvas</li>
+</ol>
+<p>把 Matrix 应用到 Canvas 有两个方法： Canvas.setMatrix(matrix) 和 Canvas.concat(matrix)。</p>
+<ol>
+<li><p>Canvas.setMatrix(matrix)：用 Matrix 直接替换 Canvas 当前的变换矩阵，即抛弃 Canvas 当前的变换，改用 Matrix 的变换。</p>
 </li>
-<li><p>每当有新用户注册，立即向他们推荐关注至少10个用户。这样一来，新用户的时间轴不至于空空如也，不知道该做些什么。当确保他们有东西可看时，用户的活跃度和留存率便自然提高了。</p>
-</li>
-<li><p>每当用户又获得了一名新粉丝，或是一条微博被转发收藏，就会在第一时间收到邮件提醒，邀请他们回到Twitter来一看究竟。</p>
+<li><p>Canvas.concat(matrix)：用 Canvas 当前的变换矩阵和 Matrix 相乘，即基于 Canvas 当前的变换，叠加上 Matrix 中的变换。</p>
 </li>
 </ol>
+<p>示例代码：</p>
+<pre><code>Matrix matrix = new Matrix();
+matrix.postTranslate(450, 200);
+matrix.postSkew(0.5f, 0f);    
+matrix.preTranslate(500, 0);
+matrix.postScale(1.2f, 1.2f, 800 + mBitmap.getWidth() / 2, 300 + mBitmap.getHeight() / 2);
+matrix.postRotate(45f, 800 + mBitmap.getWidth() / 2, 300 + mBitmap.getHeight() / 2);
 
+//保存状态
+canvas.save();
+canvas.concat(matrix);
+canvas.drawBitmap(mBitmap, 400, 300, mPaint);
+
+//恢复绘制范围
+canvas.restore();
+</code></pre><p>pre开头的方法是先调用，post开头的方法是后调用的。</p>
+<h2 id="使用-Camera-来做三维变换"><a href="#使用-Camera-来做三维变换" class="headerlink" title="使用 Camera 来做三维变换"></a>使用 Camera 来做三维变换</h2><p>Camera 的三维变换有三类：旋转、平移、移动相机。它的模型如下：</p>
+<p><img src="https://cl.ly/57911ba6424f/Camera%E7%9A%84%E6%A8%A1%E5%9E%8B.jpg" alt=""></p>
+<h3 id="Camera-rotate-三维旋转"><a href="#Camera-rotate-三维旋转" class="headerlink" title="Camera.rotate*() 三维旋转"></a>Camera.rotate*() 三维旋转</h3><p>Camera.rotate*() 一共有四个方法： rotateX(deg) rotateY(deg) rotateZ(deg) rotate(x, y, z)</p>
+<pre><code>//保存状态
+canvas.save();
+
+mCamera.save();
+mCamera.rotate(30,0,0);
+mCamera.applyToCanvas(canvas);
+mCamera.restore();
+
+canvas.drawBitmap(mBitmap,300,100,mPaint);
+//恢复绘制范围
+canvas.restore();
+</code></pre><p>如果你需要图形左右对称，需要配合上 Canvas.translate()，在三维旋转之前把绘制内容的中心点移动到原点，即旋转的轴心，然后在三维旋转后再把投影移动回来：</p>
+<pre><code>//保存状态
+canvas.save();
+
+//canvas的变换操作要反着写，理解的时候反序理解就行了
+
+mCamera.save(); //保存 Camera 的状态
+mCamera.rotateX(20);    //沿X轴旋转 Camera的三维空间
+canvas.translate(300 + mBitmap.getWidth() / 2, 100 + mBitmap.getHeight()/2);  //旋转之后把投影移动回来
+mCamera.applyToCanvas(canvas);  //把旋转投影投影到Canvas
+canvas.translate(-300 - mBitmap.getWidth() / 2, -100 - mBitmap.getHeight()/2); //旋转之前把绘制内容移动到轴心（原点）
+mCamera.restore(); //恢复 Camera 状态
+canvas.drawBitmap(mBitmap, 300, 100, mPaint);
+//恢复绘制范围
+canvas.restore();
+</code></pre>
       
     </div>
 
@@ -489,9 +575,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/实用/" rel="tag"><i class="fa fa-tag"></i> 实用</a>
+            <a href="/tags/自定义View/" rel="tag"><i class="fa fa-tag"></i> 自定义View</a>
           
-            <a href="/tags/笔记/" rel="tag"><i class="fa fa-tag"></i> 笔记</a>
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/绘制/" rel="tag"><i class="fa fa-tag"></i> 绘制</a>
           
         </div>
       
@@ -504,8 +592,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/16/gradle/gradle_fivth/" rel="next" title="Gradle 插件">
-                <i class="fa fa-chevron-left"></i> Gradle 插件
+              <a href="/2018/09/28/android/view/绘制文本/" rel="next" title="Paint绘制文本">
+                <i class="fa fa-chevron-left"></i> Paint绘制文本
               </a>
             
           </div>
@@ -513,10 +601,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/18/python/python基础/" rel="prev" title="Python基础">
-                Python基础 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -683,7 +767,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#增长黑客是什么？"><span class="nav-number">1.</span> <span class="nav-text">增长黑客是什么？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#为什么需要增长黑客？"><span class="nav-number">2.</span> <span class="nav-text">为什么需要增长黑客？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#增长的目标是什么？"><span class="nav-number">2.1.</span> <span class="nav-text">增长的目标是什么？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#总结：这是一条螺旋上升的产品使用周期闭环。"><span class="nav-number">2.1.0.1.</span> <span class="nav-text">总结：这是一条螺旋上升的产品使用周期闭环。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#职责是什么？"><span class="nav-number">2.2.</span> <span class="nav-text">职责是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特质是什么？"><span class="nav-number">2.3.</span> <span class="nav-text">特质是什么？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成功案例（Twitter）"><span class="nav-number">2.4.</span> <span class="nav-text">成功案例（Twitter）</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Canvas-范围裁切"><span class="nav-number">1.</span> <span class="nav-text">Canvas 范围裁切</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#clipRect"><span class="nav-number">1.1.</span> <span class="nav-text">clipRect()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#clipPath"><span class="nav-number">1.2.</span> <span class="nav-text">clipPath()</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Canvas-几何变换"><span class="nav-number">2.</span> <span class="nav-text">Canvas 几何变换</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Canvas-二维变换"><span class="nav-number">2.1.</span> <span class="nav-text">Canvas 二维变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Canvas-translate-float-dx-float-dy-平移"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.Canvas.translate(float dx, float dy) 平移</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Canvas-rotate-float-degrees-float-px-float-py-旋转"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.Canvas.rotate(float degrees, float px, float py) 旋转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Canvas-scale-float-sx-float-sy-float-px-float-py-缩放"><span class="nav-number">2.1.3.</span> <span class="nav-text">3.Canvas.scale(float sx, float sy, float px, float py) 缩放</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-skew-float-sx-float-sy-错切"><span class="nav-number">2.1.4.</span> <span class="nav-text">4.skew(float sx, float sy) 错切</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Matrix-来做常见变换"><span class="nav-number">2.2.</span> <span class="nav-text">使用 Matrix 来做常见变换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Camera-来做三维变换"><span class="nav-number">2.3.</span> <span class="nav-text">使用 Camera 来做三维变换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Camera-rotate-三维旋转"><span class="nav-number">2.3.1.</span> <span class="nav-text">Camera.rotate*() 三维旋转</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
