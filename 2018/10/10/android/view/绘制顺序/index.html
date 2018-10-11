@@ -93,7 +93,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="脚本语言," />
+  <meta name="keywords" content="自定义View,android,绘制," />
 
 
 
@@ -109,17 +109,27 @@
 
 
 
-<meta name="description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
-<meta name="keywords" content="脚本语言">
+<meta name="description" content="参考：https://hencoder.com/ui-1-5/练习github地址：https://github.com/fandazeng/ViewDemo 在实际的项目中，我们绘制的内容需要考虑绘制的顺序，绘制内容相互遮盖的情况是很普遍的。 1. super.onDraw() 前 or 后？如果我们自定义View ，是通过直接继承 View 类,然后重写它的 onDraw() 方法,那么绘制代">
+<meta name="keywords" content="自定义View,android,绘制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Python函数">
-<meta property="og:url" content="http://yoursite.com/2018/07/20/python/python方法/index.html">
+<meta property="og:title" content="Canvas 绘制顺序">
+<meta property="og:url" content="http://yoursite.com/2018/10/10/android/view/绘制顺序/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
-<meta property="og:updated_time" content="2018-08-21T07:03:28.934Z">
+<meta property="og:description" content="参考：https://hencoder.com/ui-1-5/练习github地址：https://github.com/fandazeng/ViewDemo 在实际的项目中，我们绘制的内容需要考虑绘制的顺序，绘制内容相互遮盖的情况是很普遍的。 1. super.onDraw() 前 or 后？如果我们自定义View ，是通过直接继承 View 类,然后重写它的 onDraw() 方法,那么绘制代">
+<meta property="og:image" content="https://cl.ly/6ff3888c744a/afterOnDraw.jpg">
+<meta property="og:image" content="https://cl.ly/c3072fa0bc91/beforeOnDraw.jpg">
+<meta property="og:image" content="https://cl.ly/dba63419dd0c/dispatchDraw.jpg">
+<meta property="og:image" content="https://cl.ly/1e2f1ff66053/drawProcess.jpg">
+<meta property="og:image" content="https://cl.ly/224264530f86/afterForeground.jpg">
+<meta property="og:image" content="https://cl.ly/b2a04a8fa9f8/beforeForeground.jpg">
+<meta property="og:image" content="https://cl.ly/f168b8c94547/drawProcess2.jpg">
+<meta property="og:image" content="https://cl.ly/75399417cb9d/beforeDraw.jpg">
+<meta property="og:image" content="https://cl.ly/515a35398393/drawProcess3.jpg">
+<meta property="og:updated_time" content="2018-10-11T02:37:22.269Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Python函数">
-<meta name="twitter:description" content="三元运算# 书写格式 result = 值1 if 条件 else 值2 # 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量 比如： result = &amp;quot;good&amp;quot; if 1 &amp;gt; 0 else &amp;quot;well&amp;quot; print(result) 输出结果： good 深浅拷贝对于 数字 和 字符串 而言，赋值、浅拷">
+<meta name="twitter:title" content="Canvas 绘制顺序">
+<meta name="twitter:description" content="参考：https://hencoder.com/ui-1-5/练习github地址：https://github.com/fandazeng/ViewDemo 在实际的项目中，我们绘制的内容需要考虑绘制的顺序，绘制内容相互遮盖的情况是很普遍的。 1. super.onDraw() 前 or 后？如果我们自定义View ，是通过直接继承 View 类,然后重写它的 onDraw() 方法,那么绘制代">
+<meta name="twitter:image" content="https://cl.ly/6ff3888c744a/afterOnDraw.jpg">
 
 
 
@@ -147,13 +157,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/20/python/python方法/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/10/android/view/绘制顺序/"/>
 
 
 
 
 
-     <title> Python函数 | FandaCode </title>
+     <title> Canvas 绘制顺序 | FandaCode </title>
 </head>
 
 
@@ -303,7 +313,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/20/python/python方法/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/android/view/绘制顺序/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -320,7 +330,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Python函数</h1>
+          <h1 class="post-title" itemprop="name headline">Canvas 绘制顺序</h1>
         
 
         <div class="post-meta">
@@ -332,8 +342,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-20T14:19:21+08:00">
-                2018-07-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T18:07:59+08:00">
+                2018-10-10
               </time>
             
 
@@ -355,8 +365,19 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/python/" itemprop="url" rel="index">
-                    <span itemprop="name">python</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/view/" itemprop="url" rel="index">
+                    <span itemprop="name">view</span>
                   </a>
                 </span>
 
@@ -372,7 +393,7 @@
 
           
           
-             <span id="/2018/07/20/python/python方法/" class="leancloud_visitors" data-flag-title="Python函数">
+             <span id="/2018/10/10/android/view/绘制顺序/" class="leancloud_visitors" data-flag-title="Canvas 绘制顺序">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -400,199 +421,134 @@
       
 
       
-        <h2 id="三元运算"><a href="#三元运算" class="headerlink" title="三元运算"></a>三元运算</h2><pre><code># 书写格式
-result = 值1 if 条件 else 值2
-# 如果条件成立，那么将 “值1” 赋值给result变量，否则，将“值2”赋值给result变量
-</code></pre><p>比如：</p>
-<pre><code>result = &quot;good&quot; if 1 &gt; 0 else &quot;well&quot;
-print(result)
-</code></pre><p>输出结果：</p>
-<pre><code>good
-</code></pre><h2 id="深浅拷贝"><a href="#深浅拷贝" class="headerlink" title="深浅拷贝"></a>深浅拷贝</h2><p>对于 数字 和 字符串 而言，赋值、浅拷贝和深拷贝无意义，因为其永远指向同一个内存地址。对于字典、元祖、列表 而言，进行赋值、浅拷贝和深拷贝时，其内存地址的变化是不同的。</p>
-<p>浅拷贝，在内存中只额外创建第一层数据。<br>深拷贝，在内存中将所有的数据重新创建一份（排除最后一层，即：python内部对字符串和数字的优化）</p>
-<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ol>
-<li><p>定义函数 </p>
-<p>  def 函数名(形参，形参，形参):<br>  函数体<br>  return ‘###’</p>
+        <p>参考：<a href="https://hencoder.com/ui-1-5/" target="_blank" rel="external">https://hencoder.com/ui-1-5/</a><br>练习github地址：<a href="https://github.com/fandazeng/ViewDemo" target="_blank" rel="external">https://github.com/fandazeng/ViewDemo</a></p>
+<p>在实际的项目中，我们绘制的内容需要考虑绘制的顺序，绘制内容相互遮盖的情况是很普遍的。</p>
+<h2 id="1-super-onDraw-前-or-后？"><a href="#1-super-onDraw-前-or-后？" class="headerlink" title="1. super.onDraw() 前 or 后？"></a>1. super.onDraw() 前 or 后？</h2><p>如果我们自定义View ，是通过直接继承 View 类,然后重写它的 onDraw() 方法,那么绘制代码写在 super.onDraw() 的上面还是下面都无所谓。甚至，你把 super.onDraw() 这行代码删掉都没关系，效果都是一样的——因为在 View 这个类里，onDraw() 本来就是空实现，就是要给子类实现的。但是如果继承自具有某种功能的控件，去重写它的 onDraw() ，在里面添加一些绘制代码，做出一个「进化版」的控件，就要考虑你的绘制代码是应该写在 super.onDraw() 的上面还是下面了。</p>
+<h3 id="1-1-写在-super-onDraw-的下面"><a href="#1-1-写在-super-onDraw-的下面" class="headerlink" title="1.1 写在 super.onDraw() 的下面"></a>1.1 写在 super.onDraw() 的下面</h3><p>把绘制代码写在 super.onDraw() 的下面，由于绘制代码会在原有内容绘制结束之后才执行，所以绘制内容就会盖住控件原来的内容。</p>
+<pre><code> @Override
+protected void onDraw(Canvas canvas) {
+    super.onDraw(canvas);
+    //代码写在后面
+    if (BuildConfig.DEBUG) {
+        // 在DEBUG模式下绘制出 drawable 的尺寸信息
+        Drawable drawable = getDrawable();
+        if (drawable != null) {
+            canvas.save();
+            canvas.concat(getImageMatrix());
+            Rect bounds = drawable.getBounds();
+            canvas.drawText(getResources().getString(R.string.image_size, bounds.width(), bounds.height()), 20, 40, mPaint);
+            canvas.restore();
+        }
+    }
+}
+</code></pre><p><img src="https://cl.ly/6ff3888c744a/afterOnDraw.jpg" alt=""></p>
+<h3 id="1-2-写在-super-onDraw-的上面"><a href="#1-2-写在-super-onDraw-的上面" class="headerlink" title="1.2 写在 super.onDraw() 的上面"></a>1.2 写在 super.onDraw() 的上面</h3><p>由于绘制代码会执行在原有内容的绘制之前，所以绘制的内容会被控件的原内容盖住。</p>
+<pre><code>@Override
+protected void onDraw(Canvas canvas) {
+    //代码写在前面
+
+    //行数索引从0开始
+    Layout layout = getLayout();
+    mRectF.left = layout.getLineLeft(1) + getPaddingLeft();
+    mRectF.top = layout.getLineTop(1);
+    mRectF.right = layout.getLineRight(1) + getPaddingLeft();
+    mRectF.bottom = layout.getLineBottom(1);
+
+    canvas.drawRect(mRectF, mPaint);
+
+    mRectF.left = layout.getLineLeft(layout.getLineCount() - 4) + getPaddingLeft();
+    mRectF.top = layout.getLineTop(layout.getLineCount() - 4);
+    mRectF.right = layout.getLineRight(layout.getLineCount() - 4) + getPaddingLeft();
+    mRectF.bottom = layout.getLineBottom(layout.getLineCount() - 4);
+
+    canvas.drawRect(mRectF, mPaint);
+
+    super.onDraw(canvas);
+}
+</code></pre><p><img src="https://cl.ly/c3072fa0bc91/beforeOnDraw.jpg" alt=""></p>
+<h2 id="2-dispatchDraw-：绘制子-View-的方法"><a href="#2-dispatchDraw-：绘制子-View-的方法" class="headerlink" title="2 dispatchDraw()：绘制子 View 的方法"></a>2 dispatchDraw()：绘制子 View 的方法</h2><p>在绘制过程中，每一个 ViewGroup 会先调用自己的 onDraw() 来绘制完自己的主体之后再去绘制它的子 View。虽然 View 和 ViewGroup 都有 dispatchDraw() 方法，不过由于 View 是没有子 View 的，所以一般来说 dispatchDraw() 这个方法只对 ViewGroup（以及它的子类）有意义。</p>
+<p> @Override<br>    protected void dispatchDraw(Canvas canvas) {<br>        super.dispatchDraw(canvas);</p>
+<pre><code>    // 在superr后面绘制斑点
+    mPattern.draw(canvas);
+}
+</code></pre><p><img src="https://cl.ly/dba63419dd0c/dispatchDraw.jpg" alt=""></p>
+<p>如果在 onDraw() 方法中绘制内容，绘制子View时，会覆盖之前的绘制内容。写在 super.dispatchDraw() 的上面和写在 super.onDraw() 之后的做法是一样的效果。</p>
+<h2 id="3-绘制过程简述"><a href="#3-绘制过程简述" class="headerlink" title="3 绘制过程简述"></a>3 绘制过程简述</h2><p>一个完整的绘制过程会依次绘制以下几个内容：</p>
+<ol>
+<li>背景</li>
+<li>主体（onDraw()）</li>
+<li>子 View（dispatchDraw()）</li>
+<li>滑动边缘渐变和滑动条</li>
+<li>前景</li>
+</ol>
+<p>第 1 步——背景，它的绘制发生在一个叫 drawBackground() 的方法里，但这个方法是 private 的，不能重写，你如果要设置背景，只能用自带的 API 去设置（xml 布局文件的 android:background 属性以及 Java 代码的 View.setBackgroundXxx() 方法），而不能自定义绘制；而第 4、5 两步——滑动边缘渐变和滑动条以及前景，这两部分被合在一起放在了 onDrawForeground() 方法里，这个方法是可以重写的。<br>需要注意，前景的支持是在 Android 6.0（也就是 API 23）才加入的。</p>
+<p>滑动边缘渐变和滑动条可以通过 xml 的 android:scrollbarXXX 系列属性或 Java 代码的  View.setXXXScrollbarXXX() 系列方法来设置；前景可以通过 xml 的 android:foreground 属性或 Java 代码的  View.setForeground() 方法来设置。</p>
+<p><img src="https://cl.ly/1e2f1ff66053/drawProcess.jpg" alt=""></p>
+<h2 id="4-1-写在-super-onDrawForeground-的下面"><a href="#4-1-写在-super-onDrawForeground-的下面" class="headerlink" title="4.1 写在 super.onDrawForeground() 的下面"></a>4.1 写在 super.onDrawForeground() 的下面</h2><p>绘制代码会在滑动边缘渐变、滑动条和前景之后被执行，那么绘制内容将会盖住滑动边缘渐变、滑动条和前景。</p>
+<pre><code>@Override
+public void onDrawForeground(Canvas canvas) {
+    super.onDrawForeground(canvas);
+
+    //这个方法在api23以上才有效
+
+    //代码写在后面
+    if (BuildConfig.DEBUG) {
+        // 在DEBUG模式下绘制出 drawable 的尺寸信息
+        Drawable drawable = getDrawable();
+        if (drawable != null) {
+            canvas.save();
+            canvas.concat(getImageMatrix());
+            canvas.drawRect(0,10,100,50,mPaint);
+            mPaint.setColor(Color.WHITE);
+            canvas.drawText(&quot;NEW&quot;, 20, 40, mPaint);
+            canvas.restore();
+        }
+    }
+}
+</code></pre><p><img src="https://cl.ly/224264530f86/afterForeground.jpg" alt=""></p>
+<h2 id="4-2-写在-super-onDrawForeground-的上面"><a href="#4-2-写在-super-onDrawForeground-的上面" class="headerlink" title="4.2 写在 super.onDrawForeground() 的上面"></a>4.2 写在 super.onDrawForeground() 的上面</h2><pre><code>@Override
+public void onDrawForeground(Canvas canvas) {
+    //这个方法在api23以上才有效
+
+    //代码写在后面
+    if (BuildConfig.DEBUG) {
+        // 在DEBUG模式下绘制出 drawable 的尺寸信息
+        Drawable drawable = getDrawable();
+        if (drawable != null) {
+            canvas.save();
+            canvas.concat(getImageMatrix());
+            canvas.drawRect(0,10,100,50,mPaint);
+            mPaint.setColor(Color.WHITE);
+            canvas.drawText(&quot;NEW&quot;, 20, 40, mPaint);
+            canvas.restore();
+        }
+    }
+
+    super.onDrawForeground(canvas);
+}
+</code></pre><p><img src="https://cl.ly/b2a04a8fa9f8/beforeForeground.jpg" alt=""></p>
+<h2 id="5-draw-总调度方法"><a href="#5-draw-总调度方法" class="headerlink" title="5 draw() 总调度方法"></a>5 draw() 总调度方法</h2><p>onDraw() dispatchDraw() onDrawForeground() 这三个方法在 draw() 中被依次调用，因此它们的遮盖关系也就像前面所说的——dispatchDraw() 绘制的内容盖住 onDraw() 绘制的内容；onDrawForeground() 绘制的内容盖住 dispatchDraw() 绘制的内容。而在它们的外部，则是由 draw() 这个方法作为总的调度。所以，你也可以重写 draw() 方法来做自定义的绘制。</p>
+<p><img src="https://cl.ly/f168b8c94547/drawProcess2.jpg" alt=""></p>
+<h2 id="5-1-写在-super-draw-的下面"><a href="#5-1-写在-super-draw-的下面" class="headerlink" title="5.1 写在 super.draw() 的下面"></a>5.1 写在 super.draw() 的下面</h2><p>由于 draw() 是总调度方法，所以如果把绘制代码写在 super.draw() 的下面，那么这段代码会在其他所有绘制完成之后再执行，也就是说，它的绘制内容会盖住其他的所有绘制内容。效果跟写在 super.onDrawForeground() 下面时是一样的。</p>
+<h2 id="5-2-写在-super-draw-的上面"><a href="#5-2-写在-super-draw-的上面" class="headerlink" title="5.2 写在 super.draw() 的上面"></a>5.2 写在 super.draw() 的上面</h2><p>由于 draw() 是总调度方法，所以如果把绘制代码写在 super.draw() 的上面，那么这段代码会在其他所有绘制之前被执行，所以这部分绘制内容会被其他所有的内容盖住，包括背景。是的，背景也会盖住它。</p>
+<pre><code>@Override
+public void draw(Canvas canvas) {      //总调度方法
+
+    //代码写在前面
+    canvas.drawColor(Color.parseColor(&quot;#66BB6A&quot;));
+
+    super.draw(canvas);
+
+}
+</code></pre><p>注意：它下面的那条横线，是 EditText 的背景。所以如果我想给这个 EditText 加一个绿色的底，我不能使用给它设置绿色背景色的方式，因为这就相当于是把它的背景替换掉，从而会导致下面的那条横线消失。</p>
+<p><img src="https://cl.ly/75399417cb9d/beforeDraw.jpg" alt=""></p>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><ol>
+<li><p>出于效率的考虑，ViewGroup 默认会绕过 draw() 方法，换而直接执行 dispatchDraw()，以此来简化绘制流程。所以如果你自定义了某个 ViewGroup 的子类（比如 LinearLayout）并且需要在它的除  dispatchDraw() 以外的任何一个绘制方法内绘制内容，你可能会需要调用 View.setWillNotDraw(false) 这行代码来切换到完整的绘制流程（是「可能」而不是「必须」的原因是，有些 ViewGroup 是已经调用过 setWillNotDraw(false) 了的，例如 ScrollView）。</p>
 </li>
-<li><p>执行函数 </p>
-<p>   //这种方式传的实参默认一一对应形参</p>
-<p>  函数名(实参)</p>
-<p>  //这种方式传参，可以不用管形参的顺序，因为传的参数已经指定了形参</p>
-<p>  函数名(形参=实参，形参=实参，形参=实参)</p>
+<li><p>有的时候，一段绘制代码写在不同的绘制方法中效果是一样的，这时你可以选一个自己喜欢或者习惯的绘制方法来重写。但有一个例外：如果绘制代码既可以写在 onDraw() 里，也可以写在其他绘制方法里，那么优先写在 onDraw() ，因为 Android 有相关的优化，可以在不需要重绘的时候自动跳过  onDraw() 的重复执行，以提升开发效率。享受这种优化的只有 onDraw() 一个方法。</p>
 </li>
 </ol>
-<p>注意：方法默认有返回值，默认返回None，可以用return 返回任何想要返回的值，可以没有return，最后一行执行的结果作为返回值</p>
-<h3 id="函数的参数"><a href="#函数的参数" class="headerlink" title="函数的参数"></a>函数的参数</h3><h4 id="位置参数（普通参数）"><a href="#位置参数（普通参数）" class="headerlink" title="位置参数（普通参数）"></a>位置参数（普通参数）</h4><pre><code>def power(x):
-    return x**2
-</code></pre><p>上述函数，参数x就是一个位置参数，如果有位置参数，必传。</p>
-<h4 id="默认参数"><a href="#默认参数" class="headerlink" title="默认参数"></a>默认参数</h4><pre><code>def power(x, n=3):
-    return x ** n
-</code></pre><p>上述函数，参数n就是一个默认参数，我们可以只传一个参数，也可以传两个，如果只传一个，n参数默认为3。</p>
-<p>注意：必选参数在前，默认参数在后，否则Python的解释器会报错。当函数有多个参数时，把变化大的参数放前面，变化小的参数放后面。变化小的参数就可以作为默认参数。默认参数必须指向不变对象。</p>
-<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><p>参数前面加了一个<em>号就表示接收一个可变参数，实际上会把传入的参数变成一个tuple，Python允许你在list或tuple前面加一个</em>号，把list或tuple的元素变成可变参数传进去。</p>
-<pre><code>def calc(*arg):
-    for item in arg:
-        print(item)
-
-data = [5, 6, 7]
-//如果直接这样传，列表会变成tuple的一个元素([5, 6, 7],)
-calc(data)
-calc(*data)
-</code></pre><h4 id="关键字参数"><a href="#关键字参数" class="headerlink" title="关键字参数"></a>关键字参数</h4><p>可变参数允许你传入0个或任意个参数，这些可变参数在函数调用时自动组装为一个tuple。而关键字参数允许你传入0个或任意个含参数名的参数，这些关键字参数在函数内部自动组装为一个dict 。</p>
-<pre><code>def calc(**arg):
-    for item in arg:
-        print(item)
-
-
-extra = {&apos;city&apos;: &apos;Beijing&apos;, &apos;job&apos;: &apos;Engineer&apos;}
-// Python允许你在dict前面加两个*号，把dict的元素变成可变参数传进去
-calc(**extra)
-</code></pre><h4 id="命名关键字参数"><a href="#命名关键字参数" class="headerlink" title="命名关键字参数"></a>命名关键字参数</h4><p>如果要限制关键字参数的名字，就可以用命名关键字参数，例如，只接收city和job作为关键字参数。这种方式定义的函数如下：</p>
-<pre><code>def person(name, age, *, city, job):
-    print(name, age, city, job)
-
-person(&apos;Jack&apos;, 24, city=&apos;Beijing&apos;, job=&apos;Engineer&apos;)
-</code></pre><p>和关键字参数<em>*kw不同，命名关键字参数需要一个特殊分隔符</em>，*后面的参数被视为命名关键字参数。</p>
-<p>如果函数定义中已经有了一个可变参数，后面跟着的命名关键字参数就不再需要一个特殊分隔符*了：</p>
-<pre><code>def person(name, age, *args, city, job):
-    print(name, age, args, city, job)
-</code></pre><p>命名关键字参数必须传入参数名，这和位置参数不同。如果没有传入参数名，调用将报错，因为系统会错认为是位置参数，但是实际上位置参数只有两个。命名关键字参数可以有缺省值，从而简化调用：</p>
-<pre><code>def person(name, age, *, city=&apos;Beijing&apos;, job):
-    print(name, age, city, job)
-</code></pre><p>由于命名关键字参数city具有默认值，调用时，可不传入city参数：</p>
-<pre><code>person(&apos;Jack&apos;, 24, job=&apos;Engineer&apos;)
-</code></pre><p>使用命名关键字参数时，要特别注意，如果没有可变参数，就必须加一个<em>作为特殊分隔符。如果缺少</em>，Python解释器将无法识别位置参数和命名关键字参数：</p>
-<pre><code>def person(name, age, city, job):
-    //缺少 *，city和job被视为位置参数
-    pass
-</code></pre><h3 id="全局和局部变量"><a href="#全局和局部变量" class="headerlink" title="全局和局部变量"></a>全局和局部变量</h3><p>全局变量，在任何位置都可以使用（约定，全局变量名字全部大写）<br>局部变量，在局部内使用，局部外使用不了。</p>
-<pre><code>PERSON = &quot;good&quot;
-
-def fun1():
-    # 局部变量，只能内部使用
-    a = 123
-    # 局部变量和全局变量一样，不影响全局变量，只是局部内部有一个名字和全局一样的变量而已
-    # 如果这样声明，则修改的是全局的变量
-    # global PERSON
-    PERSON = &quot;fanda&quot;
-    print(a)
-    print(PERSON)
-
-fun1()
-print(PERSON)
-</code></pre><h3 id="lambda表达式"><a href="#lambda表达式" class="headerlink" title="lambda表达式"></a>lambda表达式</h3><pre><code>def test(args1, args2):
-    print(args1 + args2)
-
-test2 = lambda args1, args2: print(args1 + args2)
-</code></pre><p>上述两个方法的的实现是等价的。</p>
-<h3 id="内置函数"><a href="#内置函数" class="headerlink" title="内置函数"></a>内置函数</h3><pre><code>abs 取绝对值
-print(abs(-123))
-
-all 传入可迭代对象，循环参数，如果每个元素都为真，返回True，否则，返回False
-假的数据，0，None,&quot;&quot;,(),{}，即0，None，空值，返回False
-print(bool(0))
-print(bool(&quot;&quot;))
-print(bool(()))
-print(bool({}))
-返回False
-print(all([11, &quot;34&quot;, &quot;&quot;]))
-
-any 传入可迭代对象，循环参数，如果有一个元素为真，返回True
-返回True
-print(any([11, &quot;34&quot;, &quot;&quot;]))
-
-ascii，传入对象，找到对象中的__repr__方法，返回其执行结果
-print(ascii(&quot;fsfsdfsf&quot;))
-
-a = bin(11)  # 二进制
-b = oct(11)  # 八进制
-c = int(11)  # 十进制
-d = hex(11)  # 十六进制
-
-print(a, b, c, d)
-结果 ，0b1011 0o13 11 0xb
-
-结果是一个元祖，元素分别是商和余数
-result = divmod(10,3)
-print(result)
-
-把字符串变成表达式，只处理简单的表达式，有返回值
-print(eval(&quot;1+3&quot;))
-print(eval(&quot;a+100+b&quot;, {&quot;a&quot;: 100, &quot;b&quot;: 50}))
-
-这个方法才可执行复杂的表达式，没返回值，相当于直接执行python代码
-exec(&quot;for i in range(10) : print(i)&quot;)
-
-li = [22, 3, 53]
-判断某个对象是否是某个类型的
-print(isinstance(li, list))
-</code></pre><p>map() 方法，map()函数接收两个参数，一个是函数，一个是Iterable，map将传入的函数依次作用到序列的每个元素，并把结果作为新的Iterator返回。</p>
-<pre><code>result = filter(lambda x: x &gt; 10, [1, 4, 9, 11, 34, 43, 64])
-print(type(result))
-print(list(result))
-for item in result:
-    print(item)
-</code></pre><p>由于结果result是一个Iterator，Iterator是惰性序列，因此通过list()函数让它把整个序列都计算出来并返回一个list。</p>
-<p>再看reduce的用法。reduce把一个函数作用在一个序列[x1, x2, x3, …]上，这个函数必须接收两个参数，reduce把结果继续和序列的下一个元素做累积计算，其效果就是：</p>
-<pre><code>reduce(f, [x1, x2, x3, x4]) = f(f(f(x1, x2), x3), x4)
-</code></pre><p>如果要把序列[1, 3, 5, 7, 9]变换成整数13579，用reduce实现如下：</p>
-<pre><code>print(reduce(lambda x, y: x * 10 + y, [1, 3, 5, 7, 9]))
-</code></pre><p>和map()类似，filter()也接收一个函数和一个序列。和map()不同的是，filter()把传入的函数依次作用于每个元素，然后根据返回值是True还是False决定保留还是丢弃该元素。</p>
-<pre><code>result = filter(lambda x: x &gt; 10, [1, 4, 9, 11, 34, 43, 64])
-print(type(result))
-print(list(result))
-for item in result:
-    print(item)
-</code></pre><p>可见用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
-<p>注意到filter()函数返回的是一个Iterator，也就是一个惰性序列，所以要强迫filter()完成计算结果，需要用list()函数获得所有结果并返回list。</p>
-<p>sorted()函数可以对list进行排序：</p>
-<pre><code>li = [1, 4, 5, -3, -64, 0, -43]
-这个方法返回一个新的值 ，之前的值不变
-print(sorted(li))
-
-//结果[-64, -43, -3, 0, 1, 4, 5]
-</code></pre><p>此外，sorted()函数也是一个高阶函数，它还可以接收一个key函数来实现自定义的排序，例如按绝对值大小排序：</p>
-<pre><code>print(sorted(li, key=abs))
-
-//结果[0, 1, -3, 4, 5, -43, -64]
-</code></pre><p>key指定的函数将作用于list的每一个元素上，并根据key函数返回的结果进行排序，然后按照对应关系返回list相应的元素。默认是从小到大排序的，如果想要从大到小排序，可以再增加一个参数，如下：</p>
-<pre><code>print(sorted(li, key=abs, reverse=True))
-
-//结果[-64, -43, 5, 4, -3, 1, 0]
-</code></pre><p>sorted()是一个高阶函数。用sorted()排序的关键在于实现一个映射函数。</p>
-<h3 id="递归函数"><a href="#递归函数" class="headerlink" title="递归函数"></a>递归函数</h3><p>在函数内部，可以调用其他函数。如果一个函数在内部调用自身本身，这个函数就是递归函数。</p>
-<p>举个例子，我们来计算阶乘n! = 1 x 2 x 3 x … x n，用函数fact(n)表示，可以看出：</p>
-<p>fact(n) = n! = 1 x 2 x 3 x … x (n-1) x n = (n-1)! x n = fact(n-1) x n</p>
-<p>所以，fact(n)可以表示为n x fact(n-1)，只有n=1时需要特殊处理。</p>
-<p>于是，fact(n)用递归的方式写出来就是：</p>
-<pre><code>def fact(n):
-    if n==1:
-        return 1
-    return n * fact(n - 1)
-
-如果我们计算fact(5)，可以根据函数定义看到计算过程如下：
-
-===&gt; fact(5)
-===&gt; 5 * fact(4)
-===&gt; 5 * (4 * fact(3))
-===&gt; 5 * (4 * (3 * fact(2)))
-===&gt; 5 * (4 * (3 * (2 * fact(1))))
-===&gt; 5 * (4 * (3 * (2 * 1)))
-===&gt; 5 * (4 * (3 * 2))
-===&gt; 5 * (4 * 6)
-===&gt; 5 * 24
-===&gt; 120
-</code></pre><p>利用函数编写如下数列：</p>
-<p>斐波那契数列指的是这样一个数列 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233，377，610，987，1597，2584，4181，6765，10946，17711，28657，46368…</p>
-<pre><code>def func(arg1, arg2):
-    if arg1 == 0:
-        print(arg1, arg2)
-    arg3 = arg1 + arg2
-    print(arg3)
-    if arg3 &gt; 10000:
-        return
-    func(arg2, arg3)
-</code></pre><p>使用递归函数需要注意防止栈溢出。在计算机中，函数调用是通过栈（stack）这种数据结构实现的，每当进入一个函数调用，栈就会加一层栈帧，每当函数返回，栈就会减一层栈帧。由于栈的大小不是无限的，所以，递归调用的次数过多，会导致栈溢出。上述代码如果不加判断来终结函数，将会报错</p>
+<p><img src="https://cl.ly/515a35398393/drawProcess3.jpg" alt=""></p>
 
       
     </div>
@@ -622,7 +578,11 @@ print(sorted(li))
       
         <div class="post-tags">
           
-            <a href="/tags/脚本语言/" rel="tag"><i class="fa fa-tag"></i> 脚本语言</a>
+            <a href="/tags/自定义View/" rel="tag"><i class="fa fa-tag"></i> 自定义View</a>
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/绘制/" rel="tag"><i class="fa fa-tag"></i> 绘制</a>
           
         </div>
       
@@ -635,8 +595,8 @@ print(sorted(li))
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/07/19/python/python数据类型/" rel="next" title="Python基本数据类型">
-                <i class="fa fa-chevron-left"></i> Python基本数据类型
+              <a href="/2018/09/29/android/view/Canvas绘制辅助/" rel="next" title="Canvas 绘制辅助">
+                <i class="fa fa-chevron-left"></i> Canvas 绘制辅助
               </a>
             
           </div>
@@ -644,10 +604,6 @@ print(sorted(li))
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/08/21/python/Python_IO编程/" rel="prev" title="Python IO编程">
-                Python IO编程 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -814,7 +770,7 @@ print(sorted(li))
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#三元运算"><span class="nav-number">1.</span> <span class="nav-text">三元运算</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深浅拷贝"><span class="nav-number">2.</span> <span class="nav-text">深浅拷贝</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#函数"><span class="nav-number">3.</span> <span class="nav-text">函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#函数的参数"><span class="nav-number">3.1.</span> <span class="nav-text">函数的参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#位置参数（普通参数）"><span class="nav-number">3.1.1.</span> <span class="nav-text">位置参数（普通参数）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#默认参数"><span class="nav-number">3.1.2.</span> <span class="nav-text">默认参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可变参数"><span class="nav-number">3.1.3.</span> <span class="nav-text">可变参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关键字参数"><span class="nav-number">3.1.4.</span> <span class="nav-text">关键字参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#命名关键字参数"><span class="nav-number">3.1.5.</span> <span class="nav-text">命名关键字参数</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局和局部变量"><span class="nav-number">3.2.</span> <span class="nav-text">全局和局部变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lambda表达式"><span class="nav-number">3.3.</span> <span class="nav-text">lambda表达式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#内置函数"><span class="nav-number">3.4.</span> <span class="nav-text">内置函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#递归函数"><span class="nav-number">3.5.</span> <span class="nav-text">递归函数</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-super-onDraw-前-or-后？"><span class="nav-number">1.</span> <span class="nav-text">1. super.onDraw() 前 or 后？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-写在-super-onDraw-的下面"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 写在 super.onDraw() 的下面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-写在-super-onDraw-的上面"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 写在 super.onDraw() 的上面</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-dispatchDraw-：绘制子-View-的方法"><span class="nav-number">2.</span> <span class="nav-text">2 dispatchDraw()：绘制子 View 的方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-绘制过程简述"><span class="nav-number">3.</span> <span class="nav-text">3 绘制过程简述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-写在-super-onDrawForeground-的下面"><span class="nav-number">4.</span> <span class="nav-text">4.1 写在 super.onDrawForeground() 的下面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-写在-super-onDrawForeground-的上面"><span class="nav-number">5.</span> <span class="nav-text">4.2 写在 super.onDrawForeground() 的上面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-draw-总调度方法"><span class="nav-number">6.</span> <span class="nav-text">5 draw() 总调度方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-写在-super-draw-的下面"><span class="nav-number">7.</span> <span class="nav-text">5.1 写在 super.draw() 的下面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-写在-super-draw-的上面"><span class="nav-number">8.</span> <span class="nav-text">5.2 写在 super.draw() 的上面</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">9.</span> <span class="nav-text">注意</span></a></li></ol></div>
             
 
           </div>
