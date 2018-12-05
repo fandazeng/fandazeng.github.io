@@ -1,0 +1,1089 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,基础," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="BroadcastReceiver 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台">
+<meta name="keywords" content="android,基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="四大组件之BroadcastReceiver">
+<meta property="og:url" content="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="BroadcastReceiver 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台">
+<meta property="og:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
+<meta property="og:image" content="https://cl.ly/f93ec53611ab/IntentService.jpg">
+<meta property="og:image" content="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
+<meta property="og:image" content="https://cl.ly/dc59171ca1c3/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg">
+<meta property="og:updated_time" content="2018-12-05T02:29:58.762Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="四大组件之BroadcastReceiver">
+<meta name="twitter:description" content="BroadcastReceiver 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台">
+<meta name="twitter:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/"/>
+
+
+
+
+
+     <title> 四大组件之BroadcastReceiver | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">四大组件之BroadcastReceiver</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T10:29:58+08:00">
+                2018-12-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/入门/" itemprop="url" rel="index">
+                    <span itemprop="name">入门</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/12/05/android/base/四大组件之BroadcastReceiver/" class="leancloud_visitors" data-flag-title="四大组件之BroadcastReceiver">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="BroadcastReceiver-简介"><a href="#BroadcastReceiver-简介" class="headerlink" title="BroadcastReceiver 简介"></a>BroadcastReceiver 简介</h1><p>Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件进行交互。</p>
+<h1 id="Service-启动"><a href="#Service-启动" class="headerlink" title="Service 启动"></a>Service 启动</h1><h2 id="start-方式"><a href="#start-方式" class="headerlink" title="start 方式"></a>start 方式</h2><p>操作步骤：</p>
+<ol>
+<li><p>定义一个类继承 Service </p>
+</li>
+<li><p>清单文件 manifest.xml 中配置 Service</p>
+</li>
+<li><p>使用 context 的 startService(Intent) 方法启动 Service</p>
+</li>
+<li><p>不再使用时，调用 context 的 stopService(Intent) 方法停止服务</p>
+</li>
+</ol>
+<p>示例如下：</p>
+<p>第一步：</p>
+<pre><code>public class TestService extends Service {
+
+    protected final String TAG = this.getClass().getSimpleName();
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Logger.i(&quot; onCreate: &quot; + TAG + &quot; === &quot; + &quot; hasCode: &quot; + hashCode());
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Logger.i(&quot; onStartCommand: &quot; + TAG + &quot; === &quot; + &quot; hasCode: &quot; + hashCode());
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Logger.i(&quot; onDestroy: &quot; + TAG + &quot; === &quot; + &quot; hasCode: &quot; + hashCode());
+
+    }
+}
+</code></pre><p>第二步：</p>
+<pre><code>&lt;service android:name=&quot;.service.TestService&quot;/&gt;
+</code></pre><p>第三步：</p>
+<pre><code>startService(new Intent(this, TestService.class));
+</code></pre><p>第四步：</p>
+<pre><code>stopService(new Intent(this, TestService.class));
+</code></pre><p>案例操作及分析：先启动服务，然后再点击启动同一个服务，最后停止服务。日志如下：</p>
+<p><img src="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg" alt=""></p>
+<p>这种方式的 Service 的生命周期为 onCreate() -&gt; onStartCommand() -&gt; onDestory() ，由日志可知，首次启动服务，会回调 onCreate() -&gt; onStartCommand() ，重复启动服务，不再回调 onCreate() 方法，只回调 onStartCommand() 方法，销毁时回调 onDestory() 方法。</p>
+<p>总结：服务对象同时只会存在一个，Service 与启动它的组件在同一个线程中。上面的实例中，服务就是在 main 线程中运行的，如果是在服务中完成耗时操作的话，容易造成主线程阻塞。</p>
+<p>特点：<br>服务开启后，就跟调用者没有任何关系了，调用者的存活不会影响服务的存活，调用者不能调用服务里面的方法。</p>
+<p>停止一个started服务有两种方法：</p>
+<p>（1）在外部使用stopService()</p>
+<p>（2）在服务内部(onStartCommand方法内部)使用stopSelf()方法。</p>
+<h2 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h2><p>为了可以简单地创建一个异步的、会自动停止的服务，Android专门提供了一个 IntentService 类，可以启动IntentService多次，而每一个耗时操作会以工作队列的方式在IntentService的onHandleIntent()回调方法中执行，并且每次只会执行一个工作线程，执行完第一个后，再执行第二个，以此类推。</p>
+<p>使用时机：当我们需要这样一次性完成的任务时，就可以使用IntentService来完成。</p>
+<p>案例操作及分析：先启动服务，然后再点击启动同一个服务</p>
+<p><img src="https://cl.ly/f93ec53611ab/IntentService.jpg" alt=""></p>
+<p>由日志可知, onHandleIntent() 方法开启了新的工作线程，多次启动服务时，会以工作队列的方式在该线程依次处理，处理完了之后会自动停止服务，无需调用 stopService() 或 stopSelf() 方法停止。</p>
+<h2 id="bind-方式"><a href="#bind-方式" class="headerlink" title="bind 方式"></a>bind 方式</h2><p>通过调用 bindService()方法能够绑定服务，然后系统会调用服务的onBind()回调方法，这个方法会返回一个跟服务器端交互的Binder对象。但是这个绑定是异步的，要接收IBinder对象，客户端必须创建一个ServiceConnection 类的实例，并且把这个实例传递给bindService()方法。ServiceConnection对象包含了一个系统调用的传递IBinder对象的回调方法。</p>
+<p>操作步骤：</p>
+<ol>
+<li><p>定义一个类继承 Service </p>
+</li>
+<li><p>清单文件 manifest.xml 中配置 Service</p>
+</li>
+<li><p>使用 context 的 bindService(Intent,ServiceConnection,int) 方法启动 Service</p>
+</li>
+<li><p>不再使用时，调用 context 的 unbindService(ServiceConnection) 方法停止服务</p>
+</li>
+</ol>
+<p>这种方式的生命周期如下：</p>
+<p><img src="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt=""></p>
+<p>onCreate() -&gt; onBind() -&gt; onUnbind() -&gt; onDestory()</p>
+<p>注意：不会回调 onStartCommand() 方法</p>
+<p>特点： 调用方的存活会决定服务的存活，如果调用方挂了，服务也会挂掉，调用方可以跟服务进行关联，调用服务里的方法。</p>
+<p>第一步：</p>
+<pre><code>public class BindService extends Service {
+
+    protected final String TAG = this.getClass().getSimpleName();
+
+    private MyBinder mBinder = new MyBinder();
+
+    public class MyBinder extends Binder {
+
+        @Override
+        public String toString() {
+            return &quot;this is mybinder&quot;;
+        }
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        Logger.i(&quot; onBind: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+
+        return mBinder;
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Logger.i(&quot; onCreate: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        Logger.i(&quot; onStartCommand: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public boolean onUnbind(Intent intent) {
+        Logger.i(&quot; onUnbind: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+        return super.onUnbind(intent);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Logger.i(&quot; onDestroy: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+
+    }
+}
+</code></pre><p>第二步：</p>
+<pre><code>&lt;service android:name=&quot;.service.BindService&quot;/&gt;
+</code></pre><p>第三步：</p>
+<pre><code>  mServiceConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                     //服务连接成功
+                mBinder = (BindService.MyBinder) service;
+                Logger.i(&quot; onServiceConnected: &quot; + mBinder.toString());
+
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                    //与服务连接断连,异常终止时会调用。解除绑定服务时不会调用
+            }
+        };
+
+bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CREATE);
+</code></pre><p>第四步：</p>
+<pre><code>unbindService(mServiceConnection);
+</code></pre><p>以上这两种销毁的方式都很好理解。那么如果我们既点击了Start Service按钮，又点击了Bind Service按钮会怎么样呢？这个时候你会发现，不管你是单独点击Stop Service按钮还是Unbind Service按钮，Service都不会被销毁，必要将Unbind Service按钮和Stop Service按钮都点击一下（没有先后顺序），Service才会被销毁。也就是说，点击Stop Service按钮只会让Service停止，点击Unbind Service按钮只会让Service和Activity解除关联，一个Service必须要在既没有和任何Activity关联又处理停止状态的时候才会被销毁，即回调 onDestroy() 方法。我们细说一下这种情况的生命周期。</p>
+<p>情况一：start - bind</p>
+<p>生命周期：onCreate -&gt; onStartCommand -&gt; onBind -&gt; onUnbind -&gt; onDestroy</p>
+<p>情况三：bind -start </p>
+<p>生命周期：onCreate -&gt; onBind -&gt; onStartCommand -&gt; onUnbind -&gt; onDestroy</p>
+<p>分析：一旦在项目的任何位置调用了Context的startService()方法，相应的服务就会启动起来，并回调onstartCommand()方法。如果这个服务之前还没有创建过，onCreate()方法会先于onstartCommand()方法执行。服务启动过后，会一直保持运行状态，直到stopService()或stopself()方法被调用。注意虽然每次调用一次startService()方法，onstartCommand()方法就会以执行一次，但实际上每个服务都只会存在一个实例。所以不管你调用了多少次startService()方法，只需调用一次stopService()或stopself()方法，服务就会停止。</p>
+<p>另外，还可以调用Context的bindService()来获取一个服务的持久连接，这时就会回调服务中的onBind()方法。类似地，如果这个服务之前还没有创建过，onCreate()方法会先于onBind()方法执行。之后调用方可以获取到onBind()方法里返回的IBinder对象的实例，这样，就能自由地和服务进行通信了。只要调用方和服务之间的连接没有断开，服务就会一直保持运行状态。</p>
+<p>注意：如果未绑定过服务或已经解绑了，点击 unbind 会报错。</p>
+<p>开发中的技巧：可以先用 start 方式启动服务，接着用 bind 方式绑定服务，与服务进行关联进行业务处理。</p>
+<h2 id="Service-生命周期"><a href="#Service-生命周期" class="headerlink" title="Service 生命周期"></a>Service 生命周期</h2><p><img src="https://cl.ly/dc59171ca1c3/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/基础/" rel="tag"><i class="fa fa-tag"></i> 基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/03/android/base/四大组件之Service/" rel="next" title="四大组件之Service">
+                <i class="fa fa-chevron-left"></i> 四大组件之Service
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-简介"><span class="nav-number">1.</span> <span class="nav-text">BroadcastReceiver 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-启动"><span class="nav-number">2.</span> <span class="nav-text">Service 启动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#start-方式"><span class="nav-number">2.1.</span> <span class="nav-text">start 方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IntentService"><span class="nav-number">2.2.</span> <span class="nav-text">IntentService</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind-方式"><span class="nav-number">2.3.</span> <span class="nav-text">bind 方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-生命周期"><span class="nav-number">2.4.</span> <span class="nav-text">Service 生命周期</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
