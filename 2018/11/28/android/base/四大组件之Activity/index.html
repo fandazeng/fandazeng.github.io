@@ -109,13 +109,13 @@
 
 
 
-<meta name="description" content="Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况：1.处于 onResume() 的时候，用户按Home键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop(),这里有一种特殊情况，如果新打">
+<meta name="description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于">
 <meta name="keywords" content="android,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四大组件之Activity">
 <meta property="og:url" content="http://yoursite.com/2018/11/28/android/base/四大组件之Activity/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况：1.处于 onResume() 的时候，用户按Home键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop(),这里有一种特殊情况，如果新打">
+<meta property="og:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于">
 <meta property="og:image" content="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 <meta property="og:image" content="https://cl.ly/6c1701ef073d/Activity%E5%92%8CFragment%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%85%B3%E7%B3%BB.png">
 <meta property="og:image" content="https://cl.ly/f99b84656e1d/Activity%E4%B8%8EFragment%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%80.jpg">
@@ -133,10 +133,10 @@
 <meta property="og:image" content="https://cl.ly/7af17b3f8e93/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E5%9B%9B.jpg">
 <meta property="og:image" content="https://cl.ly/88f335a5c071/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E5%9B%9B.jpg">
 <meta property="og:image" content="https://cl.ly/28032465c79b/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeInstance.jpg">
-<meta property="og:updated_time" content="2018-11-30T08:11:13.329Z">
+<meta property="og:updated_time" content="2018-12-12T07:17:57.789Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之Activity">
-<meta name="twitter:description" content="Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况：1.处于 onResume() 的时候，用户按Home键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop(),这里有一种特殊情况，如果新打">
+<meta name="twitter:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于">
 <meta name="twitter:image" content="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 
 
@@ -429,23 +429,26 @@
       
 
       
-        <h1 id="Activity-生命周期"><a href="#Activity-生命周期" class="headerlink" title="Activity 生命周期"></a>Activity 生命周期</h1><p><img src="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt=""></p>
+        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg</a></p>
+<p>参考：开发艺术探索书籍</p>
+<h1 id="Activity-生命周期"><a href="#Activity-生命周期" class="headerlink" title="Activity 生命周期"></a>Activity 生命周期</h1><p><img src="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt=""></p>
 <p>正常启动流程： </p>
 <p>onCreate() —— onStart() —— onResume() </p>
 <p>正常销毁流程： </p>
 <p>onPause() —— onStop() —— onDestroy()</p>
-<p>操作情况：<br>1.处于 onResume() 的时候，用户按Home键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop(),这里有<br>一种特殊情况，如果新打开的界面采用了透明主题，那么当前的 Activity 只回调 onPause() 不回调 onStop()</p>
+<p>操作情况：</p>
+<p>1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop() ,这里有<br>一种特殊情况，如果新打开的界面采用了透明主题，那么当前的 Activity 只回调 onPause() 不回调 onStop()</p>
 <p>2.处于 onPause() 的时候，用户操作使界面回到前台时，直接回调 onResume()</p>
 <p>3.处于 onStop() 的时候，用户操作使界面重新可见时，回调 onRestart() —— onStart() —— onResume()</p>
-<p>4处于  onPause() 或 onStop() 的时候 ，界面被回收了，会重新走周期流程 onCreate() —— onStart() —— onResume() </p>
+<p>4.处于 onPause() 或 onStop() 的时候 ，界面被回收了，会重新走周期流程 onCreate() —— onStart() —— onResume() </p>
 <p>异常销毁流程：</p>
-<p>当系统资源配置发生改变（屏幕旋转）以及系统内存不足时，activity被杀死。</p>
+<p>当系统资源配置发生改变（屏幕旋转）以及系统内存不足时，activity 被杀死。</p>
 <p>情况1（系统资源配置发生改变（屏幕旋转))：</p>
 <p>onCreate() —— onStart() —— onResume() ，此时屏幕旋转 ，会回调 onPause() —— onSaveInstanceState() —— onStop() —— onDestroy() —— onCreate() —— onStart() ——  onRestoreInstanceState() ——onResume() </p>
-<p>由回调流程可知，系统配置改变时，界面会先销毁，而且会回调一个 onSaveInstanceState() 来保存当前的界面状态，这个方法一事实上在 onStop() 之前，但是与 onPause() 没既定顺序（但是测试的时候一直都在onPause()之后调用），界面销毁后会重新创建，并会在 onResume() 之前回调一个 onRestoreInstanceState() 方法，用于恢复异常时保存的数据。</p>
+<p>由回调流程可知，系统配置改变时，界面会先销毁，而且会回调一个 onSaveInstanceState() 来保存当前的界面状态，这个方法一事实上在 onStop() 之前，但是与 onPause() 没既定顺序（但是测试的时候一直都在 onPause() 之后调用），界面销毁后会重新创建，并会在 onResume() 之前回调一个 onRestoreInstanceState() 方法，用于恢复异常时保存的数据。</p>
 <p>情况2（内存不足导致低优先级的Activity被杀死)：</p>
 <p>流程跟情况1是一样的。Activity 优先级从高到低如下：<br>1.处于 onResume（）时<br>2.处于 onPause() 时<br>3.处于 onStop（）时</p>
-<p>使Activity处于各种生命周期的情况多变，我们只关注此时 Activity 正处于什么状态，就能知道此时的优先级了。</p>
+<p>使 Activity 处于各种生命周期的情况多变，我们只关注此时 Activity 正处于什么状态，就能知道此时的优先级了。</p>
 <p>注意：</p>
 <p> 1.旧 Activity 先 onPause() ，然后新 Activity 再启动，在新 Activity 回调到 onResume() 时，旧 Activity 才会回调 onStop（），所以在  onPause() 里可以做一些回收资源的操作，但是不能耗时，不然会影响到新 Activity 显示。在onStop（）里也可以做一些回收资源的操作，同样也不能太耗时。最好在 onStop（）或 onDestroy() 做资源回收，这样会使新界面尽快显示。</p>
 <h2 id="Activity缓存方法。"><a href="#Activity缓存方法。" class="headerlink" title="Activity缓存方法。"></a>Activity缓存方法。</h2><p>场景1： 从 A 界面 打开 B 界面，此时 A 界面处于 onStop() ,很长时间后 A 界面可能因为优先级过低而被回收掉，此时从 B 界面返回到 A 界面时，将不会出现 onRestart() —— onStart() —— onResume() 这样的生命周期，而是 onCreate() —— onStart() —— onResume() 的正常生命周期，那么这会导致 A 界面数据和状态的丢失。</p>
@@ -476,30 +479,30 @@ protected void onRestoreInstanceState(Bundle savedInstanceState) {
 }
 </code></pre><h2 id="onSaveInstanceState-Bundle-outState"><a href="#onSaveInstanceState-Bundle-outState" class="headerlink" title="onSaveInstanceState (Bundle outState)"></a>onSaveInstanceState (Bundle outState)</h2><p>不是每次回调 onStop() 之前都会回调这个方法的，是当 Activity 变得“容易”被系统销毁时，该 Activity 的 onSaveInstanceState 才会被回调。</p>
 <p>不被回调的情况：<br>1.当用户主动按下返回键或通过点击界面的操作使 Activity 销毁了，不会回调该方法。</p>
-<p>被回调的情况：<br>1.按下HOME键或锁屏，即之前的场景2<br>2.长按HOME键，选择运行其他的程序<br>3.从旧的 Activity 中启动一个新的 Activity 时,即之前的场景1<br>4.屏幕旋转，一定会回调</p>
+<p>被回调的情况：<br>1.按下 HOME 键或锁屏，即之前的场景2<br>2.长按 HOME 键，选择运行其他的程序<br>3.从旧的 Activity 中启动一个新的 Activity 时,即之前的场景1<br>4.屏幕旋转，一定会回调</p>
 <p>总结：除非你主动销毁界面，否则都会回调该方法，这是系统的责任，因为它必须要提供一个机会让你保存你的数据（当然你不保存那就随便你了）。</p>
-<p>注意：<br>1.布局中的每一个View默认实现了onSaveInstanceState 和 onRestoreInstanceState 方法，View 会自动地存储和在 Activity 重新创建的时候自动地恢复。但是这种情况只有在你为这个View提供了唯一的ID之后才起作用。</p>
+<p>注意：<br>1.布局中的每一个 View 默认实现了 onSaveInstanceState 和 onRestoreInstanceState 方法，View 会自动地存储和在 Activity 重新创建的时候自动地恢复。但是这种情况只有在你为这个View提供了唯一的ID之后才起作用。</p>
 <p>2.虽然 View 中实现了该方法，但是如果你的自定义 View 需要存储额外的状态信息，那么你应该覆盖该方法。</p>
-<p>3.不要在该方法中存储持久化的数据，因为这个方法在用户主动销毁时不会调用，应该在onPause()方法中存储持久化数据。</p>
+<p>3.不要在该方法中存储持久化的数据，因为这个方法在用户主动销毁时不会调用，应该在 onPause()方法中存储持久化数据。</p>
 <p>二、onRestoreInstanceState (Bundle outState)</p>
 <p>onSaveInstanceState() 方法和 onRestoreInstanceState() 方法“不一定”是成对的被调用的，因为 onSaveInstanceState() 是在可能发生界面被回收时给你保存数据用的，这是系统的责任，上面已经说得很清楚，而如果界面没有被回收，那么 onRestoreInstanceState() 也就不会出现了。</p>
-<h2 id="onConfigurationChanged-Configuration-newConfig-方法"><a href="#onConfigurationChanged-Configuration-newConfig-方法" class="headerlink" title="onConfigurationChanged(Configuration newConfig) 方法"></a>onConfigurationChanged(Configuration newConfig) 方法</h2><p>当系统的配置信息发生改变时，系统会调用此方法。注意，只有在清单文件 AndroidManifest 中处理了configChanges 属性对应的设备配置，该方法才会被调用。如果发生设备配置与在清单文件中设置的不一致，则Activity会被销毁并使用新的配置重建。</p>
+<h2 id="onConfigurationChanged-Configuration-newConfig-方法"><a href="#onConfigurationChanged-Configuration-newConfig-方法" class="headerlink" title="onConfigurationChanged(Configuration newConfig) 方法"></a>onConfigurationChanged(Configuration newConfig) 方法</h2><p>当系统的配置信息发生改变时，系统会调用此方法。注意，只有在清单文件 AndroidManifest 中处理了 configChanges 属性对应的设备配置，该方法才会被调用。如果发生设备配置与在清单文件中设置的不一致，则Activity会被销毁并使用新的配置重建。</p>
 <p>上面说的旋转屏幕时，Activity 会先销毁，然后重新创建，但是如果想防止重新创建 Activity ，可以配置 configChange 属性，比如：</p>
 <pre><code>&lt;activity 
        android:name=&quot;.MainActivity&quot; 
        android:configChanges=&quot;orientation|screenSize&quot;&gt;
-</code></pre><p>此时 Activity 不会被销毁重建，而是调用onConfigurationChanged方法。如果 configChanges 只设置了orientation，则当其他设备配置信息改变时，Activity 依然会销毁重建，且不会调用onConfigurationChanged。比如语言改变了，Acitivyt 就会销毁重建，且不会调用 onConfigurationChanged  方法。</p>
+</code></pre><p>此时 Activity 不会被销毁重建，而是调用 onConfigurationChanged 方法。如果 configChanges 只设置了orientation ，则当其他设备配置信息改变时，Activity 依然会销毁重建，且不会调用 onConfigurationChanged 。比如语言改变了，Acitivyt 就会销毁重建，且不会调用 onConfigurationChanged  方法。</p>
 <pre><code>@Override
 public void onConfigurationChanged(Configuration newConfig) {
     super.onConfigurationChanged(newConfig);
     Logger.d(&quot;onConfigurationChanged&quot;+ &quot;===&quot; +TAG);
 }
-</code></pre><p>注意：<br>1.横竖屏切换的属性是orientation。如果 targetSdkVersion 的值大于等于13，则如上配置才会回调onConfigurationChanged方法，要带上 screenSize 属性。</p>
+</code></pre><p>注意：<br>1.横竖屏切换的属性是 orientation 。如果 targetSdkVersion 的值大于等于13，则如上配置才会回调 onConfigurationChanged 方法，要带上 screenSize 属性。</p>
 <p>2.当我们需要在界面旋转时，可以在该方法做一些特殊处理，比如视频播放横竖屏切换时，可以通过 newConfig.orientation 根据方向做界面处理。</p>
 <h2 id="Activity与Fragment生命周期关系"><a href="#Activity与Fragment生命周期关系" class="headerlink" title="Activity与Fragment生命周期关系"></a>Activity与Fragment生命周期关系</h2><p><img src="https://cl.ly/6c1701ef073d/Activity%E5%92%8CFragment%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%85%B3%E7%B3%BB.png" alt=""></p>
 <p><img src="https://cl.ly/f99b84656e1d/Activity%E4%B8%8EFragment%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%80.jpg" alt=""></p>
 <p><img src="https://cl.ly/a8180a2dd6a3/Activity%E4%B8%8EFragment%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg" alt=""></p>
-<h2 id="Activity启动模式"><a href="#Activity启动模式" class="headerlink" title="Activity启动模式"></a>Activity启动模式</h2><h3 id="任务栈"><a href="#任务栈" class="headerlink" title="任务栈"></a>任务栈</h3><p>是一种后进先出的结构。位于栈顶的 Activity 处于焦点状态,当按下back按钮的时候,栈内的Activity会一个一个的出栈,并且调用其onDestory()方法。如果栈内没有Activity,那么系统就会回收这个栈,每个APP默认只有一个栈,以APP的包名来命名。</p>
+<h2 id="Activity启动模式"><a href="#Activity启动模式" class="headerlink" title="Activity启动模式"></a>Activity启动模式</h2><h3 id="任务栈"><a href="#任务栈" class="headerlink" title="任务栈"></a>任务栈</h3><p>是一种后进先出的结构。位于栈顶的 Activity 处于焦点状态,当按下 back 按钮的时候,栈内的 Activity 会一个一个的出栈,并且调用其 onDestory() 方法。如果栈内没有 Activity ,那么系统就会回收这个栈,每个应用默认只有一个栈,以应用的包名来命名。</p>
 <h3 id="standard-模式（默认）"><a href="#standard-模式（默认）" class="headerlink" title="standard 模式（默认）"></a>standard 模式（默认）</h3><p>系统默认的启动模式，每次启动一个 Activity 都会重新创建一个新的实例，不管这个实例存在与否，这种模式下，谁启动了该模式的 Activity ，该 Activity 就属于启动它的 Activity 的任务栈中。 Activity 的启动三回调(onCreate()-&gt;onStart()-&gt;onResume())都会执行。</p>
 <p>清单文件配置如下：</p>
 <pre><code>&lt;activity android:name=&quot;.activity.StandardModeActivity&quot;  android:launchMode=&quot;standard&quot;/&gt;
@@ -522,18 +525,18 @@ public void onConfigurationChanged(Configuration newConfig) {
 <ul>
 <li><p>这个参数标识了一个 Activity 所需任务栈的名字，默认情况下，所有 Activity 所需的任务栈的名字为应用的包名。上述日志打印的 taskAffinity 的值 (zeng.fanda.com.fourmoduledemo) 就是我的包名。</p>
 </li>
-<li><p>我们可以单独指定每一个Activity的taskAffinity属性来覆盖默认值</p>
+<li><p>我们可以单独指定每一个 Activity 的 taskAffinity 属性来覆盖默认值</p>
 </li>
-<li><p>在概念上，具有相同的affinity的activity（即设置了相同taskAffinity属性的activity）属于同一个任务栈</p>
+<li><p>在概念上，具有相同的 affinity 的 activity（即设置了相同 taskAffinity 属性的activity）属于同一个任务栈</p>
 </li>
-<li><p>为一个activity的taskAffinity设置一个空字符串，表明这个activity不属于任何任务栈</p>
+<li><p>为一个 activity 的 taskAffinity 设置一个空字符串，表明这个 activity 不属于任何任务栈</p>
 </li>
 </ul>
 <p>注意： taskAffinity 属性主要和 singleTask 启动模式或者 allowTaskReparenting 属性配对使用，在其他情况下没有意义。所以即使上述两种模式下设置了该属性，也不会创建新的任务栈，只是名字不同罢了。指定方式如下：</p>
 <pre><code>&lt;activity android:name=&quot;.activity.MainLaunchModeActivity&quot; 
     android:configChanges=&quot;orientation|screenSize&quot; 
     android:taskAffinity=&quot;zeng.fanda.com.fourmoduledemo.launch&quot;&gt;
-</code></pre><h3 id="singleTask-模式"><a href="#singleTask-模式" class="headerlink" title="singleTask 模式"></a>singleTask 模式</h3><p>栈内复用模式，这是一种栈内单例模式，不同的栈内可以存在不同的实例。创建这种模式的Activity的时候,系统会先确认它所需任务栈是否已经创建,否则先创建任务栈（任务栈通过taskAffinity体内体内指定）.然后放入Activity,如果所需的栈已经存在而且已经有一个Activity实例,那么这个Activity就会被复用,会将当前 Activity上面所有的 Activity 出栈，并且会回调 onNewIntent()-&gt;onResume() 。</p>
+</code></pre><h3 id="singleTask-模式"><a href="#singleTask-模式" class="headerlink" title="singleTask 模式"></a>singleTask 模式</h3><p>栈内复用模式，这是一种栈内单例模式，不同的栈内可以存在不同的实例。创建这种模式的 Activity 的时候,系统会先确认它所需任务栈是否已经创建,否则先创建任务栈（任务栈通过 taskAffinity 体内体内指定）.然后放入 Activity ,如果所需的栈已经存在而且已经有一个 Activity 实例,那么这个 Activity 就会被复用,会将当前 Activity 上面所有的 Activity 出栈，并且会回调 onNewIntent()-&gt;onResume() 。</p>
 <p>清单文件配置如下：</p>
 <pre><code>&lt;activity android:name=&quot;.activity.SingleTaskModeActivity&quot;  android:launchMode=&quot;singleTask&quot;/&gt;
 </code></pre><p>使用案例一：从一个主界面，打开一个 singleTask 模式的界面，在该界面再次打开该界面。</p>
@@ -562,8 +565,8 @@ public void onConfigurationChanged(Configuration newConfig) {
 <p><img src="https://cl.ly/7af17b3f8e93/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E5%9B%9B.jpg" alt=""></p>
 <p><img src="https://cl.ly/88f335a5c071/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E5%9B%9B.jpg" alt=""></p>
 <p>日志分析：跳回到 SingleTaskModeActivity 时，回调了 SingleTaskModeActivity 的 onNewIntent() 方法，但是 OtherTaskModeActivity 没有出栈 ，因为 SingleTaskModeActivity 是在一个新栈上面的，且栈内只有它一个实例。即 793 栈 有 MainLaunchModeActivity 和 OtherTaskModeActivity ，794 栈有 SingleTaskModeActivity ，这个操作只是从 793 的 OtherTaskModeActivity 切换到了794栈的 SingleTaskModeActivity 。</p>
-<h3 id="singleInstance-模式"><a href="#singleInstance-模式" class="headerlink" title="singleInstance 模式"></a>singleInstance 模式</h3><p>该模式具备 singleTask 模式的所有特性外，与它的区别就是，这种模式下的 Activity 会单独占用一个任务栈，具有全局唯一性，即整个系统中就这么一个实例，由于栈内复用的特性，后续的请求均不会创建新的Activity实例，除非这个特殊的任务栈被销毁了。以singleInstance模式启动的Activity在整个系统中是单例的，如果在启动这样的Activiyt时，已经存在了一个实例，那么会把它所在的任务调度到前台，重用这个实例。</p>
-<p>使用案例：：从A应用的一个主界面，打开一个 singleInstance 模式的界面 SingleTaskInstanceActivity ，在B应用再打开该界面。即分别在两个应用打开同一个 singleInstance 模式的界面 。</p>
+<h3 id="singleInstance-模式"><a href="#singleInstance-模式" class="headerlink" title="singleInstance 模式"></a>singleInstance 模式</h3><p>该模式具备 singleTask 模式的所有特性外，与它的区别就是，这种模式下的 Activity 会单独占用一个任务栈，具有全局唯一性，即整个系统中就这么一个实例，由于栈内复用的特性，后续的请求均不会创建新的 Activity 实例，除非这个特殊的任务栈被销毁了。以 singleInstance 模式启动的 Activity 在整个系统中是单例的，如果在启动这样的 Activiyt 时，已经存在了一个实例，那么会把它所在的任务调度到前台，重用这个实例。</p>
+<p>使用案例：：从 A 应用的一个主界面，打开一个 singleInstance 模式的界面 SingleTaskInstanceActivity ，在 B 应用再打开该界面。即分别在两个应用打开同一个 singleInstance 模式的界面 。</p>
 <p>配置信息：</p>
 <pre><code>&lt;activity android:name=&quot;.activity.SingleInstanceModeActivity&quot;  android:launchMode=&quot;singleInstance&quot;&gt;
     &lt;intent-filter&gt;
@@ -577,12 +580,12 @@ public void onConfigurationChanged(Configuration newConfig) {
 </code></pre><p>当应用A启动应用B的某个 Activity 后，如果这个 Activity 设置了该属性，那么当B应用启动后，该 Activity 会从应用A的任务栈转移到应用B的任务栈中。具体一点，A应用启动了B的界面，B的界面此时应该放在启动它的应用A的任务栈里，当B应用启动后，B的任务栈就生成了，界面检测到了之后，就不放在A应用了，转移到自己的应用的任务栈里，所以打开B应用后，会看到从A应用打开的界面。这个效果比较特殊。</p>
 <h3 id="前后台任务栈"><a href="#前后台任务栈" class="headerlink" title="前后台任务栈"></a>前后台任务栈</h3><p>前台任务栈表示该任务栈正在前台，比如前台任务栈里有 A-B 三个界面。后台任务栈中的界面位于暂停状态，用户可以通过切换将后台任务栈再次调到前台，比如后台任务栈里有 C-D 两个界面 。现在从前台任务栈请求D界面，此时整个后台任务栈将切换到前台，如果此时返回，将从D返回到C 界面，C再返回B，B再返回A。即前台任务栈的界面全部出栈后，后台任务栈再切到前台继续出栈。</p>
 <h3 id="Activity-启动模式的使用场景"><a href="#Activity-启动模式的使用场景" class="headerlink" title="Activity 启动模式的使用场景"></a>Activity 启动模式的使用场景</h3><ol>
-<li><p>SingleTask模式的运用场景，最常见的应用场景就是保持我们应用开启后仅仅有一个Activity的实例。最典型的样例就是应用中展示的主页（Home页）。</p>
+<li><p>SingleTask 模式的运用场景，最常见的应用场景就是保持我们应用开启后仅仅有一个Activity 的实例。最典型的样例就是应用中展示的主页（Home页）。</p>
 </li>
-<li><p>SingleTop模式的运用场景，假设你在当前的Activity中又要启动同类型的Activity，此时建议将此类型Activity的启动模式指定为SingleTop，能够降低Activity的创建，节省内存！</p>
+<li><p>SingleTop模式的运用场景，假设你在当前的 Activity 中又要启动同类型的 Activity，此时建议将此类型 Activity 的启动模式指定为 SingleTop，能够降低 Activity 的创建，节省内存！</p>
 </li>
 </ol>
-<p>注意：由于当一个Activity设置了SingleTop或者SingleTask模式后，跳转此Activity出现复用原有Activity的情况时，此Activity的onCreate方法将不会再次运行。onCreate方法仅仅会在第一次创建Activity时被运行。这时我们要在另外一个回调 onNewIntent（Intent intent）方法中做处理。</p>
+<p>注意：由于当一个 Activity 设置了 SingleTop 或者 SingleTask 模式后，跳转此 Activity 出现复用原有 Activity 的情况时，此 Activity 的 onCreate 方法将不会再次运行。 onCreate 方法仅仅会在第一次创建 Activity 时被运行。这时我们要在另外一个回调 onNewIntent（Intent intent）方法中做处理。</p>
 <pre><code>@Override
 protected void onNewIntent(Intent intent) {
     super.onNewIntent(intent);
@@ -592,17 +595,64 @@ protected void onNewIntent(Intent intent) {
 </code></pre><h3 id="Activity-的-Flags"><a href="#Activity-的-Flags" class="headerlink" title="Activity 的 Flags"></a>Activity 的 Flags</h3><ul>
 <li>FLAG_ACTIVITY_NEW_TASK</li>
 </ul>
-<p>作用是为Activity指定 “SingleTask”启动模式。效果和在AndroidMainfest.xml指定相同。</p>
+<p>作用是为 Activity 指定 “SingleTask” 启动模式。效果和在 AndroidMainfest.xml 指定相同。</p>
 <ul>
 <li>FLAG_ACTIVITY_SINGLE_TOP</li>
 </ul>
-<p>作用是为Activity指定 “SingleTop”启动模式，效果和在AndroidMainfest.xml指定相同。</p>
+<p>作用是为 Activity 指定 “SingleTop” 启动模式，效果和在 AndroidMainfest.xml 指定相同。</p>
 <ul>
 <li>FLAG_ACTIVITY_CLEAR_TOP</li>
 </ul>
-<p>具有此标记位的Activity，启动时会将与该Activity在同一任务栈的其他Activity出栈。一般与SingleTask启动模式一起出现。SingleTask启动模式默认具有此标记位的作用。</p>
+<p>具有此标记位的 Activity ，启动时会将与该 Activity 在同一任务栈的其他 Activity 出栈。一般与 SingleTask 启动模式一起出现。 SingleTask 启动模式默认具有此标记位的作用。</p>
 <p>总结：Flags 方便动态打开 Activity 时实现这些效果，比如我们打开第三方 Activity 时，我们可以加上这些 Flags 来达到我们想要的效果。</p>
 <h3 id="IntentFilter-的匹配规则"><a href="#IntentFilter-的匹配规则" class="headerlink" title="IntentFilter 的匹配规则"></a>IntentFilter 的匹配规则</h3><p>启动 Activity 分为显式调用和隐式调用，隐式调用需要 Intent 能够匹配目标组件的 IntentFilter 中所设置的过滤信息，如果不匹配将无法启动目标 Activity。 IntentFilter 中的过滤信息有 action 、 category 和 data 。</p>
+<p>为了匹配过滤列表，需要同时匹配列表中的 action 、 category 、data信息，否则匹配失败。 action 、 category 、data 都可以有多个，IntentFilter 也可以有多个，一个 Intent 只要能匹配任何一组 intent-filter 即可成功启动对应的 Activity 。</p>
+<h4 id="action-匹配规则"><a href="#action-匹配规则" class="headerlink" title="action 匹配规则"></a>action 匹配规则</h4><p>Intent 中的 action 存在且必须和过滤规则中的其中一个 action 相同即可匹配成功。action 区分大小写，大小写不同会导致匹配失败。虽然过滤规则中可以有多个 action ，但是 Intent 中的设置的 action 只有一个，方法是 intent.setAction()。Intent中 没有指定 action ，也会匹配失败。</p>
+<h4 id="category-匹配规则"><a href="#category-匹配规则" class="headerlink" title="category 匹配规则"></a>category 匹配规则</h4><p>Intent 中可以不添加 category ，系统会默认为 Intent 添加 上 “android.intent.category.DEFAULT” 这个 category。Intent 中可以添加多个 category ，方法是 intent.addCategory()，添加的 category 在过滤规则中都必须存在，有一个不存在或不相同，都会匹配失败</p>
+<h4 id="data-匹配规则"><a href="#data-匹配规则" class="headerlink" title="data 匹配规则"></a>data 匹配规则</h4><p>data 的结构如下：</p>
+<pre><code>&lt;data
+    android:host=&quot;string&quot;
+    android:mimeType=&quot;string&quot;
+    android:path=&quot;string&quot;
+    android:pathPattern=&quot;string&quot;
+    android:pathPrefix=&quot;string&quot;
+    android:port=&quot;string&quot;
+    android:scheme=&quot;string&quot; /&gt;
+</code></pre><p>data 由两部分组成，mimeType 和 URL ，mineType 指媒体类型，比如 image/jpeg 、 video/* 等，可以表示图片、视频等不同的媒体格式，而URI 中包含的数据比较多，URI结构如下：</p>
+<pre><code>&lt;scheme&gt;://&lt;host&gt;:&lt;port&gt;/[&lt;path&gt;|&lt;pathPrefix&gt;|&lt;pathPattern&gt;]
+</code></pre><p>比如：</p>
+<pre><code>content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person
+
+http://www.baidu.com:80/search/info
+</code></pre><p>scheme: URI 的模式，比如 http、file、content 等，如果没有指定，整个URI都是无效了。</p>
+<p>host: URI 的主机名，比如 www.baidu.com ，如果没有指定，整个URI都是无效了。</p>
+<p>port: URI 的端口号，比如 80 ，仅当有 scheme 和 host 的情况下 ，才有意义。</p>
+<p>path、pathPrefix、pathPattern： 表述路径信息，path 表示完整路径，pathPrefix 表示路径的前缀信息，pathPattern 也表示完整的路径信息，但是可以包含通配符*</p>
+<p>匹配规则和 action 类似 ，Intent 中的 data 存在且必须和过滤规则中的其中一个 data 相同即可匹配成功。虽然过滤规则中可以有多个 data ，但是 Intent 中的设置的 data 只有一个，方法是 intent.setData()。如果过滤规则中有，但是Intent中没有指定 data ，也会匹配失败。</p>
+<p>如果我们没有指定 URI ，系统会有默认值，URI 的默认值为 content 和file ，也就是说，Intent 中的 URI 部分的 scheme 必须为 content 或 file 才能匹配。比如 ：</p>
+<pre><code>&lt;data android:mimeType=&quot;image/*&quot; /&gt;
+</code></pre><p>如下调用方式会失败：</p>
+<pre><code>intent.setDataAndType(Uri.parse(&quot;http://abc&quot;), &quot;image/jpg&quot;);
+</code></pre><p>正确的调用方式为：</p>
+<pre><code>intent.setDataAndType(Uri.parse(&quot;content://abc&quot;), &quot;image/jpg&quot;);
+</code></pre><p>注意： </p>
+<ul>
+<li><p>如果为 Intent 指定完整的 data ，必须调用 setDataAndType 方法，不能先调用 setData 再调用 setType ，这两个方法会清除对方的值。</p>
+</li>
+<li><p>当隐式调用时，可能会找不到相应的组件，这时候会报错，所以我们可以先做一下判断，看是否有组件能够匹配到，匹配到才做相应处理。Intent 的 resolveActivity() 方法可以做到，方法返回 null 则表示没找到匹配的，代码示例如下：</p>
+<pre><code>Intent intent = new Intent();
+intent.setAction(&quot;abc&quot;);
+intent.setDataAndType(Uri.parse(&quot;content://abc&quot;), &quot;image/jpg&quot;);
+if (intent.resolveActivity(getPackageManager()) != null) {
+    startActivity(intent);
+}
+</code></pre></li>
+<li><p>有一类 action 和 category 比较特殊，是用来标明这是一个入口 Activity 并且会出现在系统的应用列表中，少了任何一个都没有意义，他们是：</p>
+<pre><code>&lt;action android:name=&quot;android.intent.action.MAIN&quot; /&gt;
+
+&lt;category android:name=&quot;android.intent.category.LAUNCHER&quot; /&gt;
+</code></pre></li>
+</ul>
 
       
     </div>
@@ -731,7 +781,7 @@ protected void onNewIntent(Intent intent) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -826,7 +876,7 @@ protected void onNewIntent(Intent intent) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-生命周期"><span class="nav-number">1.</span> <span class="nav-text">Activity 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity缓存方法。"><span class="nav-number">1.1.</span> <span class="nav-text">Activity缓存方法。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#onSaveInstanceState-Bundle-outState"><span class="nav-number">1.2.</span> <span class="nav-text">onSaveInstanceState (Bundle outState)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#onConfigurationChanged-Configuration-newConfig-方法"><span class="nav-number">1.3.</span> <span class="nav-text">onConfigurationChanged(Configuration newConfig) 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity与Fragment生命周期关系"><span class="nav-number">1.4.</span> <span class="nav-text">Activity与Fragment生命周期关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity启动模式"><span class="nav-number">1.5.</span> <span class="nav-text">Activity启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务栈"><span class="nav-number">1.5.1.</span> <span class="nav-text">任务栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#standard-模式（默认）"><span class="nav-number">1.5.2.</span> <span class="nav-text">standard 模式（默认）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleTop-模式"><span class="nav-number">1.5.3.</span> <span class="nav-text">singleTop 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#taskAffinity-属性"><span class="nav-number">1.5.4.</span> <span class="nav-text">taskAffinity 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleTask-模式"><span class="nav-number">1.5.5.</span> <span class="nav-text">singleTask 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleInstance-模式"><span class="nav-number">1.5.6.</span> <span class="nav-text">singleInstance 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合-allowTaskReparenting-使用"><span class="nav-number">1.5.7.</span> <span class="nav-text">配合 allowTaskReparenting 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后台任务栈"><span class="nav-number">1.5.8.</span> <span class="nav-text">前后台任务栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-启动模式的使用场景"><span class="nav-number">1.5.9.</span> <span class="nav-text">Activity 启动模式的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-的-Flags"><span class="nav-number">1.5.10.</span> <span class="nav-text">Activity 的 Flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentFilter-的匹配规则"><span class="nav-number">1.5.11.</span> <span class="nav-text">IntentFilter 的匹配规则</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Activity-生命周期"><span class="nav-number">1.</span> <span class="nav-text">Activity 生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity缓存方法。"><span class="nav-number">1.1.</span> <span class="nav-text">Activity缓存方法。</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#onSaveInstanceState-Bundle-outState"><span class="nav-number">1.2.</span> <span class="nav-text">onSaveInstanceState (Bundle outState)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#onConfigurationChanged-Configuration-newConfig-方法"><span class="nav-number">1.3.</span> <span class="nav-text">onConfigurationChanged(Configuration newConfig) 方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity与Fragment生命周期关系"><span class="nav-number">1.4.</span> <span class="nav-text">Activity与Fragment生命周期关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Activity启动模式"><span class="nav-number">1.5.</span> <span class="nav-text">Activity启动模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#任务栈"><span class="nav-number">1.5.1.</span> <span class="nav-text">任务栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#standard-模式（默认）"><span class="nav-number">1.5.2.</span> <span class="nav-text">standard 模式（默认）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleTop-模式"><span class="nav-number">1.5.3.</span> <span class="nav-text">singleTop 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#taskAffinity-属性"><span class="nav-number">1.5.4.</span> <span class="nav-text">taskAffinity 属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleTask-模式"><span class="nav-number">1.5.5.</span> <span class="nav-text">singleTask 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#singleInstance-模式"><span class="nav-number">1.5.6.</span> <span class="nav-text">singleInstance 模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#配合-allowTaskReparenting-使用"><span class="nav-number">1.5.7.</span> <span class="nav-text">配合 allowTaskReparenting 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#前后台任务栈"><span class="nav-number">1.5.8.</span> <span class="nav-text">前后台任务栈</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-启动模式的使用场景"><span class="nav-number">1.5.9.</span> <span class="nav-text">Activity 启动模式的使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Activity-的-Flags"><span class="nav-number">1.5.10.</span> <span class="nav-text">Activity 的 Flags</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IntentFilter-的匹配规则"><span class="nav-number">1.5.11.</span> <span class="nav-text">IntentFilter 的匹配规则</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#action-匹配规则"><span class="nav-number">1.5.11.1.</span> <span class="nav-text">action 匹配规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#category-匹配规则"><span class="nav-number">1.5.11.2.</span> <span class="nav-text">category 匹配规则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#data-匹配规则"><span class="nav-number">1.5.11.3.</span> <span class="nav-text">data 匹配规则</span></a></li></ol></li></ol></li></ol></li></ol></div>
             
 
           </div>

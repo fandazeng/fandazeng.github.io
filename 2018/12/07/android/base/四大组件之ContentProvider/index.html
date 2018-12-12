@@ -109,20 +109,23 @@
 
 
 
-<meta name="description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/3960623.html BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，">
+<meta name="description" content="参考：https://www.cnblogs.com/smyhvae/p/4108017.html?tdsourcetag=s_pctim_aiomsg ContentProvider 简介用于在不同的应用程序之间实现数据共享的功能。ContentProvider 可以理解为应用对外开放的接口，只要是符合它所定义的 Uri 格式的请求，均可以正常访问执行操作。其他的应用可以使用 ContentRe">
 <meta name="keywords" content="android,基础">
 <meta property="og:type" content="article">
-<meta property="og:title" content="四大组件之BroadcastReceiver">
-<meta property="og:url" content="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/index.html">
+<meta property="og:title" content="四大组件之ContentProvider">
+<meta property="og:url" content="http://yoursite.com/2018/12/07/android/base/四大组件之ContentProvider/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/3960623.html BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，">
-<meta property="og:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
-<meta property="og:image" content="https://cl.ly/9ff60ea533b4/%E6%9C%89%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97%E4%B8%80.jpg">
-<meta property="og:updated_time" content="2018-12-12T07:02:25.543Z">
+<meta property="og:description" content="参考：https://www.cnblogs.com/smyhvae/p/4108017.html?tdsourcetag=s_pctim_aiomsg ContentProvider 简介用于在不同的应用程序之间实现数据共享的功能。ContentProvider 可以理解为应用对外开放的接口，只要是符合它所定义的 Uri 格式的请求，均可以正常访问执行操作。其他的应用可以使用 ContentRe">
+<meta property="og:image" content="https://cl.ly/cb00db306deb/provider_insert.jpg">
+<meta property="og:image" content="https://cl.ly/78a9db5015d0/provider_delete.jpg">
+<meta property="og:image" content="https://cl.ly/092f9150096e/provider_update.jpg">
+<meta property="og:image" content="https://cl.ly/4f007c0956d2/provider_query.jpg">
+<meta property="og:image" content="https://cl.ly/b6a2575f89c8/provider_call.jpg">
+<meta property="og:updated_time" content="2018-12-12T06:59:26.998Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="四大组件之BroadcastReceiver">
-<meta name="twitter:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/3960623.html BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，">
-<meta name="twitter:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
+<meta name="twitter:title" content="四大组件之ContentProvider">
+<meta name="twitter:description" content="参考：https://www.cnblogs.com/smyhvae/p/4108017.html?tdsourcetag=s_pctim_aiomsg ContentProvider 简介用于在不同的应用程序之间实现数据共享的功能。ContentProvider 可以理解为应用对外开放的接口，只要是符合它所定义的 Uri 格式的请求，均可以正常访问执行操作。其他的应用可以使用 ContentRe">
+<meta name="twitter:image" content="https://cl.ly/cb00db306deb/provider_insert.jpg">
 
 
 
@@ -150,13 +153,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/12/07/android/base/四大组件之ContentProvider/"/>
 
 
 
 
 
-     <title> 四大组件之BroadcastReceiver | FandaCode </title>
+     <title> 四大组件之ContentProvider | FandaCode </title>
 </head>
 
 
@@ -306,7 +309,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/07/android/base/四大组件之ContentProvider/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -323,7 +326,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">四大组件之BroadcastReceiver</h1>
+          <h1 class="post-title" itemprop="name headline">四大组件之ContentProvider</h1>
         
 
         <div class="post-meta">
@@ -335,8 +338,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T10:29:58+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-07T10:23:28+08:00">
+                2018-12-07
               </time>
             
 
@@ -386,7 +389,7 @@
 
           
           
-             <span id="/2018/12/05/android/base/四大组件之BroadcastReceiver/" class="leancloud_visitors" data-flag-title="四大组件之BroadcastReceiver">
+             <span id="/2018/12/07/android/base/四大组件之ContentProvider/" class="leancloud_visitors" data-flag-title="四大组件之ContentProvider">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,181 +417,368 @@
       
 
       
-        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg</a></p>
-<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/3960623.html" target="_blank" rel="external">https://www.cnblogs.com/smyhvae/p/3960623.html</a></p>
-<h1 id="BroadcastReceiver-简介"><a href="#BroadcastReceiver-简介" class="headerlink" title="BroadcastReceiver 简介"></a>BroadcastReceiver 简介</h1><p>广播的生命周期很短（调用对象–&gt;回调 onReceive –&gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastReceiver 对象 , 并且调用 onReceive() 方法 , 执行完以后 , 该对象即被销毁 . 当 onReceive() 方法在 10 秒内没有执行完毕， Android 会认为该程序无响应。</p>
-<h1 id="BroadcastReceiver-注册"><a href="#BroadcastReceiver-注册" class="headerlink" title="BroadcastReceiver 注册"></a>BroadcastReceiver 注册</h1><p>注册广播的方式有两种，在代码中注册和在清单文件中注册，前者称为动态注册，后者称为静态注册。</p>
-<p>使用步骤：</p>
-<ol>
-<li><p>自定义一个类继承 BroadcastReceiver </p>
+        <p>参考：<a href="https://www.cnblogs.com/smyhvae/p/4108017.html?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.cnblogs.com/smyhvae/p/4108017.html?tdsourcetag=s_pctim_aiomsg</a></p>
+<h1 id="ContentProvider-简介"><a href="#ContentProvider-简介" class="headerlink" title="ContentProvider 简介"></a>ContentProvider 简介</h1><p>用于在不同的应用程序之间实现数据共享的功能。ContentProvider 可以理解为应用对外开放的接口，只要是符合它所定义的 Uri 格式的请求，均可以正常访问执行操作。其他的应用可以使用 ContentResolver 对象通过与 ContentProvider 同名的方法请求执行，被执行的就是 ContentProvider 中的同名方法。</p>
+<h1 id="ContentProvider的方法"><a href="#ContentProvider的方法" class="headerlink" title="ContentProvider的方法"></a>ContentProvider的方法</h1><pre><code>boolean onCreate()   
+初始化提供者
+
+Cursor query(Uri uri, String[] projection, String selection, 
+String[] selectionArgs, String sortOrder)  
+查询数据，返回一个数据Cursor对象
+
+Uri insert(Uri uri, ContentValues values) 
+插入一条数据。参数values是需要插入的值
+
+int update(Uri uri, ContentValues values, String selection, String[] selectionArgs) 
+根据条件更新数据。其中参数selection和selectionArgs是外部程序提供的条件
+
+int delete(Uri uri, String selection, String[] selectionArgs)  
+根据条件删除数据
+
+String getType(Uri uri)   
+返回MIME类型对应内容的URI
+</code></pre><p>备注：还有一个 call() 方法，使用该方法，理论上可以在 ContentResolver 中执行 ContentProvider 暴露出来的任何方法。</p>
+<h2 id="Uri"><a href="#Uri" class="headerlink" title="Uri"></a>Uri</h2><p>在 Android 中，Uri 是一种比较常见的资源访问方式。而对于 ContentProvider 而言，Uri 也是有固定格式的：</p>
+<pre><code>&lt;srandard_prefix&gt;://&lt;authority&gt;/&lt;data_path&gt;/&lt;id&gt;
+</code></pre><ul>
+<li><p>srandard_prefix：ContentProvider 的 srandard_prefix 始终是 content:。</p>
 </li>
-<li><p>重写 onReceive 方法</p>
+<li><p>authority：ContentProvider 的名称。</p>
 </li>
-<li><p>注册广播</p>
+<li><p>data_path：请求的数据类型。</p>
 </li>
-<li><p>不再使用时，取消注册广播</p>
-</li>
-</ol>
-<h2 id="动态注册方式"><a href="#动态注册方式" class="headerlink" title="动态注册方式"></a>动态注册方式</h2><p>案例使用(监听网络状态变化)：</p>
-<p>第一和第二步：</p>
-<pre><code>public class NetworkChangeReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, &quot;network change&quot;, Toast.LENGTH_LONG).show();
-    }
-
-}
-</code></pre><p>第三步：</p>
-<pre><code>mNetworkChangeReceiver = new NetworkChangeReceiver();
-//动态注册：创建一个IntentFilter的实例，添加网络变化的广播(功能是对组件进行过滤，只获取需要的消息)
-IntentFilter intentFilter = new IntentFilter();
-intentFilter.addAction(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;);
-registerReceiver(mNetworkChangeReceiver, intentFilter);
-</code></pre><p>第四步：</p>
-<pre><code>unregisterReceiver(netWorkChangeReceiver);
-</code></pre><h2 id="静态注册方式"><a href="#静态注册方式" class="headerlink" title="静态注册方式"></a>静态注册方式</h2><p>动态注册的方式比较灵活，但缺点是：必须在程序启动之后才能接收到广播，因为注册的逻辑是通过代码方式的。为了让程序在未启动的情况下就能接收到广播，这里就需要使用到静态注册。</p>
-<p>案例使用：</p>
-<p>第一和第二步：</p>
-<pre><code>public class TestReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        //测试 10s 内没执行完，会不会造成 ANR
-//        for (int i = 0; i &lt; Integer.MAX_VALUE; i++) {
-//            i--;
-//        }
-        Toast.makeText(context, &quot;TestReceiver&quot;, Toast.LENGTH_LONG).show();
-    }
-
-}
-</code></pre><p>第三步：</p>
-<pre><code>&lt;receiver android:name=&quot;.receiver.TestReceiver&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot;/&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-</code></pre><h1 id="BroadcastReceiver-发送"><a href="#BroadcastReceiver-发送" class="headerlink" title="BroadcastReceiver 发送"></a>BroadcastReceiver 发送</h1><p>广播被分为两种不同的类型：普通广播（无序广播或标准广播）和有序广播。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>无序广播：</li>
-</ul>
-<ol>
-<li><p>完全异步的，可以在同一时刻（逻辑上）被所有接收者接收到，消息传递的效率比较高。</p>
-</li>
-<li><p>接收者不能将处理结果传递给下一个接收者，并且无法终止广播的传播。</p>
-</li>
-</ol>
-<ul>
-<li>有序广播：</li>
-</ul>
-<ol>
-<li>有序广播是按照接收者声明的优先级别来传递的，被接收者依次接收广播。接收者可以拦截广播来终止向下传播，也可以存入数据来传递给下一个接收者，即下一个广播接收者可以获取到上一个广播存入的数据。</li>
-</ol>
-<h2 id="发送无序广播"><a href="#发送无序广播" class="headerlink" title="发送无序广播"></a>发送无序广播</h2><pre><code>//广播一
-public class TestReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Logger.i(&quot;TestReceiver-1&quot;);
-    }
-}
-
-//广播二
-public class TestReceiver2 extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Logger.i(&quot;TestReceiver-2&quot;);
-    }
-}
-
-//同时注册相同的过滤信息
-&lt;receiver android:name=&quot;.receiver.TestReceiver&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-&lt;receiver android:name=&quot;.receiver.TestReceiver2&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-//发送广播
-sendBroadcast(new Intent(&quot;zeng.fanda.com.fourmoduledemo.test&quot;));
-</code></pre><p>结果如下：</p>
-<p><img src="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg" alt=""></p>
-<h2 id="发送有序广播"><a href="#发送有序广播" class="headerlink" title="发送有序广播"></a>发送有序广播</h2><pre><code>//广播一
-public class TestReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        //拦截后终止广播的传递
-        abortBroadcast();
-        Logger.i(&quot;TestReceiver-1&quot;);
-    }
-}
-
-//广播二
-public class TestReceiver2 extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Logger.i(&quot;TestReceiver-2&quot;);
-    }
-}
-
-//同时注册相同的过滤信息
-&lt;receiver android:name=&quot;.receiver.TestReceiver&quot;&gt;
-    // 设置广播优化级为1000
-    &lt;intent-filter android:priority=&quot;1000&quot;&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-&lt;receiver android:name=&quot;.receiver.TestReceiver2&quot;&gt;
-    // 设置广播优化级为500
-    &lt;intent-filter android:priority=&quot;500&quot;&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-//第二个参数是一个与权限相关的字符串，这里传入null即可
-sendOrderedBroadcast(new Intent(&quot;zeng.fanda.com.fourmoduledemo.test&quot;),null);
-</code></pre><p>结果如下：</p>
-<p><img src="https://cl.ly/9ff60ea533b4/%E6%9C%89%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97%E4%B8%80.jpg" alt=""></p>
-<p>由于广播一的优先级大于广播二，所以广播一先收到广播，并且广播一调用了 abortBroadcast() 方法来终止了广播的传递，所以广播二是收不到广播的，自然就不打印日志了。</p>
-<p>上述通过 android:priority 属性给广播接收器设置了优先级。这个属性的范围在 -1000 到 1000 ，数值越大，优先级越高。也可以动态地在代码调用 IntentFilter 对象的 setPriority() 进行设置。</p>
-<p>我们也可以在广播一中通过 setResultXXX 方法存入一些数据，在广播二中通过 getResultXXX 方法获取到广播一中的数据。如果还有广播三四五等，都可以获取到上一个广播通过 setResultXXX 方法存入的数据，比如广播三比广播二优化级低，广播二也设置过数据，则广播三只能拿到广播二存入的数据。</p>
-<h1 id="本地广播"><a href="#本地广播" class="headerlink" title="本地广播"></a>本地广播</h1><p>之前我们发送和接收的广播全部都属于全局广播，即发出去的广播可以被其他任何应用程序接收到，并且我们也可以接收来自于其他任何应用程序的广播。这样一来，必然会造成安全问题。于是便有了本地广播：即只能在本应用程序中发送和接收广播。只用使用 LocalBroadcastManager 类对广播进行收发就可以了。</p>
-<pre><code>//获取实例
-mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
-
-//注册
-mLocalBroadcastManager.registerReceiver(mNetworkChangeReceiver,intentFilter);
-
-//发送
-mLocalBroadcastManager.sendBroadcast(new Intent(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;));
-
-//反注册
-mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
-</code></pre><p>注意：本地广播是无法通过静态注册的方式来接收的。因为静态注册主要就是为了让程序在未启动的情况下也能收到广播。而发送本地广播时，我们的程序肯定已经启动了，没有必要使用到静态注册的功能。</p>
-<h2 id="静态注册和动态注册区别"><a href="#静态注册和动态注册区别" class="headerlink" title="静态注册和动态注册区别"></a>静态注册和动态注册区别</h2><ul>
-<li><p>动态注册广播不是常驻型广播，也就是说广播跟随 activity 的生命周期。注意: 在 activity 结束前，移除广播接收器。<br>静态注册是常驻型，也就是说当应用程序关闭后，如果有信息广播来，程序也会被系统调用自动运行。</p>
-</li>
-<li><p>当广播为有序广播时：</p>
-<ol>
-<li>优先级高的先接收</li>
-<li>同优先级的广播接收器，动态优先于静态</li>
-<li>同优先级的同类广播接收器，静态：先扫描的优先于后扫描的，动态：先注册的优 先于后注册的。</li>
-</ol>
-</li>
-<li><p>当广播为普通广播时：</p>
-<ol>
-<li>无视优先级，动态广播接收器优先于静态广播接收器</li>
-<li>同优先级的同类广播接收器，静态：先扫描的优先于后扫描的，动态：先注册的优先于后注册的。</li>
-</ol>
+<li><p>id：指定请求的特定数据。</p>
 </li>
 </ul>
+<p>在 ContentProvider 的 CRUD 操作，均会传递一个 Uri 对象，通过这个对象来匹配对应的请求。那么如何确定一个 Uri 执行哪项操作呢？需要用到一个 UriMatcher 对象，这个对象用来帮助内容提供者匹配 Uri 。它所提供的方法非常简单，仅有两个：</p>
+<p>添加一个 Uri 匹配项</p>
+<pre><code>void addURI(String authority,String path,int code)
+</code></pre><ul>
+<li>authority : 为 AndroidManifest.xml 中注册的 ContentProvider 中的 authority 属性；</li>
+<li>path 为一个路径，可以设置通配符，#表示任意数字，*表示任意字符； </li>
+<li>code 为自定义的一个 Uri 代码。</li>
+</ul>
+<p>匹配传递的 Uri ，返回 addURI() 传递的 code 参数</p>
+<pre><code>int match(Uri uri)：
+</code></pre><p>代码示例：</p>
+<p>总共有4个类，DBHelper（用于初始化SQLite数据库），PersonDao（用于CRUD操作的工具类），PersonProvider（用于对外开放的接口），ProviderTest（用于测试）</p>
+<h3 id="DBHelper"><a href="#DBHelper" class="headerlink" title="DBHelper"></a>DBHelper</h3><pre><code>public class DBHelper extends SQLiteOpenHelper {
+
+    private static String name = &quot;test.db&quot;; //数据库名字
+    private static int version = 1; //数据库版本
+
+    public DBHelper( Context context) {
+        super(context, name, null, version);
+    }
+
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        // 只能支持基本数据类型 ： varchar int long float boolean text blob
+        String sql = &quot;create table person(id integer primary key autoincrement,name varchar(64),address varchar(64))&quot;;
+        db.execSQL(sql);
+    }
+
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        String sql = &quot;alter table person add sex varcher(8)&quot;;
+        db.execSQL(sql);
+    }
+}
+</code></pre><h3 id="PersonDao"><a href="#PersonDao" class="headerlink" title="PersonDao"></a>PersonDao</h3><pre><code>public class PersonDao {
+
+    private DBHelper mDBHelper;
+
+    public PersonDao(Context context) {
+        mDBHelper = new DBHelper(context);
+    }
+
+    public long insertPserson(ContentValues values) {
+        //返回插入的行号
+        long id = -1;
+        SQLiteDatabase database = null;
+        try {
+            database = mDBHelper.getWritableDatabase();
+            id = database.insert(&quot;person&quot;, null, values);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (database != null) {
+                database.close();
+            }
+        }
+        return id;
+    }
+
+    public int deletePerson(String whereClause, String[] whereArgs) {
+        //返回删除的条数
+        int count = -1;
+        SQLiteDatabase database = null;
+        try {
+            database = mDBHelper.getWritableDatabase();
+            count = database.delete(&quot;person&quot;, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (database != null) {
+                database.close();
+            }
+        }
+        return count;
+    }
+
+    public int updatePerson(ContentValues values, String whereClause, String[] whereArgs) {
+        //返回更新的条数
+        int count = -1;
+        SQLiteDatabase database = null;
+        try {
+            database = mDBHelper.getWritableDatabase();
+            count = database.update(&quot;person&quot;,values, whereClause, whereArgs);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (database != null) {
+                database.close();
+            }
+        }
+        return count;
+    }
+
+    public Cursor queryPersons(String selection, String[] selectionArgs) {
+        SQLiteDatabase database = null;
+        Cursor cursor = null;
+        try {
+            // 这里获取读数据库
+            database = mDBHelper.getReadableDatabase();
+            cursor = database.query(true, &quot;person&quot;, null, selection, selectionArgs, null, null, null, null);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return cursor;
+    }
+}
+</code></pre><h3 id="PersonProvider"><a href="#PersonProvider" class="headerlink" title="PersonProvider"></a>PersonProvider</h3><pre><code>public class PersonProvider extends ContentProvider {
+
+    private final String TAG = &quot;PersonProvider: &quot;;
+    private PersonDao mPersonDao;
+    private final static String AUTHORITY = &quot;zeng.fanda.com.fourmoduledemo.provider.PersonProvider&quot;;
+    private final static UriMatcher URI_MATCHER = new UriMatcher(UriMatcher.NO_MATCH); //默认规则不匹配
+    // 操作单行记录
+    private static final int PERSON = 1;
+    // 操作多行记录
+    private static final int PERSONS = 2;
+
+    static {
+        //添加两个匹配规则
+        URI_MATCHER.addURI(AUTHORITY, &quot;person&quot;, PERSONS);
+        //使用通配符#匹配任意数字
+        URI_MATCHER.addURI(AUTHORITY, &quot;person/#&quot;, PERSON);
+    }
+
+    @Override
+    public boolean onCreate() {
+        //初始化实例
+        mPersonDao = new PersonDao(getContext());
+        Logger.i(TAG + &quot;onCreate&quot;);
+        return true;
+    }
+
+    @Nullable
+    @Override
+    public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+        Cursor cursor = null;
+        //匹配uri ，返回自定义code
+        int flag = URI_MATCHER.match(uri);
+        switch (flag) {
+            case PERSON:
+                // 解析出uri中结尾的id
+                long id = ContentUris.parseId(uri);
+                cursor = mPersonDao.queryPersons(&quot;id = ?&quot;, new String[]{String.valueOf(id)});
+                break;
+            case PERSONS:
+                cursor = mPersonDao.queryPersons(selection, selectionArgs);
+                break;
+        }
+        if (cursor != null) {
+            Logger.i(TAG + &quot;--》查询成功,count = &quot; + cursor.getCount());
+        }
+        return cursor;
+    }
+
+    @Nullable
+    @Override
+    public String getType(Uri uri) {
+        // 用于获取uri对象所对应的MIME类型
+        int flag = URI_MATCHER.match(uri);
+        switch (flag) {
+            case PERSON:
+                //单条记录，规则为 vnd.android.cursor.item/自定义path
+                return &quot;vnd.android.cursor.item/person&quot;;
+            case PERSONS:
+                //多条记录，规则为 vnd.android.cursor.dir/自定义path
+                return &quot;vnd.android.cursor.dir/persons&quot;;       
+        }
+        return null;
+    }
+
+
+    @Nullable
+    @Override
+    public Uri insert(Uri uri, @Nullable ContentValues values) {
+        Uri resultUri = null;
+        // 解析Uri ，返回Code
+        int flag = URI_MATCHER.match(uri);
+        switch (flag) {
+            case PERSONS:
+                // 执行插入操作，返回当前的行号
+                long id = mPersonDao.insertPserson(values);
+                resultUri = ContentUris.withAppendedId(uri, id);
+                Logger.i(TAG + &quot;--》插入成功,id = &quot; + id);
+                Logger.i(TAG + &quot;--》插入成功,resultUri = &quot; + resultUri.toString());
+        }
+        return resultUri;
+    }
+
+    @Override
+    public int delete(Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int count = -1; //影响数据库的行数
+        int flag = URI_MATCHER.match(uri);
+        switch (flag) {
+            case PERSON:
+                // 单条数据，使用 ContentUris 工具类解析出结尾的 Id
+                long id = ContentUris.parseId(uri);
+                count = mPersonDao.deletePerson(&quot;id = ?&quot;, new String[]{String.valueOf(id)});
+                break;
+            case PERSONS:
+                count = mPersonDao.deletePerson(selection, selectionArgs);
+                break;
+        }
+        Logger.i(TAG + &quot;--》删除成功,count = &quot; + count);
+        return count;
+    }
+
+    @Override
+    public int update(Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
+        int count = -1;
+        int flag = URI_MATCHER.match(uri);
+        switch (flag) {
+            case PERSON:
+                long id = ContentUris.parseId(uri);
+                count = mPersonDao.updatePerson(values, &quot;id = ?&quot;, new String[]{String.valueOf(id)});
+                break;
+            case PERSONS:
+                count = mPersonDao.updatePerson(values, selection, selectionArgs);
+                break;
+        }
+        Logger.i(TAG + &quot;--》更新成功,count = &quot; + count);
+        return count;
+    }
+
+
+    @Nullable
+    @Override
+    public Bundle call( @NonNull String method, @Nullable String arg,  @Nullable Bundle extras) {
+        Bundle bundle = new Bundle();
+        bundle.putString(&quot;returnCall&quot;,&quot;call被执行了&quot;);
+        return bundle;
+    }
+}
+</code></pre><h3 id="ProviderTest"><a href="#ProviderTest" class="headerlink" title="ProviderTest"></a>ProviderTest</h3><pre><code>@RunWith(AndroidJUnit4.class)
+public class ProviderTest {
+
+    @Test
+    public void callTest() {
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ContentResolver resolver = appContext.getContentResolver();
+        Uri uri = Uri.parse(&quot;content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person&quot;);
+        Bundle bundle = resolver.call(uri, &quot;method&quot;, null, null);
+        Logger.d(&quot;callTest: &quot; + bundle.getString(&quot;returnCall&quot;));
+    }
+
+    @Test
+    public void insertTest() {
+        // 插入数据
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ContentResolver resolver = appContext.getContentResolver();
+        Uri uri = Uri.parse(&quot;content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person&quot;);
+        ContentValues values = new ContentValues();
+        values.put(&quot;name&quot;, &quot;蛋卷&quot;);
+        values.put(&quot;address&quot;, &quot;茶光村&quot;);
+        resolver.insert(uri, values);
+
+    }
+
+    @Test
+    public void deleteTest() {
+        // 根据 id 来删除
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ContentResolver resolver = appContext.getContentResolver();
+        Uri uri = Uri.parse(&quot;content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person/2&quot;);
+        resolver.delete(uri, null, null);
+
+    }
+
+    @Test
+    public void updateTest() {
+        // 根据 id 来更新
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ContentResolver resolver = appContext.getContentResolver();
+        Uri uri = Uri.parse(&quot;content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person/1&quot;);
+        ContentValues values = new ContentValues();
+        values.put(&quot;name&quot;, &quot;乖巧&quot;);
+        values.put(&quot;address&quot;, &quot;珠光村&quot;);
+        resolver.update(uri, values,null, null);
+
+    }
+
+    @Test
+    public void queryTest() {
+        //查询所有
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ContentResolver resolver = appContext.getContentResolver();
+        Uri uri = Uri.parse(&quot;content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person&quot;);
+        Cursor cursor = resolver.query(uri, null, null, null, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Logger.d(&quot;PersonProvider: &quot; + cursor.getString(cursor.getColumnIndex(&quot;name&quot;)));
+            }
+            cursor.close();
+        }
+    }
+
+    @Test
+    public void querySelectionTest() {
+        // 根据查询条件测试
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ContentResolver resolver = appContext.getContentResolver();
+        Uri uri = Uri.parse(&quot;content://zeng.fanda.com.fourmoduledemo.provider.PersonProvider/person/3&quot;);
+        Cursor cursor = resolver.query(uri, null, &quot;name=?&quot;, new String[]{&quot;fanda&quot;}, null);
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                Logger.d(&quot;PersonProvider: &quot; + cursor.getString(cursor.getColumnIndex(&quot;name&quot;)));
+            }
+        }
+    }
+
+}        
+</code></pre><p>此外，要在清单文件 AndroidManifest 中注册：</p>
+<pre><code>&lt;provider
+    android:name=&quot;.provider.PersonProvider&quot;
+    android:authorities=&quot;zeng.fanda.com.fourmoduledemo.provider.PersonProvider&quot;
+    android:exported=&quot;true&quot; /&gt;
+</code></pre><p>注意：exported = true 时，才可能跨应用跨进程访问数据。</p>
+<p>下面是分别调用单元测试的方法所打印的日志：</p>
+<p>insertTest方法：</p>
+<p><img src="https://cl.ly/cb00db306deb/provider_insert.jpg" alt=""></p>
+<p>deleteTest 方法：</p>
+<p><img src="https://cl.ly/78a9db5015d0/provider_delete.jpg" alt=""></p>
+<p>updateTest 方法：</p>
+<p><img src="https://cl.ly/092f9150096e/provider_update.jpg" alt=""></p>
+<p>queryTest 方法：</p>
+<p><img src="https://cl.ly/4f007c0956d2/provider_query.jpg" alt=""></p>
+<p>callTest 方法：</p>
+<p><img src="https://cl.ly/b6a2575f89c8/provider_call.jpg" alt=""></p>
 
       
     </div>
@@ -633,8 +823,8 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/android/base/四大组件之Service/" rel="next" title="四大组件之Service">
-                <i class="fa fa-chevron-left"></i> 四大组件之Service
+              <a href="/2018/12/05/android/base/四大组件之BroadcastReceiver/" rel="next" title="四大组件之BroadcastReceiver">
+                <i class="fa fa-chevron-left"></i> 四大组件之BroadcastReceiver
               </a>
             
           </div>
@@ -642,10 +832,6 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/07/android/base/四大组件之ContentProvider/" rel="prev" title="四大组件之ContentProvider">
-                四大组件之ContentProvider <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -812,7 +998,7 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-简介"><span class="nav-number">1.</span> <span class="nav-text">BroadcastReceiver 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-注册"><span class="nav-number">2.</span> <span class="nav-text">BroadcastReceiver 注册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态注册方式"><span class="nav-number">2.1.</span> <span class="nav-text">动态注册方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态注册方式"><span class="nav-number">2.2.</span> <span class="nav-text">静态注册方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-发送"><span class="nav-number">3.</span> <span class="nav-text">BroadcastReceiver 发送</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送无序广播"><span class="nav-number">3.2.</span> <span class="nav-text">发送无序广播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送有序广播"><span class="nav-number">3.3.</span> <span class="nav-text">发送有序广播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地广播"><span class="nav-number">4.</span> <span class="nav-text">本地广播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态注册和动态注册区别"><span class="nav-number">4.1.</span> <span class="nav-text">静态注册和动态注册区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ContentProvider-简介"><span class="nav-number">1.</span> <span class="nav-text">ContentProvider 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ContentProvider的方法"><span class="nav-number">2.</span> <span class="nav-text">ContentProvider的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Uri"><span class="nav-number">2.1.</span> <span class="nav-text">Uri</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DBHelper"><span class="nav-number">2.1.1.</span> <span class="nav-text">DBHelper</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PersonDao"><span class="nav-number">2.1.2.</span> <span class="nav-text">PersonDao</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PersonProvider"><span class="nav-number">2.1.3.</span> <span class="nav-text">PersonProvider</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ProviderTest"><span class="nav-number">2.1.4.</span> <span class="nav-text">ProviderTest</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

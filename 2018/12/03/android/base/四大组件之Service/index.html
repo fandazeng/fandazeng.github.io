@@ -109,21 +109,21 @@
 
 
 
-<meta name="description" content="Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件">
+<meta name="description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/4070518.html Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个">
 <meta name="keywords" content="android,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四大组件之Service">
 <meta property="og:url" content="http://yoursite.com/2018/12/03/android/base/四大组件之Service/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件">
+<meta property="og:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/4070518.html Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个">
 <meta property="og:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
 <meta property="og:image" content="https://cl.ly/f93ec53611ab/IntentService.jpg">
 <meta property="og:image" content="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 <meta property="og:image" content="https://cl.ly/9ad4d786d616/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg">
-<meta property="og:updated_time" content="2018-12-05T02:28:49.261Z">
+<meta property="og:updated_time" content="2018-12-12T07:09:02.041Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之Service">
-<meta name="twitter:description" content="Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件">
+<meta name="twitter:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/4070518.html Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个">
 <meta name="twitter:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
 
 
@@ -416,7 +416,9 @@
       
 
       
-        <h1 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h1><p>Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件进行交互。</p>
+        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg</a></p>
+<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/4070518.html" target="_blank" rel="external">https://www.cnblogs.com/smyhvae/p/4070518.html</a></p>
+<h1 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h1><p>Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件进行交互。</p>
 <h1 id="Service-启动"><a href="#Service-启动" class="headerlink" title="Service 启动"></a>Service 启动</h1><h2 id="start-方式"><a href="#start-方式" class="headerlink" title="start 方式"></a>start 方式</h2><p>操作步骤：</p>
 <ol>
 <li><p>定义一个类继承 Service </p>
@@ -472,15 +474,15 @@
 <p>这种方式的 Service 的生命周期为 onCreate() -&gt; onStartCommand() -&gt; onDestory() ，由日志可知，首次启动服务，会回调 onCreate() -&gt; onStartCommand() ，重复启动服务，不再回调 onCreate() 方法，只回调 onStartCommand() 方法，销毁时回调 onDestory() 方法。</p>
 <p>总结：服务对象同时只会存在一个，Service 与启动它的组件在同一个线程中。上面的实例中，服务就是在 main 线程中运行的，如果是在服务中完成耗时操作的话，容易造成主线程阻塞。</p>
 <p>特点：<br>服务开启后，就跟调用者没有任何关系了，调用者的存活不会影响服务的存活，调用者不能调用服务里面的方法。</p>
-<p>停止一个started服务有两种方法：</p>
+<p>停止一个 started 服务有两种方法：</p>
 <p>（1）在外部使用stopService()</p>
-<p>（2）在服务内部(onStartCommand方法内部)使用stopSelf()方法。</p>
-<h2 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h2><p>为了可以简单地创建一个异步的、会自动停止的服务，Android专门提供了一个 IntentService 类，可以启动IntentService多次，而每一个耗时操作会以工作队列的方式在IntentService的onHandleIntent()回调方法中执行，并且每次只会执行一个工作线程，执行完第一个后，再执行第二个，以此类推。</p>
-<p>使用时机：当我们需要这样一次性完成的任务时，就可以使用IntentService来完成。</p>
+<p>（2）在服务内部(onStartCommand方法内部)使用 stopSelf() 方法。</p>
+<h2 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h2><p>为了可以简单地创建一个异步的、会自动停止的服务，Android 专门提供了一个 IntentService 类，可以启动 IntentService 多次，而每一个耗时操作会以工作队列的方式在 IntentService 的 onHandleIntent() 回调方法中执行，并且每次只会执行一个工作线程，执行完第一个后，再执行第二个，以此类推。</p>
+<p>使用时机：当我们需要这样一次性完成的任务时，就可以使用 IntentService 来完成。</p>
 <p>案例操作及分析：先启动服务，然后再点击启动同一个服务</p>
 <p><img src="https://cl.ly/f93ec53611ab/IntentService.jpg" alt=""></p>
 <p>由日志可知, onHandleIntent() 方法开启了新的工作线程，多次启动服务时，会以工作队列的方式在该线程依次处理，处理完了之后会自动停止服务，无需调用 stopService() 或 stopSelf() 方法停止。</p>
-<h2 id="bind-方式"><a href="#bind-方式" class="headerlink" title="bind 方式"></a>bind 方式</h2><p>通过调用 bindService()方法能够绑定服务，然后系统会调用服务的onBind()回调方法，这个方法会返回一个跟服务器端交互的Binder对象。但是这个绑定是异步的，要接收IBinder对象，客户端必须创建一个ServiceConnection 类的实例，并且把这个实例传递给bindService()方法。ServiceConnection对象包含了一个系统调用的传递IBinder对象的回调方法。</p>
+<h2 id="bind-方式"><a href="#bind-方式" class="headerlink" title="bind 方式"></a>bind 方式</h2><p>通过调用 bindService() 方法能够绑定服务，然后系统会调用服务的 onBind() 回调方法，这个方法会返回一个跟服务器端交互的 Binder 对象。但是这个绑定是异步的，要接收 IBinder 对象，客户端必须创建一个 ServiceConnection 类的实例，并且把这个实例传递给bindService() 方法。 ServiceConnection 对象包含了一个系统调用的传递 IBinder 对象的回调方法。</p>
 <p>操作步骤：</p>
 <ol>
 <li><p>定义一个类继承 Service </p>
@@ -568,13 +570,13 @@
 bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CREATE);
 </code></pre><p>第四步：</p>
 <pre><code>unbindService(mServiceConnection);
-</code></pre><p>以上这两种销毁的方式都很好理解。那么如果我们既点击了Start Service按钮，又点击了Bind Service按钮会怎么样呢？这个时候你会发现，不管你是单独点击Stop Service按钮还是Unbind Service按钮，Service都不会被销毁，必要将Unbind Service按钮和Stop Service按钮都点击一下（没有先后顺序），Service才会被销毁。也就是说，点击Stop Service按钮只会让Service停止，点击Unbind Service按钮只会让Service和Activity解除关联，一个Service必须要在既没有和任何Activity关联又处理停止状态的时候才会被销毁，即回调 onDestroy() 方法。我们细说一下这种情况的生命周期。</p>
+</code></pre><p>以上这两种销毁的方式都很好理解。那么如果我们既点击了 Start Service 按钮，又点击了 Bind Service 按钮会怎么样呢？这个时候你会发现，不管你是单独点击 Stop Service 按钮还是 Unbind Service 按钮，Service 都不会被销毁，必要将 Unbind Service 按钮和 Stop Service 按钮都点击一下（没有先后顺序），Service 才会被销毁。也就是说，点击 Stop Service 按钮只会让 Service 停止，点击 Unbind Service 按钮只会让 Service 和  Activity 解除关联，一个 Service 必须要在既没有和任何 Activity 关联又处理停止状态的时候才会被销毁，即回调 onDestroy() 方法。我们细说一下这种情况的生命周期。</p>
 <p>情况一：start - bind</p>
 <p>生命周期：onCreate -&gt; onStartCommand -&gt; onBind -&gt; onUnbind -&gt; onDestroy</p>
 <p>情况三：bind -start </p>
 <p>生命周期：onCreate -&gt; onBind -&gt; onStartCommand -&gt; onUnbind -&gt; onDestroy</p>
-<p>分析：一旦在项目的任何位置调用了Context的startService()方法，相应的服务就会启动起来，并回调onstartCommand()方法。如果这个服务之前还没有创建过，onCreate()方法会先于onstartCommand()方法执行。服务启动过后，会一直保持运行状态，直到stopService()或stopself()方法被调用。注意虽然每次调用一次startService()方法，onstartCommand()方法就会以执行一次，但实际上每个服务都只会存在一个实例。所以不管你调用了多少次startService()方法，只需调用一次stopService()或stopself()方法，服务就会停止。</p>
-<p>另外，还可以调用Context的bindService()来获取一个服务的持久连接，这时就会回调服务中的onBind()方法。类似地，如果这个服务之前还没有创建过，onCreate()方法会先于onBind()方法执行。之后调用方可以获取到onBind()方法里返回的IBinder对象的实例，这样，就能自由地和服务进行通信了。只要调用方和服务之间的连接没有断开，服务就会一直保持运行状态。</p>
+<p>分析：一旦在项目的任何位置调用了 Context 的 startService() 方法，相应的服务就会启动起来，并回调 onstartCommand() 方法。如果这个服务之前还没有创建过， onCreate() 方法会先于 onstartCommand() 方法执行。服务启动过后，会一直保持运行状态，直到 stopService() 或 stopself() 方法被调用。注意虽然每次调用一次 startService() 方法， onstartCommand() 方法就会以执行一次，但实际上每个服务都只会存在一个实例。所以不管你调用了多少次 startService() 方法，只需调用一次 stopService() 或 stopself() 方法，服务就会停止。</p>
+<p>另外，还可以调用 Context 的 bindService() 来获取一个服务的持久连接，这时就会回调服务中的 onBind() 方法。类似地，如果这个服务之前还没有创建过， onCreate() 方法会先于 onBind() 方法执行。之后调用方可以获取到 onBind() 方法里返回的 IBinder 对象的实例，这样，就能自由地和服务进行通信了。只要调用方和服务之间的连接没有断开，服务就会一直保持运行状态。</p>
 <p>注意：如果未绑定过服务或已经解绑了，点击 unbind 会报错。</p>
 <p>开发中的技巧：可以先用 start 方式启动服务，接着用 bind 方式绑定服务，与服务进行关联进行业务处理。</p>
 <h2 id="Service-生命周期"><a href="#Service-生命周期" class="headerlink" title="Service 生命周期"></a>Service 生命周期</h2><p><img src="https://cl.ly/9ad4d786d616/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg" alt=""></p>
@@ -706,7 +708,7 @@ bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CRE
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
