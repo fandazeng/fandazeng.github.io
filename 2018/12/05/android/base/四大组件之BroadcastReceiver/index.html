@@ -109,19 +109,19 @@
 
 
 
-<meta name="description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/3960623.html BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，">
+<meta name="description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
 <meta name="keywords" content="android,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四大组件之BroadcastReceiver">
 <meta property="og:url" content="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/3960623.html BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，">
+<meta property="og:description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
 <meta property="og:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
 <meta property="og:image" content="https://cl.ly/9ff60ea533b4/%E6%9C%89%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97%E4%B8%80.jpg">
-<meta property="og:updated_time" content="2018-12-12T07:02:25.543Z">
+<meta property="og:updated_time" content="2018-12-12T09:18:30.034Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之BroadcastReceiver">
-<meta name="twitter:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/3960623.html BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，">
+<meta name="twitter:description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
 <meta name="twitter:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
 
 
@@ -414,8 +414,8 @@
       
 
       
-        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg</a></p>
-<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/3960623.html" target="_blank" rel="external">https://www.cnblogs.com/smyhvae/p/3960623.html</a></p>
+        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">Android 四大组件</a></p>
+<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/3960623.html" target="_blank" rel="external">BroadcastReceiver广播接收器</a></p>
 <h1 id="BroadcastReceiver-简介"><a href="#BroadcastReceiver-简介" class="headerlink" title="BroadcastReceiver 简介"></a>BroadcastReceiver 简介</h1><p>广播的生命周期很短（调用对象–&gt;回调 onReceive –&gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastReceiver 对象 , 并且调用 onReceive() 方法 , 执行完以后 , 该对象即被销毁 . 当 onReceive() 方法在 10 秒内没有执行完毕， Android 会认为该程序无响应。</p>
 <h1 id="BroadcastReceiver-注册"><a href="#BroadcastReceiver-注册" class="headerlink" title="BroadcastReceiver 注册"></a>BroadcastReceiver 注册</h1><p>注册广播的方式有两种，在代码中注册和在清单文件中注册，前者称为动态注册，后者称为静态注册。</p>
 <p>使用步骤：</p>

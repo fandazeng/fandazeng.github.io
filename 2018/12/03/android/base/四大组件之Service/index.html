@@ -109,21 +109,21 @@
 
 
 
-<meta name="description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/4070518.html Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个">
+<meta name="description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
 <meta name="keywords" content="android,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四大组件之Service">
 <meta property="og:url" content="http://yoursite.com/2018/12/03/android/base/四大组件之Service/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/4070518.html Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个">
+<meta property="og:description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
 <meta property="og:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
 <meta property="og:image" content="https://cl.ly/f93ec53611ab/IntentService.jpg">
 <meta property="og:image" content="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 <meta property="og:image" content="https://cl.ly/9ad4d786d616/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg">
-<meta property="og:updated_time" content="2018-12-12T07:09:02.041Z">
+<meta property="og:updated_time" content="2018-12-12T09:20:54.298Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之Service">
-<meta name="twitter:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：https://www.cnblogs.com/smyhvae/p/4070518.html Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个">
+<meta name="twitter:description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
 <meta name="twitter:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
 
 
@@ -416,8 +416,8 @@
       
 
       
-        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg</a></p>
-<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/4070518.html" target="_blank" rel="external">https://www.cnblogs.com/smyhvae/p/4070518.html</a></p>
+        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">Android 四大组件</a></p>
+<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/4070518.html" target="_blank" rel="external">Android Service组件深入解析</a></p>
 <h1 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h1><p>Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件进行交互。</p>
 <h1 id="Service-启动"><a href="#Service-启动" class="headerlink" title="Service 启动"></a>Service 启动</h1><h2 id="start-方式"><a href="#start-方式" class="headerlink" title="start 方式"></a>start 方式</h2><p>操作步骤：</p>
 <ol>

@@ -109,13 +109,13 @@
 
 
 
-<meta name="description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于">
+<meta name="description" content="参考：Android 四大组件 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPau">
 <meta name="keywords" content="android,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="四大组件之Activity">
 <meta property="og:url" content="http://yoursite.com/2018/11/28/android/base/四大组件之Activity/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于">
+<meta property="og:description" content="参考：Android 四大组件 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPau">
 <meta property="og:image" content="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 <meta property="og:image" content="https://cl.ly/6c1701ef073d/Activity%E5%92%8CFragment%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E5%85%B3%E7%B3%BB.png">
 <meta property="og:image" content="https://cl.ly/f99b84656e1d/Activity%E4%B8%8EFragment%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%B8%80.jpg">
@@ -133,10 +133,10 @@
 <meta property="og:image" content="https://cl.ly/7af17b3f8e93/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E5%9B%9B.jpg">
 <meta property="og:image" content="https://cl.ly/88f335a5c071/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E5%9B%9B.jpg">
 <meta property="og:image" content="https://cl.ly/28032465c79b/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeInstance.jpg">
-<meta property="og:updated_time" content="2018-12-12T07:17:57.789Z">
+<meta property="og:updated_time" content="2018-12-12T09:13:17.146Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之Activity">
-<meta name="twitter:description" content="参考：https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于">
+<meta name="twitter:description" content="参考：Android 四大组件 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPau">
 <meta name="twitter:image" content="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 
 
@@ -429,7 +429,7 @@
       
 
       
-        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg</a></p>
+        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">Android 四大组件</a></p>
 <p>参考：开发艺术探索书籍</p>
 <h1 id="Activity-生命周期"><a href="#Activity-生命周期" class="headerlink" title="Activity 生命周期"></a>Activity 生命周期</h1><p><img src="https://cl.ly/160503654da8/Activity%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt=""></p>
 <p>正常启动流程： </p>
