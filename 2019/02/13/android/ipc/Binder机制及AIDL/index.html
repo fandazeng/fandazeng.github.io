@@ -109,13 +109,13 @@
 
 
 
-<meta name="description" content="一.知识储备Android IPC 简介IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。 多进程的使用场景 应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获">
+<meta name="description" content="参考：写给 Android 应用工程师的 Binder 原理剖析参考：Android Bander设计与实现 - 设计篇参考：Android跨进程通信：图文详解 Binder机制 原理参考：Android 开发艺术探索 这里的原理分析大量参考了上述文章内容，源码参考了刚哥的 Android 开发艺术探索书籍第二章，只作学习笔记之用，感谢各位大佬。 一.知识储备Android IPC 简介IPC 是">
 <meta name="keywords" content="android,IPC通信">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Binder机制及AIDL">
 <meta property="og:url" content="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="一.知识储备Android IPC 简介IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。 多进程的使用场景 应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获">
+<meta property="og:description" content="参考：写给 Android 应用工程师的 Binder 原理剖析参考：Android Bander设计与实现 - 设计篇参考：Android跨进程通信：图文详解 Binder机制 原理参考：Android 开发艺术探索 这里的原理分析大量参考了上述文章内容，源码参考了刚哥的 Android 开发艺术探索书籍第二章，只作学习笔记之用，感谢各位大佬。 一.知识储备Android IPC 简介IPC 是">
 <meta property="og:image" content="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png">
 <meta property="og:image" content="https://cl.ly/c5911ad10c69/Linux%20%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.jpg">
 <meta property="og:image" content="https://cl.ly/0ef76b94e2f0/Binder%20IPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png">
@@ -124,10 +124,10 @@
 <meta property="og:image" content="https://cl.ly/88a5fefae3a7/Binder%E8%AF%A6%E7%BB%86%E7%9A%84%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png">
 <meta property="og:image" content="https://cl.ly/950ce1dcc383/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png">
 <meta property="og:image" content="https://cl.ly/9e3445158e58/AIDL%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.jpg">
-<meta property="og:updated_time" content="2019-02-18T04:56:39.229Z">
+<meta property="og:updated_time" content="2019-02-18T06:21:02.861Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Binder机制及AIDL">
-<meta name="twitter:description" content="一.知识储备Android IPC 简介IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。 多进程的使用场景 应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获">
+<meta name="twitter:description" content="参考：写给 Android 应用工程师的 Binder 原理剖析参考：Android Bander设计与实现 - 设计篇参考：Android跨进程通信：图文详解 Binder机制 原理参考：Android 开发艺术探索 这里的原理分析大量参考了上述文章内容，源码参考了刚哥的 Android 开发艺术探索书籍第二章，只作学习笔记之用，感谢各位大佬。 一.知识储备Android IPC 简介IPC 是">
 <meta name="twitter:image" content="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png">
 
 
@@ -420,7 +420,9 @@
       
 
       
-        <h1 id="一-知识储备"><a href="#一-知识储备" class="headerlink" title="一.知识储备"></a>一.知识储备</h1><h2 id="Android-IPC-简介"><a href="#Android-IPC-简介" class="headerlink" title="Android IPC 简介"></a>Android IPC 简介</h2><p>IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。</p>
+        <p>参考：<a href="https://juejin.im/post/5acccf845188255c3201100f" target="_blank" rel="external">写给 Android 应用工程师的 Binder 原理剖析</a><br>参考：<a href="https://blog.csdn.net/universus/article/details/6211589" target="_blank" rel="external">Android Bander设计与实现 - 设计篇</a><br>参考：<a href="https://blog.csdn.net/carson_ho/article/details/73560642" target="_blank" rel="external">Android跨进程通信：图文详解 Binder机制 原理</a><br>参考：Android 开发艺术探索</p>
+<p>这里的原理分析大量参考了上述文章内容，源码参考了刚哥的 Android 开发艺术探索书籍第二章，只作学习笔记之用，感谢各位大佬。</p>
+<h1 id="一-知识储备"><a href="#一-知识储备" class="headerlink" title="一.知识储备"></a>一.知识储备</h1><h2 id="Android-IPC-简介"><a href="#Android-IPC-简介" class="headerlink" title="Android IPC 简介"></a>Android IPC 简介</h2><p>IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。</p>
 <h2 id="多进程的使用场景"><a href="#多进程的使用场景" class="headerlink" title="多进程的使用场景"></a>多进程的使用场景</h2><ol>
 <li>应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获取多份内存空间，Android 对一个应用可使用的最大内存做了限制。</li>
 <li>当前应用需要向其他应用获取数据，因为是不同应用，所以必须采用跨进程的方式来通信。</li>
@@ -570,7 +572,7 @@ copy_to_user()，将内核空间数据拷贝到用户空间
 <h3 id="Binder-驱动"><a href="#Binder-驱动" class="headerlink" title="Binder 驱动"></a>Binder 驱动</h3><p>是一种虚拟设备驱动，负责进程之间 Binder 通信的建立，Binder 在进程之间的传递，Binder 引用计数管理，数据包在进程之间的传递和交互等一系列底层支持。 </p>
 <h3 id="ServiceManager"><a href="#ServiceManager" class="headerlink" title="ServiceManager"></a>ServiceManager</h3><p>ServiceManager 是一个独立进程，管理各种服务，主要是将字符形式的 Binder 名字转化成 Client 中对该 Binder 的引用，使得 Client 能够通过 Binder 的名字获得对 Binder 实体的引用。Server 创建了 Binder，并为它起一个字符形式，可读易记得名字，将这个 Binder 实体连同名字一起以数据包的形式通过 Binder 驱动发送给 ServiceManager ，通知 ServiceManager 注册一个名为“张三”的 Binder，它位于某个 Server 中。驱动为这个穿越进程边界的 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager。ServiceManger 收到数据后从中取出名字和引用填入查找表。</p>
 <p>ServierManager 是一个进程，Server 是另一个进程，Server 向 ServiceManager 中注册 Binder 必然涉及到进程间通信。ServiceManager 和其他进程同样采用 Bidner 通信，ServiceManager 是 Server 端，有自己的 Binder 实体，其他进程都是 Client，需要通过这个 Binder 的引用来实现 Binder 的注册，查询和获取。ServiceManager 提供的 Binder 比较特殊，它没有名字也不需要注册。当一个进程使用 BINDER_SET_CONTEXT_MGR 命令将自己注册成 ServiceManager 时 Binder 驱动会自动为它创建 Binder 实体。其次这个 Binder 实体的引用在所有 Client 中都固定为 0 而无需通过其它手段获得。Framework提供了一个系统函数，可以获取该 ServierManager 对应的 Binder 引用，那就是BinderInternal.getContextObject()。其他服务进程就可以通过该引用提供的方法来注册或获取对应的 Binder 引用来进行跨进程通信了。</p>
-<p>ServiceManager 就像是一个公司的总机，这个总机号码是公开的，系统中任何进程都可以使用<code>BinderInternal.getContextObject()</code> 获取该总机的 Binder 对象，而当用户想联系公司中的其他人（服务）时，则要经过总机再获得分机号码。这种设计的好处是系统中仅暴露一个全局 Binde r引用，那就是 ServiceManager，而其他系统服务则可以隐藏起来，从而有助于系统服务的扩展，以及调用系统服务的安全检查。其他系统服务在启动时，首先把自己的 Binder 对象传递给 ServiceManager ，即所谓的注册（addService）。</p>
+<p>ServiceManager 就像是一个公司的总机，这个总机号码是公开的，系统中任何进程都可以使用<code>BinderInternal.getContextObject()</code> 获取该总机的 Binder 对象，而当用户想联系公司中的其他人（服务）时，则要经过总机再获得分机号码。这种设计的好处是系统中仅暴露一个全局 Binder 引用，那就是 ServiceManager，而其他系统服务则可以隐藏起来，从而有助于系统服务的扩展，以及调用系统服务的安全检查。其他系统服务在启动时，首先把自己的 Binder 对象传递给 ServiceManager ，即所谓的注册（addService）。</p>
 <p>下面给出 ServiceManager 的部分源码：</p>
 <pre><code>// 注册服务
 public static void addService(String name, IBinder service) {
