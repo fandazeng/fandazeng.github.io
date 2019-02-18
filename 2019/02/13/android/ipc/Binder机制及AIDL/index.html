@@ -1,0 +1,2072 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,IPC通信," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="一.知识储备Android IPC 简介IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。 多进程的使用场景 应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获">
+<meta name="keywords" content="android,IPC通信">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Binder机制及AIDL">
+<meta property="og:url" content="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="一.知识储备Android IPC 简介IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。 多进程的使用场景 应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获">
+<meta property="og:image" content="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png">
+<meta property="og:image" content="https://cl.ly/c5911ad10c69/Linux%20%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.jpg">
+<meta property="og:image" content="https://cl.ly/0ef76b94e2f0/Binder%20IPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="https://cl.ly/2157b6904b97/Binder%20%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:image" content="https://cl.ly/83d1f00329c5/Binder%20%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://cl.ly/88a5fefae3a7/Binder%E8%AF%A6%E7%BB%86%E7%9A%84%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="https://cl.ly/950ce1dcc383/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="https://cl.ly/9e3445158e58/AIDL%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.jpg">
+<meta property="og:updated_time" content="2019-02-18T04:56:39.229Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Binder机制及AIDL">
+<meta name="twitter:description" content="一.知识储备Android IPC 简介IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。 多进程的使用场景 应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获">
+<meta name="twitter:image" content="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/"/>
+
+
+
+
+
+     <title> Binder机制及AIDL | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Binder机制及AIDL</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-02-13T14:59:50+08:00">
+                2019-02-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/IPC通信/" itemprop="url" rel="index">
+                    <span itemprop="name">IPC通信</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/02/13/android/ipc/Binder机制及AIDL/" class="leancloud_visitors" data-flag-title="Binder机制及AIDL">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="一-知识储备"><a href="#一-知识储备" class="headerlink" title="一.知识储备"></a>一.知识储备</h1><h2 id="Android-IPC-简介"><a href="#Android-IPC-简介" class="headerlink" title="Android IPC 简介"></a>Android IPC 简介</h2><p>IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。</p>
+<h2 id="多进程的使用场景"><a href="#多进程的使用场景" class="headerlink" title="多进程的使用场景"></a>多进程的使用场景</h2><ol>
+<li>应用因为某些原因自身需要采用多进程来实现，比如有些模块由于特殊原因需要运行在单独的进程中，又或者为了加大一个应用可使用的内存而通过多进程来获取多份内存空间，Android 对一个应用可使用的最大内存做了限制。</li>
+<li>当前应用需要向其他应用获取数据，因为是不同应用，所以必须采用跨进程的方式来通信。</li>
+</ol>
+<h2 id="Android中的多进程模式"><a href="#Android中的多进程模式" class="headerlink" title="Android中的多进程模式"></a>Android中的多进程模式</h2><p>在应用内，使用多进程最简单的方式就是给四大组件在 <code>AndroidManifest</code> 中指定 <code>process</code> 属性，之后系统会让组件运行在新的进程中。</p>
+<pre><code>&lt;service android:name=&quot;.server.RemoteService&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;
+    android:process=&quot;:remote&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;zeng.fanda.com.binderdemo.remote.service&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+</code></pre><p>我们可以通过 shell 来查看进程信息，命令为：</p>
+<pre><code>adb shell ps | grep 当前应用包名
+</code></pre><p>我的 Demo 示例如下：</p>
+<pre><code>F:\my_android_projects\AIDLDemo&gt;adb shell ps | grep zeng.fanda.com.aidldemo
+u0_a1395  17207 5640  2110576 73196 SyS_epoll_ 0000000000 S zeng.fanda.com.aidldemo
+u0_a1395  17243 5640  1807040 25712 SyS_epoll_ 0000000000 S zeng.fanda.com.aidldemo:remote
+</code></pre><p>没有指定 <code>process</code> 属性的组件运行在默认进程中，进程名为当前应用的包名。用 “:” 方式来命名的进程，名字前面会加上当前应用的包名，是一种简写方式。用这种方式命名的进程属于当前应用的私有进程，其他应用的组件不可以和它跑在同一个进程中，不是这种方式命名的进程属于全局进程，其他应用可通过 <code>ShareUID</code> 方式和它跑在同一个进程中。</p>
+<h2 id="多进程模式造成的问题"><a href="#多进程模式造成的问题" class="headerlink" title="多进程模式造成的问题"></a>多进程模式造成的问题</h2><ol>
+<li>静态成员和单例模式完全失效；</li>
+<li>线程同步机制完全失效；</li>
+<li>SharedPreferences 的可靠性下降；</li>
+<li>Application 会多次创建；</li>
+</ol>
+<p>解析：Android 为每一个应用分配了一个独立的虚拟机，不同的虚拟机在内存分配上有不同的地址空间，这就导致在不同的虚拟机访问同一个对象会产生多份副本，所以会造成上述1.2两个问题。SharedPreferences 底层是通过读/写 XML 文件来实现的，多进程意味着多并发操作，所以会造成上述3问题。组件指定在新进程上运行，系统会创建新进程，这个过程跟创建应用程序进程是一样的，所以也会创建新的 Application 和分配独立的虚拟机，这就造成了上述4的问题。为了解决这些问题，我们需要可靠、稳定的跨进程通信方式，这就是 Binder 通信机制。</p>
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><h3 id="什么是序列化？"><a href="#什么是序列化？" class="headerlink" title="什么是序列化？"></a>什么是序列化？</h3><p>我们把对象从内存中变成可存储或传输的过程称之为序列化，序列化之后，就可以把序列化后的内容写入磁盘，或者通过网络传输到别的机器上。反过来，把对象内容从序列化的对象重新读到内存里称之为反序列化。</p>
+<h3 id="通过-Serializable-接口序列化"><a href="#通过-Serializable-接口序列化" class="headerlink" title="通过 Serializable 接口序列化"></a>通过 Serializable 接口序列化</h3><p><code>Serializable</code> 是 Java 提供的一个序列化接口，是一个空接口，为对象提供标准的序列化和反序列化操作。只要对象实现该接口并声明一个 <code>serialVersionUID</code> 就实现了序列化，<code>serialVersionUID</code> 是一个类似以下标识的声明：</p>
+<pre><code>private static final long serialVersionUID = 8711368828010083044L;
+</code></pre><p>完整的示例代码如下：</p>
+<pre><code>public class User implements Serializable {
+    private static final long serialVersionUID = 8711368828010083044L;
+
+    public int userId;
+    public String userName;
+    ...
+}
+
+//序列化
+User user = new User(0,&quot;jake&quot;);
+ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(&quot;cache.txt&quot;));
+out.writeObject(user);
+out.close();
+
+//反序列化
+ObjectInputStream in = new ObjectInputStream(new FileInputStream(&quot;cache.txt&quot;));
+User user = (User) ois.readObject();
+in.close();
+</code></pre><p>上述代码演示了 <code>Serializable</code> 方式序列化对象的典型过程。注意，恢复后的对象和之前的对象不是同一个对象。那 <code>serialVersionUID</code> 的作用是什么呢？</p>
+<p>解析：辅助序列化和反序列化，当我们不手动指定 <code>serialVersionUID</code> ，系统也会自动给增加 <code>serialVersionUID</code> ，只是这个 <code>serialVersionUID</code> 是根据对象的参数按照指定算法生成的，修改了对象，<code>serialVersionUID</code> 也会不一样。当对象被修改了，就会导致反序列化失败，因为 <code>serialVersionUID</code> 不匹配了。为了提高 <code>serialVersionUID</code> 的独立性和确定性，强烈建议在一个可序列化类中显式定义 serialVersionUID ，为它赋予明确的值，就算对象被修改了，也能最大限度地恢复数据，而不是报错。</p>
+<p><strong>注意：静态成员变量不属于对象属于类，不会参与序列化过程，其次用 transient 关键字修饰的成员变量也不参与序列化过程。</strong></p>
+<h3 id="通过-Parcelable-接口序列化"><a href="#通过-Parcelable-接口序列化" class="headerlink" title="通过 Parcelable 接口序列化"></a>通过 Parcelable 接口序列化</h3><pre><code>/**
+ * 实体类，实现了序列化
+ *
+ * @author 曾凡达
+ * @date 2019/2/13
+ */
+public class Book implements Parcelable {
+    private int price;
+    private String name;
+
+    public Book(int price, String name) {
+        this.price = price;
+        this.name = name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(price);
+        dest.writeString(name);
+    }
+
+    public static final Parcelable.Creator&lt;Book&gt; CREATOR = new Parcelable.Creator&lt;Book&gt;() {
+
+        @Override
+        public Book createFromParcel(Parcel source) {
+            return new Book(source);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
+
+    private Book(Parcel parcel) {
+        price = parcel.readInt();
+        name = parcel.readString();
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Book{&quot; +
+                &quot;price=&quot; + price +
+                &quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +
+                &apos;}&apos;;
+    }
+}
+</code></pre><p>Parcel 内部包装了可序列化的数据，可以在 Binder 中自由传输，详细的方法说明如下表所示：</p>
+<p><img src="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png" alt=""></p>
+<p>系统为我们提供了许多实现了 Parcelable 接口的类，它们都是可以直接序列化的，比如 Intent 、 Bundle 、 Bitmap ，同时 List 和 Map 也可以序列化，前提是它们里面的每个元素都可以序列化。</p>
+<h3 id="Parcelable-和-Serializable-的区别"><a href="#Parcelable-和-Serializable-的区别" class="headerlink" title="Parcelable 和 Serializable 的区别"></a>Parcelable 和 Serializable 的区别</h3><p>Serializable ： 使用简单，开销很大，序列化和反序列化过程需要大量 I/O 操作。</p>
+<p>Parcelable ： 使用麻烦，效率高，是 Android 提供的序列化方式，主要用在内存序列化上，首选。</p>
+<h1 id="二-Binder"><a href="#二-Binder" class="headerlink" title="二.Binder"></a>二.Binder</h1><h2 id="Linux-进程相关知识"><a href="#Linux-进程相关知识" class="headerlink" title="Linux 进程相关知识"></a>Linux 进程相关知识</h2><ol>
+<li><p>进程空间 = 用户空间 + 内核空间</p>
+</li>
+<li><p>进程间，用户空间数据不可共享，内核空间可共享</p>
+</li>
+<li><p>为了保证安全性和独立性，一个进程不能直接操作或访问另一个进程。（ 进程隔离）</p>
+</li>
+<li><p>进程内，用户空间和内核空间不能直接交互，需通过系统调用。</p>
+</li>
+</ol>
+<p>主要通过函数：</p>
+<pre><code>copy_from_user()，将用户空间数据拷贝到内核空间
+
+copy_to_user()，将内核空间数据拷贝到用户空间
+</code></pre><h2 id="Linux-跨进程通信原理"><a href="#Linux-跨进程通信原理" class="headerlink" title="Linux 跨进程通信原理"></a>Linux 跨进程通信原理</h2><p><img src="https://cl.ly/c5911ad10c69/Linux%20%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.jpg" alt=""></p>
+<p>工作流程：</p>
+<ol>
+<li>发送进程通过系统调用，将需要发送的数据拷贝到 Linux 进程的内核空间中的缓存区中</li>
+<li>内核服务程序唤醒接收进程的接收线程，通过系统调用将数据发送到接收进程的用户空间中，最终完成数据发送。</li>
+</ol>
+<p>即：发送进程的用户空间——系统调用copy_from_user()——内核空间的内核缓存区——系统调用copy_to_user()——接收进程的用户空间</p>
+<p>即 ： 用户空间——内核空间——用户空间 （共两次数据拷贝）</p>
+<p>缺点：效率低，有2次数据拷贝。接收数据的缓存要由接收方提供，但接收方不知道到底要多大的缓存才满足需求。（一般的做法是：开辟尽量大的空间或先调用 API 接收消息头获取消息体大小，再开辟适当的空间接收消息体，但前者浪费空间、后者浪费时间）</p>
+<h2 id="Binder跨进程通信原理"><a href="#Binder跨进程通信原理" class="headerlink" title="Binder跨进程通信原理"></a>Binder跨进程通信原理</h2><h3 id="动态内核可加载模块和内存映射"><a href="#动态内核可加载模块和内存映射" class="headerlink" title="动态内核可加载模块和内存映射"></a>动态内核可加载模块和内存映射</h3><p>Linux 的动态内核可加载模块机制，使得 Android 系统可以通过动态添加一个内核模块运行在内核空间，用户进程之间通过这个内核模块作为桥梁来实现通信。在 Android 系统中，这个运行在内核空间，负责各个用户进程通过 Binder 实现通信的内核模块就叫 Binder 驱动（Binder Dirver）。</p>
+<p>Binder IPC 机制中涉及到的内存映射是通过 <code>mmap()</code> 来实现的，<code>mmap()</code> 是操作系统中的一种内存映射的方法。内存映射简单的讲就是将用户空间的一块内存区域映射到内核空间。映射关系建立后，用户对这块内存区域的修改可以直接反应到内核空间；反之内核空间对这段区域的修改也能直接反应到用户空间。</p>
+<p>内存映射能减少数据拷贝次数，实现用户空间和内核空间的高效互动。两个空间各自的修改能直接反映在映射的内存区域，从而被对方空间及时感知。正因如此，内存映射能够提供对进程间通信的支持。</p>
+<h3 id="Binder-IPC-实现原理"><a href="#Binder-IPC-实现原理" class="headerlink" title="Binder IPC 实现原理"></a>Binder IPC 实现原理</h3><p>一次完整的 Binder IPC 通信过程通常是这样：</p>
+<ol>
+<li>首先 Binder 驱动在内核空间创建一个数据接收缓存区；</li>
+<li>接着在内核空间开辟一块内核缓存区，建立内核缓存区和内核中的数据接收缓存区之间的映射关系，以及内核中数据接收缓存区和接收进程用户空间地址的映射关系；</li>
+<li>发送方进程通过系统调用 copy_from_user() 将数据 copy 到内核中的内核缓存区，由于内核缓存区和接收进程的用户空间存在内存映射，因此也就相当于把数据发送到了接收进程的用户空间，这样便完成了一次进程间的通信。</li>
+</ol>
+<p>原理如下图：</p>
+<p><img src="https://cl.ly/0ef76b94e2f0/Binder%20IPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png" alt=""></p>
+<h2 id="Binder-通信模型"><a href="#Binder-通信模型" class="headerlink" title="Binder 通信模型"></a>Binder 通信模型</h2><h3 id="Client-Server-ServiceManager-驱动"><a href="#Client-Server-ServiceManager-驱动" class="headerlink" title="Client/Server/ServiceManager/驱动"></a>Client/Server/ServiceManager/驱动</h3><p>Binder 是基于 C/S 架构的。由一系列的组件组成，包括 Client、 Server、 ServiceManager、 Binder 驱动。其中 Client 、Server 、Service Manager 运行在用户空间，Binder 驱动运行在内核空间。其中 Service Manager 和 Binder 驱动由系统提供，而 Client、 Server 由应用程序来实现。Client、 Server 和 ServiceManager 均是通过系统调用 <code>open</code>、 <code>mmap</code> 和 <code>ioctl</code> 来访问设备文件 <code>/dev/binder</code>，从而实现与 Binder 驱动的交互来间接的实现跨进程通信。</p>
+<p><img src="https://cl.ly/2157b6904b97/Binder%20%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B.png" alt=""></p>
+<h3 id="Binder-驱动"><a href="#Binder-驱动" class="headerlink" title="Binder 驱动"></a>Binder 驱动</h3><p>是一种虚拟设备驱动，负责进程之间 Binder 通信的建立，Binder 在进程之间的传递，Binder 引用计数管理，数据包在进程之间的传递和交互等一系列底层支持。 </p>
+<h3 id="ServiceManager"><a href="#ServiceManager" class="headerlink" title="ServiceManager"></a>ServiceManager</h3><p>ServiceManager 是一个独立进程，管理各种服务，主要是将字符形式的 Binder 名字转化成 Client 中对该 Binder 的引用，使得 Client 能够通过 Binder 的名字获得对 Binder 实体的引用。Server 创建了 Binder，并为它起一个字符形式，可读易记得名字，将这个 Binder 实体连同名字一起以数据包的形式通过 Binder 驱动发送给 ServiceManager ，通知 ServiceManager 注册一个名为“张三”的 Binder，它位于某个 Server 中。驱动为这个穿越进程边界的 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager。ServiceManger 收到数据后从中取出名字和引用填入查找表。</p>
+<p>ServierManager 是一个进程，Server 是另一个进程，Server 向 ServiceManager 中注册 Binder 必然涉及到进程间通信。ServiceManager 和其他进程同样采用 Bidner 通信，ServiceManager 是 Server 端，有自己的 Binder 实体，其他进程都是 Client，需要通过这个 Binder 的引用来实现 Binder 的注册，查询和获取。ServiceManager 提供的 Binder 比较特殊，它没有名字也不需要注册。当一个进程使用 BINDER_SET_CONTEXT_MGR 命令将自己注册成 ServiceManager 时 Binder 驱动会自动为它创建 Binder 实体。其次这个 Binder 实体的引用在所有 Client 中都固定为 0 而无需通过其它手段获得。Framework提供了一个系统函数，可以获取该 ServierManager 对应的 Binder 引用，那就是BinderInternal.getContextObject()。其他服务进程就可以通过该引用提供的方法来注册或获取对应的 Binder 引用来进行跨进程通信了。</p>
+<p>ServiceManager 就像是一个公司的总机，这个总机号码是公开的，系统中任何进程都可以使用<code>BinderInternal.getContextObject()</code> 获取该总机的 Binder 对象，而当用户想联系公司中的其他人（服务）时，则要经过总机再获得分机号码。这种设计的好处是系统中仅暴露一个全局 Binde r引用，那就是 ServiceManager，而其他系统服务则可以隐藏起来，从而有助于系统服务的扩展，以及调用系统服务的安全检查。其他系统服务在启动时，首先把自己的 Binder 对象传递给 ServiceManager ，即所谓的注册（addService）。</p>
+<p>下面给出 ServiceManager 的部分源码：</p>
+<pre><code>// 注册服务
+public static void addService(String name, IBinder service) {
+    try {
+        getIServiceManager().addService(name, service, false);
+    } catch (RemoteException e) {
+        Log.e(TAG, &quot;error in addService&quot;, e);
+    }
+}
+
+// 获取服务
+public static IBinder getService(String name) {
+    try {
+        // 首先从sCache 缓存中查看是否有对应的Binder 对象，有则返回
+        IBinder service = sCache.get(name);
+        if (service != null) {
+            return service;
+        } else {
+            return Binder.allowBlocking(getIServiceManager().getService(name));
+        }
+    } catch (RemoteException e) {
+        Log.e(TAG, &quot;error in getService&quot;, e);
+    }
+    return null;
+}
+
+// 获取系统中唯一的 ServiceManager 对应的Binder
+private static IServiceManager getIServiceManager() {
+    if (sServiceManager != null) {
+        return sServiceManager;
+    }
+
+    // Find the service manager
+    sServiceManager = ServiceManagerNative
+            .asInterface(Binder.allowBlocking(BinderInternal.getContextObject()));
+    return sServiceManager;
+}
+</code></pre><h2 id="Binder-通信过程"><a href="#Binder-通信过程" class="headerlink" title="Binder 通信过程"></a>Binder 通信过程</h2><ol>
+<li>首先，一个进程使用 <code>BINDER_SET_CONTEXT_MGR</code> 命令通过 Binder 驱动将自己注册成为 ServiceManager；</li>
+<li>Server 通过驱动向 ServiceManager 中注册 Binder（Server 中的 Binder 实体），表明可以对外提供服务。驱动为这个 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager，ServiceManger 将其填入查找表。</li>
+<li>Client 通过名字，在 Binder 驱动的帮助下从 ServiceManager 中获取到对 Binder 实体的引用，通过这个引用就能实现和 Server 进程的通信。</li>
+</ol>
+<p><img src="https://cl.ly/83d1f00329c5/Binder%20%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png" alt=""></p>
+<p>下表是详细的通信过程：</p>
+<p><img src="https://cl.ly/88a5fefae3a7/Binder%E8%AF%A6%E7%BB%86%E7%9A%84%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png" alt=""></p>
+<h2 id="Binder-通信中的代理模式"><a href="#Binder-通信中的代理模式" class="headerlink" title="Binder 通信中的代理模式"></a>Binder 通信中的代理模式</h2><p>A 进程想要 B 进程中某个对象（object）是如何实现的呢？毕竟它们分属不同的进程，A 进程 没法直接使用 B 进程中的 object。</p>
+<p>前面我们介绍过跨进程通信的过程都有 Binder 驱动的参与，因此在数据流经 Binder 驱动的时候驱动会对数据做一层转换。当 A 进程想要获取 B 进程中的 object 时，驱动并不会真的把 object 返回给 A，而是返回了一个跟 object 看起来一模一样的代理对象 objectProxy，这个 objectProxy 具有和 object 一摸一样的方法，但是这些方法并没有 B 进程中 object 对象那些方法的能力，这些方法只需要把把请求参数交给驱动即可。对于 A 进程来说和直接调用 object 中的方法是一样的。</p>
+<p>当 Binder 驱动接收到 A 进程的消息后，发现这是个 objectProxy 就去查询自己维护的表单，一查发现这是 B 进程 object 的代理对象。于是就会去通知 B 进程调用 object 的方法，并要求 B 进程把返回结果发给自己。当驱动拿到 B 进程的返回结果后就会转发给 A 进程，一次通信就完成了。</p>
+<h2 id="Binder-的完整定义"><a href="#Binder-的完整定义" class="headerlink" title="Binder 的完整定义"></a>Binder 的完整定义</h2><ul>
+<li>从进程间通信的角度看，Binder 是一种进程间通信的机制；</li>
+<li>从 Server 进程的角度看，Binder 指的是 Server 中的 Binder 实体对象；</li>
+<li>从 Client 进程的角度看，Binder 指的是对 Binder 代理对象，是 Binder 实体对象的一个远程代理;</li>
+<li>从传输过程的角度看，Binder 是一个可以跨进程传输的对象；Binder 驱动会对这个跨越进程边界的对象对一点点      特殊处理，自动完成代理对象和本地对象之间的转换;</li>
+</ul>
+<h1 id="Binder机制在Android中的具体实现"><a href="#Binder机制在Android中的具体实现" class="headerlink" title="Binder机制在Android中的具体实现"></a>Binder机制在Android中的具体实现</h1><h2 id="各-Java-类职责描述"><a href="#各-Java-类职责描述" class="headerlink" title="各 Java 类职责描述"></a>各 Java 类职责描述</h2><ul>
+<li><p><strong>IBinder</strong>：是一个接口类，代表了一种跨进程通信的能力。只要对象实现了这个接口，就能跨进程传输。</p>
+</li>
+<li><p><strong>IInterface</strong>：是一个接口类，代表 Server 进程对象具备什么样的能力（能提供哪些方法，其实对应的就是 AIDL 文件中定义的接口），我们的接口需要继承它，并定义 Server 进程提供的方法。</p>
+</li>
+<li><p><strong>Binder</strong>：Java 层的 Binder 类，代表的就是 Binder 本地对象。BinderProxy 类是 Binder 的内部类，它代表远程进程的 Binder 对象的本地代理，Client 进程要访问远程服务时，通过这个代理对象。Binder 和 BinderProxy 类都实现了 IBinder 接口，具备跨进程传输能力。</p>
+</li>
+<li><p><strong>Stub</strong>：使用 AIDL 的时候，编译工具会给我们生成一个名为 Stub 的静态内部类；这个类继承了 Binder, 说明它是一个 Binder 本地对象，它实现了 IInterface 接口，表明它具有 Server 承诺给 Client 的能力；Stub 是一个抽象类，具体的 IInterface 的相关实现需要开发者自己实现。</p>
+</li>
+</ul>
+<h2 id="手写实现过程讲解"><a href="#手写实现过程讲解" class="headerlink" title="手写实现过程讲解"></a>手写实现过程讲解</h2><p>首先，项目结构如下：</p>
+<p><img src="https://cl.ly/950ce1dcc383/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p><code>RemoteService</code> 类是 Server 端，提供远程服务；<code>ClientActivity</code> 类是 Client 端，请求获取远程服务；<code>Proxy</code> 类是远程服务的本地代理类；<code>IBookManager</code> 类是一个接口，继承了 IInterface 接口，定义了 Server 进程提供的方法。<code>Stub</code> 类如上述描述一样，是一个 Binder 的本地对象。<code>Book</code> 类是一个实现了 Parcelable 接口的实体类，能够序列化和反序列化。</p>
+<p>下面将分别展示各个类的实现代码：</p>
+<h3 id="IBookManager"><a href="#IBookManager" class="headerlink" title="IBookManager"></a><strong>IBookManager</strong></h3><pre><code>/**
+ * 这个类用来定义服务端 RemoteService 具备什么样的能力
+ *
+ */
+public interface IBookManager extends IInterface {
+    List&lt;Book&gt; getBooks() throws RemoteException;
+
+    void addBook(Book book) throws RemoteException;
+}
+</code></pre><p>该类继承 IInterface 类，并定义了两个方法，提供给 Client 端使用。</p>
+<h3 id="Book"><a href="#Book" class="headerlink" title="Book"></a><strong>Book</strong></h3><pre><code>/**
+ * 实体类，实现了序列化
+ *
+ */
+public class Book implements Parcelable {
+    private int price;
+    private String name;
+
+    public Book(int price, String name) {
+        this.price = price;
+        this.name = name;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.price);
+        dest.writeString(this.name);
+    }
+
+    public Book() {
+    }
+
+    protected Book(Parcel in) {
+        this.price = in.readInt();
+        this.name = in.readString();
+    }
+
+    public static final Parcelable.Creator&lt;Book&gt; CREATOR = new Parcelable.Creator&lt;Book&gt;() {
+
+        @Override
+        public Book createFromParcel(Parcel source) {
+            return new Book(source);
+        }
+
+        @Override
+        public Book[] newArray(int size) {
+            return new Book[size];
+        }
+    };
+
+    @Override
+    public String toString() {
+        return &quot;Book{&quot; +
+                &quot;price=&quot; + price +
+                &quot;, name=&apos;&quot; + name + &apos;\&apos;&apos; +
+                &apos;}&apos;;
+    }
+}
+</code></pre><h3 id="Proxy"><a href="#Proxy" class="headerlink" title="Proxy"></a><strong>Proxy</strong></h3><pre><code>/**
+ *  远程服务代理类，需要实现接口，才能代理服务功能
+ */
+public class Proxy implements IBookManager {
+
+    //定义字符符描述
+    public static final String DESCRIPTOR = &quot; zeng.fanda.com.binderdemo.BookManager&quot;;
+
+    // 是一个 BinderProxy 对象
+    private IBinder remote;
+
+    public Proxy(IBinder remote) {
+        //构造传入远程服务本地代理对象
+        this.remote = remote;
+    }
+
+    @Override
+    public List&lt;Book&gt; getBooks() throws RemoteException {
+        //client端调用，底层通过binder驱动，会回调到binder实体中对应的 onTransact 对法
+        //创建输入输出对象
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+        //定义返回结果对象
+        List&lt;Book&gt; result ;
+
+        try {
+            //写入ITnterface的描述
+            data.writeInterfaceToken(DESCRIPTOR);
+            // 发起跨进程请求，当前线程挂起
+            //注：若Server进程执行的耗时操作，请不要使用主线程，以防止ANR
+            remote.transact(Stub.GET_BOOKS, data, reply, 0);
+            //binder 驱动唤醒，线程继续执行，获取返回结果
+            reply.readException();
+            //反序列化，获取实例
+            result = reply.createTypedArrayList(Book.CREATOR);
+        } finally {
+            reply.recycle();
+            data.recycle();
+        }
+        return result;
+    }
+
+    @Override
+    public void addBook(Book book) throws RemoteException {
+        //client端调用，底层通过binder驱动，会回调到binder实体中对应的 onTransact 对法
+        //创建输入输出对象
+        Parcel data = Parcel.obtain();
+        Parcel reply = Parcel.obtain();
+
+        try {
+            //写入ITnterface的描述
+            data.writeInterfaceToken(DESCRIPTOR);
+
+            //写入请求参数
+            if (book != null) {
+                data.writeInt(1);
+                book.writeToParcel(data,0);
+            } else {
+                data.writeInt(0);
+            }
+            // 发起跨进程请求，当前线程挂起
+            //注：若Server进程执行的耗时操作，请不要使用主线程，以防止ANR
+            remote.transact(Stub.ADD_BOOK, data, reply, 0);
+            //binder 驱动唤醒，线程继续执行，获取返回结果
+            reply.readException();
+        } finally {
+            reply.recycle();
+            data.recycle();
+        }
+    }
+
+    public String getInterfaceDescriptor() {
+        return DESCRIPTOR;
+    }
+
+    @Override
+    public IBinder asBinder() {
+        return remote;
+    }
+}
+</code></pre><p>上述 data 和 reply 对象不是由客户端自己创建的，而是调用 <code>Parcel.obtain()</code> 申请的，这正如邮局一样，用户一般只能用邮局提供的信封（尤其是 EMS）。data 是输入对象，数据由 Client 端进程提供，reply 是输出对象，由 Server 进程返回结果放入其中。</p>
+<p><code>writeInterfaceToken()</code> 方法标注远程服务名称，与 <code>enforceInterface()</code> 配对使用，该名称将作为 Binder 驱动确保客户端的确想调用指定的服务端功能。</p>
+<p><code>transact（）</code>方法需要传入目标函数编码，该编码由　Client 进程 和 Server 进程自身约定和 Parcel 类的输入输出对象以及一个标记位(几乎都传0)</p>
+<h3 id="Stub"><a href="#Stub" class="headerlink" title="Stub"></a><strong>Stub</strong></h3><pre><code>/**
+ * 抽象类，继承Binder，拥有跨进程通信能力，具体提供的服务功能由实现类自身处理
+ *
+ */
+public abstract class Stub extends Binder implements IBookManager {
+    //定义字符描述
+    public static final String DESCRIPTOR = &quot; zeng.fanda.com.binderdemo.BookManager&quot;;
+
+    //定义函数编码,在跨进程调用的时候，不会传递函数而是传递编号来指明要调用哪个函数
+    public static final int GET_BOOKS = IBinder.FIRST_CALL_TRANSACTION;
+    public static final int ADD_BOOK = IBinder.FIRST_CALL_TRANSACTION + 1;
+
+    public Stub( ) {
+        // 1. 将（descriptor，IBookManager）作为（key,value）对存入到Binder对象中的一个Map&lt;String,IInterface&gt;对象中
+        // 2. 之后，Binder对象 可根据descriptor通过queryLocalIInterface（）获得对应IInterface对象（即plus）的引用，
+        // 可依靠该引用完成对请求方法的调用
+        this.attachInterface(this, DESCRIPTOR);
+    }
+
+    @Override
+    protected boolean onTransact(int code, @NonNull Parcel data, @Nullable Parcel reply, int flags) throws RemoteException {
+        //跨进程通信时，当client 通过 transact 方法请求时，驱动会通知对数据进行解包，
+        // 最后会回调这个方法进行处理，该方法在服务端 binder 线程池中运行
+        // 这人方法返回 false 时，客户端请求会失败，可以用来做权限验证，避免随便一个进程都能远程调用我们的服务
+
+        switch (code) {
+            case INTERFACE_TRANSACTION:
+                reply.writeString(DESCRIPTOR);
+                return true;
+            case GET_BOOKS:
+                //与 Proxy 类中的 data.writeInterfaceToken(DESCRIPTOR);配对使用
+                data.enforceInterface(DESCRIPTOR);
+                List&lt;Book&gt; result = this.getBooks();
+                // 返回结果，驱动会唤醒 Client 端线程来获取执行结果
+                reply.writeNoException();
+                reply.writeTypedList(result);
+                return true;
+            case ADD_BOOK:
+                //与 Proxy 类中的 data.writeInterfaceToken(DESCRIPTOR);配对使用
+                data.enforceInterface(DESCRIPTOR);
+                Book book = null;
+                if (data.readInt() != 0) {
+                    //反序列化，拿到数据
+                    book = Book.CREATOR.createFromParcel(data);
+                }
+                //调用服务方法，具体功能实现在RemoteService中
+                this.addBook(book);
+                // 返回结果，驱动会唤醒 Client 端线程来获取执行结果
+                reply.writeNoException();
+                return true;
+        }
+
+        return super.onTransact(code, data, reply, flags);
+    }
+
+
+    @Override
+    public IBinder asBinder() {
+        //返回当前 binder 对象
+        return this;
+    }
+
+    /**
+     * 将  binder 对象 转化为相应的接口对象，区分进程，同一进程，直接返回当前对象，
+     * 不同进程，返回代理对象
+     */
+     public static IBookManager asInterface(IBinder binder) {
+         if (binder == null) {
+             return null;
+         }
+         // 之前调用过 attachInterface() ，这里可以拿到引用
+         IInterface iin = binder.queryLocalInterface(DESCRIPTOR);
+         if (iin != null &amp;&amp; iin instanceof IBookManager) {
+             //同一进程，直接返回本地binder
+             return (IBookManager) iin;
+         } else {
+             //跨进程，返回代理对象
+             return new Proxy(binder);
+         }
+    }
+}
+</code></pre><p>这里说一下 asInterface 方法，当 Client 端在创建和服务端的连接，调用 bindService 时需要创建一个 ServiceConnection 对象作为入参。在 ServiceConnection 的回调方法 onServiceConnected 中 会通过这个 asInterface(IBinder binder) 拿到 IBookManager 对象，这个 IBinder 类型的入参 binder 是驱动传给我们的，正如你在代码中看到的一样，方法中会去调用 binder.queryLocalInterface() 去查找 Binder 本地对象，如果找到了就说明 Client 和 Server 在同一进程，那么这个 binder 本身就是 Binder 本地对象，可以直接使用。否则说明是 binder 是个远程对象，也就是 BinderProxy。因此需要我们创建一个代理对象 Proxy，通过这个代理对象来是实现远程访问。</p>
+<h3 id="RemoteService"><a href="#RemoteService" class="headerlink" title="RemoteService"></a><strong>RemoteService</strong></h3><pre><code>/**
+ * 远程服务
+ *
+ */
+public class RemoteService extends Service {
+
+    private List&lt;Book&gt; mBookList = new ArrayList&lt;&gt;();
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mBookList.add(new Book(88, &quot;三体&quot;));
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return bookManager;
+    }
+
+    private final Stub bookManager = new Stub() {
+
+        //真正提供的服务功能
+        @Override
+        public List&lt;Book&gt; getBooks() throws RemoteException {
+            //同步
+            synchronized (mBookList) {
+                for (Book book : mBookList) {
+                    Log.d(&quot;server&quot;, &quot;getBooks:  &quot; + book.toString());
+                }
+                return mBookList;
+            }
+
+        }
+
+        @Override
+        public void addBook(Book book) throws RemoteException {
+            //同步
+            synchronized (mBookList) {
+                mBookList.add(book);
+                Log.d(&quot;server&quot;, &quot;addBook:  &quot; + book.toString());
+            }
+        }
+    };
+}
+</code></pre><p><strong>注：多个 Client 端向 Server 进行并发请求时，要进行多并发的同步处理。</strong></p>
+<h3 id="ClientActivity"><a href="#ClientActivity" class="headerlink" title="ClientActivity"></a><strong>ClientActivity</strong></h3><pre><code>/**
+ *  Client 端
+ *  
+ */
+public class ClientActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button mGetBooks;
+    private Button mAddBook;
+    private boolean isServiceConnected;
+    private IBookManager mBookManager;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mGetBooks = findViewById(R.id.btn_get_books);
+        mAddBook = findViewById(R.id.btn_add_book);
+
+        mGetBooks.setOnClickListener(this);
+        mAddBook.setOnClickListener(this);
+
+        //绑定服务，即获取远程服务
+        Intent intent = new Intent(&quot;zeng.fanda.com.binderdemo.remote.service&quot;);
+        intent.setClass(this, RemoteService.class);
+        bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_get_books:
+                if (isServiceConnected) {
+                    try {
+                        List&lt;Book&gt; books = mBookManager.getBooks();
+                        Log.d(&quot;client&quot;, &quot;书的数量&quot; + books.size());
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.btn_add_book:
+                if (isServiceConnected) {
+                    try {
+                        mBookManager.addBook(new Book(66, &quot;流浪地球&quot;));
+                    } catch (RemoteException e) {
+                    }
+                }
+                break;
+        }
+    }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            isServiceConnected = true;
+            mBookManager = Stub.asInterface(service);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isServiceConnected = false;
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isServiceConnected) {
+            unbindService(mServiceConnection);
+        }
+    }
+}
+</code></pre><p>最后，我们对 RemoteService 在 AndroidManifest 中进行注册，代码如下：</p>
+<pre><code>&lt;service android:name=&quot;.server.RemoteService&quot;
+    android:enabled=&quot;true&quot;
+    android:exported=&quot;true&quot;
+    android:process=&quot;:remote&quot;&gt;
+    &lt;intent-filter&gt;
+        &lt;action android:name=&quot;zeng.fanda.com.binderdemo.remote.service&quot;/&gt;
+        &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+    &lt;/intent-filter&gt;
+&lt;/service&gt;
+</code></pre><p><strong>注：在代码调试时，要注意选中的调试进程，有 Client 和 Server 两个进程。</strong></p>
+<h2 id="用AIDL方式实现并扩展上述案例"><a href="#用AIDL方式实现并扩展上述案例" class="headerlink" title="用AIDL方式实现并扩展上述案例"></a>用AIDL方式实现并扩展上述案例</h2><p>项目结构如下：</p>
+<p><img src="https://cl.ly/9e3445158e58/AIDL%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.jpg" alt=""></p>
+<p>首先，我们创建一个后缀为 AIDL 的文件，在里面声明 Server 提供的功能。</p>
+<pre><code>// IBookManager.aidl
+package zeng.fanda.com.aidldemo;
+import zeng.fanda.com.aidldemo.Book;
+import zeng.fanda.com.aidldemo.IOnNewBookArrivedListener;
+
+interface IBookManager {
+     List&lt;Book&gt; getBookList();
+     void addBook(in Book book);
+     void registerListener(IOnNewBookArrivedListener listener);
+     void unRegisterListener(IOnNewBookArrivedListener listener);
+}
+</code></pre><p>在 AIDL 文件中，并不是所有的数据类型都可以使用的，只支持以下数据类型：</p>
+<ul>
+<li>基本数据类型（int、 long、 char、 boolean、 double)；</li>
+<li>String 和 CharSequence；</li>
+<li>List: 只支持 ArrayList，里面每个元素都必须能够被 AIDL 支持；</li>
+<li>Map: 只支持 HashMap，里面每个元素都必须能够被 AIDL 支持，包括 KEY 和 VALUE；</li>
+<li>Parcelable: 所有实现了 Parcelable 接口的对象；</li>
+<li>AIDL: 所有的 AIDL 接口本身也可以在 AIDL 文件中使用。</li>
+</ul>
+<p><strong>注意：</strong></p>
+<p>1.<strong>自定义的 Parcelable 对象和 AIDL 对象必须要显式 import 进来，不管是否位于同一个包内</strong>。上述代码中 Book 类是一个自定义的 Parcelable 对象（该类的定义和之前给的代码一样），IOnNewBookArrivedListener 是我们自定的另一个 AIDL 文件，所以必须用以下语法显式导入：</p>
+<pre><code>import zeng.fanda.com.aidldemo.Book;
+import zeng.fanda.com.aidldemo.IOnNewBookArrivedListener;
+</code></pre><p>IOnNewBookArrivedListener 这个 AIDL 的文件定义如下：</p>
+<pre><code>// IOnNewBookArrivedListener.aidl
+package zeng.fanda.com.aidldemo;
+import zeng.fanda.com.aidldemo.Book;
+
+interface IOnNewBookArrivedListener {
+    void onNewBookArrived(in Book book);
+}
+</code></pre><p>2.<strong>如果 AIDL 文件中用到了自定义的 Parcelable 对象，那么必须新建一个和它同名的 AIDL 文件，并在其中声明它为 Parcelable 类型</strong>。上述 用到了 Book 类，所有要创建一个 Book.aidl 文件，并这个文件的包路径要和 Book 类一致，不然会编译出错，文件定义如下：</p>
+<pre><code>package zeng.fanda.com.aidldemo;
+
+parcelable Book;
+</code></pre><p>3.<strong>AIDL 文件只支持定义方法，不支持声明静态变量，这一点区别于传统的接口</strong>。</p>
+<p>4.<strong>建议把所有和 AIDL 相关的类和文件全部放入同一个包中</strong>。当客户端 是另外一个应用时，我们可以直接把整个包复制到客户端中，不如不在同一个包中，复制的时候比较麻烦和容易出错，如果 AIDL 文件和对应的 Parcelable 对象的包结构不致，会编译出错，这点有上述2已经说明。</p>
+<p>5.<strong>AIDL 文件里面只能使用 AIDL 接口，不能用普通接口。</strong></p>
+<h3 id="AIDL中的定向-tag"><a href="#AIDL中的定向-tag" class="headerlink" title="AIDL中的定向 tag"></a>AIDL中的定向 tag</h3><p>我们注意到，上述创建的 AIDL 文件的方法参数前面带了一个 <strong>in</strong> ，其实这是 AIDL 中的其中一个定向 tag，除了 <strong>in</strong>，还有 <strong>out</strong> 和 <strong>inout</strong> ，不同的 tag 对底层的开销不一样。</p>
+<p>AIDL中的定向 tag 表示了在跨进程通信中数据的流向，其中 in 表示数据只能由客户端流向服务端， out 表示数据只能由服务端流向客户端，而 inout 则表示数据可在服务端与客户端之间双向流通。其中，数据流向是针对在客户端中的那个传入方法的对象而言的。in 为定向 tag 的话表现为服务端将会接收到一个那个对象的完整数据，但是客户端的那个对象不会因为服务端对传参的修改而发生变动；out 的话表现为服务端将会接收到那个对象的参数为空的对象，但是在服务端对接收到的空对象有任何修改之后客户端将会同步变动；inout 为定向 tag 的情况下，服务端将会接收到客户端传来对象的完整信息，并且客户端将会同步服务端对该对象的任何变动。</p>
+<h3 id="AIDL中自动生成的Java类"><a href="#AIDL中自动生成的Java类" class="headerlink" title="AIDL中自动生成的Java类"></a>AIDL中自动生成的Java类</h3><p>通过上述的定义，AIDL 工具会自动帮我们生成一些 Java 类，其实就是我们之前手动写的那些类，以下就是生成的类，我们可以对比之前手写的类：</p>
+<pre><code>/*
+ *文件自动生成，源文件为 IBookManager.aidl
+ */
+package zeng.fanda.com.aidldemo;
+
+//这个类用来定义服务端 RemoteService 具备什么样的能力
+public interface IBookManager extends android.os.IInterface {
+
+    //定义方法
+    public java.util.List&lt;zeng.fanda.com.aidldemo.Book&gt; getBookList() throws android.os.RemoteException;
+
+    public void addBook(zeng.fanda.com.aidldemo.Book book) throws android.os.RemoteException;
+
+    public void registerListener(zeng.fanda.com.aidldemo.IOnNewBookArrivedListener listener) throws android.os.RemoteException;
+
+    public void unRegisterListener(zeng.fanda.com.aidldemo.IOnNewBookArrivedListener listener) throws android.os.RemoteException;
+
+    /**
+     *  抽象类，继承Binder，拥有跨进程通信能力，具体提供的服务功能由实现类自身处理.
+     */
+    public static abstract class Stub extends android.os.Binder implements zeng.fanda.com.aidldemo.IBookManager {
+        //定义字符描述
+        private static final java.lang.String DESCRIPTOR = &quot;zeng.fanda.com.aidldemo.IBookManager&quot;;
+
+        // 1. 将（descriptor，IBookManager）作为（key,value）对存入到Binder对象中的一个Map&lt;String,IInterface&gt;对象中
+        // 2. 之后，Binder对象 可根据descriptor通过queryLocalIInterface（）获得对应IInterface对象（即plus）的引用，
+        // 可依靠该引用完成对请求方法的调用
+        public Stub() {
+            this.attachInterface(this, DESCRIPTOR);
+        }
+
+        /**
+         * 将  binder 对象 转化为相应的接口对象，区分进程，同一进程，直接返回当前对象，
+         * 不同进程，返回代理对象
+         */
+        public static zeng.fanda.com.aidldemo.IBookManager asInterface(android.os.IBinder obj) {
+            if ((obj == null)) {
+                return null;
+            }
+            android.os.IInterface iin = obj.queryLocalInterface(DESCRIPTOR);
+            if (((iin != null) &amp;&amp; (iin instanceof zeng.fanda.com.aidldemo.IBookManager))) {
+                return ((zeng.fanda.com.aidldemo.IBookManager) iin);
+            }
+            return new zeng.fanda.com.aidldemo.IBookManager.Stub.Proxy(obj);
+        }
+
+        @Override
+        public android.os.IBinder asBinder() {
+            return this;
+        }
+
+        @Override
+        public boolean onTransact(int code, android.os.Parcel data, android.os.Parcel reply, int flags) throws android.os.RemoteException {
+            java.lang.String descriptor = DESCRIPTOR;
+            switch (code) {
+                case INTERFACE_TRANSACTION: {
+                    reply.writeString(descriptor);
+                    return true;
+                }
+                case TRANSACTION_getBookList: {
+                    data.enforceInterface(descriptor);
+                    java.util.List&lt;zeng.fanda.com.aidldemo.Book&gt; _result = this.getBookList();
+                    reply.writeNoException();
+                    reply.writeTypedList(_result);
+                    return true;
+                }
+                case TRANSACTION_addBook: {
+                    data.enforceInterface(descriptor);
+                    zeng.fanda.com.aidldemo.Book _arg0;
+                    if ((0 != data.readInt())) {
+                        _arg0 = zeng.fanda.com.aidldemo.Book.CREATOR.createFromParcel(data);
+                    } else {
+                        _arg0 = null;
+                    }
+                    this.addBook(_arg0);
+                    reply.writeNoException();
+                    return true;
+                }
+                case TRANSACTION_registerListener: {
+                    data.enforceInterface(descriptor);
+                    zeng.fanda.com.aidldemo.IOnNewBookArrivedListener _arg0;
+                    _arg0 = zeng.fanda.com.aidldemo.IOnNewBookArrivedListener.Stub.asInterface(data.readStrongBinder());
+                    this.registerListener(_arg0);
+                    reply.writeNoException();
+                    return true;
+                }
+                case TRANSACTION_unRegisterListener: {
+                    data.enforceInterface(descriptor);
+                    zeng.fanda.com.aidldemo.IOnNewBookArrivedListener _arg0;
+                    _arg0 = zeng.fanda.com.aidldemo.IOnNewBookArrivedListener.Stub.asInterface(data.readStrongBinder());
+                    this.unRegisterListener(_arg0);
+                    reply.writeNoException();
+                    return true;
+                }
+                default: {
+                    return super.onTransact(code, data, reply, flags);
+                }
+            }
+        }
+
+        // 远程服务代理类，需要实现接口，才能代理服务功能
+        private static class Proxy implements zeng.fanda.com.aidldemo.IBookManager {
+            private android.os.IBinder mRemote;
+
+            Proxy(android.os.IBinder remote) {
+                mRemote = remote;
+            }
+
+            @Override
+            public android.os.IBinder asBinder() {
+                return mRemote;
+            }
+
+            public java.lang.String getInterfaceDescriptor() {
+                return DESCRIPTOR;
+            }
+
+            @Override
+            public java.util.List&lt;zeng.fanda.com.aidldemo.Book&gt; getBookList() throws android.os.RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                java.util.List&lt;zeng.fanda.com.aidldemo.Book&gt; _result;
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    mRemote.transact(Stub.TRANSACTION_getBookList, _data, _reply, 0);
+                    _reply.readException();
+                    _result = _reply.createTypedArrayList(zeng.fanda.com.aidldemo.Book.CREATOR);
+                } finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+                return _result;
+            }
+
+            @Override
+            public void addBook(zeng.fanda.com.aidldemo.Book book) throws android.os.RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    if ((book != null)) {
+                        _data.writeInt(1);
+                        book.writeToParcel(_data, 0);
+                    } else {
+                        _data.writeInt(0);
+                    }
+                    mRemote.transact(Stub.TRANSACTION_addBook, _data, _reply, 0);
+                    _reply.readException();
+                } finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+            }
+
+            @Override
+            public void registerListener(zeng.fanda.com.aidldemo.IOnNewBookArrivedListener listener) throws android.os.RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    _data.writeStrongBinder((((listener != null)) ? (listener.asBinder()) : (null)));
+                    mRemote.transact(Stub.TRANSACTION_registerListener, _data, _reply, 0);
+                    _reply.readException();
+                } finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+            }
+
+            @Override
+            public void unRegisterListener(zeng.fanda.com.aidldemo.IOnNewBookArrivedListener listener) throws android.os.RemoteException {
+                android.os.Parcel _data = android.os.Parcel.obtain();
+                android.os.Parcel _reply = android.os.Parcel.obtain();
+                try {
+                    _data.writeInterfaceToken(DESCRIPTOR);
+                    _data.writeStrongBinder((((listener != null)) ? (listener.asBinder()) : (null)));
+                    mRemote.transact(Stub.TRANSACTION_unRegisterListener, _data, _reply, 0);
+                    _reply.readException();
+                } finally {
+                    _reply.recycle();
+                    _data.recycle();
+                }
+            }
+        }
+
+        // 定义方法编码
+        static final int TRANSACTION_getBookList = (android.os.IBinder.FIRST_CALL_TRANSACTION + 0);
+        static final int TRANSACTION_addBook = (android.os.IBinder.FIRST_CALL_TRANSACTION + 1);
+        static final int TRANSACTION_registerListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 2);
+        static final int TRANSACTION_unRegisterListener = (android.os.IBinder.FIRST_CALL_TRANSACTION + 3);
+    }
+
+}
+</code></pre><p>观察系统帮我们生成的类，其实跟之前写的格式一样，只不过把 Stub 类放在了 IBookManager 内部，成了静态内部类，然后 Proxy 类 放在了 Stub 类内部，成为 Stub 类的静态内部类，用法跟之前写的一样。这样写的好处能避免类名重复的问题，毕竟每个 AIDL 文件都要生成对应的 Stub 类和 Proxy 类。</p>
+<h3 id="远程服务-RemoteService"><a href="#远程服务-RemoteService" class="headerlink" title="远程服务 RemoteService"></a>远程服务 RemoteService</h3><pre><code>/**
+ * 远程服务
+ *
+ */
+public class RemoteService extends Service {
+
+    //支持并发读写，自动线程同步
+    private CopyOnWriteArrayList&lt;Book&gt; mBookList = new CopyOnWriteArrayList&lt;&gt;();
+
+    //用于注册或反注册跨进程 listener，内部自动实现线程同步工作，当客户端进程终止时，会自动反注册
+    private RemoteCallbackList&lt;IOnNewBookArrivedListener&gt; mBookArrivedListeners = new RemoteCallbackList&lt;&gt;();
+
+    // 线程安全的
+    private AtomicBoolean mIsDestoryed = new AtomicBoolean(false);
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        mBookList.add(new Book(88, &quot;三体&quot;));
+
+        //新建线程
+        new Thread(new ServiceWorker()).start();
+
+    }
+
+    /**
+     * 定时5秒新增一本书
+     */
+    private class ServiceWorker implements Runnable {
+        @Override
+        public void run() {
+            //服务还活着
+            while (!mIsDestoryed.get()) {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                int price = mBookList.size() + 1;
+                Book book = new Book(price, &quot;new Book:&quot; + price);
+                try {
+                    onNewBookArrived(book);
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    /**
+     * 通知client端有新书
+     */
+    private void onNewBookArrived(Book book) throws RemoteException {
+        mBookList.add(book);
+
+        final int N = mBookArrivedListeners.beginBroadcast();
+
+        for (int i = 0; i &lt; N; i++) {
+            IOnNewBookArrivedListener listener = mBookArrivedListeners.getBroadcastItem(i);
+            if (listener != null) {
+                listener.onNewBookArrived(book);
+            }
+        }
+        mBookArrivedListeners.finishBroadcast();
+    }
+
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        if (checkPermission()) {
+            return bookManager;
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     *  权限验证,有权限才能连接到此服务
+     */
+     private boolean checkPermission() {
+        int check = checkCallingOrSelfPermission(&quot;zeng.fanda.com.aidldemo.ACCESS_BOOK_SERVER&quot;);
+        if (check == PackageManager.PERMISSION_DENIED) {
+            return false;
+        }
+        return true;
+    }
+
+
+    private final IBookManager.Stub bookManager = new IBookManager.Stub() {
+
+        @Override
+        public boolean onTransact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+
+            //包名验证
+            String packageName = null;
+            String[] packages = getPackageManager().getPackagesForUid(getCallingUid());
+            if (packages != null &amp;&amp; packages.length &gt; 0) {
+                packageName = packages[0];
+            }
+            if (!packageName.startsWith(&quot;zeng.fanda&quot;)) {
+                return false;
+            }
+
+            // 权限验证
+            boolean checkPermission = checkPermission();
+            return checkPermission &amp;&amp; super.onTransact(code, data, reply, flags);
+        }
+
+        //真正提供的服务功能
+        @Override
+        public List&lt;Book&gt; getBookList() throws RemoteException {
+            //模拟耗时工作，如果 Client 端是在主线程操作，会导致client端出现ANR
+            SystemClock.sleep(5000);
+            //同步
+            for (Book book : mBookList) {
+                Log.d(&quot;server&quot;, &quot;getBooks:  &quot; + book.toString());
+            }
+            return mBookList;
+        }
+
+        @Override
+        public void addBook(Book book) throws RemoteException {
+            mBookList.add(book);
+            Log.d(&quot;server&quot;, &quot;addBook:  &quot; + book.toString());
+        }
+
+        @Override
+        public void registerListener(IOnNewBookArrivedListener listener) throws RemoteException {
+            // 订阅
+            mBookArrivedListeners.register(listener);
+
+            final int N = mBookArrivedListeners.beginBroadcast();
+            Log.d(&quot;server&quot;, &quot;订阅成功，数量为=&quot; + N);
+            mBookArrivedListeners.finishBroadcast();
+        }
+
+        @Override
+        public void unRegisterListener(IOnNewBookArrivedListener listener) throws RemoteException {
+            // 取消订阅
+            mBookArrivedListeners.unregister(listener);
+
+            // 配对使用
+            final int N = mBookArrivedListeners.beginBroadcast();
+            Log.d(&quot;server&quot;, &quot;取消订阅成功，数量为=&quot; + N);
+            mBookArrivedListeners.finishBroadcast();
+        }
+    };
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mIsDestoryed.set(true);
+    }
+}
+</code></pre><p>1.上述代码用到了 CopyOnWriteArrayList 代替 ArrayList，这个类支持并发读写，因为 AIDL 方法是在服务端的 Binder 线程池中执行的，当多个客户端同时连接的时候，会存在多个线程同时访问的情形，我们需要处理线程同步。同理，要用 ConcurrentHashMap 代替 HashMap 。</p>
+<p>2.上述代码还实现了订阅和取消订阅功能，服务每隔 5 秒生成一本新书，并向已经订阅的用户进行回调。其中用到了 RemoteCallbackList 类，用于注册或反注册跨进程 listener，内部自动实现线程同步工作，当客户端进程终止时，也会自动反注册。因为 Binder 驱动会把客户端传递过来的对象重新转化并生成一个新的对象，对象是不能直接跨进程传输的，对象的跨进程传输在本质上都是序列化和反序列化过程。注意一下，RemoteCallbackList 类的 beginBroadcast() 和 finishBroadcast() 方法要配对使用。</p>
+<p>3.上述代码还实现了权限验证和一些其他验证（包名验证），在两种方法可以做这种验证，其中之一，在 Service 的 onBind() 方法中进行验证，验证不通过就直接返回 null ，第二种是在 onTransact() 方法进行，如果返回 false ，就不会执行 AIDL 中的方法，也达到了权限验证的目的。要验证权限，首先要先定义权限，可以在 AndroidManifest 中定义，如下：</p>
+<pre><code>&lt;!--定义服务权限--&gt;
+&lt;permission android:name=&quot;zeng.fanda.com.aidldemo.ACCESS_BOOK_SERVER&quot; android:protectionLevel=&quot;normal&quot;/&gt;
+</code></pre><p>当我们要绑定服务的时候，可以在 AndroidManifest 申请这个权限，如下：</p>
+<pre><code>&lt;!--申请服务权限，才能连接服务--&gt;
+&lt;uses-permission android:name=&quot;zeng.fanda.com.aidldemo.ACCESS_BOOK_SERVER&quot;/&gt;
+</code></pre><p>服务注册代码如下：</p>
+<pre><code>&lt;service android:name=&quot;.RemoteService&quot; android:process=&quot;:remote&quot; android:enabled=&quot;true&quot; android:exported=&quot;true&quot;/&gt;
+</code></pre><p><strong>注意：</strong></p>
+<p>1.<strong>服务端的方法本身就运行在服务端的 Binder 线程池中，所以服务端方法本身就可以执行大量耗时操作，不需要 另开线程。</strong></p>
+<p>2.<strong>服务端调用客户端的 listener 方法时，被调用的方法也运行在 Binder 线程池中，只不过是客户端的线程池。所以我们也要确保服务端不要在UI线程中调用客户端的耗时方法，否则将导致服务端无法响应。</strong></p>
+<h3 id="客户端-ClientActivity"><a href="#客户端-ClientActivity" class="headerlink" title="客户端 ClientActivity"></a>客户端 ClientActivity</h3><pre><code>/**
+ *  Client 端
+ *  
+ */
+public class ClientActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button mGetBooks;
+    private Button mAddBook;
+    private Button mRegister;
+    private Button mUnRegister;
+    private boolean isServiceConnected;
+    private IBookManager mBookManager;
+
+    private static final int MESSAGE_NEW_BOOK_ARRIVED = 167;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        mGetBooks = findViewById(R.id.btn_get_books);
+        mAddBook = findViewById(R.id.btn_add_book);
+        mRegister = findViewById(R.id.btn_register);
+        mUnRegister = findViewById(R.id.btn_unRegister);
+
+        mGetBooks.setOnClickListener(this);
+        mAddBook.setOnClickListener(this);
+        mRegister.setOnClickListener(this);
+        mUnRegister.setOnClickListener(this);
+
+        //绑定服务，即获取远程服务
+        bindService(new Intent(this, RemoteService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_get_books:
+                if (isServiceConnected) {
+                    //新建线程处理，防止ANR
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            List&lt;Book&gt; books = null;
+                            try {
+                                books = mBookManager.getBookList();
+                            } catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d(&quot;client&quot;, &quot;书的数量&quot; + books.size());
+                        }
+                    }).start();
+                }
+                break;
+            case R.id.btn_add_book:
+                if (isServiceConnected) {
+                    try {
+                        mBookManager.addBook(new Book(66, &quot;流浪地球&quot;));
+                    } catch (RemoteException e) {
+                    }
+                }
+                break;
+            case R.id.btn_register:
+                if (isServiceConnected) {
+                    try {
+                        mBookManager.registerListener(mIOnNewBookArrivedListener);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+            case R.id.btn_unRegister:
+                if (isServiceConnected) {
+                    try {
+                        mBookManager.unRegisterListener(mIOnNewBookArrivedListener);
+                    } catch (RemoteException e) {
+                        e.printStackTrace();
+                        Log.d(&quot;client&quot;, &quot;client 取消订阅失败&quot;);
+                    }
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private ServiceConnection mServiceConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) { // 此方法在UI线程回调
+            isServiceConnected = true;
+            mBookManager = IBookManager.Stub.asInterface(service);
+            try {
+                service.linkToDeath(mDeathRecipient, 0);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) { // 此方法在UI线程回调
+            isServiceConnected = false;
+            // 远程服务进程异常，重新连接服务
+            bindService(new Intent(ClientActivity.this, RemoteService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+            Log.d(&quot;client&quot;, &quot;onServiceDisconnected当前进程名称&quot; + Thread.currentThread().getName());
+        }
+    };
+
+    /**
+     * 创建binder实体类
+     */
+    private IOnNewBookArrivedListener mIOnNewBookArrivedListener = new IOnNewBookArrivedListener.Stub() {
+        @Override
+        public void onNewBookArrived(Book book) throws RemoteException {
+            //该方法在client 端线程池中运行,切换到主线程中处理
+            mHandler.obtainMessage(MESSAGE_NEW_BOOK_ARRIVED, book).sendToTarget();
+        }
+    };
+
+    /**
+     * 定义 Binder 死亡代理
+     */
+    private IBinder.DeathRecipient mDeathRecipient = new IBinder.DeathRecipient() {
+        @Override
+        public void binderDied() {
+            //该方法在client 端线程池中运行
+            // 远程服务进程异常，重新连接服务
+            bindService(new Intent(ClientActivity.this, RemoteService.class), mServiceConnection, Context.BIND_AUTO_CREATE);
+            Log.d(&quot;client&quot;, &quot;onServiceDisconnected当前进程名称&quot; + Thread.currentThread().getName());
+            Log.d(&quot;client&quot;, &quot;DeathRecipient当前进程名称&quot; + Thread.currentThread().getName());
+        }
+    };
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case MESSAGE_NEW_BOOK_ARRIVED:
+                    Log.d(&quot;client&quot;, &quot;receive new book&quot; + msg.obj);
+                    break;
+            }
+        }
+    };
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (isServiceConnected) {
+            unbindService(mServiceConnection);
+        }
+    }
+}
+</code></pre><ol>
+<li><p>客户端的 IOnNewBookArrivedListener 中的 onNewBookArrived 方法运行在客户端线程池中，所以我们通过 Handle 切换到主线程处理，具体看代码实现。</p>
+</li>
+<li><p>由于服务端进程的意外停止，Binder 也可能会意外死亡，所以我们在 Binder 意外死亡时，重新连接了服务。实现方式有两种，一种方法是在 onServiceDisconnected 中重连服务，这个方法运行在 UI 线程。另一个方式是给 Binder 设置 <code>DeathRecipient</code> 监听，当 Binder 死亡时，会回调 DeathRecipient 的 <code>binderDied</code> 方法，可以在这个方法重连服务，这个方法运行在客户端线程池中。</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/IPC通信/" rel="tag"><i class="fa fa-tag"></i> IPC通信</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/14/android/network/HTTP协议/" rel="next" title="HTTP协议">
+                <i class="fa fa-chevron-left"></i> HTTP协议
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#一-知识储备"><span class="nav-number">1.</span> <span class="nav-text">一.知识储备</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Android-IPC-简介"><span class="nav-number">1.1.</span> <span class="nav-text">Android IPC 简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程的使用场景"><span class="nav-number">1.2.</span> <span class="nav-text">多进程的使用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Android中的多进程模式"><span class="nav-number">1.3.</span> <span class="nav-text">Android中的多进程模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多进程模式造成的问题"><span class="nav-number">1.4.</span> <span class="nav-text">多进程模式造成的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化"><span class="nav-number">1.5.</span> <span class="nav-text">序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是序列化？"><span class="nav-number">1.5.1.</span> <span class="nav-text">什么是序列化？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-Serializable-接口序列化"><span class="nav-number">1.5.2.</span> <span class="nav-text">通过 Serializable 接口序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过-Parcelable-接口序列化"><span class="nav-number">1.5.3.</span> <span class="nav-text">通过 Parcelable 接口序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Parcelable-和-Serializable-的区别"><span class="nav-number">1.5.4.</span> <span class="nav-text">Parcelable 和 Serializable 的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#二-Binder"><span class="nav-number">2.</span> <span class="nav-text">二.Binder</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-进程相关知识"><span class="nav-number">2.1.</span> <span class="nav-text">Linux 进程相关知识</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux-跨进程通信原理"><span class="nav-number">2.2.</span> <span class="nav-text">Linux 跨进程通信原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder跨进程通信原理"><span class="nav-number">2.3.</span> <span class="nav-text">Binder跨进程通信原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#动态内核可加载模块和内存映射"><span class="nav-number">2.3.1.</span> <span class="nav-text">动态内核可加载模块和内存映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binder-IPC-实现原理"><span class="nav-number">2.3.2.</span> <span class="nav-text">Binder IPC 实现原理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder-通信模型"><span class="nav-number">2.4.</span> <span class="nav-text">Binder 通信模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Client-Server-ServiceManager-驱动"><span class="nav-number">2.4.1.</span> <span class="nav-text">Client/Server/ServiceManager/驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binder-驱动"><span class="nav-number">2.4.2.</span> <span class="nav-text">Binder 驱动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ServiceManager"><span class="nav-number">2.4.3.</span> <span class="nav-text">ServiceManager</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder-通信过程"><span class="nav-number">2.5.</span> <span class="nav-text">Binder 通信过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder-通信中的代理模式"><span class="nav-number">2.6.</span> <span class="nav-text">Binder 通信中的代理模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Binder-的完整定义"><span class="nav-number">2.7.</span> <span class="nav-text">Binder 的完整定义</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Binder机制在Android中的具体实现"><span class="nav-number">3.</span> <span class="nav-text">Binder机制在Android中的具体实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#各-Java-类职责描述"><span class="nav-number">3.1.</span> <span class="nav-text">各 Java 类职责描述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#手写实现过程讲解"><span class="nav-number">3.2.</span> <span class="nav-text">手写实现过程讲解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IBookManager"><span class="nav-number">3.2.1.</span> <span class="nav-text">IBookManager</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Book"><span class="nav-number">3.2.2.</span> <span class="nav-text">Book</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proxy"><span class="nav-number">3.2.3.</span> <span class="nav-text">Proxy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stub"><span class="nav-number">3.2.4.</span> <span class="nav-text">Stub</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RemoteService"><span class="nav-number">3.2.5.</span> <span class="nav-text">RemoteService</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ClientActivity"><span class="nav-number">3.2.6.</span> <span class="nav-text">ClientActivity</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用AIDL方式实现并扩展上述案例"><span class="nav-number">3.3.</span> <span class="nav-text">用AIDL方式实现并扩展上述案例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AIDL中的定向-tag"><span class="nav-number">3.3.1.</span> <span class="nav-text">AIDL中的定向 tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AIDL中自动生成的Java类"><span class="nav-number">3.3.2.</span> <span class="nav-text">AIDL中自动生成的Java类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#远程服务-RemoteService"><span class="nav-number">3.3.3.</span> <span class="nav-text">远程服务 RemoteService</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#客户端-ClientActivity"><span class="nav-number">3.3.4.</span> <span class="nav-text">客户端 ClientActivity</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
