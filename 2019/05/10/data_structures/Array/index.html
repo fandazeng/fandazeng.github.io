@@ -1,0 +1,1297 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,数据结构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+<meta name="keywords" content="java,数据结构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数组">
+<meta property="og:url" content="http://yoursite.com/2019/05/10/data_structures/Array/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+<meta property="og:updated_time" content="2019-05-10T10:33:39.465Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="数组">
+<meta name="twitter:description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/10/data_structures/Array/"/>
+
+
+
+
+
+     <title> 数组 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/data_structures/Array/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">数组</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T14:15:40+08:00">
+                2019-05-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/10/data_structures/Array/" class="leancloud_visitors" data-flag-title="数组">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h1><p>数组的优点是：快速查询。<br>数组最好应用于索引有语意的情况下。</p>
+<p>Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。</p>
+<p>数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的对数据进行增删改查操作。</p>
+<p>注意：数组的容量(capacity)跟实际存储的大小(size)的区分，容量是数组最大可以存储数据的大小，实际存储的数量小于等于容量。</p>
+<h2 id="简单的时间复杂度分析"><a href="#简单的时间复杂度分析" class="headerlink" title="简单的时间复杂度分析"></a>简单的时间复杂度分析</h2><p>O(1) , O(n) , O(logn) , O(nlogn) , O(n^2)</p>
+<p>大O 描述的是算法的运行时间和输入数据之间的关系。</p>
+<p>比如有这样一个方法：</p>
+<pre><code>public static int sum(int[] nums) {
+       int sum = 0;
+       for (int num : nums) {
+           sum += num;
+       }
+       return sum;
+   }
+</code></pre><p>这个方法的时间复杂度为 O(n) ，为什么呢？</p>
+<p>首先要给 n 一个定义，在这个算法中， n 是 nums 中的元素的个数。根据定义，所以这个算法运行时间的多少与 nums 中的元素的个数成线性关系。之所以叫 O(n) ，是因为我们忽略了常数，实际时间 T = c1*n +c2 。在上述算法中，每个加法运算时，都需要取出元素，然后运行加法运算，然后再返回结果，这里面需要的时间可以比作为 c1 。在开始的时候，我们需要初始化 sum ，然后把 0 赋值给 sum ，这里面的时间可以算作 c2。因为 c1 和 c2 实际上是常数，而且很难确定(这跟 CPU 的运作有关)，因此可以忽略。其实大 O  的意思是渐进时间复杂度，描述的是 n 趋近于无穷的情况，算法之间的快慢。上述时间公式中，当 n 趋近于无穷的情况时，小的项就可以忽略了，n 越大，越能体现一个算法的快慢。</p>
+<p>因此，以下实际时间对应的时间复杂度如下:</p>
+<ul>
+<li><p>T = 2*n +2              O(n)</p>
+</li>
+<li><p>T = 2000*n +10000        O(n)</p>
+</li>
+<li><p>T = 1<em>n</em>n +10            O(n^2)</p>
+</li>
+<li><p>T = 2<em>n</em>n +10n +10        O(n^2)</p>
+</li>
+</ul>
+<p>如果一个算法的复杂度为 O(n^2) ，另一个算法为 O(n) ，并不能说明在任何输入的情况下，O(n^2) 的时间要大于 O(n)的时间，具体的我们要看前面的常数。在实际运用中，不一定非要选择一个 O(n) 的算法而抛弃 O(n^2) 的算法，要看 n 的数量。</p>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre><code>package fanda.zeng.array;
+
+/**
+ * @Description: 自定义动态数组
+ * @Author: fanda
+ * @Date: 2019/5/10
+ */
+public class Array&lt;E&gt; {
+
+    // 类内维护的数组
+    private E[] data;
+    // 数组内实际存储元素的个数
+    private int size;
+
+    /**
+     * 构造函数，默认数组的容量为10
+     */
+    public Array() {
+        this(10);
+    }
+
+    /**
+     * 构造函数，传入数组的容量
+     */
+    public Array(int capacity) {
+        //创建带容量的 Object 数组并强转为E类型的数组
+        data = (E[]) new Object[capacity];
+    }
+
+    /**
+     * 构造函数，传入一个静态数组
+     */
+    public Array(E[] arr) {
+        //创建 Object 数组并强转为E类型的数组，长度为传入的静态数组的大小
+        data = (E[]) new Object[arr.length];
+        // 把静态数组的值全部复制到 data 数组
+        for (int i = 0; i &lt; arr.length; i++) {
+            data[i] = arr[i];
+        }
+        // 目前 data 数组的长度为静态数组的大小
+        size = arr.length;
+    }
+
+    /**
+     * 在 index 索引位置插入新元素 e ,，时间复杂度O(n)
+     */
+    public void add(int index, E e) {
+        // 为保证数组的连续性，紧密相联，即索引之间不能有空元素
+        // 如果索引小于 0 或 索引大于最后一个元素的下一个元素
+        if (index &lt; 0 || index &gt; size) {
+            throw new IllegalArgumentException(&quot;Add failed. Require index&gt;= 0 and index &lt;= size.&quot;);
+        }
+
+        // 如果此时数组已满，则扩容为2倍
+        if (size == data.length) {
+            resize(data.length * 2);
+        }
+
+        // index 及后面的元素都向后移动一个位置,index位置的元素会复制到index+1的位置
+        for (int i = size - 1; i &gt;= index; i--) {
+            // 后一个元素等于前一个元素
+            data[i + 1] = data[i];
+        }
+        //在 index 的位置把之前的值覆盖掉，也就是添加了新元素了
+        data[index] = e;
+        // 维护 size ，此时添加了元素，应当加1
+        size++;
+    }
+
+    /**
+     * 将数组空间的容量变成 newCapacity 的大小，均摊时间复杂度O(1)
+     */
+    private void resize(int newCapacity) {
+        // 创建一个 newCapacity 容量的数组对象
+        E[] newData = (E[]) new Object[newCapacity];
+        // 把以前的数据复制到新对象中
+        for (int i = 0; i &lt; size; i++) {
+            newData[i] = data[i];
+        }
+        // 将当前数组对象指向新的数组对象
+        this.data = newData;
+    }
+
+    /**
+     * 向所有元素后添加一个元素，时间复杂度O(1)
+     */
+    public void addLast(E e) {
+        add(size, e);
+    }
+
+    /**
+     * 向所有元素前添加一个元素，时间复杂度O(n)
+     */
+    public void addFirst(E e) {
+        add(0, e);
+    }
+
+    /**
+     * 删除指定 index 索引对应的元素，并返回删除的元素，时间复杂度O(n)
+     */
+    public E remove(int index) {
+        // 注意这个等于的情况
+        if (index &lt; 0 || index &gt;= size) {
+            throw new IllegalArgumentException(&quot;Demove failed. Require index&gt;= 0 and index &lt; size.&quot;);
+        }
+        // 先拿到需要返回的元素
+        E res = data[index];
+
+        // index 后面的元素都向前移动一个位置
+        for (int i = index + 1; i &lt; size; i++) {
+            // 前一个元素等于后一个元素
+            data[i - 1] = data[i];
+        }
+        // 维护 size ，此时删除了元素，应当减1
+        size--;
+        // 把最后没用到的对象置null，利于GC释放内存
+        data[size] = null;
+        // 当前存储的元素的大小为容量的4分1时，缩容为原来的一半
+        // 注意，不能当前存储的元素的大小为容量的2分1时来缩容，因为扩容的时候是扩容2倍，
+        // 在边界反复添加和删除元素时，会出现复杂度震荡
+        if (size == data.length / 4 &amp;&amp; data.length / 2 != 0) {
+            resize(data.length / 2);
+        }
+        // 返回当前删除的元素
+        return res;
+    }
+
+    /**
+     * 删除最后一个元素，并返回删除的元素，时间复杂度O(1)
+     */
+    public E removeLast() {
+        return remove(size - 1);
+    }
+
+    /**
+     * 删除第一个元素，并返回删除的元素，时间复杂度O(n)
+     */
+    public E removeFirst() {
+        return remove(0);
+    }
+
+    /**
+     * 如果存在元素e ，则删除
+     */
+    public void removeElement(E e) {
+        // 找到元素 e 对应的索引
+        int index = find(e);
+        // 如果索引存在，则删除
+        if (index != -1) {
+            remove(index);
+        }
+    }
+
+    /**
+     * 修改 index 索引位置的元素为 e ，时间复杂度O(1)
+     */
+    public void set(int index, E e) {
+        // 注意这个等于的情况
+        if (index &lt; 0 || index &gt;= size) {
+            throw new IllegalArgumentException(&quot;Set failed. Index is illegal.&quot;);
+        }
+        // 直接修改对应索引元素的值
+        data[index] = e;
+    }
+
+    /**
+     * 获取 index 索引位置的元素，时间复杂度O(1)
+     */
+    public E get(int index) {
+        if (index &lt; 0 || index &gt;= size) {
+            throw new IllegalArgumentException(&quot;Get failed. Index is illegal.&quot;);
+        }
+        return data[index];
+    }
+
+    /**
+     * 查找数组中是否有元素e，时间复杂度O(n)
+     */
+    public boolean contain(E e) {
+        // 不能用这种方式遍历，因为我们每次删除元素时都调用了如下代码  data[size] = null，所以会出现空指针问题
+      /*  for (E datum : data) {
+            if (datum.equals(e)) {
+                return true;
+            }
+        }*/
+
+        for (int i = 0; i &lt; size; i++) {
+            // 注意这里用的是 equals，不能用 ==
+            if (data[i].equals(e)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 查找数组中对应的元素的索引，如果元素不存在，则返回索引为 -1，时间复杂度O(n)
+     */
+    public int find(E e) {
+        for (int i = 0; i &lt; size; i++) {
+            if (data[i].equals(e)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 返回最后一个元素，时间复杂度O(1)
+     */
+    public E getLast() {
+        return get(size - 1);
+    }
+
+    /**
+     * 返回第一个元素，时间复杂度O(1)
+     */
+    public E getFirst() {
+        return get(0);
+    }
+
+    /**
+     * 获取数组中元素的个数
+     */
+    public int getSize() {
+        return size;
+    }
+
+    /**
+     * 获取数组的容量
+     */
+    public int getCapacity() {
+        return data.length;
+    }
+
+    /**
+     * 数组是否为空
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // 交换对应元素索引的值
+    public void swap(int i, int j) {
+        // 判断索引越界的情况
+        if (i &lt; 0 || i &gt;= size || j &lt; 0 || j &gt;= size) {
+            throw new IllegalArgumentException(&quot;Index is illegal.&quot;);
+        }
+
+        E t = data[i];
+        data[i] = data[j];
+        data[j] = t;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append(String.format(&quot;Array: size = %d , capacity = %d\n&quot;, getSize(), getCapacity()));
+        res.append(&apos;[&apos;);
+        for (int i = 0; i &lt; size; i++) {
+            res.append(data[i]);
+            if (i != size - 1) {
+                res.append(&quot;, &quot;);
+            }
+        }
+        res.append(&apos;]&apos;);
+        return res.toString();
+    }
+
+    public static void main(String[] args) {
+
+        Array&lt;Integer&gt; scores = new Array&lt;&gt;();
+        for (int i = 0; i &lt; 10; i++) {
+            scores.addLast(i);
+        }
+
+        // 增
+        scores.addFirst(-1);
+        System.out.println(scores.toString() + &quot;\n&quot;);
+        scores.addLast(200);
+        System.out.println(scores.toString() + &quot;\n&quot;);
+        scores.add(10, 100);
+        System.out.println(scores.toString() + &quot;\n&quot;);
+
+        // 删
+        scores.removeFirst();
+        System.out.println(scores.toString() + &quot;\n&quot;);
+        scores.removeLast();
+        System.out.println(scores.toString() + &quot;\n&quot;);
+        scores.remove(5);
+        System.out.println(scores.toString() + &quot;\n&quot;);
+        scores.removeElement(6);
+        System.out.println(scores.toString() + &quot;\n&quot;);
+
+        //改
+        scores.set(0, 99);
+        System.out.println(scores.toString() + &quot;\n&quot;);
+
+        // 查
+        System.out.println(scores.getFirst() + &quot; 、&quot; + scores.getLast() + &quot; 、&quot; +
+                scores.get(5) + &quot; 、&quot; + scores.contain(6) + &quot; 、&quot; + scores.find(60));
+    }
+}
+</code></pre><h2 id="动态数组的时间复杂度分析"><a href="#动态数组的时间复杂度分析" class="headerlink" title="动态数组的时间复杂度分析"></a>动态数组的时间复杂度分析</h2><h3 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h3><p>addLast(e)            </p>
+<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
+<p>addFirst(e)        </p>
+<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
+<p>add(index ,e)</p>
+<p>O(2/n) = O(n) ，跟数组里面的元素个数 n 有关，可以想像成数组里面的元素需要移动 2/n 的次数，常数忽略。</p>
+<p>因此，添加操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>removeLast(e)            </p>
+<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
+<p>removeFirst(e)        </p>
+<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
+<p>remove(index ,e)</p>
+<p>O(2/n) = O(n) ，跟数组里面的元素个数 n 有关，可以想像成数组里面的元素需要移动 2/n 的次数，常数忽略。</p>
+<p>因此，删除操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
+<h3 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3><p>set(index ,e)    </p>
+<p>O(1) ，跟数组里面的元素个数 n 无关，(即支持随机访问)</p>
+<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p>get(index) </p>
+<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
+<p>contain(e)        </p>
+<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
+<p>find(e)        </p>
+<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
+<p>因此，查询操作在已知索引情况下的时间复杂度为 O(1) 级别的，否则为 O(n) 级别的 。</p>
+<h3 id="resize-方法"><a href="#resize-方法" class="headerlink" title="resize 方法"></a>resize 方法</h3><p>这里要用均摊计算，计算均摊时间复杂度，不能用最坏的情况，这样比较有意义。</p>
+<p>假设当前 capacity = 8 ,并且每一次添加操作都使用 addLast 。则需要 9 次 addLast 操作，才触发一次 resize 方法，再加上 8 次的赋值操作，总共进行了 17 次基本操作(给一个空间赋值)。所以平均每次 addLast 操作，进行了 2 次基本操作。现在假设 capacity = n ,则 n+1 次 addLast 操作才会触发一次 resize 方法，总共进行 2n+1 次基本操作，所以平均每次 addLast 操作，进行了 2 次基本操作。这样均摊计算，时间复杂度为 O(1) 级别的。</p>
+<p><strong>总结：在索引已知的情况下，查、改操作为 O(1) 级别的，增、删操作则跟索引无关，为 O(n) 级别的。所以就像开头所说的，数组最好在已知索引的情况下使用，这样便可以快速地进行查、改操作。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/02/13/android/ipc/Binder机制及AIDL/" rel="next" title="Binder机制及AIDL">
+                <i class="fa fa-chevron-left"></i> Binder机制及AIDL
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态数组"><span class="nav-number">1.</span> <span class="nav-text">动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的时间复杂度分析"><span class="nav-number">1.1.</span> <span class="nav-text">简单的时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.2.</span> <span class="nav-text">代码实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态数组的时间复杂度分析"><span class="nav-number">1.3.</span> <span class="nav-text">动态数组的时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加操作"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除操作"><span class="nav-number">1.3.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">1.3.3.</span> <span class="nav-text">修改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询操作"><span class="nav-number">1.3.4.</span> <span class="nav-text">查询操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize-方法"><span class="nav-number">1.3.5.</span> <span class="nav-text">resize 方法</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
