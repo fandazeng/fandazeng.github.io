@@ -93,7 +93,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,基础," />
+  <meta name="keywords" content="java,数据结构," />
 
 
 
@@ -109,20 +109,17 @@
 
 
 
-<meta name="description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
-<meta name="keywords" content="android,基础">
+<meta name="description" content="集合不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。 代码实现：首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 Set 接口类package fanda.zeng.set;  /**   * @Description: 定义集合的接口  * @Author: fanda  * @Date: 201">
+<meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="四大组件之BroadcastReceiver">
-<meta property="og:url" content="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/index.html">
+<meta property="og:title" content="集合">
+<meta property="og:url" content="http://yoursite.com/2019/05/14/data_structures/Set/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
-<meta property="og:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
-<meta property="og:image" content="https://cl.ly/9ff60ea533b4/%E6%9C%89%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97%E4%B8%80.jpg">
-<meta property="og:updated_time" content="2018-12-12T09:18:30.034Z">
+<meta property="og:description" content="集合不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。 代码实现：首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 Set 接口类package fanda.zeng.set;  /**   * @Description: 定义集合的接口  * @Author: fanda  * @Date: 201">
+<meta property="og:updated_time" content="2019-05-14T10:12:00.276Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="四大组件之BroadcastReceiver">
-<meta name="twitter:description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
-<meta name="twitter:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
+<meta name="twitter:title" content="集合">
+<meta name="twitter:description" content="集合不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。 代码实现：首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 Set 接口类package fanda.zeng.set;  /**   * @Description: 定义集合的接口  * @Author: fanda  * @Date: 201">
 
 
 
@@ -150,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/14/data_structures/Set/"/>
 
 
 
 
 
-     <title> 四大组件之BroadcastReceiver | FandaCode </title>
+     <title> 集合 | FandaCode </title>
 </head>
 
 
@@ -306,7 +303,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/05/android/base/四大组件之BroadcastReceiver/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/14/data_structures/Set/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -323,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">四大组件之BroadcastReceiver</h1>
+          <h1 class="post-title" itemprop="name headline">集合</h1>
         
 
         <div class="post-meta">
@@ -335,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-05T10:29:58+08:00">
-                2018-12-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T16:59:26+08:00">
+                2019-05-14
               </time>
             
 
@@ -358,8 +355,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -369,8 +366,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/入门/" itemprop="url" rel="index">
-                    <span itemprop="name">入门</span>
+                  <a href="/categories/java/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -386,7 +383,7 @@
 
           
           
-             <span id="/2018/12/05/android/base/四大组件之BroadcastReceiver/" class="leancloud_visitors" data-flag-title="四大组件之BroadcastReceiver">
+             <span id="/2019/05/14/data_structures/Set/" class="leancloud_visitors" data-flag-title="集合">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,181 +411,182 @@
       
 
       
-        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">Android 四大组件</a></p>
-<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/3960623.html" target="_blank" rel="external">BroadcastReceiver广播接收器</a></p>
-<h1 id="BroadcastReceiver-简介"><a href="#BroadcastReceiver-简介" class="headerlink" title="BroadcastReceiver 简介"></a>BroadcastReceiver 简介</h1><p>广播的生命周期很短（调用对象–&gt;回调 onReceive –&gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastReceiver 对象 , 并且调用 onReceive() 方法 , 执行完以后 , 该对象即被销毁 . 当 onReceive() 方法在 10 秒内没有执行完毕， Android 会认为该程序无响应。</p>
-<h1 id="BroadcastReceiver-注册"><a href="#BroadcastReceiver-注册" class="headerlink" title="BroadcastReceiver 注册"></a>BroadcastReceiver 注册</h1><p>注册广播的方式有两种，在代码中注册和在清单文件中注册，前者称为动态注册，后者称为静态注册。</p>
-<p>使用步骤：</p>
-<ol>
-<li><p>自定义一个类继承 BroadcastReceiver </p>
-</li>
-<li><p>重写 onReceive 方法</p>
-</li>
-<li><p>注册广播</p>
-</li>
-<li><p>不再使用时，取消注册广播</p>
-</li>
-</ol>
-<h2 id="动态注册方式"><a href="#动态注册方式" class="headerlink" title="动态注册方式"></a>动态注册方式</h2><p>案例使用(监听网络状态变化)：</p>
-<p>第一和第二步：</p>
-<pre><code>public class NetworkChangeReceiver extends BroadcastReceiver {
+        <h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><p>不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。</p>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。</p>
+<h3 id="Set-接口类"><a href="#Set-接口类" class="headerlink" title="Set 接口类"></a>Set 接口类</h3><pre><code>package fanda.zeng.set;
+
+/** 
+ * @Description: 定义集合的接口
+ * @Author: fanda
+ * @Date: 2019/5/14 
+ */ 
+public interface Set&lt;E&gt; {
+    void add(E e);
+
+    void remove(E e);
+
+    boolean contains(E e);
+
+    int getSize();
+
+    boolean isEmpty();
+}
+</code></pre><h3 id="基于二分搜索树实现的集合类"><a href="#基于二分搜索树实现的集合类" class="headerlink" title="基于二分搜索树实现的集合类"></a>基于二分搜索树实现的集合类</h3><pre><code>package fanda.zeng.set;
+
+import fanda.zeng.bst.BST;
+import fanda.zeng.utils.FileOperation;
+
+import java.util.ArrayList;
+
+/**
+ * @Description: 基于BST实现的集合
+ * @Author: fanda
+ * @Date: 2019/5/14
+ */
+public class BSTSet&lt;E extends Comparable&lt;E&gt;&gt; implements Set&lt;E&gt; {
+
+    private BST&lt;E&gt; bst;
+
+    public BSTSet() {
+        this.bst = new BST&lt;&gt;();
+    }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        Toast.makeText(context, &quot;network change&quot;, Toast.LENGTH_LONG).show();
+    public int getSize() {
+        return bst.getSize();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return bst.isEmpty();
+    }
+
+    @Override
+    public void add(E e) {
+        // bst 本身支持不添加重复的元素
+        bst.add(e);
+    }
+
+    @Override
+    public boolean contains(E e) {
+        return bst.contains(e);
+    }
+
+    @Override
+    public void remove(E e) {
+        bst.remove(e);
     }
 
 }
-</code></pre><p>第三步：</p>
-<pre><code>mNetworkChangeReceiver = new NetworkChangeReceiver();
-//动态注册：创建一个IntentFilter的实例，添加网络变化的广播(功能是对组件进行过滤，只获取需要的消息)
-IntentFilter intentFilter = new IntentFilter();
-intentFilter.addAction(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;);
-registerReceiver(mNetworkChangeReceiver, intentFilter);
-</code></pre><p>第四步：</p>
-<pre><code>unregisterReceiver(netWorkChangeReceiver);
-</code></pre><h2 id="静态注册方式"><a href="#静态注册方式" class="headerlink" title="静态注册方式"></a>静态注册方式</h2><p>动态注册的方式比较灵活，但缺点是：必须在程序启动之后才能接收到广播，因为注册的逻辑是通过代码方式的。为了让程序在未启动的情况下就能接收到广播，这里就需要使用到静态注册。</p>
-<p>案例使用：</p>
-<p>第一和第二步：</p>
-<pre><code>public class TestReceiver extends BroadcastReceiver {
+</code></pre><h3 id="基于链表实现的集合类"><a href="#基于链表实现的集合类" class="headerlink" title="基于链表实现的集合类"></a>基于链表实现的集合类</h3><pre><code>package fanda.zeng.set;
+
+import fanda.zeng.linkedlist.LinkedList;
+import fanda.zeng.utils.FileOperation;
+
+import java.util.ArrayList;
+
+/**
+ * @Description: 基于LinkedList实现的集合
+ * @Author: fanda
+ * @Date: 2019/5/14
+ */
+public class LinkedListSet&lt;E&gt; implements Set&lt;E&gt; {
+
+    private LinkedList&lt;E&gt; linkedList ;
+
+    public LinkedListSet() {
+        linkedList = new LinkedList&lt;&gt;();
+    }
 
     @Override
-    public void onReceive(Context context, Intent intent) {
-        //测试 10s 内没执行完，会不会造成 ANR
-//        for (int i = 0; i &lt; Integer.MAX_VALUE; i++) {
-//            i--;
-//        }
-        Toast.makeText(context, &quot;TestReceiver&quot;, Toast.LENGTH_LONG).show();
+    public void add(E e) {
+        // 如果不包含元素，才添加
+        if (!contains(e)) {
+            linkedList.addFirst(e);
+        }
+    }
+
+    @Override
+    public void remove(E e) {
+        linkedList.removeElement(e);
+    }
+
+    @Override
+    public boolean contains(E e) {
+        return linkedList.contains(e);
+    }
+
+    @Override
+    public int getSize() {
+        return linkedList.getSize();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return linkedList.isEmpty();
     }
 
 }
-</code></pre><p>第三步：</p>
-<pre><code>&lt;receiver android:name=&quot;.receiver.TestReceiver&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot;/&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-</code></pre><h1 id="BroadcastReceiver-发送"><a href="#BroadcastReceiver-发送" class="headerlink" title="BroadcastReceiver 发送"></a>BroadcastReceiver 发送</h1><p>广播被分为两种不同的类型：普通广播（无序广播或标准广播）和有序广播。</p>
-<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
-<li>无序广播：</li>
-</ul>
-<ol>
-<li><p>完全异步的，可以在同一时刻（逻辑上）被所有接收者接收到，消息传递的效率比较高。</p>
-</li>
-<li><p>接收者不能将处理结果传递给下一个接收者，并且无法终止广播的传播。</p>
-</li>
-</ol>
-<ul>
-<li>有序广播：</li>
-</ul>
-<ol>
-<li>有序广播是按照接收者声明的优先级别来传递的，被接收者依次接收广播。接收者可以拦截广播来终止向下传播，也可以存入数据来传递给下一个接收者，即下一个广播接收者可以获取到上一个广播存入的数据。</li>
-</ol>
-<h2 id="发送无序广播"><a href="#发送无序广播" class="headerlink" title="发送无序广播"></a>发送无序广播</h2><pre><code>//广播一
-public class TestReceiver extends BroadcastReceiver {
+</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>O(logn) 级别的复杂度比 O(n) 级别的要快很多。</p>
+<h3 id="LinkedListSet-的时间复杂度分析"><a href="#LinkedListSet-的时间复杂度分析" class="headerlink" title="LinkedListSet 的时间复杂度分析"></a>LinkedListSet 的时间复杂度分析</h3><pre><code>void add(E e) ; O(n)级别
 
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Logger.i(&quot;TestReceiver-1&quot;);
+E remove() ; O(n)级别
+
+E contains() ; O(n)级别
+</code></pre><h3 id="BSTSet-的时间复杂度分析"><a href="#BSTSet-的时间复杂度分析" class="headerlink" title="BSTSet 的时间复杂度分析"></a>BSTSet 的时间复杂度分析</h3><p>假设是一颗满二叉树 ，则:</p>
+<p>0 层 : 1 个节点</p>
+<p>1 层 : 2 个节点</p>
+<p>2 层 : 4 个节点</p>
+<p>3 层 : 8 个节点</p>
+<p>…</p>
+<p>h-1 层 : 2^(h-1) 个节点</p>
+<p>总共是 h 层，共有如下这么多的节点数：</p>
+<p> T = 2^0 + 2^1 + 2^2 + 2^3 + … + 2^(h-1)</p>
+<p>根据等比数列的公式可得：</p>
+<p> T = (1 * (1 - 2^h )) / (1 - 2) = 2^h -1</p>
+<p>因此： h = log(n+1) = O(logn)</p>
+<pre><code>void add(E e) ; O(logn)级别
+
+E remove() ; O(logn)级别
+
+E contains() ; O(logn)级别
+</code></pre><h2 id="BSTSet-和-LinkedListSet-的性能比较"><a href="#BSTSet-和-LinkedListSet-的性能比较" class="headerlink" title="BSTSet 和 LinkedListSet 的性能比较"></a>BSTSet 和 LinkedListSet 的性能比较</h2><pre><code>package fanda.zeng.set;
+
+import fanda.zeng.utils.FileOperation;
+
+import java.util.ArrayList;
+
+public class SetMain {
+
+    public static void main(String[] args) {
+        String fileName = &quot;F:\\java_projects\\data_structure\\DataStructures\\src\\a-tale-of-two-cities.txt&quot;;
+        Set&lt;String&gt; bstSet = new BSTSet&lt;&gt;();
+        Set&lt;String&gt; linkedListSet = new LinkedListSet&lt;&gt;();
+        System.out.println(&quot;testSet(bstSet,fileName) = &quot; + testSet(bstSet, fileName));
+        System.out.println(&quot;testSet(linkedListSet,fileName) = &quot; + testSet(linkedListSet, fileName));
+    }
+
+    /**
+     * 测试集合的运行时间
+     */
+    private static double testSet(Set&lt;String&gt; set, String fileName) {
+        long startTime = System.nanoTime();
+        ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();
+        boolean isSuccesss = FileOperation.readFile(&quot;F:\\java_projects\\data_structure\\DataStructures\\src\\a-tale-of-two-cities.txt&quot;, words);
+        if (isSuccesss) {
+            for (String s : words) {
+                set.add(s);
+            }
+        }
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000000000.0;
     }
 }
+</code></pre><p>结果：</p>
+<pre><code>testSet(bstSet,fileName) = 0.418924909
 
-//广播二
-public class TestReceiver2 extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Logger.i(&quot;TestReceiver-2&quot;);
-    }
-}
-
-//同时注册相同的过滤信息
-&lt;receiver android:name=&quot;.receiver.TestReceiver&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-&lt;receiver android:name=&quot;.receiver.TestReceiver2&quot;&gt;
-    &lt;intent-filter&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-//发送广播
-sendBroadcast(new Intent(&quot;zeng.fanda.com.fourmoduledemo.test&quot;));
-</code></pre><p>结果如下：</p>
-<p><img src="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg" alt=""></p>
-<h2 id="发送有序广播"><a href="#发送有序广播" class="headerlink" title="发送有序广播"></a>发送有序广播</h2><pre><code>//广播一
-public class TestReceiver extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        //拦截后终止广播的传递
-        abortBroadcast();
-        Logger.i(&quot;TestReceiver-1&quot;);
-    }
-}
-
-//广播二
-public class TestReceiver2 extends BroadcastReceiver {
-
-    @Override
-    public void onReceive(Context context, Intent intent) {
-        Logger.i(&quot;TestReceiver-2&quot;);
-    }
-}
-
-//同时注册相同的过滤信息
-&lt;receiver android:name=&quot;.receiver.TestReceiver&quot;&gt;
-    // 设置广播优化级为1000
-    &lt;intent-filter android:priority=&quot;1000&quot;&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-&lt;receiver android:name=&quot;.receiver.TestReceiver2&quot;&gt;
-    // 设置广播优化级为500
-    &lt;intent-filter android:priority=&quot;500&quot;&gt;
-        &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot; /&gt;
-    &lt;/intent-filter&gt;
-&lt;/receiver&gt;
-
-//第二个参数是一个与权限相关的字符串，这里传入null即可
-sendOrderedBroadcast(new Intent(&quot;zeng.fanda.com.fourmoduledemo.test&quot;),null);
-</code></pre><p>结果如下：</p>
-<p><img src="https://cl.ly/9ff60ea533b4/%E6%9C%89%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97%E4%B8%80.jpg" alt=""></p>
-<p>由于广播一的优先级大于广播二，所以广播一先收到广播，并且广播一调用了 abortBroadcast() 方法来终止了广播的传递，所以广播二是收不到广播的，自然就不打印日志了。</p>
-<p>上述通过 android:priority 属性给广播接收器设置了优先级。这个属性的范围在 -1000 到 1000 ，数值越大，优先级越高。也可以动态地在代码调用 IntentFilter 对象的 setPriority() 进行设置。</p>
-<p>我们也可以在广播一中通过 setResultXXX 方法存入一些数据，在广播二中通过 getResultXXX 方法获取到广播一中的数据。如果还有广播三四五等，都可以获取到上一个广播通过 setResultXXX 方法存入的数据，比如广播三比广播二优化级低，广播二也设置过数据，则广播三只能拿到广播二存入的数据。</p>
-<h1 id="本地广播"><a href="#本地广播" class="headerlink" title="本地广播"></a>本地广播</h1><p>之前我们发送和接收的广播全部都属于全局广播，即发出去的广播可以被其他任何应用程序接收到，并且我们也可以接收来自于其他任何应用程序的广播。这样一来，必然会造成安全问题。于是便有了本地广播：即只能在本应用程序中发送和接收广播。只用使用 LocalBroadcastManager 类对广播进行收发就可以了。</p>
-<pre><code>//获取实例
-mLocalBroadcastManager = LocalBroadcastManager.getInstance(this);
-
-//注册
-mLocalBroadcastManager.registerReceiver(mNetworkChangeReceiver,intentFilter);
-
-//发送
-mLocalBroadcastManager.sendBroadcast(new Intent(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;));
-
-//反注册
-mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
-</code></pre><p>注意：本地广播是无法通过静态注册的方式来接收的。因为静态注册主要就是为了让程序在未启动的情况下也能收到广播。而发送本地广播时，我们的程序肯定已经启动了，没有必要使用到静态注册的功能。</p>
-<h2 id="静态注册和动态注册区别"><a href="#静态注册和动态注册区别" class="headerlink" title="静态注册和动态注册区别"></a>静态注册和动态注册区别</h2><ul>
-<li><p>动态注册广播不是常驻型广播，也就是说广播跟随 activity 的生命周期。注意: 在 activity 结束前，移除广播接收器。<br>静态注册是常驻型，也就是说当应用程序关闭后，如果有信息广播来，程序也会被系统调用自动运行。</p>
-</li>
-<li><p>当广播为有序广播时：</p>
-<ol>
-<li>优先级高的先接收</li>
-<li>同优先级的广播接收器，动态优先于静态</li>
-<li>同优先级的同类广播接收器，静态：先扫描的优先于后扫描的，动态：先注册的优 先于后注册的。</li>
-</ol>
-</li>
-<li><p>当广播为普通广播时：</p>
-<ol>
-<li>无视优先级，动态广播接收器优先于静态广播接收器</li>
-<li>同优先级的同类广播接收器，静态：先扫描的优先于后扫描的，动态：先注册的优先于后注册的。</li>
-</ol>
-</li>
-</ul>
+testSet(linkedListSet,fileName) = 7.559209249
+</code></pre><p>总结：BSTSet 的性能比 LinkedListSet 好很多，因些 BSTSet 是 O（logn）级别的，LinkedListSet 是 O（n）级别的。</p>
 
       
     </div>
@@ -618,9 +616,9 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
-            <a href="/tags/基础/" rel="tag"><i class="fa fa-tag"></i> 基础</a>
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
           
         </div>
       
@@ -633,8 +631,8 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/12/03/android/base/四大组件之Service/" rel="next" title="四大组件之Service">
-                <i class="fa fa-chevron-left"></i> 四大组件之Service
+              <a href="/2019/05/14/data_structures/BST/" rel="next" title="二分搜索树">
+                <i class="fa fa-chevron-left"></i> 二分搜索树
               </a>
             
           </div>
@@ -642,10 +640,6 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/07/android/base/四大组件之ContentProvider/" rel="prev" title="四大组件之ContentProvider">
-                四大组件之ContentProvider <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -814,7 +808,7 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-简介"><span class="nav-number">1.</span> <span class="nav-text">BroadcastReceiver 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-注册"><span class="nav-number">2.</span> <span class="nav-text">BroadcastReceiver 注册</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态注册方式"><span class="nav-number">2.1.</span> <span class="nav-text">动态注册方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态注册方式"><span class="nav-number">2.2.</span> <span class="nav-text">静态注册方式</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BroadcastReceiver-发送"><span class="nav-number">3.</span> <span class="nav-text">BroadcastReceiver 发送</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#特点"><span class="nav-number">3.1.</span> <span class="nav-text">特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送无序广播"><span class="nav-number">3.2.</span> <span class="nav-text">发送无序广播</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送有序广播"><span class="nav-number">3.3.</span> <span class="nav-text">发送有序广播</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#本地广播"><span class="nav-number">4.</span> <span class="nav-text">本地广播</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态注册和动态注册区别"><span class="nav-number">4.1.</span> <span class="nav-text">静态注册和动态注册区别</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#集合"><span class="nav-number">1.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Set-接口类"><span class="nav-number">1.1.1.</span> <span class="nav-text">Set 接口类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于二分搜索树实现的集合类"><span class="nav-number">1.1.2.</span> <span class="nav-text">基于二分搜索树实现的集合类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于链表实现的集合类"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于链表实现的集合类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListSet-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListSet 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTSet-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTSet 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTSet-和-LinkedListSet-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTSet 和 LinkedListSet 的性能比较</span></a></li></ol></li></ol></div>
             
 
           </div>
