@@ -93,7 +93,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,基础," />
+  <meta name="keywords" content="java,数据结构," />
 
 
 
@@ -109,22 +109,17 @@
 
 
 
-<meta name="description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
-<meta name="keywords" content="android,基础">
+<meta name="description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
+<meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="四大组件之Service">
-<meta property="og:url" content="http://yoursite.com/2018/12/03/android/base/四大组件之Service/index.html">
+<meta property="og:title" content="映射">
+<meta property="og:url" content="http://yoursite.com/2019/05/15/data_structures/Map/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
-<meta property="og:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
-<meta property="og:image" content="https://cl.ly/f93ec53611ab/IntentService.jpg">
-<meta property="og:image" content="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
-<meta property="og:image" content="https://cl.ly/9ad4d786d616/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg">
-<meta property="og:updated_time" content="2018-12-12T09:20:54.298Z">
+<meta property="og:description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
+<meta property="og:updated_time" content="2019-05-15T04:13:31.215Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="四大组件之Service">
-<meta name="twitter:description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
-<meta name="twitter:image" content="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg">
+<meta name="twitter:title" content="映射">
+<meta name="twitter:description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
 
 
 
@@ -152,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/03/android/base/四大组件之Service/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/15/data_structures/Map/"/>
 
 
 
 
 
-     <title> 四大组件之Service | FandaCode </title>
+     <title> 映射 | FandaCode </title>
 </head>
 
 
@@ -308,7 +303,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/03/android/base/四大组件之Service/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/data_structures/Map/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -325,7 +320,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">四大组件之Service</h1>
+          <h1 class="post-title" itemprop="name headline">映射</h1>
         
 
         <div class="post-meta">
@@ -337,8 +332,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-03T10:54:15+08:00">
-                2018-12-03
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T10:37:27+08:00">
+                2019-05-15
               </time>
             
 
@@ -360,8 +355,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -371,8 +366,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/入门/" itemprop="url" rel="index">
-                    <span itemprop="name">入门</span>
+                  <a href="/categories/java/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -388,7 +383,7 @@
 
           
           
-             <span id="/2018/12/03/android/base/四大组件之Service/" class="leancloud_visitors" data-flag-title="四大组件之Service">
+             <span id="/2019/05/15/data_structures/Map/" class="leancloud_visitors" data-flag-title="映射">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -416,171 +411,500 @@
       
 
       
-        <p>参考：<a href="https://www.jianshu.com/p/51aaa65d5d25?tdsourcetag=s_pctim_aiomsg" target="_blank" rel="external">Android 四大组件</a></p>
-<p>参考：<a href="https://www.cnblogs.com/smyhvae/p/4070518.html" target="_blank" rel="external">Android Service组件深入解析</a></p>
-<h1 id="Service-简介"><a href="#Service-简介" class="headerlink" title="Service 简介"></a>Service 简介</h1><p>Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用在 Service 里面开启一个新的线程来执行任务。只能在后台运行，可以和其他组件进行交互。</p>
-<h1 id="Service-启动"><a href="#Service-启动" class="headerlink" title="Service 启动"></a>Service 启动</h1><h2 id="start-方式"><a href="#start-方式" class="headerlink" title="start 方式"></a>start 方式</h2><p>操作步骤：</p>
-<ol>
-<li><p>定义一个类继承 Service </p>
-</li>
-<li><p>清单文件 manifest.xml 中配置 Service</p>
-</li>
-<li><p>使用 context 的 startService(Intent) 方法启动 Service</p>
-</li>
-<li><p>不再使用时，调用 context 的 stopService(Intent) 方法停止服务</p>
-</li>
-</ol>
-<p>示例如下：</p>
-<p>第一步：</p>
-<pre><code>public class TestService extends Service {
+        <h1 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h1><p>存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。</p>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映射。</p>
+<h3 id="映射接口类"><a href="#映射接口类" class="headerlink" title="映射接口类"></a>映射接口类</h3><pre><code>package fanda.zeng.map;
 
-    protected final String TAG = this.getClass().getSimpleName();
+/**
+ * @Description: 映射接口描述
+ * @Author: fanda
+ * @Date: 2019/5/15
+ */
+public interface Map&lt;K, V&gt; {
 
-    @Nullable
+    /**
+     * 添加一个键值对，如果 key 存在，则直接更新值
+     */
+    void add(K key, V value);
+
+    /**
+     * 根据键来移除该键值对
+     */
+    V remove(K key);
+
+    /**
+     * 是否有包含该键的键值对
+     */
+    boolean contains(K key);
+
+    /**
+     * 获取 key 对应的 value
+     */
+    V get(K key);
+
+    /**
+     * 修该键值对
+     */
+    void set(K key, V newValue);
+
+    /**
+     * 返回键值对的数量
+     */
+    int getSize();
+
+    /**
+     * 映射是否为空
+     */
+    boolean isEmpty();
+}
+</code></pre><h3 id="基于二分搜索树实现的映射类"><a href="#基于二分搜索树实现的映射类" class="headerlink" title="基于二分搜索树实现的映射类"></a>基于二分搜索树实现的映射类</h3><pre><code>package fanda.zeng.map;
+
+/**
+ * @Description: 基于二分搜索树实现的映射类
+ * @Author: fanda
+ * @Date: 2019/5/15 
+ */ 
+public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K, V&gt; {
+
+    private Node root;
+    private int size;
+
+    // 向二分搜索树中添加新的元素(key, value)
     @Override
-    public IBinder onBind(Intent intent) {
+    public void add(K key, V value) {
+        root = add(root, key, value);
+    }
+
+    /**
+     * 向以node为根的二分搜索树中插入元素(key, value)，递归算法
+     * 返回插入新节点后二分搜索树的根
+     */
+    private Node add(Node node, K key, V value) {
+        if (node == null) {
+            size++;
+            // 不存在，添加一个节点
+            return new Node(key, value);
+        }
+        if (node.key.compareTo(key) &lt; 0) {
+            node.right = add(node.right, key, value);
+        } else if (node.key.compareTo(key) &gt; 0) {
+            node.left = add(node.left, key, value);
+        } else {
+            // 存在，更新值
+            node.value = value;
+        }
+
+        return node;
+    }
+
+    @Override
+    public V remove(K key) {
+        Node node = getNode(root, key);
+        if (node == null) {
+            // 节点不存在，返回 null
+            return null;
+        } else {
+            root = remove(root, key);
+            return node.value;
+        }
+    }
+
+    private Node remove(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        if (key.compareTo(node.key) &lt; 0) {
+            node.left = remove(node.left, key);
+        } else if (key.compareTo(node.key) &gt; 0) {
+            node.right = remove(node.right, key);
+        } else {
+            if (node.left == null) {
+                Node rightNode = node.right;
+                node.right = null;
+                size--;
+                return rightNode;
+            }
+
+            if (node.right == null) {
+                Node leftNode = node.left;
+                node.left = null;
+                size--;
+                return leftNode;
+            }
+
+            Node successor = minimum(node.right);
+            successor.left = node.left;
+            successor.right = removeMin(node.right);
+            node.left = node.right = null;
+
+            return successor;
+
+        }
+        return node;
+    }
+
+    /**
+     * 向以 node 为根的树中删除最小元素
+     * 返回删除节点后的树的根
+     */
+    private Node removeMin(Node node) {
+        // 找到要删除的节点
+        if (node.left == null) {
+            // 找到该节点的右节点(不用管是否为null)
+            Node retNode = node.right;
+            // 将要删除的节点的右节点置为 null
+            node.right = null;
+            // 维护数量
+            size--;
+            // 返回右节点
+            return retNode;
+        }
+
+        node.left = removeMin(node.left);
+        return node;
+    }
+
+    /**
+     * 向以 node 为根的树中找最小元素并返回
+     */
+    private Node minimum(Node node) {
+        if (node.left == null) {
+            return node;
+        }
+        return minimum(node.left);
+    }
+
+    /**
+     * 向以 node 为根的树中查询 key ,递归算法
+     */
+    private boolean contains(Node node, K key) {
+        if (node == null) {
+            return false;
+        }
+
+        if (key.compareTo(node.key) &lt; 0) {
+            return contains(node.left, key);
+        } else if (key.compareTo(node.key) &gt; 0) {
+            return contains(node.right, key);
+        } else {
+            return true;
+        }
+    }
+
+    @Override
+    public boolean contains(K key) {
+//        if (key == null) {
+//            return false;
+//        } else {
+//            return contains(root, key);
+//        }
+
+        return getNode(root, key) != null;
+
+    }
+
+    @Override
+    public V get(K key) {
+        Node node = getNode(root, key);
+        return node == null ? null : node.value;
+    }
+
+    /**
+     * 向以 node 为根的树中查询 key 对应的节点,递归算法
+     */
+    private Node getNode(Node node, K key) {
+        if (node == null) {
+            return null;
+        }
+        if (key.compareTo(node.key) &lt; 0) {
+            return getNode(node.left, key);
+        } else if (key.compareTo(node.key) &gt; 0) {
+            return getNode(node.right, key);
+        } else {
+            return node;
+        }
+    }
+
+    @Override
+    public void set(K key, V newValue) {
+        Node node = getNode(root, key);
+        if (node == null) {
+            // 不存在该键值对，无法修改，抛出异常
+            throw new IllegalArgumentException(key + &quot; does not exist!&quot;);
+        } else {
+            // 存在键值对，直接更新值
+            node.value = newValue;
+        }
+    }
+
+    @Override
+    public int getSize() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    private class Node {
+        public K key;
+        public V value;
+        public Node left, right;
+
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+    }
+
+}
+</code></pre><h3 id="基于链表实现的映射类"><a href="#基于链表实现的映射类" class="headerlink" title="基于链表实现的映射类"></a>基于链表实现的映射类</h3><pre><code>package fanda.zeng.map;
+
+/**
+ * @Description: 基于链表实现的映射类
+ * @Author: fanda
+ * @Date: 2019/5/15
+ */
+public class LinkedListMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
+
+    // 虚拟头节点
+    private Node dummyHead;
+
+    private int size;
+
+    public LinkedListMap() {
+        dummyHead = new Node(null, null);
+    }
+
+    @Override
+    public void add(K key, V value) {
+        Node node = getNode(key);
+        // 不存在该键值对
+        if (node == null) {
+            // 在链表头添加一个节点
+            dummyHead.next = new Node(key, value, dummyHead.next);
+            size++;
+        } else {
+            // 存在键值对，直接更新值
+            node.value = value;
+        }
+    }
+
+    @Override
+    public V remove(K key) {
+        Node prevNode = dummyHead;
+        while (prevNode.next != null) {
+            Node delNode = prevNode.next;
+            if (delNode.key.equals(key)) {
+                prevNode.next = delNode.next;
+                delNode.next = null;
+                size--;
+                return delNode.value;
+            } else {
+                prevNode = prevNode.next;
+            }
+        }
         return null;
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Logger.i(&quot; onCreate: &quot; + TAG + &quot; === &quot; + &quot; hasCode: &quot; + hashCode());
-
+    public boolean contains(K key) {
+        return getNode(key) != null;
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.i(&quot; onStartCommand: &quot; + TAG + &quot; === &quot; + &quot; hasCode: &quot; + hashCode());
-        return super.onStartCommand(intent, flags, startId);
+    public V get(K key) {
+        Node curNode = getNode(key);
+        return curNode == null ? null : curNode.value;
     }
 
+    /**
+     * 获取当前 KEY 对应的 Node
+     */
+    private Node getNode(K key) {
+        Node curNode = dummyHead.next;
+        while (curNode != null) {
+            if (curNode.key.equals(key)) {
+                return curNode;
+            }
+            curNode = curNode.next;
+        }
+        return null;
+    }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Logger.i(&quot; onDestroy: &quot; + TAG + &quot; === &quot; + &quot; hasCode: &quot; + hashCode());
-
-    }
-}
-</code></pre><p>第二步：</p>
-<pre><code>&lt;service android:name=&quot;.service.TestService&quot;/&gt;
-</code></pre><p>第三步：</p>
-<pre><code>startService(new Intent(this, TestService.class));
-</code></pre><p>第四步：</p>
-<pre><code>stopService(new Intent(this, TestService.class));
-</code></pre><p>案例操作及分析：先启动服务，然后再点击启动同一个服务，最后停止服务。日志如下：</p>
-<p><img src="https://cl.ly/0223b9f82c16/Service%E4%B8%80.jpg" alt=""></p>
-<p>这种方式的 Service 的生命周期为 onCreate() -&gt; onStartCommand() -&gt; onDestory() ，由日志可知，首次启动服务，会回调 onCreate() -&gt; onStartCommand() ，重复启动服务，不再回调 onCreate() 方法，只回调 onStartCommand() 方法，销毁时回调 onDestory() 方法。</p>
-<p>总结：服务对象同时只会存在一个，Service 与启动它的组件在同一个线程中。上面的实例中，服务就是在 main 线程中运行的，如果是在服务中完成耗时操作的话，容易造成主线程阻塞。</p>
-<p>特点：<br>服务开启后，就跟调用者没有任何关系了，调用者的存活不会影响服务的存活，调用者不能调用服务里面的方法。</p>
-<p>停止一个 started 服务有两种方法：</p>
-<p>（1）在外部使用stopService()</p>
-<p>（2）在服务内部(onStartCommand方法内部)使用 stopSelf() 方法。</p>
-<h2 id="IntentService"><a href="#IntentService" class="headerlink" title="IntentService"></a>IntentService</h2><p>为了可以简单地创建一个异步的、会自动停止的服务，Android 专门提供了一个 IntentService 类，可以启动 IntentService 多次，而每一个耗时操作会以工作队列的方式在 IntentService 的 onHandleIntent() 回调方法中执行，并且每次只会执行一个工作线程，执行完第一个后，再执行第二个，以此类推。</p>
-<p>使用时机：当我们需要这样一次性完成的任务时，就可以使用 IntentService 来完成。</p>
-<p>案例操作及分析：先启动服务，然后再点击启动同一个服务</p>
-<p><img src="https://cl.ly/f93ec53611ab/IntentService.jpg" alt=""></p>
-<p>由日志可知, onHandleIntent() 方法开启了新的工作线程，多次启动服务时，会以工作队列的方式在该线程依次处理，处理完了之后会自动停止服务，无需调用 stopService() 或 stopSelf() 方法停止。</p>
-<h2 id="bind-方式"><a href="#bind-方式" class="headerlink" title="bind 方式"></a>bind 方式</h2><p>通过调用 bindService() 方法能够绑定服务，然后系统会调用服务的 onBind() 回调方法，这个方法会返回一个跟服务器端交互的 Binder 对象。但是这个绑定是异步的，要接收 IBinder 对象，客户端必须创建一个 ServiceConnection 类的实例，并且把这个实例传递给bindService() 方法。 ServiceConnection 对象包含了一个系统调用的传递 IBinder 对象的回调方法。</p>
-<p>操作步骤：</p>
-<ol>
-<li><p>定义一个类继承 Service </p>
-</li>
-<li><p>清单文件 manifest.xml 中配置 Service</p>
-</li>
-<li><p>使用 context 的 bindService(Intent,ServiceConnection,int) 方法启动 Service</p>
-</li>
-<li><p>不再使用时，调用 context 的 unbindService(ServiceConnection) 方法停止服务</p>
-</li>
-</ol>
-<p>这种方式的生命周期如下：</p>
-<p><img src="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg" alt=""></p>
-<p>onCreate() -&gt; onBind() -&gt; onUnbind() -&gt; onDestory()</p>
-<p>注意：不会回调 onStartCommand() 方法</p>
-<p>特点： 调用方的存活会决定服务的存活，如果调用方挂了，服务也会挂掉，调用方可以跟服务进行关联，调用服务里的方法。</p>
-<p>第一步：</p>
-<pre><code>public class BindService extends Service {
-
-    protected final String TAG = this.getClass().getSimpleName();
-
-    private MyBinder mBinder = new MyBinder();
-
-    public class MyBinder extends Binder {
-
-        @Override
-        public String toString() {
-            return &quot;this is mybinder&quot;;
+    public void set(K key, V newValue) {
+        Node curNode = getNode(key);
+        if (curNode == null) {
+            // 不存在该键值对，无法修改，抛出异常
+            throw new IllegalArgumentException(key + &quot; does not exist!&quot;);
+        } else {
+            // 存在键值对，直接更新值
+            curNode.value = newValue;
         }
     }
 
-    @Nullable
     @Override
-    public IBinder onBind(Intent intent) {
-        Logger.i(&quot; onBind: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
-
-        return mBinder;
+    public int getSize() {
+        return size;
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        Logger.i(&quot; onCreate: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
-
+    public boolean isEmpty() {
+        return size == 0;
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
-        Logger.i(&quot; onStartCommand: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+    public String toString() {
+        StringBuilder res = new StringBuilder();
+        res.append(&quot;LinkedListMap: &quot;);
 
-        return super.onStartCommand(intent, flags, startId);
+        for (Node node = dummyHead.next; node != null; node = node.next) {
+            res.append(node + &quot;-&gt;&quot;);
+        }
+
+        res.append(&quot;NULL&quot;);
+        return res.toString();
     }
 
-    @Override
-    public boolean onUnbind(Intent intent) {
-        Logger.i(&quot; onUnbind: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
-        return super.onUnbind(intent);
-    }
+    private class Node {
+        public K key;
+        public V value;
+        public Node next;
 
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Logger.i(&quot; onDestroy: &quot; + TAG + &quot; === &quot; + &quot; ThreadId: &quot;+ Thread.currentThread().getId()+ &quot; === &quot; +&quot; hasCode: &quot; + hashCode());
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public Node(K key, V value, Node next) {
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+
+        @Override
+        public String toString() {
+            return key.toString() + &quot; : &quot; + value.toString();
+        }
 
     }
 }
-</code></pre><p>第二步：</p>
-<pre><code>&lt;service android:name=&quot;.service.BindService&quot;/&gt;
-</code></pre><p>第三步：</p>
-<pre><code>  mServiceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                     //服务连接成功
-                mBinder = (BindService.MyBinder) service;
-                Logger.i(&quot; onServiceConnected: &quot; + mBinder.toString());
+</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>O(logn) 级别的复杂度比 O(n) 级别的要快很多。</p>
+<h3 id="LinkedListMap-的时间复杂度分析"><a href="#LinkedListMap-的时间复杂度分析" class="headerlink" title="LinkedListMap 的时间复杂度分析"></a>LinkedListMap 的时间复杂度分析</h3><pre><code>void add(K key, V value) ; O(n)级别
 
+V remove(K key) ; O(n)级别
+
+boolean contains(K key) ; O(n)级别
+</code></pre><h3 id="BSTMap-的时间复杂度分析"><a href="#BSTMap-的时间复杂度分析" class="headerlink" title="BSTMap 的时间复杂度分析"></a>BSTMap 的时间复杂度分析</h3><pre><code>void add(K key, V value) ; O(logn)级别
+
+V remove(K key) ; O(logn)级别
+
+boolean contains(K key) ; O(logn)级别
+</code></pre><h2 id="BSTMap-和-LinkedListMap-的性能比较"><a href="#BSTMap-和-LinkedListMap-的性能比较" class="headerlink" title="BSTMap 和 LinkedListMap 的性能比较"></a>BSTMap 和 LinkedListMap 的性能比较</h2><pre><code>package fanda.zeng.map;
+
+import fanda.zeng.utils.FileOperation;
+
+import java.util.ArrayList;
+
+public class MapMain {
+
+    public static void main(String[] args) {
+        String fileName = &quot;F:\\java_projects\\data_structure\\Map\\src\\pride-and-prejudice.txt&quot;;
+        Map&lt;String,Integer&gt; linkedListMap = new LinkedListMap&lt;&gt;();
+        BSTMap&lt;String, Integer&gt; bstMap = new BSTMap&lt;&gt;();
+        System.out.println(&quot;linkedListMap need time = &quot; + testMap(linkedListMap, fileName));
+        System.out.println(&quot;pride show num of times = &quot; + linkedListMap.get(&quot;pride&quot;));
+
+        System.out.println();
+
+        System.out.println(&quot;bstMap need time = &quot; + testMap(bstMap, fileName));
+        System.out.println(&quot;pride show num of times = &quot; + bstMap.get(&quot;pride&quot;));
+
+        System.out.println();
+
+
+    /**
+     * 测试集合的运行时间
+     */
+    private static double testMap(Map&lt;String,Integer&gt; map, String fileName) {
+        long startTime = System.nanoTime();
+        ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();
+        boolean isSuccesss = FileOperation.readFile(fileName, words);
+        if (isSuccesss) {
+            System.out.println(&quot;Pride and Prejudice Total words : &quot; + words.size());
+            for (String word : words) {
+                if (map.contains(word)) {
+                    map.set(word, map.get(word) + 1);
+                } else {
+                    map.add(word,1);
+                }
             }
+            System.out.println(&quot;Pride and Prejudice Total different words : &quot; + map.getSize());
+        }
+        long endTime = System.nanoTime();
+        return (endTime - startTime) / 1000000000.0;
+    }
+}
+</code></pre><p>结果：</p>
+<pre><code>Pride and Prejudice Total words : 125901
+Pride and Prejudice Total different words : 6530
+linkedListMap need time = 19.359294327
+pride show num of times = 53
 
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                    //与服务连接断连,异常终止时会调用。解除绑定服务时不会调用
+Pride and Prejudice Total words : 125901
+Pride and Prejudice Total different words : 6530
+bstMap need time = 0.171941341
+pride show num of times = 53
+</code></pre><p>总结：BSTMap 的性能比 LinkedListMap 好很多，因些 BSTMap 是 O（logn）级别的，LinkedListMap 是 O（n）级别的。</p>
+<h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="350-两个数组的交集II"><a href="#350-两个数组的交集II" class="headerlink" title="350.两个数组的交集II"></a>350.两个数组的交集II</h3><p>给定两个数组，编写一个函数来计算它们的交集。</p>
+<p>示例 1:</p>
+<pre><code>输入: nums1 = [1,2,2,1], nums2 = [2,2]
+输出: [2,2]
+</code></pre><p>示例 2:</p>
+<pre><code>输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
+输出: [4,9]
+</code></pre><p>代码实现：</p>
+<pre><code> /**
+ * 求两个数组的交集，包含重复元素
+ */
+public static int[] intersect(int[] nums1, int[] nums2) {
+    TreeMap&lt;Integer, Integer&gt; treeMap = new TreeMap&lt;&gt;();
+
+    // 将第一个数组的数据放到 Map 中
+    for (int i : nums1) {
+        if (treeMap.containsKey(i)) {
+            // 存在，数量加1
+            treeMap.put(i, treeMap.get(i) + 1);
+        } else {
+            // 不存在，数量设为1
+            treeMap.put(i, 1);
+        }
+    }
+
+    ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();
+    for (int i : nums2) {
+        if (treeMap.containsKey(i)) {
+            list.add(i);
+            // 如果包含了元素，移除元素
+            treeMap.put(i, treeMap.get(i) - 1);
+            // 元素的数量为0，移除键值对
+            if (treeMap.get(i) == 0) {
+                treeMap.remove(i);
             }
-        };
+        }
+    }
 
-bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CREATE);
-</code></pre><p>第四步：</p>
-<pre><code>unbindService(mServiceConnection);
-</code></pre><p>以上这两种销毁的方式都很好理解。那么如果我们既点击了 Start Service 按钮，又点击了 Bind Service 按钮会怎么样呢？这个时候你会发现，不管你是单独点击 Stop Service 按钮还是 Unbind Service 按钮，Service 都不会被销毁，必要将 Unbind Service 按钮和 Stop Service 按钮都点击一下（没有先后顺序），Service 才会被销毁。也就是说，点击 Stop Service 按钮只会让 Service 停止，点击 Unbind Service 按钮只会让 Service 和  Activity 解除关联，一个 Service 必须要在既没有和任何 Activity 关联又处理停止状态的时候才会被销毁，即回调 onDestroy() 方法。我们细说一下这种情况的生命周期。</p>
-<p>情况一：start - bind</p>
-<p>生命周期：onCreate -&gt; onStartCommand -&gt; onBind -&gt; onUnbind -&gt; onDestroy</p>
-<p>情况三：bind -start </p>
-<p>生命周期：onCreate -&gt; onBind -&gt; onStartCommand -&gt; onUnbind -&gt; onDestroy</p>
-<p>分析：一旦在项目的任何位置调用了 Context 的 startService() 方法，相应的服务就会启动起来，并回调 onstartCommand() 方法。如果这个服务之前还没有创建过， onCreate() 方法会先于 onstartCommand() 方法执行。服务启动过后，会一直保持运行状态，直到 stopService() 或 stopself() 方法被调用。注意虽然每次调用一次 startService() 方法， onstartCommand() 方法就会以执行一次，但实际上每个服务都只会存在一个实例。所以不管你调用了多少次 startService() 方法，只需调用一次 stopService() 或 stopself() 方法，服务就会停止。</p>
-<p>另外，还可以调用 Context 的 bindService() 来获取一个服务的持久连接，这时就会回调服务中的 onBind() 方法。类似地，如果这个服务之前还没有创建过， onCreate() 方法会先于 onBind() 方法执行。之后调用方可以获取到 onBind() 方法里返回的 IBinder 对象的实例，这样，就能自由地和服务进行通信了。只要调用方和服务之间的连接没有断开，服务就会一直保持运行状态。</p>
-<p>注意：如果未绑定过服务或已经解绑了，点击 unbind 会报错。</p>
-<p>开发中的技巧：可以先用 start 方式启动服务，接着用 bind 方式绑定服务，与服务进行关联进行业务处理。</p>
-<h2 id="Service-生命周期"><a href="#Service-生命周期" class="headerlink" title="Service 生命周期"></a>Service 生命周期</h2><p><img src="https://cl.ly/9ad4d786d616/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg" alt=""></p>
+    // 把交集数据放到数组里面并返回
+    int[] result = new int[list.size()];
+    for (int i = 0; i &lt; list.size(); i++) {
+        result[i] = list.get(i);
+    }
 
+    return result;
+}
+</code></pre>
       
     </div>
 
@@ -609,9 +933,9 @@ bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CRE
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
-            <a href="/tags/基础/" rel="tag"><i class="fa fa-tag"></i> 基础</a>
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
           
         </div>
       
@@ -624,8 +948,8 @@ bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CRE
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/11/28/android/base/四大组件之Activity/" rel="next" title="四大组件之Activity">
-                <i class="fa fa-chevron-left"></i> 四大组件之Activity
+              <a href="/2019/05/14/data_structures/Set/" rel="next" title="集合">
+                <i class="fa fa-chevron-left"></i> 集合
               </a>
             
           </div>
@@ -633,10 +957,6 @@ bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CRE
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/05/android/base/四大组件之BroadcastReceiver/" rel="prev" title="四大组件之BroadcastReceiver">
-                四大组件之BroadcastReceiver <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -805,7 +1125,7 @@ bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CRE
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-简介"><span class="nav-number">1.</span> <span class="nav-text">Service 简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Service-启动"><span class="nav-number">2.</span> <span class="nav-text">Service 启动</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#start-方式"><span class="nav-number">2.1.</span> <span class="nav-text">start 方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IntentService"><span class="nav-number">2.2.</span> <span class="nav-text">IntentService</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#bind-方式"><span class="nav-number">2.3.</span> <span class="nav-text">bind 方式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Service-生命周期"><span class="nav-number">2.4.</span> <span class="nav-text">Service 生命周期</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#映射"><span class="nav-number">1.</span> <span class="nav-text">映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射接口类"><span class="nav-number">1.1.1.</span> <span class="nav-text">映射接口类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于二分搜索树实现的映射类"><span class="nav-number">1.1.2.</span> <span class="nav-text">基于二分搜索树实现的映射类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于链表实现的映射类"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于链表实现的映射类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListMap-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListMap 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTMap-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTMap 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTMap-和-LinkedListMap-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTMap 和 LinkedListMap 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#350-两个数组的交集II"><span class="nav-number">1.4.1.</span> <span class="nav-text">350.两个数组的交集II</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
