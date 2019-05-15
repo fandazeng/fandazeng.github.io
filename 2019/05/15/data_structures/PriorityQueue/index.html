@@ -93,7 +93,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="android,绘制,自定义View," />
+  <meta name="keywords" content="java,数据结构," />
 
 
 
@@ -109,20 +109,20 @@
 
 
 
-<meta name="description" content="参考：https://hencoder.com/ui-1-3/练习github地址：https://github.com/fandazeng/ViewDemo Canvas 绘制文字的方式Canvas 的文字绘制方法有三个：drawText() drawTextRun() 和 drawTextOnPath()。 drawText(String text, float x, float y, Pai">
-<meta name="keywords" content="android,绘制,自定义View">
+<meta name="description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关；和优先级相关。 比如：  医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。  系统的任务调度（动态选择优先级最高的任务执行）  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）   底层实现分析普通线性结构 ： 入队 O(1) 级别，出队">
+<meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Paint绘制文本">
-<meta property="og:url" content="http://yoursite.com/2018/09/28/android/view/绘制文本/index.html">
+<meta property="og:title" content="二叉堆和优先队列">
+<meta property="og:url" content="http://yoursite.com/2019/05/15/data_structures/PriorityQueue/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="参考：https://hencoder.com/ui-1-3/练习github地址：https://github.com/fandazeng/ViewDemo Canvas 绘制文字的方式Canvas 的文字绘制方法有三个：drawText() drawTextRun() 和 drawTextOnPath()。 drawText(String text, float x, float y, Pai">
-<meta property="og:image" content="https://cl.ly/ddb0c062ab21/view_draw_text1.gif">
-<meta property="og:image" content="https://cl.ly/8d2d35a2551c/view_draw_text2.gif">
-<meta property="og:updated_time" content="2018-10-10T10:12:34.833Z">
+<meta property="og:description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关；和优先级相关。 比如：  医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。  系统的任务调度（动态选择优先级最高的任务执行）  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）   底层实现分析普通线性结构 ： 入队 O(1) 级别，出队">
+<meta property="og:image" content="https://cl.ly/87d6e6ad4cf3/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B0.png">
+<meta property="og:image" content="https://cl.ly/3d8a611efb22/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg">
+<meta property="og:updated_time" content="2019-05-15T08:30:42.229Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Paint绘制文本">
-<meta name="twitter:description" content="参考：https://hencoder.com/ui-1-3/练习github地址：https://github.com/fandazeng/ViewDemo Canvas 绘制文字的方式Canvas 的文字绘制方法有三个：drawText() drawTextRun() 和 drawTextOnPath()。 drawText(String text, float x, float y, Pai">
-<meta name="twitter:image" content="https://cl.ly/ddb0c062ab21/view_draw_text1.gif">
+<meta name="twitter:title" content="二叉堆和优先队列">
+<meta name="twitter:description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关；和优先级相关。 比如：  医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。  系统的任务调度（动态选择优先级最高的任务执行）  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）   底层实现分析普通线性结构 ： 入队 O(1) 级别，出队">
+<meta name="twitter:image" content="https://cl.ly/87d6e6ad4cf3/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B0.png">
 
 
 
@@ -150,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/28/android/view/绘制文本/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/15/data_structures/PriorityQueue/"/>
 
 
 
 
 
-     <title> Paint绘制文本 | FandaCode </title>
+     <title> 二叉堆和优先队列 | FandaCode </title>
 </head>
 
 
@@ -306,7 +306,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/28/android/view/绘制文本/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/data_structures/PriorityQueue/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -323,7 +323,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Paint绘制文本</h1>
+          <h1 class="post-title" itemprop="name headline">二叉堆和优先队列</h1>
         
 
         <div class="post-meta">
@@ -335,8 +335,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-28T09:54:11+08:00">
-                2018-09-28
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T14:15:38+08:00">
+                2019-05-15
               </time>
             
 
@@ -358,8 +358,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/" itemprop="url" rel="index">
-                    <span itemprop="name">android</span>
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
                   </a>
                 </span>
 
@@ -369,8 +369,8 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/android/view/" itemprop="url" rel="index">
-                    <span itemprop="name">view</span>
+                  <a href="/categories/java/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
                   </a>
                 </span>
 
@@ -386,7 +386,7 @@
 
           
           
-             <span id="/2018/09/28/android/view/绘制文本/" class="leancloud_visitors" data-flag-title="Paint绘制文本">
+             <span id="/2019/05/15/data_structures/PriorityQueue/" class="leancloud_visitors" data-flag-title="二叉堆和优先队列">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -414,124 +414,361 @@
       
 
       
-        <p>参考：<a href="https://hencoder.com/ui-1-3/" target="_blank" rel="external">https://hencoder.com/ui-1-3/</a><br>练习github地址：<a href="https://github.com/fandazeng/ViewDemo" target="_blank" rel="external">https://github.com/fandazeng/ViewDemo</a></p>
-<h1 id="Canvas-绘制文字的方式"><a href="#Canvas-绘制文字的方式" class="headerlink" title="Canvas 绘制文字的方式"></a>Canvas 绘制文字的方式</h1><p>Canvas 的文字绘制方法有三个：drawText() drawTextRun() 和 drawTextOnPath()。</p>
-<h2 id="drawText-String-text-float-x-float-y-Paint-paint"><a href="#drawText-String-text-float-x-float-y-Paint-paint" class="headerlink" title="drawText(String text, float x, float y, Paint paint)"></a>drawText(String text, float x, float y, Paint paint)</h2><p>drawText() 是 Canvas 最基本的绘制文字的方法：给出文字的内容和位置， Canvas 按要求去绘制文字。方法的参数很简单： text 是文字内容，x 和 y 是文字的坐标。但需要注意：这个坐标并不是文字的左上角，而是一个与左下角比较接近的位置。</p>
-<pre><code>mPaint.setTextSize(100);
+        <h1 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h1><p>普通队列：先进先出；后进后出</p>
+<p>优化队列：出队顺序和入队顺序无关；和优先级相关。</p>
+<p>比如：</p>
+<ol>
+<li><p>医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。</p>
+</li>
+<li><p>系统的任务调度（动态选择优先级最高的任务执行）</p>
+</li>
+<li><p>AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）</p>
+</li>
+</ol>
+<h2 id="底层实现分析"><a href="#底层实现分析" class="headerlink" title="底层实现分析"></a>底层实现分析</h2><p>普通线性结构 ： 入队 O(1) 级别，出队 O(n) 级别 。</p>
+<p>顺序线性结构 ： 入队 O(n) 级别，出队 O(1) 级别 。</p>
+<p>堆 ： 入队 O(logn) 级别，出队 O(logn) 级别 。</p>
+<h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><ol>
+<li><p>二叉堆是一棵完全二叉树。节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右，一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。</p>
+</li>
+<li><p>堆中某个节点的值总是不大于其父节点的值。（最大堆）</p>
+</li>
+</ol>
+<h2 id="用数组来存储二叉堆"><a href="#用数组来存储二叉堆" class="headerlink" title="用数组来存储二叉堆"></a>用数组来存储二叉堆</h2><p><img src="https://cl.ly/87d6e6ad4cf3/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B0.png" alt=""></p>
+<p><img src="https://cl.ly/3d8a611efb22/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg" alt=""></p>
+<h2 id="最大堆的代码实现"><a href="#最大堆的代码实现" class="headerlink" title="最大堆的代码实现"></a>最大堆的代码实现</h2><pre><code>package fanda.zeng.heap;
 
-//y是基线，文本的左下角，x值没有贴着文本，有一点空隙，往左边一点
-canvas.drawText(&quot;fanda&quot;, 200, 200, mPaint);
-</code></pre><h2 id="drawTextOnPath"><a href="#drawTextOnPath" class="headerlink" title="drawTextOnPath()"></a>drawTextOnPath()</h2><p>沿着一条 Path 来绘制文字。</p>
-<pre><code>drawTextOnPath(String text, Path path, float hOffset, float vOffset, Paint paint)
-</code></pre><p>参数里，需要解释的只有两个： hOffset 和 vOffset。它们是文字相对于 Path 的水平偏移量和竖直偏移量，利用它们可以调整文字的位置。例如你设置 hOffset 为 5， vOffset 为 10，文字就会右移 5 像素和下移 10 像素。</p>
-<h2 id="StaticLayout"><a href="#StaticLayout" class="headerlink" title="StaticLayout"></a>StaticLayout</h2><p>StaticLayout 并不是一个 View 或者 ViewGroup ，而是 android.text.Layout 的子类，它是纯粹用来绘制文字的。 StaticLayout 支持换行，它既可以为文字设置宽度上限来让文字自动换行，也会在 \n 处主动换行。</p>
-<p>构造方法：<br>StaticLayout(CharSequence source, TextPaint paint, int width, Layout.Alignment align, float spacingmult, float spacingadd, boolean includepad)</p>
-<p>参数：<br>width 是文字区域的宽度，文字到达这个宽度后就会自动换行；<br>align 是文字的对齐方向；<br>spacingmult 是行间距的倍数，通常情况下填 1 就好；<br>spacingadd 是行间距的额外增加值，通常情况下填 0 就好；<br>includeadd 是指是否在文字上下添加额外的空间，来避免某些过高的字符的绘制出现越界。</p>
-<pre><code>//align 是文字的对齐方向，默认左对齐，还有居中和右对齐
-StaticLayout staticLayout = new StaticLayout(&quot;hello\nfanda&quot;, mTextPaint,
-1100,Layout.Alignment.ALIGN_CENTER, 1, 0, true);
+import fanda.zeng.array.Array;
 
-canvas.save();
-canvas.translate(200, 200);
-staticLayout.draw(canvas);
-canvas.restore();
-</code></pre><h1 id="Paint-对文字绘制的辅助"><a href="#Paint-对文字绘制的辅助" class="headerlink" title="Paint 对文字绘制的辅助"></a>Paint 对文字绘制的辅助</h1><p>Paint 对文字绘制的辅助，有两类方法：设置显示效果的和测量文字尺寸的。</p>
-<h2 id="设置显示效果类"><a href="#设置显示效果类" class="headerlink" title="设置显示效果类"></a>设置显示效果类</h2><h3 id="1-setTextSize-float-textSize"><a href="#1-setTextSize-float-textSize" class="headerlink" title="1.setTextSize(float textSize)"></a>1.setTextSize(float textSize)</h3><p>设置文字大小。</p>
-<pre><code>mPaint.setTextSize(50);
-canvas.drawText(&quot;fanda&quot;, 200, 200, mPaint);
-mPaint.setTextSize(60);
-canvas.drawText(&quot;fanda&quot;, 200, 300, mPaint);
-</code></pre><h3 id="2-setTypeface-Typeface-typeface"><a href="#2-setTypeface-Typeface-typeface" class="headerlink" title="2.setTypeface(Typeface typeface)"></a>2.setTypeface(Typeface typeface)</h3><p>设置字体，可以设置默认提供的字体样式，也可以使用自定义的字体。</p>
-<pre><code>//加粗
-mPaint.setTypeface(Typeface.DEFAULT_BOLD);
-canvas.drawText(&quot;zeng fanda&quot;, 200, 200 , mPaint);
-//等宽字体
-mPaint.setTypeface(Typeface.MONOSPACE);
-canvas.drawText(&quot;zeng fanda&quot;, 200, 300, mPaint);
+import java.util.Random;
 
-mPaint.setTypeface(Typeface.SANS_SERIF);
-canvas.drawText(&quot;zeng fanda&quot;, 200, 400, mPaint);
+/**
+ * @Description: 最大堆
+ * @Author: fanda
+ * @Date: 2019/5/15
+ */
+public class MaxHeap&lt;E extends Comparable&lt;E&gt;&gt; {
+    private Array&lt;E&gt; data;
 
-mPaint.setTypeface(Typeface.SERIF);
-canvas.drawText(&quot;zeng fanda&quot;, 200, 500, mPaint);
-</code></pre><h3 id="3-setFakeBoldText-boolean-fakeBoldText"><a href="#3-setFakeBoldText-boolean-fakeBoldText" class="headerlink" title="3.setFakeBoldText(boolean fakeBoldText)"></a>3.setFakeBoldText(boolean fakeBoldText)</h3><p>设置字体加粗。</p>
-<pre><code>mPaint.setFakeBoldText(false);
-canvas.drawText(&quot;fanda&quot;, 200, 200, mPaint);
-mPaint.setFakeBoldText(true);
-canvas.drawText(&quot;fanda&quot;, 200, 300, mPaint);
-</code></pre><h3 id="4-setStrikeThruText-boolean-strikeThruText"><a href="#4-setStrikeThruText-boolean-strikeThruText" class="headerlink" title="4.setStrikeThruText(boolean strikeThruText)"></a>4.setStrikeThruText(boolean strikeThruText)</h3><p>是否加删除线。</p>
-<pre><code>mPaint.setStrikeThruText(true);
-canvas.drawText(&quot;fanda&quot;, 200, 300, mPaint);
-</code></pre><h3 id="5-setUnderlineText-boolean-underlineText"><a href="#5-setUnderlineText-boolean-underlineText" class="headerlink" title="5.setUnderlineText(boolean underlineText)"></a>5.setUnderlineText(boolean underlineText)</h3><p>是否加下划线。</p>
-<pre><code>mPaint.setUnderlineText(true);
-canvas.drawText(&quot;fanda&quot;, 200, 300, mPaint);
-</code></pre><h3 id="6-setTextSkewX-float-skewX"><a href="#6-setTextSkewX-float-skewX" class="headerlink" title="6.setTextSkewX(float skewX)"></a>6.setTextSkewX(float skewX)</h3><p>设置文字倾斜度。</p>
-<pre><code>mPaint.setTextSkewX(-0.3f);
-canvas.drawText(&quot;fanda&quot;, 200, 300, mPaint);
-</code></pre><h3 id="7-setTextScaleX-float-scaleX"><a href="#7-setTextScaleX-float-scaleX" class="headerlink" title="7.setTextScaleX(float scaleX)"></a>7.setTextScaleX(float scaleX)</h3><p>设置文字横向缩放。</p>
-<pre><code>mPaint.setTextScaleX(0.5f);
-canvas.drawText(&quot;fanda&quot;, 200, 300, mPaint);
-</code></pre><h3 id="8-setLetterSpacing-float-letterSpacing"><a href="#8-setLetterSpacing-float-letterSpacing" class="headerlink" title="8.setLetterSpacing(float letterSpacing)"></a>8.setLetterSpacing(float letterSpacing)</h3><p>设置字符间距。默认值是 0。</p>
-<pre><code>paint.setLetterSpacing(0.2f);  
-canvas.drawText(text, 100, 150, paint);
-</code></pre><h3 id="9-setFontFeatureSettings-String-settings"><a href="#9-setFontFeatureSettings-String-settings" class="headerlink" title="9.setFontFeatureSettings(String settings)"></a>9.setFontFeatureSettings(String settings)</h3><p>用 CSS 的 font-feature-settings 的方式来设置文字。</p>
-<pre><code>paint.setFontFeatureSettings(&quot;smcp&quot;); // 设置 &quot;small caps&quot;  
-canvas.drawText(&quot;Hello HenCoder&quot;, 100, 150, paint);  
-</code></pre><h3 id="10-setTextAlign-Paint-Align-align"><a href="#10-setTextAlign-Paint-Align-align" class="headerlink" title="10.setTextAlign(Paint.Align align)"></a>10.setTextAlign(Paint.Align align)</h3><p>设置文字的对齐方式。一共有三个值：LEFT CETNER 和 RIGHT。默认值为 LEFT。</p>
-<pre><code>mPaint.setTextAlign(Paint.Align.LEFT);
-canvas.drawText(&quot;hello fanda&quot;, 700, 200, mPaint);
+    public MaxHeap() {
+        data = new Array&lt;&gt;();
+    }
 
-mPaint.setTextAlign(Paint.Align.CENTER);
-canvas.drawText(&quot;hello fanda&quot;, 700, 300, mPaint);
+    public MaxHeap(E[] arr) {
+        data = new Array&lt;&gt;(arr);
+        // 从最后一个节点的父子节点开始处理，少了一半的处理节点数量
+        for (int i = parent(data.getSize() - 1); i &gt;= 0; i--) {
+            siftDown(i);
+        }
+    }
 
-mPaint.setTextAlign(Paint.Align.RIGHT);
-canvas.drawText(&quot;hello fanda&quot;, 700, 400, mPaint);
-</code></pre><h3 id="11-setTextLocale-Locale-locale"><a href="#11-setTextLocale-Locale-locale" class="headerlink" title="11.setTextLocale(Locale locale)"></a>11.setTextLocale(Locale locale)</h3><p>设置绘制所使用的语言。Canvas 绘制的时候，默认使用的是系统设置里的 Locale。而通过<br>Paint.setTextLocale(Locale locale) 就可以在不改变系统设置的情况下，直接修改绘制时的 Locale。</p>
-<pre><code>paint.setTextLocale(Locale.CHINA); // 简体中文  
-canvas.drawText(text, 150, 150, paint);  
-paint.setTextLocale(Locale.TAIWAN); // 繁体中文  
-canvas.drawText(text, 150, 150 + textHeight, paint);  
-paint.setTextLocale(Locale.JAPAN); // 日语  
-canvas.drawText(text, 150, 150 + textHeight * 2, paint); 
-</code></pre><h2 id="测量文字尺寸类"><a href="#测量文字尺寸类" class="headerlink" title="测量文字尺寸类"></a>测量文字尺寸类</h2><h3 id="getFontSpacing"><a href="#getFontSpacing" class="headerlink" title="getFontSpacing()"></a>getFontSpacing()</h3><p>获取推荐的行距。即推荐的两行文字的 baseline 的距离。这个值是系统根据文字的字体和字号<br>自动计算的。它的作用是当你要手动绘制多行文字（而不是使用 StaticLayout）的时候，可以<br>在换行的时候给 y 坐标加上这个值来下移文字。</p>
-<pre><code>canvas.drawText(&quot;hello fanda&quot;, 500, 200, mPaint);
+    public MaxHeap(int capacity) {
+        data = new Array&lt;&gt;(capacity);
+    }
 
-canvas.drawText(&quot;hello fanda&quot;, 500, 200 + mPaint.getFontSpacing(), mPaint);
+    /**
+     * 向堆中添加元素
+     */
+    public void add(E e) {
+        data.addLast(e);
+        siftUp(data.getSize() - 1);
+    }
 
-canvas.drawText(&quot;hello fanda&quot;, 500, 200 + mPaint.getFontSpacing() * 2, mPaint);
-</code></pre><h3 id="getTextBounds-String-text-int-start-int-end-Rect-bounds"><a href="#getTextBounds-String-text-int-start-int-end-Rect-bounds" class="headerlink" title="getTextBounds(String text, int start, int end, Rect bounds)"></a>getTextBounds(String text, int start, int end, Rect bounds)</h3><p>获取文字的显示范围。</p>
-<p>参数里，text 是要测量的文字，start 和 end 分别是文字的起始和结束位置，bounds 是存储文字显示<br>范围的对象，方法在测算完成之后会把结果写进 bounds。</p>
-<pre><code>mPaint.getTextBounds(content,0,content.length(),mRect);
-canvas.drawText(content, 200, 200, mPaint);
+    /**
+     * 元素值上浮过程
+     */
+    private void siftUp(int k) {
+        // 不是根节点，而且父节点比孩子节点小
+        while (k &gt; 0 &amp;&amp; data.get(parent(k)).compareTo(data.get(k)) &lt; 0) {
+            // 则交换两者之间的值
+            data.swap(k, parent(k));
+            // 将当前索引变成父节点索引
+            k = parent(k);
+        }
+    }
 
-mPaint.setStyle(Paint.Style.STROKE);
-mPaint.setStrokeWidth(3);
+    /**
+     * 看堆中的最大元素
+     */
+    public E findMax() {
+        if (isEmpty()) {
+            throw new IllegalArgumentException(&quot;Can not findMax when heap is empty.&quot;);
+        }
+        return data.get(0);
+    }
 
-Log.d(&quot;bounds&quot;,&quot;left&quot; + mRect.left + &quot;==&quot; + &quot;top&quot; + mRect.top + &quot;==&quot; + &quot;right&quot; + mRect.right + &quot;==&quot; + &quot;bottom&quot; + mRect.bottom);
-// 6，-77，511，1 (相对于绘制文本的位置，即相对于左下角[200，200]这个点)
-//206,123,711,201
-mRect.left += 200;
-mRect.right += 200;
-mRect.top += 200;
-mRect.bottom += 200;
-canvas.drawRect(mRect,mPaint);
-</code></pre><h3 id="float-measureText-String-text"><a href="#float-measureText-String-text" class="headerlink" title="float measureText(String text)"></a>float measureText(String text)</h3><p>测量文字的宽度并返回。</p>
-<pre><code>mPaint.setTextSize(100);
-canvas.drawText(text1, 200, 200, mPaint);
-text1_width = mPaint.measureText(text1);
+    /**
+     * 取出堆中最大的元素
+     */
+    public E extractMax() {
+        // 先拿到最大的元素值
+        E ret = findMax();
 
-mPaint.setTextSize(150);
-mPaint.setColor(Color.RED);
-canvas.drawText(text2, 200 + text1_width, 200, mPaint);
-text2_width = mPaint.measureText(text2);
+        // 根元素和最后的一个元素交换值
+        data.swap(0, data.getSize() - 1);
+        // 删除最后一个元素
+        data.removeLast();
+        // 将元素进行下沉操作
+        siftDown(0);
 
-mPaint.reset();
-mPaint.setTextSize(100);
-canvas.drawText(text3, 200 + text1_width + text2_width, 200, mPaint);
-</code></pre><p>练习演示：</p>
-<p><img src="https://cl.ly/ddb0c062ab21/view_draw_text1.gif" alt=""></p>
-<p><img src="https://cl.ly/8d2d35a2551c/view_draw_text2.gif" alt=""></p>
+        return ret;
+    }
 
+    /**
+     * 元素值下沉过程
+     */
+    private void siftDown(int k) {
+        // 如果不是叶子节点，则循环处理
+        while (leftChild(k) &lt; data.getSize()) {
+            // 在此轮循环中,data[k]和data[j]交换位置
+            int j = leftChild(k);  // 此时 j 代表左孩子节点
+            if (j + 1 &lt; data.getSize() &amp;&amp; data.get(j + 1).compareTo(data.get(j)) &gt; 0) {
+                // 如果有右孩子且右孩子比左孩子大，则将索引加1，此时 j 代表右孩子节点
+                j++;
+            }
+            // data[j] 是 leftChild 和 rightChild 中的最大值
+            if (data.get(k).compareTo(data.get(j)) &gt; 0) {
+                break;
+            }
+            data.swap(k, j);
+            k = j;
+        }
+    }
+
+    /**
+     * 取出堆中的最大元素，并且替换成元素e
+     */
+    public E replace(E e) {
+        E ret = findMax();
+        // 将堆中最大的元素替换为 e
+        data.set(0, e);
+        // 下沉操作
+        siftDown(0);
+        return ret;
+    }
+
+    /**
+     * 返回堆中的元素个数
+     */
+    public int size() {
+        return data.getSize();
+    }
+
+    /**
+     * 返回一个布尔值, 表示堆中是否为空
+     */
+    public boolean isEmpty() {
+        return data.isEmpty();
+    }
+
+    /**
+     * 返回完全二叉树的数组表示中，一个索引所表示的元素的父亲节点的索引
+     */
+    private int parent(int index) {
+        if (index == 0) {
+            throw new IllegalArgumentException(&quot;index-0 does not have parent.&quot;);
+        }
+        return (index - 1) / 2;
+    }
+
+    /**
+     * 返回完全二叉树的数组表示中，一个索引所表示的元素的左孩子节点的索引
+     */
+    private int leftChild(int index) {
+        return index * 2 + 1;
+    }
+
+    /**
+     * 返回完全二叉树的数组表示中，一个索引所表示的元素的右孩子节点的索引
+     */
+    private int rightChild(int index) {
+        return index * 2 + 2;
+    }
+
+    public static void main(String[] args) {
+        int n = 1000000;
+        MaxHeap&lt;Integer&gt; maxHeap = new MaxHeap&lt;&gt;();
+        Random random = new Random();
+        for (int i = 0; i &lt; n; i++) {
+            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
+        }
+
+        int[] arr = new int[n];
+
+        for (int i = 0; i &lt; n; i++) {
+            arr[i] = maxHeap.extractMax();
+        }
+
+        for (int i = 1; i &lt; n; i++) {
+            if (arr[i] &gt; arr[i - 1]) {
+                throw new IllegalArgumentException(&quot;Error&quot;);
+            }
+        }
+
+        System.out.println(&quot;Test MaxHeap completed.&quot;);
+    }
+
+}
+</code></pre><h3 id="基于最大堆实现优先队列"><a href="#基于最大堆实现优先队列" class="headerlink" title="基于最大堆实现优先队列"></a>基于最大堆实现优先队列</h3><pre><code>package fanda.zeng.queue;
+
+import fanda.zeng.heap.MaxHeap;
+
+/**
+ * @Description: 基于最大堆实现的优先队列
+ * @Author: fanda
+ * @Date: 2019/5/15
+ */
+public class PriorityQueue&lt;E extends Comparable&lt;E&gt;&gt; implements Queue&lt;E&gt; {
+
+    private MaxHeap&lt;E&gt; heap;
+
+    public PriorityQueue() {
+        heap = new MaxHeap&lt;&gt;();
+    }
+
+    @Override
+    public int getSize() {
+        return heap.size();
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return heap.isEmpty();
+    }
+
+    @Override
+    public void enqueue(E e) {
+        heap.add(e);
+    }
+
+    @Override
+    public E dequeue() {
+        return heap.extractMax();
+    }
+
+    @Override
+    public E getFront() {
+        return heap.findMax();
+    }
+}
+</code></pre><h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="347-前K个高频元素"><a href="#347-前K个高频元素" class="headerlink" title="347.前K个高频元素"></a>347.前K个高频元素</h3><p>给定一个非空的整数数组，返回其中出现频率前 k 高的元素。</p>
+<p>示例 1:</p>
+<pre><code>输入: nums = [1,1,1,2,2,3], k = 2
+输出: [1,2]
+</code></pre><p>示例 2:</p>
+<pre><code>输入: nums = [1], k = 1
+输出: [1]
+</code></pre><h3 id="基于我们自己实现的优先队列来解答："><a href="#基于我们自己实现的优先队列来解答：" class="headerlink" title="基于我们自己实现的优先队列来解答："></a>基于我们自己实现的优先队列来解答：</h3><pre><code>public class Soluction347 {
+
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 1, 2, 2, 3};
+        System.out.println(topKFrequent(arr, 2));
+    }
+
+    /**
+     * 基于自己实现的优先队列来处理，复杂度为 O(nlongK)
+     */
+    public static List&lt;Integer&gt; topKFrequent(int[] nums, int k) {
+        TreeMap&lt;Integer, Integer&gt; treeMap = new TreeMap&lt;&gt;();
+        for (int num : nums) {
+            if (treeMap.containsKey(num)) {
+                treeMap.put(num, treeMap.get(num) + 1);
+            } else {
+                treeMap.put(num, 1);
+            }
+        }
+
+        PriorityQueue&lt;Freq&gt; pq = new PriorityQueue&lt;Freq&gt;();
+
+        for (Integer key : treeMap.keySet()) {
+            if (pq.getSize() &lt; k) {
+                // 先入队 K 个元素
+                pq.enqueue(new Freq(key, treeMap.get(key)));
+            } else {
+                // 第 K+1 个元素开始做处理
+                if (treeMap.get(key) &gt; pq.getFront().freq) {
+                    // 出队最小频次节点（处于树的最顶的节点）
+                    pq.dequeue();
+                    // 将新节点放进来
+                    pq.enqueue(new Freq(key, treeMap.get(key)));
+                }
+            }
+        }
+
+        LinkedList&lt;Integer&gt; linkedList = new LinkedList&lt;&gt;();
+        while (!pq.isEmpty()) {
+            linkedList.add(pq.dequeue().e);
+        }
+
+        return linkedList;
+    }
+
+    private static class Freq implements Comparable&lt;Freq&gt; {
+        int e, freq;
+
+        public Freq(int e, int freq) {
+            this.e = e;
+            this.freq = freq;
+        }
+
+        @Override
+        public int compareTo(Freq another) {
+            // 频次越大，优先级越低
+            if (this.freq &gt; another.freq) {
+                return -1;
+            } else if (this.freq &lt; another.freq) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    }
+}
+</code></pre><h3 id="基于标准库的优先队列来解答："><a href="#基于标准库的优先队列来解答：" class="headerlink" title="基于标准库的优先队列来解答："></a>基于标准库的优先队列来解答：</h3><p>系统库的优先队列默认是用最小堆来实现的。</p>
+<pre><code>public class Soluction347 {
+
+    public static void main(String[] args) {
+        int[] arr = {1, 1, 1, 2, 2, 3};
+        System.out.println(topKFrequent(arr, 2));
+    }
+
+    /**
+     * 基于标准库的优先队列来处理，复杂度为 O(nlongK)
+     */
+    public static List&lt;Integer&gt; topKFrequent(int[] nums, int k) {
+        TreeMap&lt;Integer, Integer&gt; treeMap = new TreeMap&lt;&gt;();
+        for (int num : nums) {
+            if (treeMap.containsKey(num)) {
+                treeMap.put(num, treeMap.get(num) + 1);
+            } else {
+                treeMap.put(num, 1);
+            }
+        }
+        // 在构造函数中传入一个比较器(定义优先级)
+        PriorityQueue&lt;Integer&gt; pq = new PriorityQueue&lt;&gt;(Comparator.comparingInt(treeMap::get));
+        for (Integer key : treeMap.keySet()) {
+            if (pq.size() &lt; k) {
+                // 先入队 K 个元素
+                pq.add(key);
+            } else {
+                // 第 K+1 个元素开始做处理
+                if (treeMap.get(key) &gt; treeMap.get(pq.peek())) {
+                    // 出队最小频次节点（处于树的最顶的节点）
+                    pq.remove();
+                    // 将新节点放进来
+                    pq.add(key);
+                }
+            }
+        }
+        LinkedList&lt;Integer&gt; linkedList = new LinkedList&lt;&gt;();
+        while (!pq.isEmpty()) {
+            linkedList.add(pq.remove());
+        }
+        return linkedList;
+    }
+
+}
+</code></pre>
       
     </div>
 
@@ -560,11 +797,9 @@ canvas.drawText(text3, 200 + text1_width + text2_width, 200, mPaint);
       
         <div class="post-tags">
           
-            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
           
-            <a href="/tags/绘制/" rel="tag"><i class="fa fa-tag"></i> 绘制</a>
-          
-            <a href="/tags/自定义View/" rel="tag"><i class="fa fa-tag"></i> 自定义View</a>
+            <a href="/tags/数据结构/" rel="tag"><i class="fa fa-tag"></i> 数据结构</a>
           
         </div>
       
@@ -577,8 +812,8 @@ canvas.drawText(text3, 200 + text1_width + text2_width, 200, mPaint);
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/21/android/view/Paint基础练习/" rel="next" title="Paint基础练习">
-                <i class="fa fa-chevron-left"></i> Paint基础练习
+              <a href="/2019/05/15/data_structures/Map/" rel="next" title="映射">
+                <i class="fa fa-chevron-left"></i> 映射
               </a>
             
           </div>
@@ -586,10 +821,6 @@ canvas.drawText(text3, 200 + text1_width + text2_width, 200, mPaint);
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/29/android/view/Canvas绘制辅助/" rel="prev" title="Canvas 绘制辅助">
-                Canvas 绘制辅助 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -758,7 +989,7 @@ canvas.drawText(text3, 200 + text1_width + text2_width, 200, mPaint);
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Canvas-绘制文字的方式"><span class="nav-number">1.</span> <span class="nav-text">Canvas 绘制文字的方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#drawText-String-text-float-x-float-y-Paint-paint"><span class="nav-number">1.1.</span> <span class="nav-text">drawText(String text, float x, float y, Paint paint)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#drawTextOnPath"><span class="nav-number">1.2.</span> <span class="nav-text">drawTextOnPath()</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#StaticLayout"><span class="nav-number">1.3.</span> <span class="nav-text">StaticLayout</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Paint-对文字绘制的辅助"><span class="nav-number">2.</span> <span class="nav-text">Paint 对文字绘制的辅助</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置显示效果类"><span class="nav-number">2.1.</span> <span class="nav-text">设置显示效果类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-setTextSize-float-textSize"><span class="nav-number">2.1.1.</span> <span class="nav-text">1.setTextSize(float textSize)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-setTypeface-Typeface-typeface"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.setTypeface(Typeface typeface)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-setFakeBoldText-boolean-fakeBoldText"><span class="nav-number">2.1.3.</span> <span class="nav-text">3.setFakeBoldText(boolean fakeBoldText)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-setStrikeThruText-boolean-strikeThruText"><span class="nav-number">2.1.4.</span> <span class="nav-text">4.setStrikeThruText(boolean strikeThruText)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-setUnderlineText-boolean-underlineText"><span class="nav-number">2.1.5.</span> <span class="nav-text">5.setUnderlineText(boolean underlineText)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-setTextSkewX-float-skewX"><span class="nav-number">2.1.6.</span> <span class="nav-text">6.setTextSkewX(float skewX)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-setTextScaleX-float-scaleX"><span class="nav-number">2.1.7.</span> <span class="nav-text">7.setTextScaleX(float scaleX)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-setLetterSpacing-float-letterSpacing"><span class="nav-number">2.1.8.</span> <span class="nav-text">8.setLetterSpacing(float letterSpacing)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#9-setFontFeatureSettings-String-settings"><span class="nav-number">2.1.9.</span> <span class="nav-text">9.setFontFeatureSettings(String settings)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#10-setTextAlign-Paint-Align-align"><span class="nav-number">2.1.10.</span> <span class="nav-text">10.setTextAlign(Paint.Align align)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#11-setTextLocale-Locale-locale"><span class="nav-number">2.1.11.</span> <span class="nav-text">11.setTextLocale(Locale locale)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测量文字尺寸类"><span class="nav-number">2.2.</span> <span class="nav-text">测量文字尺寸类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#getFontSpacing"><span class="nav-number">2.2.1.</span> <span class="nav-text">getFontSpacing()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getTextBounds-String-text-int-start-int-end-Rect-bounds"><span class="nav-number">2.2.2.</span> <span class="nav-text">getTextBounds(String text, int start, int end, Rect bounds)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#float-measureText-String-text"><span class="nav-number">2.2.3.</span> <span class="nav-text">float measureText(String text)</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优先队列"><span class="nav-number">1.</span> <span class="nav-text">优先队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#底层实现分析"><span class="nav-number">1.1.</span> <span class="nav-text">底层实现分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉堆"><span class="nav-number">1.2.</span> <span class="nav-text">二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用数组来存储二叉堆"><span class="nav-number">1.3.</span> <span class="nav-text">用数组来存储二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大堆的代码实现"><span class="nav-number">1.4.</span> <span class="nav-text">最大堆的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于最大堆实现优先队列"><span class="nav-number">1.4.1.</span> <span class="nav-text">基于最大堆实现优先队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.5.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#347-前K个高频元素"><span class="nav-number">1.5.1.</span> <span class="nav-text">347.前K个高频元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于我们自己实现的优先队列来解答："><span class="nav-number">1.5.2.</span> <span class="nav-text">基于我们自己实现的优先队列来解答：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于标准库的优先队列来解答："><span class="nav-number">1.5.3.</span> <span class="nav-text">基于标准库的优先队列来解答：</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
