@@ -109,17 +109,29 @@
 
 
 
-<meta name="description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
+<meta name="description" content="AVL树最早的平衡二叉树，在二分搜索树的基础上做了自平衡处理，保证不会退化成链表的情况。 满二叉树：除了叶子节点，其他全部节点都有两个孩子节点。 完全二叉树：节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右，一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。叶子节点一定在倒数第一或第二层。 平衡二">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="映射">
-<meta property="og:url" content="http://yoursite.com/2019/05/15/data_structures/Map/index.html">
+<meta property="og:title" content="AVL树">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/data_structures/AVLTree/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
-<meta property="og:updated_time" content="2019-05-15T06:35:01.955Z">
+<meta property="og:description" content="AVL树最早的平衡二叉树，在二分搜索树的基础上做了自平衡处理，保证不会退化成链表的情况。 满二叉树：除了叶子节点，其他全部节点都有两个孩子节点。 完全二叉树：节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右，一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。叶子节点一定在倒数第一或第二层。 平衡二">
+<meta property="og:image" content="https://cl.ly/9737a741a649/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%8F%E8%BF%B0.png">
+<meta property="og:image" content="https://cl.ly/2926c32d8f8d/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg">
+<meta property="og:image" content="https://cl.ly/def5fe81cbe4/%E5%B9%B3%E8%A1%A1%E7%BB%B4%E6%8A%A4%E6%97%B6%E6%9C%BA.jpg">
+<meta property="og:image" content="https://cl.ly/1a81dba64eef/%E7%BB%B4%E6%8A%A4%E6%97%B6%E6%9C%BA2.jpg">
+<meta property="og:image" content="https://cl.ly/89be5dc5bdb2/%E5%8F%B3%E6%97%8B%E8%BD%AC.jpg">
+<meta property="og:image" content="https://cl.ly/1dcdeaea07b6/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%89%8D.jpg">
+<meta property="og:image" content="https://cl.ly/d71440a8fc7e/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%90%8E.jpg">
+<meta property="og:image" content="https://cl.ly/a6dea7826b18/LR%E7%AC%AC%E4%B8%80%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg">
+<meta property="og:image" content="https://cl.ly/3329973e7ade/LR%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg">
+<meta property="og:image" content="https://cl.ly/a1f1f48d9d70/RL%E7%AC%AC%E4%B8%80%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg">
+<meta property="og:image" content="https://cl.ly/baf098666da5/RL%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg">
+<meta property="og:updated_time" content="2019-05-16T04:10:24.972Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="映射">
-<meta name="twitter:description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
+<meta name="twitter:title" content="AVL树">
+<meta name="twitter:description" content="AVL树最早的平衡二叉树，在二分搜索树的基础上做了自平衡处理，保证不会退化成链表的情况。 满二叉树：除了叶子节点，其他全部节点都有两个孩子节点。 完全二叉树：节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右，一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。叶子节点一定在倒数第一或第二层。 平衡二">
+<meta name="twitter:image" content="https://cl.ly/9737a741a649/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%8F%E8%BF%B0.png">
 
 
 
@@ -147,13 +159,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/15/data_structures/Map/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/data_structures/AVLTree/"/>
 
 
 
 
 
-     <title> 映射 | FandaCode </title>
+     <title> AVL树 | FandaCode </title>
 </head>
 
 
@@ -303,7 +315,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/15/data_structures/Map/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/data_structures/AVLTree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -320,7 +332,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">映射</h1>
+          <h1 class="post-title" itemprop="name headline">AVL树</h1>
         
 
         <div class="post-meta">
@@ -332,8 +344,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-15T10:37:27+08:00">
-                2019-05-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T09:33:17+08:00">
+                2019-05-16
               </time>
             
 
@@ -383,7 +395,7 @@
 
           
           
-             <span id="/2019/05/15/data_structures/Map/" class="leancloud_visitors" data-flag-title="映射">
+             <span id="/2019/05/16/data_structures/AVLTree/" class="leancloud_visitors" data-flag-title="AVL树">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -411,78 +423,153 @@
       
 
       
-        <h1 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h1><p>存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映射。</p>
-<h3 id="映射接口类"><a href="#映射接口类" class="headerlink" title="映射接口类"></a>映射接口类</h3><pre><code>package fanda.zeng.map;
+        <h1 id="AVL树"><a href="#AVL树" class="headerlink" title="AVL树"></a>AVL树</h1><p>最早的平衡二叉树，在二分搜索树的基础上做了自平衡处理，保证不会退化成链表的情况。</p>
+<p>满二叉树：除了叶子节点，其他全部节点都有两个孩子节点。</p>
+<p>完全二叉树：节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右，一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。叶子节点一定在倒数第一或第二层。</p>
+<p>平衡二叉树：对于任意一个节点，左子树和右子树的高度差不能超过1。</p>
+<p><img src="https://cl.ly/9737a741a649/%E5%B9%B3%E8%A1%A1%E4%BA%8C%E5%8F%89%E6%A0%91%E6%8F%8F%E8%BF%B0.png" alt=""></p>
+<h2 id="平衡因子"><a href="#平衡因子" class="headerlink" title="平衡因子"></a>平衡因子</h2><p>我们用平衡因子来表示左子树跟右子树的高度差，因此每个节点也就引入了高度值，我们把叶子节点的高度默认设为1，父节点的高度为左右子树高度的最大值再加1。</p>
+<p><img src="https://cl.ly/2926c32d8f8d/%E5%B9%B3%E8%A1%A1%E5%9B%A0%E5%AD%90.jpg" alt=""></p>
+<h2 id="平衡维护时机"><a href="#平衡维护时机" class="headerlink" title="平衡维护时机"></a>平衡维护时机</h2><h3 id="LL-和-RR-情况"><a href="#LL-和-RR-情况" class="headerlink" title="LL 和 RR 情况"></a>LL 和 RR 情况</h3><p>当插入的元素在不平衡节点的左侧的左侧时，会导致平衡因子大于1的情况(即平衡被打破)，这种情况称之为 LL 的情况。同理，当插入的元素在不平衡节点的右侧的右侧时，会导致平衡因子大于1的情况(即平衡被打破)，这种情况称之为 RR 的情况。</p>
+<p>LL 的图示如下(RR情况同理)：</p>
+<p><img src="https://cl.ly/def5fe81cbe4/%E5%B9%B3%E8%A1%A1%E7%BB%B4%E6%8A%A4%E6%97%B6%E6%9C%BA.jpg" alt=""></p>
+<h3 id="LR-和-RL-情况"><a href="#LR-和-RL-情况" class="headerlink" title="LR 和 RL 情况"></a>LR 和 RL 情况</h3><p>当插入的元素在不平衡节点的左侧的右侧时，会导致平衡因子大于1的情况(即平衡被打破)，这种情况称之为 LR 的情况。同理，当插入的元素在不平衡节点的右侧的左侧时，会导致平衡因子大于1的情况(即平衡被打破)，这种情况称之为 RL 的情况。</p>
+<p>LR 的图示如下(RL情况同理)：</p>
+<p><img src="https://cl.ly/1a81dba64eef/%E7%BB%B4%E6%8A%A4%E6%97%B6%E6%9C%BA2.jpg" alt=""></p>
+<h2 id="平衡维护方式"><a href="#平衡维护方式" class="headerlink" title="平衡维护方式"></a>平衡维护方式</h2><h3 id="LL-情况"><a href="#LL-情况" class="headerlink" title="LL 情况"></a>LL 情况</h3><p>需要对打破平衡的节点进行右旋转操作，如下图所示， y 节点打破了平衡，我们对 y 进行一次右旋转操作，操作如图示一样。</p>
+<p><img src="https://cl.ly/89be5dc5bdb2/%E5%8F%B3%E6%97%8B%E8%BD%AC.jpg" alt=""></p>
+<h3 id="RR-情况"><a href="#RR-情况" class="headerlink" title="RR 情况"></a>RR 情况</h3><p>需要对打破平衡的节点进行左旋转操作，如下图所示， y 节点打破了平衡，我们对 y 进行一次左旋转操作，操作如图示一样。</p>
+<p>左旋转前图示如下：</p>
+<p><img src="https://cl.ly/1dcdeaea07b6/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%89%8D.jpg" alt=""></p>
+<p>左旋转后图示如下：</p>
+<p><img src="https://cl.ly/d71440a8fc7e/%E5%B7%A6%E6%97%8B%E8%BD%AC%E5%90%8E.jpg" alt=""></p>
+<h3 id="LR-情况"><a href="#LR-情况" class="headerlink" title="LR 情况"></a>LR 情况</h3><p>如下图所示，y 节点打破了平衡，我们需要对打破平衡的节点的左节点 x 进行左旋转操作，然后就转化成了 LL 的情况，再按 LL 情况处理即可：</p>
+<p><img src="https://cl.ly/a6dea7826b18/LR%E7%AC%AC%E4%B8%80%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg" alt=""></p>
+<p><img src="https://cl.ly/3329973e7ade/LR%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg" alt=""></p>
+<h3 id="RL-情况"><a href="#RL-情况" class="headerlink" title="RL 情况"></a>RL 情况</h3><p>如下图所示，y 节点打破了平衡，我们需要对打破平衡的节点的右节点 x 进行右旋转操作，然后就转化成了 RR 的情况，再按 RR 情况处理即可：</p>
+<p><img src="https://cl.ly/a1f1f48d9d70/RL%E7%AC%AC%E4%B8%80%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg" alt=""></p>
+<p><img src="https://cl.ly/baf098666da5/RL%E7%AC%AC%E4%BA%8C%E6%AD%A5%E6%97%8B%E8%BD%AC.jpg" alt=""></p>
+<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre><code>package fanda.zeng.avl;
+
+import fanda.zeng.utils.FileOperation;
+
+import java.util.ArrayList;
 
 /**
- * @Description: 映射接口描述
+ * @Description: AVLTree 自平衡的二叉树
  * @Author: fanda
- * @Date: 2019/5/15
+ * @Date: 2019/5/6
  */
-public interface Map&lt;K, V&gt; {
-
-    /**
-     * 添加一个键值对，如果 key 存在，则直接更新值
-     */
-    void add(K key, V value);
-
-    /**
-     * 根据键来移除该键值对
-     */
-    V remove(K key);
-
-    /**
-     * 是否有包含该键的键值对
-     */
-    boolean contains(K key);
-
-    /**
-     * 获取 key 对应的 value
-     */
-    V get(K key);
-
-    /**
-     * 修该键值对
-     */
-    void set(K key, V newValue);
-
-    /**
-     * 返回键值对的数量
-     */
-    int getSize();
-
-    /**
-     * 映射是否为空
-     */
-    boolean isEmpty();
-}
-</code></pre><h3 id="基于二分搜索树实现的映射类"><a href="#基于二分搜索树实现的映射类" class="headerlink" title="基于二分搜索树实现的映射类"></a>基于二分搜索树实现的映射类</h3><pre><code>package fanda.zeng.map;
-
-/**
- * @Description: 基于二分搜索树实现的映射类
- * @Author: fanda
- * @Date: 2019/5/15 
- */ 
-public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K, V&gt; {
-
+public class AVLTree&lt;K extends Comparable&lt;K&gt;, V&gt; {
     private Node root;
     private int size;
 
-    // 向二分搜索树中添加新的元素(key, value)
-    @Override
+    /**
+     * 获取节点node的高度
+     */
+    private int getHeight(Node node) {
+        return node == null ? 0 : node.height;
+    }
+
+    /**
+     * 获取节点对应的平衡因子，即左右子树的高度差
+     */
+    private int getBalanceFactor(Node node) {
+        if (node == null) {
+            return 0;
+        } else {
+            return getHeight(node.left) - getHeight(node.right);
+        }
+    }
+
+    /**
+     * 判断该二叉树是否是一棵二分搜索树
+     */
+    public boolean isBST() {
+        ArrayList&lt;K&gt; keys = new ArrayList&lt;&gt;();
+        // 如果是一棵二分搜索树，中序遍历后的数据肯定是从小到大排序的
+        inOrder(root, keys);
+        for (int i = 1; i &lt; keys.size(); i++) {
+            if (keys.get(i - 1).compareTo(keys.get(i)) &gt; 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 判断该二叉树是否是一棵平衡二叉树
+     */
+    public boolean isBalanced() {
+        return isBalanced(root);
+    }
+
+    /**
+     * 判断以Node为根的二叉树是否是一棵平衡二叉树，递归算法
+     */
+    private boolean isBalanced(Node node) {
+        if (node == null) {
+            return true;
+        }
+        if (Math.abs(getBalanceFactor(node)) &gt; 1) {
+            return false;
+        }
+        return isBalanced(node.left) &amp;&amp; isBalanced(node.right);
+    }
+
+    /**
+     * 右旋转
+     */
+    private Node rightRorate(Node node) {
+        Node retNode = node.left;
+        Node x = retNode.right;
+        node.left = x;
+        retNode.right = node;
+
+        // 更新height，一定要先更新 node 的，后更新 retNode
+        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+        retNode.height = Math.max(getHeight(retNode.left), getHeight(retNode.right)) + 1;
+
+        return retNode;
+    }
+
+    /**
+     * 右旋转
+     */
+    private Node leftRorate(Node node) {
+        Node retNode = node.right;
+        Node x = retNode.left;
+        node.right = x;
+        retNode.left = node;
+
+        // 更新height，一定要先更新 node 的，后更新 retNode
+        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+        retNode.height = Math.max(getHeight(retNode.left), getHeight(retNode.right)) + 1;
+
+        return retNode;
+    }
+
+    private void inOrder(Node node, ArrayList&lt;K&gt; keys) {
+        if (node == null) {
+            return;
+        }
+        inOrder(node.left, keys);
+        keys.add(node.key);
+        inOrder(node.right, keys);
+    }
+
+    // 向AVL树中添加新的元素(key, value)
     public void add(K key, V value) {
         root = add(root, key, value);
     }
 
     /**
-     * 向以node为根的二分搜索树中插入元素(key, value)，递归算法
-     * 返回插入新节点后二分搜索树的根
+     * 向以node为根的AVL树中插入元素(key, value)，递归算法
+     * 返回插入新节点后AVL树的根
      */
     private Node add(Node node, K key, V value) {
         if (node == null) {
             size++;
-            // 不存在，添加一个节点
             return new Node(key, value);
         }
         if (node.key.compareTo(key) &lt; 0) {
@@ -490,18 +577,44 @@ public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K,
         } else if (node.key.compareTo(key) &gt; 0) {
             node.left = add(node.left, key, value);
         } else {
-            // 存在，更新值
             node.value = value;
+        }
+
+        // 更新 height
+        node.height = Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+
+        // 平衡维护
+        if (getBalanceFactor(node) &gt; 1 &amp;&amp; getBalanceFactor(node.left) &gt;= 0) {
+            //LL情况，需要右旋转
+            return rightRorate(node);
+        }
+
+        if (getBalanceFactor(node) &gt; 1 &amp;&amp; getBalanceFactor(node.left) &lt; 0) {
+            //LR情况，需要左旋转，然后右旋转
+            node.left = leftRorate(node.left);
+            return rightRorate(node);
+        }
+
+        if (getBalanceFactor(node) &lt; -1 &amp;&amp; getBalanceFactor(node.right) &lt;= 0) {
+            //RR情况，需要左旋转
+            return leftRorate(node);
+        }
+
+        if (getBalanceFactor(node) &lt; -1 &amp;&amp; getBalanceFactor(node.right) &gt; 0) {
+            //RL情况，需要右旋转，然后左旋转
+            node.right = rightRorate(node.right);
+            return leftRorate(node);
         }
 
         return node;
     }
 
-    @Override
+    /**
+     * 从AVL树中删除键为key的节点
+     */
     public V remove(K key) {
         Node node = getNode(root, key);
         if (node == null) {
-            // 节点不存在，返回 null
             return null;
         } else {
             root = remove(root, key);
@@ -513,55 +626,69 @@ public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K,
         if (node == null) {
             return null;
         }
+
+        Node retNode;
         if (key.compareTo(node.key) &lt; 0) {
             node.left = remove(node.left, key);
+            retNode = node;
         } else if (key.compareTo(node.key) &gt; 0) {
             node.right = remove(node.right, key);
+            retNode = node;
         } else {
             if (node.left == null) {
                 Node rightNode = node.right;
                 node.right = null;
                 size--;
-                return rightNode;
-            }
-
-            if (node.right == null) {
+                retNode = rightNode;
+            } else if (node.right == null) {
                 Node leftNode = node.left;
                 node.left = null;
                 size--;
-                return leftNode;
+                retNode = leftNode;
+            } else {
+                Node successor = minimum(node.right);
+                //注意这里，不能用removeMin方法，因为会打破平衡性（也可以在removeMin方法里进行平衡维护）
+                successor.right = remove(node.right, successor.key);
+                successor.left = node.left;
+                node.left = node.right = null;
+                retNode = successor;
             }
-
-            Node successor = minimum(node.right);
-            successor.left = node.left;
-            successor.right = removeMin(node.right);
-            node.left = node.right = null;
-
-            return successor;
-
-        }
-        return node;
-    }
-
-    /**
-     * 向以 node 为根的树中删除最小元素
-     * 返回删除节点后的树的根
-     */
-    private Node removeMin(Node node) {
-        // 找到要删除的节点
-        if (node.left == null) {
-            // 找到该节点的右节点(不用管是否为null)
-            Node retNode = node.right;
-            // 将要删除的节点的右节点置为 null
-            node.right = null;
-            // 维护数量
-            size--;
-            // 返回右节点
-            return retNode;
         }
 
-        node.left = removeMin(node.left);
-        return node;
+        //注意删除的是叶子节点时，retNode可能为null
+        if (retNode == null) {
+            return null;
+        }
+
+        // 更新 height
+        retNode.height = Math.max(getHeight(retNode.left), getHeight(retNode.right)) + 1;
+
+        // 平衡维护
+        if (getBalanceFactor(retNode) &gt; 1 &amp;&amp; getBalanceFactor(retNode.left) &gt;= 0) {
+            //LL情况，需要右旋转
+            return rightRorate(retNode);
+        }
+
+        //疑惑，为什么不能等于0
+        if (getBalanceFactor(retNode) &gt; 1 &amp;&amp; getBalanceFactor(retNode.left) &lt; 0) {
+            //LR情况，需要左旋转，然后右旋转
+            node.left = leftRorate(retNode.left);
+            return rightRorate(retNode);
+        }
+
+        if (getBalanceFactor(retNode) &lt; -1 &amp;&amp; getBalanceFactor(retNode.right) &lt;= 0) {
+            //RR情况，需要左旋转
+            return leftRorate(retNode);
+        }
+
+        //疑惑，为什么不能等于0
+        if (getBalanceFactor(retNode) &lt; -1 &amp;&amp; getBalanceFactor(retNode.right) &gt; 0) {
+            //RL情况，需要右旋转，然后左旋转
+            retNode.right = rightRorate(retNode.right);
+            return leftRorate(retNode);
+        }
+
+        return retNode;
     }
 
     /**
@@ -575,42 +702,26 @@ public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K,
     }
 
     /**
-     * 向以 node 为根的树中查询 key ,递归算法
+     * 向以 node 为根的树中寻找最大元素并返回
      */
-    private boolean contains(Node node, K key) {
-        if (node == null) {
-            return false;
+    private Node maximum(Node node) {
+        if (node.right == null) {
+            return node;
         }
-
-        if (key.compareTo(node.key) &lt; 0) {
-            return contains(node.left, key);
-        } else if (key.compareTo(node.key) &gt; 0) {
-            return contains(node.right, key);
-        } else {
-            return true;
-        }
+        return maximum(node.right);
     }
 
-    @Override
     public boolean contains(K key) {
-//        if (key == null) {
-//            return false;
-//        } else {
-//            return contains(root, key);
-//        }
-
         return getNode(root, key) != null;
-
     }
 
-    @Override
     public V get(K key) {
         Node node = getNode(root, key);
         return node == null ? null : node.value;
     }
 
     /**
-     * 向以 node 为根的树中查询 key 对应的节点,递归算法
+     * 向以 node 为根的树中查询key对应的结点,递归算法
      */
     private Node getNode(Node node, K key) {
         if (node == null) {
@@ -625,24 +736,19 @@ public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K,
         }
     }
 
-    @Override
     public void set(K key, V newValue) {
         Node node = getNode(root, key);
         if (node == null) {
-            // 不存在该键值对，无法修改，抛出异常
             throw new IllegalArgumentException(key + &quot; does not exist!&quot;);
         } else {
-            // 存在键值对，直接更新值
             node.value = newValue;
         }
     }
 
-    @Override
     public int getSize() {
         return size;
     }
 
-    @Override
     public boolean isEmpty() {
         return size == 0;
     }
@@ -651,258 +757,157 @@ public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K,
         public K key;
         public V value;
         public Node left, right;
+        public int height;
 
         public Node(K key, V value) {
             this.key = key;
             this.value = value;
+            // 节点高度值默认为1
+            height = 1;
         }
     }
-
 }
-</code></pre><h3 id="基于链表实现的映射类"><a href="#基于链表实现的映射类" class="headerlink" title="基于链表实现的映射类"></a>基于链表实现的映射类</h3><pre><code>package fanda.zeng.map;
+</code></pre><h2 id="BST-和-AVLTree-的性能比较"><a href="#BST-和-AVLTree-的性能比较" class="headerlink" title="BST 和 AVLTree 的性能比较"></a>BST 和 AVLTree 的性能比较</h2><p>BST在元素按排序的方式插入树中时，会退化成链表，因为 BST 没有自平衡机制 。</p>
+<pre><code>public class AVLMain {
 
-/**
- * @Description: 基于链表实现的映射类
- * @Author: fanda
- * @Date: 2019/5/15
- */
-public class LinkedListMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
+    public static void main(String[] args) {
+        ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();
+        if (FileOperation.readFile(&quot;F:\\java_projects\\data_structure\\DataStructures\\src\\a-tale-of-two-cities.txt&quot;, words)) {
+            System.out.println(&quot;Total words: &quot; + words.size());
 
-    // 虚拟头节点
-    private Node dummyHead;
+            // 排序之后，二分搜索树会退化成链表
+            Collections.sort(words);
 
-    private int size;
+            // Test BST
+            long startTime = System.nanoTime();
 
-    public LinkedListMap() {
-        dummyHead = new Node(null, null);
+            BSTMap&lt;String, Integer&gt; bst = new BSTMap&lt;&gt;();
+            for (String word : words) {
+                if (bst.contains(word))
+                    bst.set(word, bst.get(word) + 1);
+                else
+                    bst.add(word, 1);
+            }
+
+            for(String word: words)
+                bst.contains(word);
+
+            long endTime = System.nanoTime();
+
+            double time = (endTime - startTime) / 1000000000.0;
+            System.out.println(&quot;BST: &quot; + time + &quot; s&quot;);
+
+
+            // Test AVL Tree
+             startTime = System.nanoTime();
+
+            AVLTree&lt;String, Integer&gt; avl = new AVLTree&lt;&gt;();
+            for (String word : words) {
+                if (avl.contains(word))
+                    avl.set(word, avl.get(word) + 1);
+                else
+                    avl.add(word, 1);
+            }
+
+            for (String word : words)
+                avl.contains(word);
+
+             endTime = System.nanoTime();
+
+             time = (endTime - startTime) / 1000000000.0;
+            System.out.println(&quot;AVL: &quot; + time + &quot; s&quot;);
+        }
+
+        System.out.println();
+    }
+}
+</code></pre><p>当 BST 退化成链表时，结果如下：</p>
+<pre><code>Total words: 141489
+BST: 43.441510112 s
+AVL: 0.112137956 s
+</code></pre><p>当 BST 不退化链表时，结果如下：</p>
+<pre><code>Total words: 141489
+BST: 0.305946419 s
+AVL: 0.285817112 s
+</code></pre><p>总结： BST 不退化成链表时，性能跟 AVLTree 相差不大，因为元素是随机进入时，两者的时间复杂度均为 O(logn)，当退化成链表时，BST 的复杂度会变成  O(n) ，此时性能相差较大。为了避免这种情况，我们应该使用自平衡的二分搜索树。</p>
+<h2 id="基于-AVLTree-实现映射"><a href="#基于-AVLTree-实现映射" class="headerlink" title="基于 AVLTree 实现映射"></a>基于 AVLTree 实现映射</h2><p>我们可以对比基于 BST 实现的映射和基于 AVLTree 实现的映射的性能，总体来说 AVLTree 更优。</p>
+<pre><code>public class AVLMap&lt;K extends Comparable&lt;K&gt;,V&gt; implements Map&lt;K,V&gt; {
+
+    private AVLTree&lt;K, V&gt; tree;
+
+    public AVLMap() {
+        tree = new AVLTree&lt;&gt;();
     }
 
     @Override
     public void add(K key, V value) {
-        Node node = getNode(key);
-        // 不存在该键值对
-        if (node == null) {
-            // 在链表头添加一个节点
-            dummyHead.next = new Node(key, value, dummyHead.next);
-            size++;
-        } else {
-            // 存在键值对，直接更新值
-            node.value = value;
-        }
+        tree.add(key,value);
     }
 
     @Override
     public V remove(K key) {
-        Node prevNode = dummyHead;
-        while (prevNode.next != null) {
-            Node delNode = prevNode.next;
-            if (delNode.key.equals(key)) {
-                prevNode.next = delNode.next;
-                delNode.next = null;
-                size--;
-                return delNode.value;
-            } else {
-                prevNode = prevNode.next;
-            }
-        }
-        return null;
+        return tree.remove(key);
     }
 
     @Override
     public boolean contains(K key) {
-        return getNode(key) != null;
+        return tree.contains(key);
     }
 
     @Override
     public V get(K key) {
-        Node curNode = getNode(key);
-        return curNode == null ? null : curNode.value;
-    }
-
-    /**
-     * 获取当前 KEY 对应的 Node
-     */
-    private Node getNode(K key) {
-        Node curNode = dummyHead.next;
-        while (curNode != null) {
-            if (curNode.key.equals(key)) {
-                return curNode;
-            }
-            curNode = curNode.next;
-        }
-        return null;
+        return tree.get(key);
     }
 
     @Override
     public void set(K key, V newValue) {
-        Node curNode = getNode(key);
-        if (curNode == null) {
-            // 不存在该键值对，无法修改，抛出异常
-            throw new IllegalArgumentException(key + &quot; does not exist!&quot;);
-        } else {
-            // 存在键值对，直接更新值
-            curNode.value = newValue;
-        }
+        tree.set(key,newValue);
     }
 
     @Override
     public int getSize() {
-        return size;
+        return tree.getSize();
     }
 
     @Override
     public boolean isEmpty() {
-        return size == 0;
+        return tree.isEmpty();
+    }
+
+}
+</code></pre><h2 id="基于-AVLTree-实现集合"><a href="#基于-AVLTree-实现集合" class="headerlink" title="基于 AVLTree 实现集合"></a>基于 AVLTree 实现集合</h2><p>我们可以对比基于 BST 实现的集合和基于 AVLTree 实现的集合的性能，总体来说 AVLTree 更优。</p>
+<pre><code>public class AVLSet&lt;E extends Comparable&lt;E&gt;&gt; implements Set&lt;E&gt; {
+
+    private AVLTree&lt;E, Object&gt; avlTree;
+
+    public AVLSet() {
+        avlTree = new AVLTree&lt;&gt;();
     }
 
     @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append(&quot;LinkedListMap: &quot;);
-
-        for (Node node = dummyHead.next; node != null; node = node.next) {
-            res.append(node + &quot;-&gt;&quot;);
-        }
-
-        res.append(&quot;NULL&quot;);
-        return res.toString();
+    public void add(E e) {
+        avlTree.add(e,null);
     }
 
-    private class Node {
-        public K key;
-        public V value;
-        public Node next;
-
-        public Node(K key, V value) {
-            this.key = key;
-            this.value = value;
-        }
-
-        public Node(K key, V value, Node next) {
-            this.key = key;
-            this.value = value;
-            this.next = next;
-        }
-
-        @Override
-        public String toString() {
-            return key.toString() + &quot; : &quot; + value.toString();
-        }
-
-    }
-}
-</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>O(logn) 级别的复杂度比 O(n) 级别的要快很多。</p>
-<h3 id="LinkedListMap-的时间复杂度分析"><a href="#LinkedListMap-的时间复杂度分析" class="headerlink" title="LinkedListMap 的时间复杂度分析"></a>LinkedListMap 的时间复杂度分析</h3><pre><code>void add(K key, V value) ; O(n)级别
-
-V remove(K key) ; O(n)级别
-
-boolean contains(K key) ; O(n)级别
-</code></pre><h3 id="BSTMap-的时间复杂度分析"><a href="#BSTMap-的时间复杂度分析" class="headerlink" title="BSTMap 的时间复杂度分析"></a>BSTMap 的时间复杂度分析</h3><pre><code>void add(K key, V value) ; O(logn)级别
-
-V remove(K key) ; O(logn)级别
-
-boolean contains(K key) ; O(logn)级别
-</code></pre><h2 id="BSTMap-和-LinkedListMap-的性能比较"><a href="#BSTMap-和-LinkedListMap-的性能比较" class="headerlink" title="BSTMap 和 LinkedListMap 的性能比较"></a>BSTMap 和 LinkedListMap 的性能比较</h2><pre><code>package fanda.zeng.map;
-
-import fanda.zeng.utils.FileOperation;
-
-import java.util.ArrayList;
-
-public class MapMain {
-
-    public static void main(String[] args) {
-        String fileName = &quot;F:\\java_projects\\data_structure\\Map\\src\\pride-and-prejudice.txt&quot;;
-        Map&lt;String,Integer&gt; linkedListMap = new LinkedListMap&lt;&gt;();
-        BSTMap&lt;String, Integer&gt; bstMap = new BSTMap&lt;&gt;();
-        System.out.println(&quot;linkedListMap need time = &quot; + testMap(linkedListMap, fileName));
-        System.out.println(&quot;pride show num of times = &quot; + linkedListMap.get(&quot;pride&quot;));
-
-        System.out.println();
-
-        System.out.println(&quot;bstMap need time = &quot; + testMap(bstMap, fileName));
-        System.out.println(&quot;pride show num of times = &quot; + bstMap.get(&quot;pride&quot;));
-
-        System.out.println();
-
-
-    /**
-     * 测试集合的运行时间
-     */
-    private static double testMap(Map&lt;String,Integer&gt; map, String fileName) {
-        long startTime = System.nanoTime();
-        ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();
-        boolean isSuccesss = FileOperation.readFile(fileName, words);
-        if (isSuccesss) {
-            System.out.println(&quot;Pride and Prejudice Total words : &quot; + words.size());
-            for (String word : words) {
-                if (map.contains(word)) {
-                    map.set(word, map.get(word) + 1);
-                } else {
-                    map.add(word,1);
-                }
-            }
-            System.out.println(&quot;Pride and Prejudice Total different words : &quot; + map.getSize());
-        }
-        long endTime = System.nanoTime();
-        return (endTime - startTime) / 1000000000.0;
-    }
-}
-</code></pre><p>结果：</p>
-<pre><code>Pride and Prejudice Total words : 125901
-Pride and Prejudice Total different words : 6530
-linkedListMap need time = 19.359294327
-pride show num of times = 53
-
-Pride and Prejudice Total words : 125901
-Pride and Prejudice Total different words : 6530
-bstMap need time = 0.171941341
-pride show num of times = 53
-</code></pre><p>总结：BSTMap 的性能比 LinkedListMap 好很多，因些 BSTMap 是 O（logn）级别的，LinkedListMap 是 O（n）级别的。</p>
-<h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="350-两个数组的交集II"><a href="#350-两个数组的交集II" class="headerlink" title="350.两个数组的交集II"></a>350.两个数组的交集II</h3><p>给定两个数组，编写一个函数来计算它们的交集。</p>
-<p>示例 1:</p>
-<pre><code>输入: nums1 = [1,2,2,1], nums2 = [2,2]
-输出: [2,2]
-</code></pre><p>示例 2:</p>
-<pre><code>输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
-输出: [4,9]
-</code></pre><p>代码实现：</p>
-<pre><code> /**
- * 求两个数组的交集，包含重复元素
- */
-public static int[] intersect(int[] nums1, int[] nums2) {
-    TreeMap&lt;Integer, Integer&gt; treeMap = new TreeMap&lt;&gt;();
-
-    // 将第一个数组的数据放到 Map 中
-    for (int i : nums1) {
-        if (treeMap.containsKey(i)) {
-            // 存在，数量加1
-            treeMap.put(i, treeMap.get(i) + 1);
-        } else {
-            // 不存在，数量设为1
-            treeMap.put(i, 1);
-        }
+    @Override
+    public void remove(E e) {
+        avlTree.remove(e);
     }
 
-    ArrayList&lt;Integer&gt; list = new ArrayList&lt;&gt;();
-    for (int i : nums2) {
-        if (treeMap.containsKey(i)) {
-            list.add(i);
-            // 如果包含了元素，移除元素
-            treeMap.put(i, treeMap.get(i) - 1);
-            // 元素的数量为0，移除键值对
-            if (treeMap.get(i) == 0) {
-                treeMap.remove(i);
-            }
-        }
+    @Override
+    public boolean contains(E e) {
+        return avlTree.contains(e);
     }
 
-    // 把交集数据放到数组里面并返回
-    int[] result = new int[list.size()];
-    for (int i = 0; i &lt; list.size(); i++) {
-        result[i] = list.get(i);
+    @Override
+    public int getSize() {
+        return avlTree.getSize();
     }
 
-    return result;
+    @Override
+    public boolean isEmpty() {
+        return avlTree.isEmpty();
+    }
 }
 </code></pre>
       
@@ -948,8 +953,8 @@ public static int[] intersect(int[] nums1, int[] nums2) {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/14/data_structures/Set/" rel="next" title="集合">
-                <i class="fa fa-chevron-left"></i> 集合
+              <a href="/2019/05/15/data_structures/PriorityQueue/" rel="next" title="二叉堆和优先队列">
+                <i class="fa fa-chevron-left"></i> 二叉堆和优先队列
               </a>
             
           </div>
@@ -957,10 +962,6 @@ public static int[] intersect(int[] nums1, int[] nums2) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/15/data_structures/PriorityQueue/" rel="prev" title="二叉堆和优先队列">
-                二叉堆和优先队列 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -1129,7 +1130,7 @@ public static int[] intersect(int[] nums1, int[] nums2) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#映射"><span class="nav-number">1.</span> <span class="nav-text">映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射接口类"><span class="nav-number">1.1.1.</span> <span class="nav-text">映射接口类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于二分搜索树实现的映射类"><span class="nav-number">1.1.2.</span> <span class="nav-text">基于二分搜索树实现的映射类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于链表实现的映射类"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于链表实现的映射类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListMap-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListMap 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTMap-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTMap 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTMap-和-LinkedListMap-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTMap 和 LinkedListMap 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#350-两个数组的交集II"><span class="nav-number">1.4.1.</span> <span class="nav-text">350.两个数组的交集II</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#AVL树"><span class="nav-number">1.</span> <span class="nav-text">AVL树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡因子"><span class="nav-number">1.1.</span> <span class="nav-text">平衡因子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡维护时机"><span class="nav-number">1.2.</span> <span class="nav-text">平衡维护时机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LL-和-RR-情况"><span class="nav-number">1.2.1.</span> <span class="nav-text">LL 和 RR 情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LR-和-RL-情况"><span class="nav-number">1.2.2.</span> <span class="nav-text">LR 和 RL 情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#平衡维护方式"><span class="nav-number">1.3.</span> <span class="nav-text">平衡维护方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LL-情况"><span class="nav-number">1.3.1.</span> <span class="nav-text">LL 情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RR-情况"><span class="nav-number">1.3.2.</span> <span class="nav-text">RR 情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LR-情况"><span class="nav-number">1.3.3.</span> <span class="nav-text">LR 情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RL-情况"><span class="nav-number">1.3.4.</span> <span class="nav-text">RL 情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.4.</span> <span class="nav-text">代码实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BST-和-AVLTree-的性能比较"><span class="nav-number">1.5.</span> <span class="nav-text">BST 和 AVLTree 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-AVLTree-实现映射"><span class="nav-number">1.6.</span> <span class="nav-text">基于 AVLTree 实现映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于-AVLTree-实现集合"><span class="nav-number">1.7.</span> <span class="nav-text">基于 AVLTree 实现集合</span></a></li></ol></li></ol></div>
             
 
           </div>
