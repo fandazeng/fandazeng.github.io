@@ -109,17 +109,24 @@
 
 
 
-<meta name="description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+<meta name="description" content="红黑树 每个节点不是红色就是黑色。  根节点是黑色的。  每一个叶子节点(最后的空节点)是黑色的。  如果一个节点是红色的，那么他的孩子节点都是黑色的。  从任意一个节点到叶子节点，经过的黑色节点是一样多的。   这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。 2-3 树满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数组">
-<meta property="og:url" content="http://yoursite.com/2019/05/10/data_structures/Array/index.html">
+<meta property="og:title" content="红黑树">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/data_structures/RBTree/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
-<meta property="og:updated_time" content="2019-05-10T10:33:39.465Z">
+<meta property="og:description" content="红黑树 每个节点不是红色就是黑色。  根节点是黑色的。  每一个叶子节点(最后的空节点)是黑色的。  如果一个节点是红色的，那么他的孩子节点都是黑色的。  从任意一个节点到叶子节点，经过的黑色节点是一样多的。   这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。 2-3 树满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的">
+<meta property="og:image" content="https://cl.ly/68aa46c8eeed/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg">
+<meta property="og:image" content="https://cl.ly/9b4e79d394c7/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-2.jpg">
+<meta property="og:image" content="https://cl.ly/7ae2f6445914/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-3.jpg">
+<meta property="og:image" content="https://cl.ly/410a4078c7fc/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91.png">
+<meta property="og:image" content="https://cl.ly/041d16b0bbe8/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91-3.png">
+<meta property="og:image" content="https://cl.ly/82d6b407ac7b/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.jpg">
+<meta property="og:updated_time" content="2019-05-16T10:14:21.788Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数组">
-<meta name="twitter:description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+<meta name="twitter:title" content="红黑树">
+<meta name="twitter:description" content="红黑树 每个节点不是红色就是黑色。  根节点是黑色的。  每一个叶子节点(最后的空节点)是黑色的。  如果一个节点是红色的，那么他的孩子节点都是黑色的。  从任意一个节点到叶子节点，经过的黑色节点是一样多的。   这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。 2-3 树满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的">
+<meta name="twitter:image" content="https://cl.ly/68aa46c8eeed/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg">
 
 
 
@@ -147,13 +154,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/05/10/data_structures/Array/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/data_structures/RBTree/"/>
 
 
 
 
 
-     <title> 数组 | FandaCode </title>
+     <title> 红黑树 | FandaCode </title>
 </head>
 
 
@@ -303,7 +310,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/10/data_structures/Array/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/data_structures/RBTree/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
@@ -320,7 +327,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">数组</h1>
+          <h1 class="post-title" itemprop="name headline">红黑树</h1>
         
 
         <div class="post-meta">
@@ -332,8 +339,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-10T14:15:40+08:00">
-                2019-05-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T15:29:12+08:00">
+                2019-05-16
               </time>
             
 
@@ -383,7 +390,7 @@
 
           
           
-             <span id="/2019/05/10/data_structures/Array/" class="leancloud_visitors" data-flag-title="数组">
+             <span id="/2019/05/16/data_structures/RBTree/" class="leancloud_visitors" data-flag-title="红黑树">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -411,363 +418,405 @@
       
 
       
-        <h1 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h1><p>数组的优点是：快速查询。<br>数组最好应用于索引有语意的情况下。</p>
-<p>Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。</p>
-<p>数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的对数据进行增删改查操作。</p>
-<p>注意：数组的容量(capacity)跟实际存储的大小(size)的区分，容量是数组最大可以存储数据的大小，实际存储的数量小于等于容量。</p>
-<h2 id="简单的时间复杂度分析"><a href="#简单的时间复杂度分析" class="headerlink" title="简单的时间复杂度分析"></a>简单的时间复杂度分析</h2><p>O(1) , O(n) , O(logn) , O(nlogn) , O(n^2)</p>
-<p>大O 描述的是算法的运行时间和输入数据之间的关系。</p>
-<p>比如有这样一个方法：</p>
-<pre><code>public static int sum(int[] nums) {
-       int sum = 0;
-       for (int num : nums) {
-           sum += num;
-       }
-       return sum;
-   }
-</code></pre><p>这个方法的时间复杂度为 O(n) ，为什么呢？</p>
-<p>首先要给 n 一个定义，在这个算法中， n 是 nums 中的元素的个数。根据定义，所以这个算法运行时间的多少与 nums 中的元素的个数成线性关系。之所以叫 O(n) ，是因为我们忽略了常数，实际时间 T = c1*n +c2 。在上述算法中，每个加法运算时，都需要取出元素，然后运行加法运算，然后再返回结果，这里面需要的时间可以比作为 c1 。在开始的时候，我们需要初始化 sum ，然后把 0 赋值给 sum ，这里面的时间可以算作 c2。因为 c1 和 c2 实际上是常数，而且很难确定(这跟 CPU 的运作有关)，因此可以忽略。其实大 O  的意思是渐进时间复杂度，描述的是 n 趋近于无穷的情况，算法之间的快慢。上述时间公式中，当 n 趋近于无穷的情况时，小的项就可以忽略了，n 越大，越能体现一个算法的快慢。</p>
-<p>因此，以下实际时间对应的时间复杂度如下:</p>
-<ul>
-<li><p>T = 2*n +2              O(n)</p>
+        <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><ol>
+<li><p>每个节点不是红色就是黑色。</p>
 </li>
-<li><p>T = 2000*n +10000        O(n)</p>
+<li><p>根节点是黑色的。</p>
 </li>
-<li><p>T = 1<em>n</em>n +10            O(n^2)</p>
+<li><p>每一个叶子节点(最后的空节点)是黑色的。</p>
 </li>
-<li><p>T = 2<em>n</em>n +10n +10        O(n^2)</p>
+<li><p>如果一个节点是红色的，那么他的孩子节点都是黑色的。</p>
 </li>
-</ul>
-<p>如果一个算法的复杂度为 O(n^2) ，另一个算法为 O(n) ，并不能说明在任何输入的情况下，O(n^2) 的时间要大于 O(n)的时间，具体的我们要看前面的常数。在实际运用中，不一定非要选择一个 O(n) 的算法而抛弃 O(n^2) 的算法，要看 n 的数量。</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre><code>package fanda.zeng.array;
+<li><p>从任意一个节点到叶子节点，经过的黑色节点是一样多的。</p>
+</li>
+</ol>
+<p>这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。</p>
+<h2 id="2-3-树"><a href="#2-3-树" class="headerlink" title="2-3 树"></a>2-3 树</h2><p>满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的左右子树的高度差一样，比 AVL 树的平衡定义更加严格。2-3 树添加节点，永远不会添加到空节点中。</p>
+<p><img src="https://cl.ly/68aa46c8eeed/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg" alt=""></p>
+<p><img src="https://cl.ly/9b4e79d394c7/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-2.jpg" alt=""></p>
+<p><img src="https://cl.ly/7ae2f6445914/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-3.jpg" alt=""></p>
+<h2 id="红黑树和2-3树的等价性"><a href="#红黑树和2-3树的等价性" class="headerlink" title="红黑树和2-3树的等价性"></a>红黑树和2-3树的等价性</h2><p>2-3 树的节点对应红黑树的节点。2节点对应红黑树的黑色节点，红色的节点代表与父节点是连在一起的，跟父节点一起组成 2-3 树中的3节点。</p>
+<p><img src="https://cl.ly/410a4078c7fc/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91.png" alt=""></p>
+<p>我们把节点横着放，看一下下面这棵 2-3 树和红黑树之间的转化：</p>
+<p><img src="https://cl.ly/041d16b0bbe8/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91-3.png" alt=""></p>
+<p>所有的红色节点都是左倾斜的。</p>
+<h3 id="详细分析红黑树的定义"><a href="#详细分析红黑树的定义" class="headerlink" title="详细分析红黑树的定义"></a>详细分析红黑树的定义</h3><ol>
+<li><p>每个节点不是红色就是黑色。</p>
+<p> 答：这是一个定义，2-3 树的2节点对应为黑色，3节点左边的颜色定义为红色，表示与父节点是融合在一起的。</p>
+</li>
+<li><p>根节点是黑色的。</p>
+<p> 答：根节点如果是2节点，那肯定是黑色的，如果是3节点，因为红色节点左倾斜了，父节点还是黑色的，所以根节点是黑色的。</p>
+</li>
+<li><p>每一个叶子节点(最后的空节点)是黑色的。</p>
+<p> 答：这是一个定义，当整棵树为空时，那么根节点也为空，也是黑色，跟第2条属性对应上。</p>
+</li>
+<li><p>如果一个节点是红色的，那么他的孩子节点都是黑色的。</p>
+<p> 答：红节点如果连接2节点，那肯定是黑色的，如果连的是3节点，也是由于红节点左倾斜，先连接的节点肯定是左倾斜的红节点的父节点，为黑色的。</p>
+</li>
+<li><p>从任意一个节点到叶子节点，经过的黑色节点是一样多的。</p>
+<p> 答：因为 2-3 树是绝对平衡的树，从任意节点到叶子节点经过的节点数量是一样的。那么在红黑树中，就等于经过的黑色节点数是一样多的。</p>
+</li>
+</ol>
+<p>总结：红黑树是一种黑平衡的二叉树(不是平衡二叉树，高度差可以大于1)，最大高度为 2logn，常数忽略，时间复杂度为 O(logn)。因为高度比 AVL 树要高，所以查找速度可能略差于 AVL 树，但是添加和删除操作比较高效。红黑树整体性能更优。</p>
+<h3 id="红黑树添加元素"><a href="#红黑树添加元素" class="headerlink" title="红黑树添加元素"></a>红黑树添加元素</h3><p><img src="https://cl.ly/82d6b407ac7b/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.jpg" alt=""></p>
+<p>如图所示，共有3种处理情况 ：</p>
+<p>情况一：右节点为红色，左节点黑色，需要 左旋转</p>
+<p>左旋转代码如下：</p>
+<pre><code>// 左旋转，返回旋转后的根节点
+private Node leftRotate(Node node) {
+        Node retNode = node.right;
+        node.right = retNode.left;
+        retNode.left = node;
+
+        // 新的根节点应该保持原来根节点的颜色值
+        retNode.color = node.color;
+        // 设为红色，表示加进来的节点跟之前的节点融合
+        node.color = RED;
+        return retNode;
+    }
+</code></pre><p>情况二：左节点为红色，左节点的左节点还是红色，需要 右旋转</p>
+<p>右旋转代码如下：</p>
+<pre><code>// 右旋转，返回旋转后的根节点
+private Node rightRotate(Node node) {
+        Node retNode = node.left;
+        node.left = retNode.right;
+        retNode.right = node;
+
+        // 新的根节点应该保持原来根节点的颜色值
+        retNode.color = node.color;
+        // 设为红色，表示加进来的节点跟之前的节点融合
+        node.color = RED;
+        return retNode;
+    }
+</code></pre><p>情况三：左右节点均为红色，需要颜色翻转</p>
+<pre><code>private void flipColors(Node node) {
+      // 将左右孩子变成黑色
+      node.left.color =BLACK ;
+      node.right.color = BLACK;
+      // 根节点因为要向上融合，要设为红色
+      node.color = RED;
+  }
+</code></pre><h2 id="红黑树代码实现"><a href="#红黑树代码实现" class="headerlink" title="红黑树代码实现"></a>红黑树代码实现</h2><pre><code>package fanda.zeng.redblack;
+
+import fanda.zeng.utils.FileOperation;
+
+import java.util.ArrayList;
 
 /**
- * @Description: 自定义动态数组
+ * @Description: 红黑树
  * @Author: fanda
- * @Date: 2019/5/10
+ * @Date: 2019/5/16
  */
-public class Array&lt;E&gt; {
+public class RBTree&lt;K extends Comparable&lt;K&gt;, V&gt; {
 
-    // 类内维护的数组
-    private E[] data;
-    // 数组内实际存储元素的个数
+    // true 定义为 红色
+    private static final boolean RED = true;
+    // false 定义为 黑色
+    private static final boolean BLACK = false;
+
+    private Node root;
     private int size;
 
+
     /**
-     * 构造函数，默认数组的容量为10
+     * 右旋转，返回旋转后的根节点
      */
-    public Array() {
-        this(10);
+    private Node rightRotate(Node node) {
+        Node retNode = node.left;
+        node.left = retNode.right;
+        retNode.right = node;
+
+        // 新的根节点应该保持原来根节点的颜色值
+        retNode.color = node.color;
+        // 设为红色，表示加进来的节点跟之前的节点融合
+        node.color = RED;
+        return retNode;
     }
 
     /**
-     * 构造函数，传入数组的容量
+     * 左旋转，返回旋转后的根节点
      */
-    public Array(int capacity) {
-        //创建带容量的 Object 数组并强转为E类型的数组
-        data = (E[]) new Object[capacity];
+    private Node leftRotate(Node node) {
+        Node retNode = node.right;
+        node.right = retNode.left;
+        retNode.left = node;
+
+        // 新的根节点应该保持原来根节点的颜色值
+        retNode.color = node.color;
+        // 设为红色，表示加进来的节点跟之前的节点融合
+        node.color = RED;
+        return retNode;
     }
 
     /**
-     * 构造函数，传入一个静态数组
+     * 颜色翻转
      */
-    public Array(E[] arr) {
-        //创建 Object 数组并强转为E类型的数组，长度为传入的静态数组的大小
-        data = (E[]) new Object[arr.length];
-        // 把静态数组的值全部复制到 data 数组
-        for (int i = 0; i &lt; arr.length; i++) {
-            data[i] = arr[i];
+    private void flipColors(Node node) {
+        // 将左右孩子变成黑色
+        node.left.color =BLACK ;
+        node.right.color = BLACK;
+        // 根节点因为要向上融合，要设为红色
+        node.color = RED;
+    }
+
+    /**
+     * 判断节点的颜色
+     */
+    private boolean isRed(Node node) {
+        // 空节点默认为黑色节点
+        if (node == null) {
+            return false;
         }
-        // 目前 data 数组的长度为静态数组的大小
-        size = arr.length;
+        return node.color;
     }
 
     /**
-     * 在 index 索引位置插入新元素 e ,，时间复杂度O(n)
+     * 向红黑树中添加新的元素(key, value)
      */
-    public void add(int index, E e) {
-        // 为保证数组的连续性，紧密相联，即索引之间不能有空元素
-        // 如果索引小于 0 或 索引大于最后一个元素的下一个元素
-        if (index &lt; 0 || index &gt; size) {
-            throw new IllegalArgumentException(&quot;Add failed. Require index&gt;= 0 and index &lt;= size.&quot;);
+    public void add(K key, V value) {
+        root = add(root, key, value);
+        // 最终根节点为黑色节点
+        root.color = BLACK;
+    }
+
+    /**
+     * 向以node为根的红黑树中插入元素(key, value)，递归算法
+     * 返回插入新节点后红黑树的根
+     */
+    private Node add(Node node, K key, V value) {
+        if (node == null) {
+            size++;
+            return new Node(key, value);
         }
 
-        // 如果此时数组已满，则扩容为2倍
-        if (size == data.length) {
-            resize(data.length * 2);
+        if (node.key.compareTo(key) &lt; 0) {
+            node.right = add(node.right, key, value);
+        } else if (node.key.compareTo(key) &gt; 0) {
+            node.left = add(node.left, key, value);
+        } else {
+            node.value = value;
         }
 
-        // index 及后面的元素都向后移动一个位置,index位置的元素会复制到index+1的位置
-        for (int i = size - 1; i &gt;= index; i--) {
-            // 后一个元素等于前一个元素
-            data[i + 1] = data[i];
+        // 右节点为红色，左节点黑色，需要 左旋转
+        if (isRed(node.right) &amp;&amp; !isRed(node.left)) {
+            node = leftRotate(node);
         }
-        //在 index 的位置把之前的值覆盖掉，也就是添加了新元素了
-        data[index] = e;
-        // 维护 size ，此时添加了元素，应当加1
-        size++;
-    }
 
-    /**
-     * 将数组空间的容量变成 newCapacity 的大小，均摊时间复杂度O(1)
-     */
-    private void resize(int newCapacity) {
-        // 创建一个 newCapacity 容量的数组对象
-        E[] newData = (E[]) new Object[newCapacity];
-        // 把以前的数据复制到新对象中
-        for (int i = 0; i &lt; size; i++) {
-            newData[i] = data[i];
+        // 左节点为红色，左节点的左节点还是红色，需要 右旋转
+        if (isRed(node.left) &amp;&amp; isRed(node.left.left)) {
+            node = rightRotate(node);
         }
-        // 将当前数组对象指向新的数组对象
-        this.data = newData;
-    }
 
-    /**
-     * 向所有元素后添加一个元素，时间复杂度O(1)
-     */
-    public void addLast(E e) {
-        add(size, e);
-    }
-
-    /**
-     * 向所有元素前添加一个元素，时间复杂度O(n)
-     */
-    public void addFirst(E e) {
-        add(0, e);
-    }
-
-    /**
-     * 删除指定 index 索引对应的元素，并返回删除的元素，时间复杂度O(n)
-     */
-    public E remove(int index) {
-        // 注意这个等于的情况
-        if (index &lt; 0 || index &gt;= size) {
-            throw new IllegalArgumentException(&quot;Demove failed. Require index&gt;= 0 and index &lt; size.&quot;);
+        // 左右节点均为红色，需要颜色翻转
+        if (isRed(node.left) &amp;&amp; isRed(node.right)) {
+             flipColors(node);
         }
-        // 先拿到需要返回的元素
-        E res = data[index];
 
-        // index 后面的元素都向前移动一个位置
-        for (int i = index + 1; i &lt; size; i++) {
-            // 前一个元素等于后一个元素
-            data[i - 1] = data[i];
+        return node;
+    }
+
+    /**
+     * 向以 node 为根的树中查询key,递归算法
+     */
+    private boolean contains(Node node, K key) {
+        if (node == null) {
+            return false;
         }
-        // 维护 size ，此时删除了元素，应当减1
-        size--;
-        // 把最后没用到的对象置null，利于GC释放内存
-        data[size] = null;
-        // 当前存储的元素的大小为容量的4分1时，缩容为原来的一半
-        // 注意，不能当前存储的元素的大小为容量的2分1时来缩容，因为扩容的时候是扩容2倍，
-        // 在边界反复添加和删除元素时，会出现复杂度震荡
-        if (size == data.length / 4 &amp;&amp; data.length / 2 != 0) {
-            resize(data.length / 2);
-        }
-        // 返回当前删除的元素
-        return res;
-    }
 
-    /**
-     * 删除最后一个元素，并返回删除的元素，时间复杂度O(1)
-     */
-    public E removeLast() {
-        return remove(size - 1);
-    }
-
-    /**
-     * 删除第一个元素，并返回删除的元素，时间复杂度O(n)
-     */
-    public E removeFirst() {
-        return remove(0);
-    }
-
-    /**
-     * 如果存在元素e ，则删除
-     */
-    public void removeElement(E e) {
-        // 找到元素 e 对应的索引
-        int index = find(e);
-        // 如果索引存在，则删除
-        if (index != -1) {
-            remove(index);
+        if (key.compareTo(node.key) &lt; 0) {
+            return contains(node.left, key);
+        } else if (key.compareTo(node.key) &gt; 0) {
+            return contains(node.right, key);
+        } else {
+            return true;
         }
     }
 
-    /**
-     * 修改 index 索引位置的元素为 e ，时间复杂度O(1)
-     */
-    public void set(int index, E e) {
-        // 注意这个等于的情况
-        if (index &lt; 0 || index &gt;= size) {
-            throw new IllegalArgumentException(&quot;Set failed. Index is illegal.&quot;);
+    public boolean contains(K key) {
+        if (key == null) {
+            return false;
+        } else {
+            return contains(root, key);
         }
-        // 直接修改对应索引元素的值
-        data[index] = e;
+    }
+
+    public V get(K key) {
+        Node node = getNode(root, key);
+        return node == null ? null : node.value;
     }
 
     /**
-     * 获取 index 索引位置的元素，时间复杂度O(1)
+     * 向以 node 为根的树中查询key对应的结点,递归算法
      */
-    public E get(int index) {
-        if (index &lt; 0 || index &gt;= size) {
-            throw new IllegalArgumentException(&quot;Get failed. Index is illegal.&quot;);
+    private Node getNode(Node node, K key) {
+        if (node == null) {
+            return null;
         }
-        return data[index];
-    }
-
-    /**
-     * 查找数组中是否有元素e，时间复杂度O(n)
-     */
-    public boolean contain(E e) {
-        // 不能用这种方式遍历，因为我们每次删除元素时都调用了如下代码  data[size] = null，所以会出现空指针问题
-      /*  for (E datum : data) {
-            if (datum.equals(e)) {
-                return true;
-            }
-        }*/
-
-        for (int i = 0; i &lt; size; i++) {
-            // 注意这里用的是 equals，不能用 ==
-            if (data[i].equals(e)) {
-                return true;
-            }
+        if (key.compareTo(node.key) &lt; 0) {
+            return getNode(node.left, key);
+        } else if (key.compareTo(node.key) &gt; 0) {
+            return getNode(node.right, key);
+        } else {
+            return node;
         }
-        return false;
     }
 
-    /**
-     * 查找数组中对应的元素的索引，如果元素不存在，则返回索引为 -1，时间复杂度O(n)
-     */
-    public int find(E e) {
-        for (int i = 0; i &lt; size; i++) {
-            if (data[i].equals(e)) {
-                return i;
-            }
+    public void set(K key, V newValue) {
+        Node node = getNode(root, key);
+        if (node == null) {
+            throw new IllegalArgumentException(key + &quot; does not exist!&quot;);
+        } else {
+            node.value = newValue;
         }
-        return -1;
     }
 
-    /**
-     * 返回最后一个元素，时间复杂度O(1)
-     */
-    public E getLast() {
-        return get(size - 1);
-    }
-
-    /**
-     * 返回第一个元素，时间复杂度O(1)
-     */
-    public E getFirst() {
-        return get(0);
-    }
-
-    /**
-     * 获取数组中元素的个数
-     */
     public int getSize() {
         return size;
     }
 
-    /**
-     * 获取数组的容量
-     */
-    public int getCapacity() {
-        return data.length;
-    }
-
-    /**
-     * 数组是否为空
-     */
     public boolean isEmpty() {
         return size == 0;
     }
 
-    // 交换对应元素索引的值
-    public void swap(int i, int j) {
-        // 判断索引越界的情况
-        if (i &lt; 0 || i &gt;= size || j &lt; 0 || j &gt;= size) {
-            throw new IllegalArgumentException(&quot;Index is illegal.&quot;);
+    private class Node {
+        public K key;
+        public V value;
+        public Node left, right;
+        // 定义节点的颜色
+        public boolean color;
+
+        public Node(K key, V value) {
+            this.key = key;
+            this.value = value;
+            // 默认新节点为红色，因为新节点肯定要和之前的节点做融合
+            this.color = RED;
         }
-
-        E t = data[i];
-        data[i] = data[j];
-        data[j] = t;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder res = new StringBuilder();
-        res.append(String.format(&quot;Array: size = %d , capacity = %d\n&quot;, getSize(), getCapacity()));
-        res.append(&apos;[&apos;);
-        for (int i = 0; i &lt; size; i++) {
-            res.append(data[i]);
-            if (i != size - 1) {
-                res.append(&quot;, &quot;);
-            }
-        }
-        res.append(&apos;]&apos;);
-        return res.toString();
-    }
-
-    public static void main(String[] args) {
-
-        Array&lt;Integer&gt; scores = new Array&lt;&gt;();
-        for (int i = 0; i &lt; 10; i++) {
-            scores.addLast(i);
-        }
-
-        // 增
-        scores.addFirst(-1);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.addLast(200);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.add(10, 100);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-
-        // 删
-        scores.removeFirst();
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.removeLast();
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.remove(5);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.removeElement(6);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-
-        //改
-        scores.set(0, 99);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-
-        // 查
-        System.out.println(scores.getFirst() + &quot; 、&quot; + scores.getLast() + &quot; 、&quot; +
-                scores.get(5) + &quot; 、&quot; + scores.contain(6) + &quot; 、&quot; + scores.find(60));
     }
 }
-</code></pre><h2 id="动态数组的时间复杂度分析"><a href="#动态数组的时间复杂度分析" class="headerlink" title="动态数组的时间复杂度分析"></a>动态数组的时间复杂度分析</h2><h3 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h3><p>addLast(e)            </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
-<p>addFirst(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>add(index ,e)</p>
-<p>O(2/n) = O(n) ，跟数组里面的元素个数 n 有关，可以想像成数组里面的元素需要移动 2/n 的次数，常数忽略。</p>
-<p>因此，添加操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
-<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>removeLast(e)            </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
-<p>removeFirst(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>remove(index ,e)</p>
-<p>O(2/n) = O(n) ，跟数组里面的元素个数 n 有关，可以想像成数组里面的元素需要移动 2/n 的次数，常数忽略。</p>
-<p>因此，删除操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
-<h3 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3><p>set(index ,e)    </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关，(即支持随机访问)</p>
-<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p>get(index) </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
-<p>contain(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>find(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>因此，查询操作在已知索引情况下的时间复杂度为 O(1) 级别的，否则为 O(n) 级别的 。</p>
-<h3 id="resize-方法"><a href="#resize-方法" class="headerlink" title="resize 方法"></a>resize 方法</h3><p>这里要用均摊计算，计算均摊时间复杂度，不能用最坏的情况，这样比较有意义。</p>
-<p>假设当前 capacity = 8 ,并且每一次添加操作都使用 addLast 。则需要 9 次 addLast 操作，才触发一次 resize 方法，再加上 8 次的赋值操作，总共进行了 17 次基本操作(给一个空间赋值)。所以平均每次 addLast 操作，进行了 2 次基本操作。现在假设 capacity = n ,则 n+1 次 addLast 操作才会触发一次 resize 方法，总共进行 2n+1 次基本操作，所以平均每次 addLast 操作，进行了 2 次基本操作。这样均摊计算，时间复杂度为 O(1) 级别的。</p>
-<p><strong>总结：在索引已知的情况下，查、改操作为 O(1) 级别的，增、删操作则跟索引无关，为 O(n) 级别的。所以就像开头所说的，数组最好在已知索引的情况下使用，这样便可以快速地进行查、改操作。</strong></p>
+</code></pre><h2 id="RBTree-和-AVLTree-的性能比较"><a href="#RBTree-和-AVLTree-的性能比较" class="headerlink" title="RBTree 和 AVLTree 的性能比较"></a>RBTree 和 AVLTree 的性能比较</h2><p>BST在元素按排序的方式插入树中时，会退化成链表，因为 BST 没有自平衡机制。所以我们这里只比较红黑树和 AVL 树的性能。</p>
+<h3 id="整体性能测试："><a href="#整体性能测试：" class="headerlink" title="整体性能测试："></a>整体性能测试：</h3><pre><code>public static void main(String[] args) {
+        System.out.println(&quot;Pride and Prejudice&quot;);
+
+        ArrayList&lt;String&gt; words = new ArrayList&lt;&gt;();
+        if(FileOperation.readFile(&quot;F:\\java_projects\\data_structure\\DataStructures\\src\\pride-and-prejudice.txt&quot;, words)) {
+            System.out.println(&quot;Total words: &quot; + words.size());
+
+            // Collections.sort(words);
+
+            // Test BST
+            long startTime = System.nanoTime();
+
+            BSTMap&lt;String, Integer&gt; bst = new BSTMap&lt;&gt;();
+            for (String word : words) {
+                if (bst.contains(word))
+                    bst.set(word, bst.get(word) + 1);
+                else
+                    bst.add(word, 1);
+            }
+
+            for(String word: words)
+                bst.contains(word);
+
+            long endTime = System.nanoTime();
+
+            double time = (endTime - startTime) / 1000000000.0;
+            System.out.println(&quot;BST: &quot; + time + &quot; s&quot;);
+
+
+            // Test AVL
+            startTime = System.nanoTime();
+
+            AVLTree&lt;String, Integer&gt; avl = new AVLTree&lt;&gt;();
+            for (String word : words) {
+                if (avl.contains(word))
+                    avl.set(word, avl.get(word) + 1);
+                else
+                    avl.add(word, 1);
+            }
+
+            for(String word: words)
+                avl.contains(word);
+
+            endTime = System.nanoTime();
+
+            time = (endTime - startTime) / 1000000000.0;
+            System.out.println(&quot;AVL: &quot; + time + &quot; s&quot;);
+
+
+            // Test RBTree
+            startTime = System.nanoTime();
+
+            RBTree&lt;String, Integer&gt; rbt = new RBTree&lt;&gt;();
+            for (String word : words) {
+                if (rbt.contains(word))
+                    rbt.set(word, rbt.get(word) + 1);
+                else
+                    rbt.add(word, 1);
+            }
+
+            for(String word: words)
+                rbt.contains(word);
+
+            endTime = System.nanoTime();
+
+            time = (endTime - startTime) / 1000000000.0;
+            System.out.println(&quot;RBTree: &quot; + time + &quot; s&quot;);
+
+        }
+
+    }
+</code></pre><p>结果如下：</p>
+<pre><code>BST: 0.578413541 s
+AVL: 0.493906978 s
+RBTree: 0.41666528 s
+</code></pre><h3 id="只测试添加操作性能："><a href="#只测试添加操作性能：" class="headerlink" title="只测试添加操作性能："></a>只测试添加操作性能：</h3><pre><code> public static void main(String[] args) {
+
+    int n = 20000000;
+
+    Random random = new Random(n);
+    ArrayList&lt;Integer&gt; testData = new ArrayList&lt;&gt;(n);
+    for(int i = 0 ; i &lt; n ; i ++)
+        testData.add(random.nextInt(Integer.MAX_VALUE));
+
+    Collections.sort(testData);
+
+    // Test RBTree
+    long startTime = System.nanoTime();
+
+    RBTree&lt;Integer, Integer&gt; rbt = new RBTree&lt;&gt;();
+    for (Integer x: testData)
+        rbt.add(x, null);
+
+    long endTime = System.nanoTime();
+
+    double time = (endTime - startTime) / 1000000000.0;
+    System.out.println(&quot;RBTree: &quot; + time + &quot; s&quot;);
+
+    // Test AVL
+    startTime = System.nanoTime();
+
+    AVLTree&lt;Integer, Integer&gt; avl = new AVLTree&lt;&gt;();
+    for (Integer x: testData)
+        avl.add(x, null);
+
+    endTime = System.nanoTime();
+
+    time = (endTime - startTime) / 1000000000.0;
+    System.out.println(&quot;AVL: &quot; + time + &quot; s&quot;);
+}
+</code></pre><p>结果如下：</p>
+<pre><code>RBTree: 17.118380952 s
+AVL: 14.228043812 s
+</code></pre><p>总结： 两者性能相差不大，因为都是 O(logn) 级别的。</p>
+<h2 id="二分搜索树、AVL、红黑树性能总结"><a href="#二分搜索树、AVL、红黑树性能总结" class="headerlink" title="二分搜索树、AVL、红黑树性能总结"></a>二分搜索树、AVL、红黑树性能总结</h2><ol>
+<li><p>对于完全随机的数据，普通的二分搜索树很好用。缺点：极端情况会退化成链表(或者高度不平衡)</p>
+</li>
+<li><p>对于查询较多的使用情况，AVL树很好用。</p>
+</li>
+<li><p>红黑树牺牲了平衡性(2logn的高度)，统计性能更优(综合增删改查所有的操作)。系统标准库类的底层用到的树基本都是红黑树。</p>
+</li>
+</ol>
+<h2 id="最后说明"><a href="#最后说明" class="headerlink" title="最后说明"></a>最后说明</h2><p>这里的红黑树的实现不是最优实现，还有更优的实现方式，这里只为学习红黑树的内部原理。</p>
 
       
     </div>
@@ -812,8 +861,8 @@ public class Array&lt;E&gt; {
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/02/13/android/ipc/Binder机制及AIDL/" rel="next" title="Binder机制及AIDL">
-                <i class="fa fa-chevron-left"></i> Binder机制及AIDL
+              <a href="/2019/05/16/data_structures/AVLTree/" rel="next" title="AVL树">
+                <i class="fa fa-chevron-left"></i> AVL树
               </a>
             
           </div>
@@ -821,10 +870,6 @@ public class Array&lt;E&gt; {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2019/05/13/data_structures/Stack/" rel="prev" title="栈">
-                栈 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -993,7 +1038,7 @@ public class Array&lt;E&gt; {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态数组"><span class="nav-number">1.</span> <span class="nav-text">动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的时间复杂度分析"><span class="nav-number">1.1.</span> <span class="nav-text">简单的时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.2.</span> <span class="nav-text">代码实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态数组的时间复杂度分析"><span class="nav-number">1.3.</span> <span class="nav-text">动态数组的时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加操作"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除操作"><span class="nav-number">1.3.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">1.3.3.</span> <span class="nav-text">修改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询操作"><span class="nav-number">1.3.4.</span> <span class="nav-text">查询操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize-方法"><span class="nav-number">1.3.5.</span> <span class="nav-text">resize 方法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树"><span class="nav-number">1.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-树"><span class="nav-number">1.1.</span> <span class="nav-text">2-3 树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树和2-3树的等价性"><span class="nav-number">1.2.</span> <span class="nav-text">红黑树和2-3树的等价性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#详细分析红黑树的定义"><span class="nav-number">1.2.1.</span> <span class="nav-text">详细分析红黑树的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树添加元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">红黑树添加元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树代码实现"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RBTree-和-AVLTree-的性能比较"><span class="nav-number">1.4.</span> <span class="nav-text">RBTree 和 AVLTree 的性能比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体性能测试："><span class="nav-number">1.4.1.</span> <span class="nav-text">整体性能测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只测试添加操作性能："><span class="nav-number">1.4.2.</span> <span class="nav-text">只测试添加操作性能：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分搜索树、AVL、红黑树性能总结"><span class="nav-number">1.5.</span> <span class="nav-text">二分搜索树、AVL、红黑树性能总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后说明"><span class="nav-number">1.6.</span> <span class="nav-text">最后说明</span></a></li></ol></li></ol></div>
             
 
           </div>
