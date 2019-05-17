@@ -109,17 +109,17 @@
 
 
 
-<meta name="description" content="栈栈也是一种线性结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（Last In First Out）。 栈的应用：程序调用的系统栈。 比如 A 方法里面调用了 B 方法，然后 B 方法里面调用了 C 方法，系统栈会在运行到 B 方法调用的代码时，会将此时运行的位置入栈（假设要A2），">
+<meta name="description" content="栈栈跟数组一样，也是一种线性数据结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（LIFO）。 栈的应用程序调用的系统栈： 假如 A 方法里调用了 B 方法，B 方法里调用了 C 方法。系统栈会在 A 方法中运行到调用 B 方法的代码时，会将当前位置入栈（假设将A2入栈），然后系统会调">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="栈">
 <meta property="og:url" content="http://yoursite.com/2019/05/13/data_structures/Stack/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="栈栈也是一种线性结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（Last In First Out）。 栈的应用：程序调用的系统栈。 比如 A 方法里面调用了 B 方法，然后 B 方法里面调用了 C 方法，系统栈会在运行到 B 方法调用的代码时，会将此时运行的位置入栈（假设要A2），">
-<meta property="og:updated_time" content="2019-05-13T02:41:43.170Z">
+<meta property="og:description" content="栈栈跟数组一样，也是一种线性数据结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（LIFO）。 栈的应用程序调用的系统栈： 假如 A 方法里调用了 B 方法，B 方法里调用了 C 方法。系统栈会在 A 方法中运行到调用 B 方法的代码时，会将当前位置入栈（假设将A2入栈），然后系统会调">
+<meta property="og:updated_time" content="2019-05-17T08:31:36.423Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="栈">
-<meta name="twitter:description" content="栈栈也是一种线性结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（Last In First Out）。 栈的应用：程序调用的系统栈。 比如 A 方法里面调用了 B 方法，然后 B 方法里面调用了 C 方法，系统栈会在运行到 B 方法调用的代码时，会将此时运行的位置入栈（假设要A2），">
+<meta name="twitter:description" content="栈栈跟数组一样，也是一种线性数据结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（LIFO）。 栈的应用程序调用的系统栈： 假如 A 方法里调用了 B 方法，B 方法里调用了 C 方法。系统栈会在 A 方法中运行到调用 B 方法的代码时，会将当前位置入栈（假设将A2入栈），然后系统会调">
 
 
 
@@ -411,18 +411,11 @@
       
 
       
-        <h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>栈也是一种线性结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（Last In First Out）。</p>
-<p>栈的应用：程序调用的系统栈。</p>
-<p>比如 A 方法里面调用了 B 方法，然后 B 方法里面调用了 C 方法，系统栈会在运行到 B 方法调用的代码时，会将此时运行的位置入栈（假设要A2），然后系统会调 B 方法，当运行到 C 方法调用的代码时，会将此时运行的位置入栈（假设要B2），然后系统会调用 C 方法，当 C 方法运行完，会回到 B2，B 方法运行完，会将 B2 出栈，返回到 A2，A方法运行完，会将 A2 出栈。</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>首先，我们先定义一个栈需要用到的接口方法，因为栈的底层实现可以是多样的，只要实现了接口方法的，都可以称为栈。</p>
-<pre><code>package fanda.zeng.stack;
-
-/**
- * @Description: 定义栈的接口
- * @Author: fanda
- * @Date: 2019/5/13
- */
-public interface Stack&lt;E&gt; {
+        <h1 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h1><p>栈跟数组一样，也是一种线性数据结构。相比数组，栈对应的操作是数组的子集，只能从一端(栈顶)添加元素，也只能从一端(栈顶)取出元素，接近栈顶的先出，接近栈底的后出，所以栈是一种后进先出的数据结构（LIFO）。</p>
+<h2 id="栈的应用"><a href="#栈的应用" class="headerlink" title="栈的应用"></a>栈的应用</h2><p>程序调用的系统栈：</p>
+<p>假如 A 方法里调用了 B 方法，B 方法里调用了 C 方法。系统栈会在 A 方法中运行到调用 B 方法的代码时，会将当前位置入栈（假设将A2入栈），然后系统会调 B 方法，当在 B 方法中运行到调用 C 方法的代码时，会将当前位置入栈（假设将B2入栈），然后系统会调用 C 方法。当 C 方法运行完，会回到系统栈的 B2 位置来继续运行 B 方法，当 B 方法运行完，会将 B2 出栈，然后回到系统栈的 A2 位置来继续运行 A 方法，A 方法运行完后，会将 A2 出栈。</p>
+<h2 id="栈代码实现"><a href="#栈代码实现" class="headerlink" title="栈代码实现"></a>栈代码实现</h2><p>首先，我们先定义一个栈需要用到的接口方法，因为栈的底层实现可以是多样的，只要实现了接口方法的，都可以称为栈。</p>
+<h3 id="栈接口定义"><a href="#栈接口定义" class="headerlink" title="栈接口定义"></a>栈接口定义</h3><pre><code>public interface Stack&lt;E&gt; {
 
     /**
      * 返回栈内元素的个数
@@ -449,17 +442,7 @@ public interface Stack&lt;E&gt; {
      */
     E peek();
 }
-</code></pre><p>下面我们基于数组来实现一个栈结构，代码如下：</p>
-<pre><code>package fanda.zeng.stack;
-
-import fanda.zeng.array.Array;
-
-/**
- * @Description: 基于数组实现的栈
- * @Author: fanda
- * @Date: 2019/5/13
- */
-public class ArrayStack&lt;E&gt; implements Stack&lt;E&gt; {
+</code></pre><h3 id="底层为数组的栈实现"><a href="#底层为数组的栈实现" class="headerlink" title="底层为数组的栈实现"></a>底层为数组的栈实现</h3><pre><code>public class ArrayStack&lt;E&gt; implements Stack&lt;E&gt; {
 
     private Array&lt;E&gt; array;
 
@@ -509,34 +492,20 @@ public class ArrayStack&lt;E&gt; implements Stack&lt;E&gt; {
         res.append(&quot;] Top&quot;);
         return res.toString();
     }
-
-    public static void main(String[] args) {
-        ArrayStack&lt;Integer&gt; stack = new ArrayStack&lt;&gt;();
-
-        for (int i = 0; i &lt; 5; i++) {
-            stack.push(i);
-            System.out.println(stack);
-        }
-        stack.pop();
-        System.out.println(stack);
-    }
 }
-</code></pre><h2 id="基于数组实现的栈的时间复杂度分析"><a href="#基于数组实现的栈的时间复杂度分析" class="headerlink" title="基于数组实现的栈的时间复杂度分析"></a>基于数组实现的栈的时间复杂度分析</h2><pre><code>int getSize() ; O(1)级别
-
-boolean isEmpty() ; O(1)级别
-
-void push(E e) ; O(1)级别，均摊
-
-E pop() ; O(1)级别，均摊
-
-E peek() ; O(1)级别
-</code></pre><h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20.有效的括号"></a>20.有效的括号</h3><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
+</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>int getSize() ，<strong> O(1)</strong> 级别</p>
+<p>boolean isEmpty() ，<strong>O(1)</strong> 级别</p>
+<p>void push(E e) ，<strong>O(1)</strong> 级别，均摊</p>
+<p>E pop() ，<strong>O(1)</strong> 级别，均摊</p>
+<p>E peek() ，<strong>O(1)</strong> 级别</p>
+<h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="20-有效的括号"><a href="#20-有效的括号" class="headerlink" title="20.有效的括号"></a>20.有效的括号</h3><p>给定一个只包括 ‘(‘，’)’，’{‘，’}’，’[‘，’]’ 的字符串，判断字符串是否有效。</p>
 <p>有效字符串需满足：</p>
 <ol>
 <li>左括号必须用相同类型的右括号闭合。</li>
 <li>左括号必须以正确的顺序闭合。</li>
 </ol>
 <p>注意空字符串可被认为是有效字符串。</p>
+<p>解题代码如下：</p>
 <pre><code>public boolean isValid(String s) {
     for (int i = 0; i &lt; s.length(); i++) {
         char c = s.charAt(i);
@@ -786,7 +755,7 @@ E peek() ; O(1)级别
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#栈"><span class="nav-number">1.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于数组实现的栈的时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">基于数组实现的栈的时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.3.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#20-有效的括号"><span class="nav-number">1.3.1.</span> <span class="nav-text">20.有效的括号</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#栈"><span class="nav-number">1.</span> <span class="nav-text">栈</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#栈的应用"><span class="nav-number">1.1.</span> <span class="nav-text">栈的应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈代码实现"><span class="nav-number">1.2.</span> <span class="nav-text">栈代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#栈接口定义"><span class="nav-number">1.2.1.</span> <span class="nav-text">栈接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层为数组的栈实现"><span class="nav-number">1.2.2.</span> <span class="nav-text">底层为数组的栈实现</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.3.</span> <span class="nav-text">时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#20-有效的括号"><span class="nav-number">1.4.1.</span> <span class="nav-text">20.有效的括号</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

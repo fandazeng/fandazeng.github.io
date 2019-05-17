@@ -109,17 +109,17 @@
 
 
 
-<meta name="description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
+<meta name="description" content="映射是一种可以存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值，分为有序映射 (基于搜索树的实现) 和无序映射 (基于哈希表和链表的实现) ，有序即映射中的键具有顺序性。通常无序映射是基于哈希表 (HashMap) 来实现的，因为基于链表实现的映射的性能太差。 映射代码实现首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="映射">
 <meta property="og:url" content="http://yoursite.com/2019/05/15/data_structures/Map/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
-<meta property="og:updated_time" content="2019-05-15T06:35:01.955Z">
+<meta property="og:description" content="映射是一种可以存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值，分为有序映射 (基于搜索树的实现) 和无序映射 (基于哈希表和链表的实现) ，有序即映射中的键具有顺序性。通常无序映射是基于哈希表 (HashMap) 来实现的，因为基于链表实现的映射的性能太差。 映射代码实现首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只">
+<meta property="og:updated_time" content="2019-05-17T09:53:53.014Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="映射">
-<meta name="twitter:description" content="映射存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。 代码实现：首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映">
+<meta name="twitter:description" content="映射是一种可以存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值，分为有序映射 (基于搜索树的实现) 和无序映射 (基于哈希表和链表的实现) ，有序即映射中的键具有顺序性。通常无序映射是基于哈希表 (HashMap) 来实现的，因为基于链表实现的映射的性能太差。 映射代码实现首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只">
 
 
 
@@ -411,16 +411,9 @@
       
 
       
-        <h1 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h1><p>存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值。分为有序映射(基于搜索树的实现)和无序映射(基于哈希表和链表的实现)。有序即映射中的键具有顺序性，通过无序映射基于哈希表(HashMap)来实现，因为基于链表的实现性能太差了。</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映射。</p>
-<h3 id="映射接口类"><a href="#映射接口类" class="headerlink" title="映射接口类"></a>映射接口类</h3><pre><code>package fanda.zeng.map;
-
-/**
- * @Description: 映射接口描述
- * @Author: fanda
- * @Date: 2019/5/15
- */
-public interface Map&lt;K, V&gt; {
+        <h1 id="映射"><a href="#映射" class="headerlink" title="映射"></a>映射</h1><p>是一种可以存储(键、值)数据对的数据结构(key、value)，键跟值一一对应，通过键来寻找或删除对应的值，分为有序映射 (基于搜索树的实现) 和无序映射 (基于哈希表和链表的实现) ，有序即映射中的键具有顺序性。通常无序映射是基于哈希表 (HashMap) 来实现的，因为基于链表实现的映射的性能太差。</p>
+<h2 id="映射代码实现"><a href="#映射代码实现" class="headerlink" title="映射代码实现"></a>映射代码实现</h2><p>首先，我们先定义一个映射需要用到的接口方法，因为映射的底层实现可以是多样的，只要实现了接口方法的，都可以称为映射。</p>
+<h3 id="映射接口定义"><a href="#映射接口定义" class="headerlink" title="映射接口定义"></a>映射接口定义</h3><pre><code>public interface Map&lt;K, V&gt; {
 
     /**
      * 添加一个键值对，如果 key 存在，则直接更新值
@@ -457,14 +450,7 @@ public interface Map&lt;K, V&gt; {
      */
     boolean isEmpty();
 }
-</code></pre><h3 id="基于二分搜索树实现的映射类"><a href="#基于二分搜索树实现的映射类" class="headerlink" title="基于二分搜索树实现的映射类"></a>基于二分搜索树实现的映射类</h3><pre><code>package fanda.zeng.map;
-
-/**
- * @Description: 基于二分搜索树实现的映射类
- * @Author: fanda
- * @Date: 2019/5/15 
- */ 
-public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K, V&gt; {
+</code></pre><h3 id="底层为二分搜索树的映射"><a href="#底层为二分搜索树的映射" class="headerlink" title="底层为二分搜索树的映射"></a>底层为二分搜索树的映射</h3><pre><code>public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K, V&gt; {
 
     private Node root;
     private int size;
@@ -659,14 +645,7 @@ public class BSTMap&lt;K extends Comparable&lt;K&gt;, V&gt; implements Map&lt;K,
     }
 
 }
-</code></pre><h3 id="基于链表实现的映射类"><a href="#基于链表实现的映射类" class="headerlink" title="基于链表实现的映射类"></a>基于链表实现的映射类</h3><pre><code>package fanda.zeng.map;
-
-/**
- * @Description: 基于链表实现的映射类
- * @Author: fanda
- * @Date: 2019/5/15
- */
-public class LinkedListMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
+</code></pre><h3 id="底层为链表的映射"><a href="#底层为链表的映射" class="headerlink" title="底层为链表的映射"></a>底层为链表的映射</h3><pre><code>public class LinkedListMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
 
     // 虚拟头节点
     private Node dummyHead;
@@ -791,24 +770,14 @@ public class LinkedListMap&lt;K, V&gt; implements Map&lt;K, V&gt; {
 
     }
 }
-</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>O(logn) 级别的复杂度比 O(n) 级别的要快很多。</p>
-<h3 id="LinkedListMap-的时间复杂度分析"><a href="#LinkedListMap-的时间复杂度分析" class="headerlink" title="LinkedListMap 的时间复杂度分析"></a>LinkedListMap 的时间复杂度分析</h3><pre><code>void add(K key, V value) ; O(n)级别
-
-V remove(K key) ; O(n)级别
-
-boolean contains(K key) ; O(n)级别
-</code></pre><h3 id="BSTMap-的时间复杂度分析"><a href="#BSTMap-的时间复杂度分析" class="headerlink" title="BSTMap 的时间复杂度分析"></a>BSTMap 的时间复杂度分析</h3><pre><code>void add(K key, V value) ; O(logn)级别
-
-V remove(K key) ; O(logn)级别
-
-boolean contains(K key) ; O(logn)级别
-</code></pre><h2 id="BSTMap-和-LinkedListMap-的性能比较"><a href="#BSTMap-和-LinkedListMap-的性能比较" class="headerlink" title="BSTMap 和 LinkedListMap 的性能比较"></a>BSTMap 和 LinkedListMap 的性能比较</h2><pre><code>package fanda.zeng.map;
-
-import fanda.zeng.utils.FileOperation;
-
-import java.util.ArrayList;
-
-public class MapMain {
+</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p><strong>O(logn)</strong> 级别的复杂度比 <strong>O(n)</strong> 级别的要快很多。</p>
+<h3 id="LinkedListMap-的时间复杂度分析"><a href="#LinkedListMap-的时间复杂度分析" class="headerlink" title="LinkedListMap 的时间复杂度分析"></a>LinkedListMap 的时间复杂度分析</h3><p>void add(K key, V value) ， <strong>O(n)</strong> 级别</p>
+<p>V remove(K key) ， <strong>O(n)</strong> 级别</p>
+<p>boolean contains(K key) ， <strong>O(n)</strong> 级别</p>
+<h3 id="BSTMap-的时间复杂度分析"><a href="#BSTMap-的时间复杂度分析" class="headerlink" title="BSTMap 的时间复杂度分析"></a>BSTMap 的时间复杂度分析</h3><p>void add(K key, V value) ， <strong>O(logn)</strong> 级别</p>
+<p>V remove(K key) ， <strong>O(logn)</strong> 级别</p>
+<p>boolean contains(K key) ， <strong>O(logn)</strong> 级别</p>
+<h2 id="BSTMap-和-LinkedListMap-的性能比较"><a href="#BSTMap-和-LinkedListMap-的性能比较" class="headerlink" title="BSTMap 和 LinkedListMap 的性能比较"></a>BSTMap 和 LinkedListMap 的性能比较</h2><pre><code>public class MapMain {
 
     public static void main(String[] args) {
         String fileName = &quot;F:\\java_projects\\data_structure\\Map\\src\\pride-and-prejudice.txt&quot;;
@@ -826,7 +795,7 @@ public class MapMain {
 
 
     /**
-     * 测试集合的运行时间
+     * 测试映射的运行时间
      */
     private static double testMap(Map&lt;String,Integer&gt; map, String fileName) {
         long startTime = System.nanoTime();
@@ -847,7 +816,7 @@ public class MapMain {
         return (endTime - startTime) / 1000000000.0;
     }
 }
-</code></pre><p>结果：</p>
+</code></pre><p>运行结果：</p>
 <pre><code>Pride and Prejudice Total words : 125901
 Pride and Prejudice Total different words : 6530
 linkedListMap need time = 19.359294327
@@ -857,7 +826,7 @@ Pride and Prejudice Total words : 125901
 Pride and Prejudice Total different words : 6530
 bstMap need time = 0.171941341
 pride show num of times = 53
-</code></pre><p>总结：BSTMap 的性能比 LinkedListMap 好很多，因些 BSTMap 是 O（logn）级别的，LinkedListMap 是 O（n）级别的。</p>
+</code></pre><p><em>总结：<code>BSTMap</code> 的性能比 <code>LinkedListMap</code> 好很多，因些 <code>BSTMap</code> 是 <strong>O(logn)</strong> 级别的，<code>LinkedListMap</code> 是 <strong>O(n)</strong> 级别的。</em></p>
 <h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="350-两个数组的交集II"><a href="#350-两个数组的交集II" class="headerlink" title="350.两个数组的交集II"></a>350.两个数组的交集II</h3><p>给定两个数组，编写一个函数来计算它们的交集。</p>
 <p>示例 1:</p>
 <pre><code>输入: nums1 = [1,2,2,1], nums2 = [2,2]
@@ -865,11 +834,8 @@ pride show num of times = 53
 </code></pre><p>示例 2:</p>
 <pre><code>输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
 输出: [4,9]
-</code></pre><p>代码实现：</p>
-<pre><code> /**
- * 求两个数组的交集，包含重复元素
- */
-public static int[] intersect(int[] nums1, int[] nums2) {
+</code></pre><p>解题代码如下：</p>
+<pre><code>public static int[] intersect(int[] nums1, int[] nums2) {
     TreeMap&lt;Integer, Integer&gt; treeMap = new TreeMap&lt;&gt;();
 
     // 将第一个数组的数据放到 Map 中
@@ -1129,7 +1095,7 @@ public static int[] intersect(int[] nums1, int[] nums2) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#映射"><span class="nav-number">1.</span> <span class="nav-text">映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射接口类"><span class="nav-number">1.1.1.</span> <span class="nav-text">映射接口类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于二分搜索树实现的映射类"><span class="nav-number">1.1.2.</span> <span class="nav-text">基于二分搜索树实现的映射类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于链表实现的映射类"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于链表实现的映射类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListMap-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListMap 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTMap-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTMap 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTMap-和-LinkedListMap-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTMap 和 LinkedListMap 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#350-两个数组的交集II"><span class="nav-number">1.4.1.</span> <span class="nav-text">350.两个数组的交集II</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#映射"><span class="nav-number">1.</span> <span class="nav-text">映射</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#映射代码实现"><span class="nav-number">1.1.</span> <span class="nav-text">映射代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#映射接口定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">映射接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层为二分搜索树的映射"><span class="nav-number">1.1.2.</span> <span class="nav-text">底层为二分搜索树的映射</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层为链表的映射"><span class="nav-number">1.1.3.</span> <span class="nav-text">底层为链表的映射</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListMap-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListMap 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTMap-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTMap 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTMap-和-LinkedListMap-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTMap 和 LinkedListMap 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#350-两个数组的交集II"><span class="nav-number">1.4.1.</span> <span class="nav-text">350.两个数组的交集II</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

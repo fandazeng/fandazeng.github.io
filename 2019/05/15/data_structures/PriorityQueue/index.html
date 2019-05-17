@@ -109,20 +109,19 @@
 
 
 
-<meta name="description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关；和优先级相关。 比如：  医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。  系统的任务调度（动态选择优先级最高的任务执行）  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）   底层实现分析普通线性结构 ： 入队 O(1) 级别，出队">
+<meta name="description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关，只跟优先级相关。 优化队列案例：  医生做手术，只按伤势来判断，动态选择伤势最严重的病人，而不管伤者来的先后顺序 。  系统的任务调度 (动态选择优先级最高的任务执行) 。  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）。   底层实现分析普通线性结构 ： 入队">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="二叉堆和优先队列">
 <meta property="og:url" content="http://yoursite.com/2019/05/15/data_structures/PriorityQueue/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关；和优先级相关。 比如：  医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。  系统的任务调度（动态选择优先级最高的任务执行）  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）   底层实现分析普通线性结构 ： 入队 O(1) 级别，出队">
-<meta property="og:image" content="https://cl.ly/87d6e6ad4cf3/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B0.png">
-<meta property="og:image" content="https://cl.ly/3d8a611efb22/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg">
-<meta property="og:updated_time" content="2019-05-15T08:30:42.229Z">
+<meta property="og:description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关，只跟优先级相关。 优化队列案例：  医生做手术，只按伤势来判断，动态选择伤势最严重的病人，而不管伤者来的先后顺序 。  系统的任务调度 (动态选择优先级最高的任务执行) 。  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）。   底层实现分析普通线性结构 ： 入队">
+<meta property="og:image" content="https://cl.ly/23bcc6dab402/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg">
+<meta property="og:updated_time" content="2019-05-17T10:06:20.200Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="二叉堆和优先队列">
-<meta name="twitter:description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关；和优先级相关。 比如：  医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。  系统的任务调度（动态选择优先级最高的任务执行）  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）   底层实现分析普通线性结构 ： 入队 O(1) 级别，出队">
-<meta name="twitter:image" content="https://cl.ly/87d6e6ad4cf3/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B0.png">
+<meta name="twitter:description" content="优先队列普通队列：先进先出；后进后出 优化队列：出队顺序和入队顺序无关，只跟优先级相关。 优化队列案例：  医生做手术，只按伤势来判断，动态选择伤势最严重的病人，而不管伤者来的先后顺序 。  系统的任务调度 (动态选择优先级最高的任务执行) 。  AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）。   底层实现分析普通线性结构 ： 入队">
+<meta name="twitter:image" content="https://cl.ly/23bcc6dab402/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg">
 
 
 
@@ -415,39 +414,27 @@
 
       
         <h1 id="优先队列"><a href="#优先队列" class="headerlink" title="优先队列"></a>优先队列</h1><p>普通队列：先进先出；后进后出</p>
-<p>优化队列：出队顺序和入队顺序无关；和优先级相关。</p>
-<p>比如：</p>
+<p>优化队列：出队顺序和入队顺序无关，只跟优先级相关。</p>
+<p>优化队列案例：</p>
 <ol>
-<li><p>医生做手术，动态选择伤势最严重的病人，不管等待的病人来的时间，只按伤势来判断。</p>
+<li><p>医生做手术，只按伤势来判断，动态选择伤势最严重的病人，而不管伤者来的先后顺序 。</p>
 </li>
-<li><p>系统的任务调度（动态选择优先级最高的任务执行）</p>
+<li><p>系统的任务调度 (动态选择优先级最高的任务执行) 。</p>
 </li>
-<li><p>AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）</p>
+<li><p>AI攻击敌人，也是动态去攻击优先级最高的敌人，优先级的定义由开发者定义（距离最近、体积最大、攻击力最高等等）。</p>
 </li>
 </ol>
-<h2 id="底层实现分析"><a href="#底层实现分析" class="headerlink" title="底层实现分析"></a>底层实现分析</h2><p>普通线性结构 ： 入队 O(1) 级别，出队 O(n) 级别 。</p>
-<p>顺序线性结构 ： 入队 O(n) 级别，出队 O(1) 级别 。</p>
-<p>堆 ： 入队 O(logn) 级别，出队 O(logn) 级别 。</p>
+<h2 id="底层实现分析"><a href="#底层实现分析" class="headerlink" title="底层实现分析"></a>底层实现分析</h2><p>普通线性结构 ： 入队 <strong>O(1)</strong> 级别，出队 <strong>O(n)</strong> 级别 。</p>
+<p>顺序线性结构 ： 入队 <strong>O(n)</strong> 级别，出队 <strong>O(1)</strong> 级别 。</p>
+<p>堆 ： 入队 <strong>O(logn)</strong> 级别，出队<strong> O(logn)</strong> 级别 。</p>
 <h2 id="二叉堆"><a href="#二叉堆" class="headerlink" title="二叉堆"></a>二叉堆</h2><ol>
-<li><p>二叉堆是一棵完全二叉树。节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右，一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。</p>
+<li><p>二叉堆是一棵完全二叉树。节点都是从左到右插入进来的，最后一层一定是叶子节点，不满的部分一定是在右边部分。简单来说，就是把元素排列成树的形状，元素从左到右一层层的插入进来，那么元素不够的时候，缺失的部分一定是在最后一层的右边。</p>
 </li>
 <li><p>堆中某个节点的值总是不大于其父节点的值。（最大堆）</p>
 </li>
 </ol>
-<h2 id="用数组来存储二叉堆"><a href="#用数组来存储二叉堆" class="headerlink" title="用数组来存储二叉堆"></a>用数组来存储二叉堆</h2><p><img src="https://cl.ly/87d6e6ad4cf3/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B0.png" alt=""></p>
-<p><img src="https://cl.ly/3d8a611efb22/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg" alt=""></p>
-<h2 id="最大堆的代码实现"><a href="#最大堆的代码实现" class="headerlink" title="最大堆的代码实现"></a>最大堆的代码实现</h2><pre><code>package fanda.zeng.heap;
-
-import fanda.zeng.array.Array;
-
-import java.util.Random;
-
-/**
- * @Description: 最大堆
- * @Author: fanda
- * @Date: 2019/5/15
- */
-public class MaxHeap&lt;E extends Comparable&lt;E&gt;&gt; {
+<h2 id="用数组来存储二叉堆"><a href="#用数组来存储二叉堆" class="headerlink" title="用数组来存储二叉堆"></a>用数组来存储二叉堆</h2><p><img src="https://cl.ly/23bcc6dab402/%E4%BA%8C%E5%8F%89%E5%A0%86%E6%8F%8F%E8%BF%B02.jpg" alt=""></p>
+<h2 id="最大堆的代码实现"><a href="#最大堆的代码实现" class="headerlink" title="最大堆的代码实现"></a>最大堆的代码实现</h2><pre><code>public class MaxHeap&lt;E extends Comparable&lt;E&gt;&gt; {
     private Array&lt;E&gt; data;
 
     public MaxHeap() {
@@ -583,42 +570,9 @@ public class MaxHeap&lt;E extends Comparable&lt;E&gt;&gt; {
      */
     private int rightChild(int index) {
         return index * 2 + 2;
-    }
-
-    public static void main(String[] args) {
-        int n = 1000000;
-        MaxHeap&lt;Integer&gt; maxHeap = new MaxHeap&lt;&gt;();
-        Random random = new Random();
-        for (int i = 0; i &lt; n; i++) {
-            maxHeap.add(random.nextInt(Integer.MAX_VALUE));
-        }
-
-        int[] arr = new int[n];
-
-        for (int i = 0; i &lt; n; i++) {
-            arr[i] = maxHeap.extractMax();
-        }
-
-        for (int i = 1; i &lt; n; i++) {
-            if (arr[i] &gt; arr[i - 1]) {
-                throw new IllegalArgumentException(&quot;Error&quot;);
-            }
-        }
-
-        System.out.println(&quot;Test MaxHeap completed.&quot;);
-    }
-
+    }    
 }
-</code></pre><h3 id="基于最大堆实现优先队列"><a href="#基于最大堆实现优先队列" class="headerlink" title="基于最大堆实现优先队列"></a>基于最大堆实现优先队列</h3><pre><code>package fanda.zeng.queue;
-
-import fanda.zeng.heap.MaxHeap;
-
-/**
- * @Description: 基于最大堆实现的优先队列
- * @Author: fanda
- * @Date: 2019/5/15
- */
-public class PriorityQueue&lt;E extends Comparable&lt;E&gt;&gt; implements Queue&lt;E&gt; {
+</code></pre><h3 id="底层为最大堆的优先队列"><a href="#底层为最大堆的优先队列" class="headerlink" title="底层为最大堆的优先队列"></a>底层为最大堆的优先队列</h3><pre><code>public class PriorityQueue&lt;E extends Comparable&lt;E&gt;&gt; implements Queue&lt;E&gt; {
 
     private MaxHeap&lt;E&gt; heap;
 
@@ -658,7 +612,7 @@ public class PriorityQueue&lt;E extends Comparable&lt;E&gt;&gt; implements Queue
 </code></pre><p>示例 2:</p>
 <pre><code>输入: nums = [1], k = 1
 输出: [1]
-</code></pre><h3 id="基于我们自己实现的优先队列来解答："><a href="#基于我们自己实现的优先队列来解答：" class="headerlink" title="基于我们自己实现的优先队列来解答："></a>基于我们自己实现的优先队列来解答：</h3><pre><code>public class Soluction347 {
+</code></pre><h3 id="基于自己实现的优先队列来解答"><a href="#基于自己实现的优先队列来解答" class="headerlink" title="基于自己实现的优先队列来解答"></a>基于自己实现的优先队列来解答</h3><pre><code>public class Soluction347 {
 
     public static void main(String[] args) {
         int[] arr = {1, 1, 1, 2, 2, 3};
@@ -724,7 +678,7 @@ public class PriorityQueue&lt;E extends Comparable&lt;E&gt;&gt; implements Queue
         }
     }
 }
-</code></pre><h3 id="基于标准库的优先队列来解答："><a href="#基于标准库的优先队列来解答：" class="headerlink" title="基于标准库的优先队列来解答："></a>基于标准库的优先队列来解答：</h3><p>系统库的优先队列默认是用最小堆来实现的。</p>
+</code></pre><h3 id="基于标准库的优先队列来解答"><a href="#基于标准库的优先队列来解答" class="headerlink" title="基于标准库的优先队列来解答"></a>基于标准库的优先队列来解答</h3><p><strong>注意：系统库的优先队列默认是用最小堆来实现的。</strong></p>
 <pre><code>public class Soluction347 {
 
     public static void main(String[] args) {
@@ -993,7 +947,7 @@ public class PriorityQueue&lt;E extends Comparable&lt;E&gt;&gt; implements Queue
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优先队列"><span class="nav-number">1.</span> <span class="nav-text">优先队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#底层实现分析"><span class="nav-number">1.1.</span> <span class="nav-text">底层实现分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉堆"><span class="nav-number">1.2.</span> <span class="nav-text">二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用数组来存储二叉堆"><span class="nav-number">1.3.</span> <span class="nav-text">用数组来存储二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大堆的代码实现"><span class="nav-number">1.4.</span> <span class="nav-text">最大堆的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于最大堆实现优先队列"><span class="nav-number">1.4.1.</span> <span class="nav-text">基于最大堆实现优先队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.5.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#347-前K个高频元素"><span class="nav-number">1.5.1.</span> <span class="nav-text">347.前K个高频元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于我们自己实现的优先队列来解答："><span class="nav-number">1.5.2.</span> <span class="nav-text">基于我们自己实现的优先队列来解答：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于标准库的优先队列来解答："><span class="nav-number">1.5.3.</span> <span class="nav-text">基于标准库的优先队列来解答：</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#优先队列"><span class="nav-number">1.</span> <span class="nav-text">优先队列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#底层实现分析"><span class="nav-number">1.1.</span> <span class="nav-text">底层实现分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二叉堆"><span class="nav-number">1.2.</span> <span class="nav-text">二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用数组来存储二叉堆"><span class="nav-number">1.3.</span> <span class="nav-text">用数组来存储二叉堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最大堆的代码实现"><span class="nav-number">1.4.</span> <span class="nav-text">最大堆的代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#底层为最大堆的优先队列"><span class="nav-number">1.4.1.</span> <span class="nav-text">底层为最大堆的优先队列</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.5.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#347-前K个高频元素"><span class="nav-number">1.5.1.</span> <span class="nav-text">347.前K个高频元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于自己实现的优先队列来解答"><span class="nav-number">1.5.2.</span> <span class="nav-text">基于自己实现的优先队列来解答</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于标准库的优先队列来解答"><span class="nav-number">1.5.3.</span> <span class="nav-text">基于标准库的优先队列来解答</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

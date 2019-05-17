@@ -109,24 +109,24 @@
 
 
 
-<meta name="description" content="红黑树 每个节点不是红色就是黑色。  根节点是黑色的。  每一个叶子节点(最后的空节点)是黑色的。  如果一个节点是红色的，那么他的孩子节点都是黑色的。  从任意一个节点到叶子节点，经过的黑色节点是一样多的。   这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。 2-3 树满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的">
+<meta name="description" content="红黑树 节点不是红色就是黑色 。  根节点是黑色的 。  每一个叶子节点(最后的空节点)是黑色的 。  如果一个节点是红色的，那么他的孩子节点都是黑色的 。  从任意一个节点到叶子节点，经过的黑色节点是一样多的 。   这里叶子节点的定义跟之前不一样，这里的叶子节点指的是空节点，不是左右孩子节点都为空的节点。 2-3 树 满足二分搜索树的基本性质  节点可以存放一个元素或者两个元素，是一棵绝对平衡">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="红黑树">
 <meta property="og:url" content="http://yoursite.com/2019/05/16/data_structures/RBTree/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="红黑树 每个节点不是红色就是黑色。  根节点是黑色的。  每一个叶子节点(最后的空节点)是黑色的。  如果一个节点是红色的，那么他的孩子节点都是黑色的。  从任意一个节点到叶子节点，经过的黑色节点是一样多的。   这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。 2-3 树满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的">
-<meta property="og:image" content="https://cl.ly/68aa46c8eeed/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg">
-<meta property="og:image" content="https://cl.ly/9b4e79d394c7/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-2.jpg">
-<meta property="og:image" content="https://cl.ly/7ae2f6445914/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-3.jpg">
-<meta property="og:image" content="https://cl.ly/410a4078c7fc/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91.png">
-<meta property="og:image" content="https://cl.ly/041d16b0bbe8/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91-3.png">
-<meta property="og:image" content="https://cl.ly/82d6b407ac7b/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.jpg">
-<meta property="og:updated_time" content="2019-05-16T10:14:21.788Z">
+<meta property="og:description" content="红黑树 节点不是红色就是黑色 。  根节点是黑色的 。  每一个叶子节点(最后的空节点)是黑色的 。  如果一个节点是红色的，那么他的孩子节点都是黑色的 。  从任意一个节点到叶子节点，经过的黑色节点是一样多的 。   这里叶子节点的定义跟之前不一样，这里的叶子节点指的是空节点，不是左右孩子节点都为空的节点。 2-3 树 满足二分搜索树的基本性质  节点可以存放一个元素或者两个元素，是一棵绝对平衡">
+<meta property="og:image" content="https://cl.ly/729c2177d4cf/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg">
+<meta property="og:image" content="https://cl.ly/9a7ac94a3774/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-2.jpg">
+<meta property="og:image" content="https://cl.ly/b15c16fe46e0/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-3.jpg">
+<meta property="og:image" content="https://cl.ly/15e94861a02c/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91.jpg">
+<meta property="og:image" content="https://cl.ly/fc5e9e2e0e97/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91-3.jpg">
+<meta property="og:image" content="https://cl.ly/90a56303ebb4/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.jpg">
+<meta property="og:updated_time" content="2019-05-17T10:46:23.418Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红黑树">
-<meta name="twitter:description" content="红黑树 每个节点不是红色就是黑色。  根节点是黑色的。  每一个叶子节点(最后的空节点)是黑色的。  如果一个节点是红色的，那么他的孩子节点都是黑色的。  从任意一个节点到叶子节点，经过的黑色节点是一样多的。   这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。 2-3 树满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的">
-<meta name="twitter:image" content="https://cl.ly/68aa46c8eeed/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg">
+<meta name="twitter:description" content="红黑树 节点不是红色就是黑色 。  根节点是黑色的 。  每一个叶子节点(最后的空节点)是黑色的 。  如果一个节点是红色的，那么他的孩子节点都是黑色的 。  从任意一个节点到叶子节点，经过的黑色节点是一样多的 。   这里叶子节点的定义跟之前不一样，这里的叶子节点指的是空节点，不是左右孩子节点都为空的节点。 2-3 树 满足二分搜索树的基本性质  节点可以存放一个元素或者两个元素，是一棵绝对平衡">
+<meta name="twitter:image" content="https://cl.ly/729c2177d4cf/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg">
 
 
 
@@ -419,49 +419,55 @@
 
       
         <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><ol>
-<li><p>每个节点不是红色就是黑色。</p>
+<li><p>节点不是红色就是黑色 。</p>
 </li>
-<li><p>根节点是黑色的。</p>
+<li><p>根节点是黑色的 。</p>
 </li>
-<li><p>每一个叶子节点(最后的空节点)是黑色的。</p>
+<li><p>每一个叶子节点(最后的空节点)是黑色的 。</p>
 </li>
-<li><p>如果一个节点是红色的，那么他的孩子节点都是黑色的。</p>
+<li><p>如果一个节点是红色的，那么他的孩子节点都是黑色的 。</p>
 </li>
-<li><p>从任意一个节点到叶子节点，经过的黑色节点是一样多的。</p>
+<li><p>从任意一个节点到叶子节点，经过的黑色节点是一样多的 。</p>
 </li>
 </ol>
-<p>这里叶子节点的定义跟之前不一样，这里的节点指的是空节点，不是左右孩子节点为空的节点。</p>
-<h2 id="2-3-树"><a href="#2-3-树" class="headerlink" title="2-3 树"></a>2-3 树</h2><p>满足二分搜索树的基本性质，节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的左右子树的高度差一样，比 AVL 树的平衡定义更加严格。2-3 树添加节点，永远不会添加到空节点中。</p>
-<p><img src="https://cl.ly/68aa46c8eeed/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg" alt=""></p>
-<p><img src="https://cl.ly/9b4e79d394c7/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-2.jpg" alt=""></p>
-<p><img src="https://cl.ly/7ae2f6445914/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-3.jpg" alt=""></p>
-<h2 id="红黑树和2-3树的等价性"><a href="#红黑树和2-3树的等价性" class="headerlink" title="红黑树和2-3树的等价性"></a>红黑树和2-3树的等价性</h2><p>2-3 树的节点对应红黑树的节点。2节点对应红黑树的黑色节点，红色的节点代表与父节点是连在一起的，跟父节点一起组成 2-3 树中的3节点。</p>
-<p><img src="https://cl.ly/410a4078c7fc/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91.png" alt=""></p>
-<p>我们把节点横着放，看一下下面这棵 2-3 树和红黑树之间的转化：</p>
-<p><img src="https://cl.ly/041d16b0bbe8/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91-3.png" alt=""></p>
-<p>所有的红色节点都是左倾斜的。</p>
-<h3 id="详细分析红黑树的定义"><a href="#详细分析红黑树的定义" class="headerlink" title="详细分析红黑树的定义"></a>详细分析红黑树的定义</h3><ol>
-<li><p>每个节点不是红色就是黑色。</p>
-<p> 答：这是一个定义，2-3 树的2节点对应为黑色，3节点左边的颜色定义为红色，表示与父节点是融合在一起的。</p>
+<p><strong>这里叶子节点的定义跟之前不一样，这里的叶子节点指的是空节点，不是左右孩子节点都为空的节点。</strong></p>
+<h1 id="2-3-树"><a href="#2-3-树" class="headerlink" title="2-3 树"></a>2-3 树</h1><ol>
+<li><p>满足二分搜索树的基本性质</p>
 </li>
-<li><p>根节点是黑色的。</p>
+<li><p>节点可以存放一个元素或者两个元素，是一棵绝对平衡的树，任意节点的左右子树的高度差一样，比 AVL 树的平衡定义更加严格。</p>
+</li>
+<li><p>2-3 树添加节点时，永远不会添加到空节点中。</p>
+</li>
+</ol>
+<p><img src="https://cl.ly/729c2177d4cf/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0.jpg" alt=""></p>
+<p><img src="https://cl.ly/9a7ac94a3774/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-2.jpg" alt=""></p>
+<p><img src="https://cl.ly/b15c16fe46e0/2-3%E6%A0%91%E6%8F%8F%E8%BF%B0-3.jpg" alt=""></p>
+<h2 id="红黑树和2-3树的等价性"><a href="#红黑树和2-3树的等价性" class="headerlink" title="红黑树和2-3树的等价性"></a>红黑树和2-3树的等价性</h2><p>2-3 树的2节点对应红黑树的黑色节点，红色的节点代表与父节点是连在一起的，跟父节点一起组成 2-3 树中的3节点。</p>
+<p><img src="https://cl.ly/15e94861a02c/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91.jpg" alt=""></p>
+<p>我们把节点横着放，对比下面这棵 2-3 树和红黑树：</p>
+<p><img src="https://cl.ly/fc5e9e2e0e97/%E7%BA%A2%E9%BB%91%E6%A0%91%E4%B8%8E2-3%E6%A0%91-3.jpg" alt=""></p>
+<p>按照这个等价性的定义，红黑树所有的红色节点都是左倾斜的。</p>
+<h3 id="详细分析红黑树的定义"><a href="#详细分析红黑树的定义" class="headerlink" title="详细分析红黑树的定义"></a>详细分析红黑树的定义</h3><ol>
+<li><p>每个节点不是红色就是黑色 。</p>
+<p> 答：这是一个定义，2-3 树的2节点对应红黑树的黑色节点，红色的节点代表与父节点是连在一起的，跟父节点一起组成 2-3 树中的3节点。</p>
+</li>
+<li><p>根节点是黑色的 。</p>
 <p> 答：根节点如果是2节点，那肯定是黑色的，如果是3节点，因为红色节点左倾斜了，父节点还是黑色的，所以根节点是黑色的。</p>
 </li>
-<li><p>每一个叶子节点(最后的空节点)是黑色的。</p>
-<p> 答：这是一个定义，当整棵树为空时，那么根节点也为空，也是黑色，跟第2条属性对应上。</p>
+<li><p>每一个叶子节点(最后的空节点)是黑色的 。</p>
+<p> 答：这是一个定义，当整棵树为空时，那么根节点也为空，也是黑色，跟第2条属性对应上了。</p>
 </li>
-<li><p>如果一个节点是红色的，那么他的孩子节点都是黑色的。</p>
-<p> 答：红节点如果连接2节点，那肯定是黑色的，如果连的是3节点，也是由于红节点左倾斜，先连接的节点肯定是左倾斜的红节点的父节点，为黑色的。</p>
+<li><p>如果一个节点是红色的，那么他的孩子节点都是黑色的 。</p>
+<p> 答：红节点如果连接2节点，那肯定是黑色的，如果连的是3节点，也是由于红节点左倾斜，先连接的节点肯定是左倾斜的红节点的父节点，是黑色的。</p>
 </li>
-<li><p>从任意一个节点到叶子节点，经过的黑色节点是一样多的。</p>
+<li><p>从任意一个节点到叶子节点，经过的黑色节点是一样多的 。</p>
 <p> 答：因为 2-3 树是绝对平衡的树，从任意节点到叶子节点经过的节点数量是一样的。那么在红黑树中，就等于经过的黑色节点数是一样多的。</p>
 </li>
 </ol>
-<p>总结：红黑树是一种黑平衡的二叉树(不是平衡二叉树，高度差可以大于1)，最大高度为 2logn，常数忽略，时间复杂度为 O(logn)。因为高度比 AVL 树要高，所以查找速度可能略差于 AVL 树，但是添加和删除操作比较高效。红黑树整体性能更优。</p>
-<h3 id="红黑树添加元素"><a href="#红黑树添加元素" class="headerlink" title="红黑树添加元素"></a>红黑树添加元素</h3><p><img src="https://cl.ly/82d6b407ac7b/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.jpg" alt=""></p>
-<p>如图所示，共有3种处理情况 ：</p>
-<p>情况一：右节点为红色，左节点黑色，需要 左旋转</p>
-<p>左旋转代码如下：</p>
+<p>总结：红黑树是一种<strong>黑平衡</strong>的二叉树(不是平衡二叉树，高度差可以大于1)，最大高度为 2logn，常数忽略，时间复杂度为 <strong>O(logn)</strong>。因为高度比 AVL 树要高，所以查找速度可能略差于 AVL 树，但是添加和删除等操作比较高效，整体性能更优。</p>
+<h3 id="红黑树添加元素"><a href="#红黑树添加元素" class="headerlink" title="红黑树添加元素"></a>红黑树添加元素</h3><p><img src="https://cl.ly/90a56303ebb4/%E7%BA%A2%E9%BB%91%E6%A0%91%E6%B7%BB%E5%8A%A0%E5%85%83%E7%B4%A0.jpg" alt=""></p>
+<p>如上图所示，共有3种处理情况 ：</p>
+<h4 id="情况一：右节点为红色，左节点黑色，需要左旋转"><a href="#情况一：右节点为红色，左节点黑色，需要左旋转" class="headerlink" title="情况一：右节点为红色，左节点黑色，需要左旋转"></a>情况一：右节点为红色，左节点黑色，需要<strong>左旋转</strong></h4><p>左旋转代码如下：</p>
 <pre><code>// 左旋转，返回旋转后的根节点
 private Node leftRotate(Node node) {
         Node retNode = node.right;
@@ -474,7 +480,7 @@ private Node leftRotate(Node node) {
         node.color = RED;
         return retNode;
     }
-</code></pre><p>情况二：左节点为红色，左节点的左节点还是红色，需要 右旋转</p>
+</code></pre><p><strong>情况二：左节点为红色，左节点的左节点还是红色，需要右旋转</strong></p>
 <p>右旋转代码如下：</p>
 <pre><code>// 右旋转，返回旋转后的根节点
 private Node rightRotate(Node node) {
@@ -488,7 +494,8 @@ private Node rightRotate(Node node) {
         node.color = RED;
         return retNode;
     }
-</code></pre><p>情况三：左右节点均为红色，需要颜色翻转</p>
+</code></pre><p><strong>情况三：左右节点均为红色，需要颜色翻转</strong></p>
+<p>颜色翻转代码如下：</p>
 <pre><code>private void flipColors(Node node) {
       // 将左右孩子变成黑色
       node.left.color =BLACK ;
@@ -496,18 +503,7 @@ private Node rightRotate(Node node) {
       // 根节点因为要向上融合，要设为红色
       node.color = RED;
   }
-</code></pre><h2 id="红黑树代码实现"><a href="#红黑树代码实现" class="headerlink" title="红黑树代码实现"></a>红黑树代码实现</h2><pre><code>package fanda.zeng.redblack;
-
-import fanda.zeng.utils.FileOperation;
-
-import java.util.ArrayList;
-
-/**
- * @Description: 红黑树
- * @Author: fanda
- * @Date: 2019/5/16
- */
-public class RBTree&lt;K extends Comparable&lt;K&gt;, V&gt; {
+</code></pre><h2 id="红黑树代码实现"><a href="#红黑树代码实现" class="headerlink" title="红黑树代码实现"></a>红黑树代码实现</h2><pre><code>public class RBTree&lt;K extends Comparable&lt;K&gt;, V&gt; {
 
     // true 定义为 红色
     private static final boolean RED = true;
@@ -693,7 +689,7 @@ public class RBTree&lt;K extends Comparable&lt;K&gt;, V&gt; {
         }
     }
 }
-</code></pre><h2 id="RBTree-和-AVLTree-的性能比较"><a href="#RBTree-和-AVLTree-的性能比较" class="headerlink" title="RBTree 和 AVLTree 的性能比较"></a>RBTree 和 AVLTree 的性能比较</h2><p>BST在元素按排序的方式插入树中时，会退化成链表，因为 BST 没有自平衡机制。所以我们这里只比较红黑树和 AVL 树的性能。</p>
+</code></pre><h2 id="RBTree-和-AVLTree-的性能比较"><a href="#RBTree-和-AVLTree-的性能比较" class="headerlink" title="RBTree 和 AVLTree 的性能比较"></a>RBTree 和 AVLTree 的性能比较</h2><p>BST在元素按排序的方式插入时，会退化成链表，因为 BST 没有自平衡机制。所以这里只比较红黑树和 AVL 树的性能。</p>
 <h3 id="整体性能测试："><a href="#整体性能测试：" class="headerlink" title="整体性能测试："></a>整体性能测试：</h3><pre><code>public static void main(String[] args) {
         System.out.println(&quot;Pride and Prejudice&quot;);
 
@@ -765,11 +761,11 @@ public class RBTree&lt;K extends Comparable&lt;K&gt;, V&gt; {
         }
 
     }
-</code></pre><p>结果如下：</p>
+</code></pre><p>运行结果如下：</p>
 <pre><code>BST: 0.578413541 s
 AVL: 0.493906978 s
 RBTree: 0.41666528 s
-</code></pre><h3 id="只测试添加操作性能："><a href="#只测试添加操作性能：" class="headerlink" title="只测试添加操作性能："></a>只测试添加操作性能：</h3><pre><code> public static void main(String[] args) {
+</code></pre><h3 id="只测试添加操作的性能"><a href="#只测试添加操作的性能" class="headerlink" title="只测试添加操作的性能"></a>只测试添加操作的性能</h3><pre><code> public static void main(String[] args) {
 
     int n = 20000000;
 
@@ -804,12 +800,12 @@ RBTree: 0.41666528 s
     time = (endTime - startTime) / 1000000000.0;
     System.out.println(&quot;AVL: &quot; + time + &quot; s&quot;);
 }
-</code></pre><p>结果如下：</p>
+</code></pre><p>运行结果如下：</p>
 <pre><code>RBTree: 17.118380952 s
 AVL: 14.228043812 s
-</code></pre><p>总结： 两者性能相差不大，因为都是 O(logn) 级别的。</p>
+</code></pre><p><em>总结： 两者性能相差不大，因为都是 <strong>O(logn)</strong> 级别的。</em></p>
 <h2 id="二分搜索树、AVL、红黑树性能总结"><a href="#二分搜索树、AVL、红黑树性能总结" class="headerlink" title="二分搜索树、AVL、红黑树性能总结"></a>二分搜索树、AVL、红黑树性能总结</h2><ol>
-<li><p>对于完全随机的数据，普通的二分搜索树很好用。缺点：极端情况会退化成链表(或者高度不平衡)</p>
+<li><p>对于完全随机的数据，普通的二分搜索树很好用，缺点是在极端情况下会退化成链表(或者高度不平衡)。</p>
 </li>
 <li><p>对于查询较多的使用情况，AVL树很好用。</p>
 </li>
@@ -1042,7 +1038,7 @@ AVL: 14.228043812 s
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树"><span class="nav-number">1.</span> <span class="nav-text">红黑树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-树"><span class="nav-number">1.1.</span> <span class="nav-text">2-3 树</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树和2-3树的等价性"><span class="nav-number">1.2.</span> <span class="nav-text">红黑树和2-3树的等价性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#详细分析红黑树的定义"><span class="nav-number">1.2.1.</span> <span class="nav-text">详细分析红黑树的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树添加元素"><span class="nav-number">1.2.2.</span> <span class="nav-text">红黑树添加元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树代码实现"><span class="nav-number">1.3.</span> <span class="nav-text">红黑树代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RBTree-和-AVLTree-的性能比较"><span class="nav-number">1.4.</span> <span class="nav-text">RBTree 和 AVLTree 的性能比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体性能测试："><span class="nav-number">1.4.1.</span> <span class="nav-text">整体性能测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只测试添加操作性能："><span class="nav-number">1.4.2.</span> <span class="nav-text">只测试添加操作性能：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分搜索树、AVL、红黑树性能总结"><span class="nav-number">1.5.</span> <span class="nav-text">二分搜索树、AVL、红黑树性能总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后说明"><span class="nav-number">1.6.</span> <span class="nav-text">最后说明</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#红黑树"><span class="nav-number">1.</span> <span class="nav-text">红黑树</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-3-树"><span class="nav-number">2.</span> <span class="nav-text">2-3 树</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树和2-3树的等价性"><span class="nav-number">2.1.</span> <span class="nav-text">红黑树和2-3树的等价性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#详细分析红黑树的定义"><span class="nav-number">2.1.1.</span> <span class="nav-text">详细分析红黑树的定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#红黑树添加元素"><span class="nav-number">2.1.2.</span> <span class="nav-text">红黑树添加元素</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#情况一：右节点为红色，左节点黑色，需要左旋转"><span class="nav-number">2.1.2.1.</span> <span class="nav-text">情况一：右节点为红色，左节点黑色，需要左旋转</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#红黑树代码实现"><span class="nav-number">2.2.</span> <span class="nav-text">红黑树代码实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RBTree-和-AVLTree-的性能比较"><span class="nav-number">2.3.</span> <span class="nav-text">RBTree 和 AVLTree 的性能比较</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#整体性能测试："><span class="nav-number">2.3.1.</span> <span class="nav-text">整体性能测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#只测试添加操作的性能"><span class="nav-number">2.3.2.</span> <span class="nav-text">只测试添加操作的性能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分搜索树、AVL、红黑树性能总结"><span class="nav-number">2.4.</span> <span class="nav-text">二分搜索树、AVL、红黑树性能总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最后说明"><span class="nav-number">2.5.</span> <span class="nav-text">最后说明</span></a></li></ol></li></ol></div>
             
 
           </div>

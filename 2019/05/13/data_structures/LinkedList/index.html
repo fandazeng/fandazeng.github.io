@@ -109,17 +109,17 @@
 
 
 
-<meta name="description" content="链表真正的动态数据结构，不需要像数组那样处理固定容量的问题，但是丧失了随机访问的能力。最简单的动态数据结构，更深入的理解引用(或者指针)，更深入的理解递归，辅助组成其他数据结构。 数据存储在“节点”中，链表就像火车一样，每一节都有一个引用来指向下一节 代码实现：package fanda.zeng.linkedlist;  /**  * @Description: 链表实现类  * @Author">
+<meta name="description" content="链表链表的数据存储在 “节点” 中，链表就像火车一样，每一节都有一个引用来指向下一节，也就是每一个 “节点” 会指向它的下一个 “节点” 。 链表是真正的、最简单的动态数据结构，不需要像数组那样处理固定容量的问题(扩缩容处理)，缺点是丧失了随机访问的能力。 链表代码public class LinkedList&amp;lt;E&amp;gt; {      // 虚拟头节点     private Node d">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="链表">
 <meta property="og:url" content="http://yoursite.com/2019/05/13/data_structures/LinkedList/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="链表真正的动态数据结构，不需要像数组那样处理固定容量的问题，但是丧失了随机访问的能力。最简单的动态数据结构，更深入的理解引用(或者指针)，更深入的理解递归，辅助组成其他数据结构。 数据存储在“节点”中，链表就像火车一样，每一节都有一个引用来指向下一节 代码实现：package fanda.zeng.linkedlist;  /**  * @Description: 链表实现类  * @Author">
-<meta property="og:updated_time" content="2019-05-14T06:17:34.806Z">
+<meta property="og:description" content="链表链表的数据存储在 “节点” 中，链表就像火车一样，每一节都有一个引用来指向下一节，也就是每一个 “节点” 会指向它的下一个 “节点” 。 链表是真正的、最简单的动态数据结构，不需要像数组那样处理固定容量的问题(扩缩容处理)，缺点是丧失了随机访问的能力。 链表代码public class LinkedList&amp;lt;E&amp;gt; {      // 虚拟头节点     private Node d">
+<meta property="og:updated_time" content="2019-05-17T09:09:27.164Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="链表">
-<meta name="twitter:description" content="链表真正的动态数据结构，不需要像数组那样处理固定容量的问题，但是丧失了随机访问的能力。最简单的动态数据结构，更深入的理解引用(或者指针)，更深入的理解递归，辅助组成其他数据结构。 数据存储在“节点”中，链表就像火车一样，每一节都有一个引用来指向下一节 代码实现：package fanda.zeng.linkedlist;  /**  * @Description: 链表实现类  * @Author">
+<meta name="twitter:description" content="链表链表的数据存储在 “节点” 中，链表就像火车一样，每一节都有一个引用来指向下一节，也就是每一个 “节点” 会指向它的下一个 “节点” 。 链表是真正的、最简单的动态数据结构，不需要像数组那样处理固定容量的问题(扩缩容处理)，缺点是丧失了随机访问的能力。 链表代码public class LinkedList&amp;lt;E&amp;gt; {      // 虚拟头节点     private Node d">
 
 
 
@@ -411,16 +411,9 @@
       
 
       
-        <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>真正的动态数据结构，不需要像数组那样处理固定容量的问题，但是丧失了随机访问的能力。最简单的动态数据结构，更深入的理解引用(或者指针)，更深入的理解递归，辅助组成其他数据结构。</p>
-<p>数据存储在“节点”中，链表就像火车一样，每一节都有一个引用来指向下一节</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre><code>package fanda.zeng.linkedlist;
-
-/**
- * @Description: 链表实现类
- * @Author: fanda
- * @Date: 2019/5/13
- */
-public class LinkedList&lt;E&gt; {
+        <h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>链表的数据存储在 “节点” 中，链表就像火车一样，每一节都有一个引用来指向下一节，也就是每一个 “节点” 会指向它的下一个 “节点” 。</p>
+<p>链表是真正的、最简单的动态数据结构，不需要像数组那样处理固定容量的问题(扩缩容处理)，缺点是丧失了随机访问的能力。</p>
+<h2 id="链表代码"><a href="#链表代码" class="headerlink" title="链表代码"></a>链表代码</h2><pre><code>public class LinkedList&lt;E&gt; {
 
     // 虚拟头节点
     private Node dummyHead;
@@ -654,57 +647,20 @@ public class LinkedList&lt;E&gt; {
         }
 
     }
-
-    public static void main(String[] args) {
-        LinkedList&lt;Integer&gt; linkedList = new LinkedList&lt;&gt;();
-        for (int i = 0; i &lt; 1; i++) {
-            linkedList.addFirst(i);
-        }
-        linkedList.add(2,100);
-        System.out.println(linkedList);
-        linkedList.remove(2);
-        System.out.println(linkedList);
-        linkedList.removeFirst();
-        System.out.println(linkedList);
-        linkedList.removeLast();
-        System.out.println(linkedList);
-
-        linkedList.removeElementNR(8);
-        System.out.println(linkedList);
-    }
-
 }
-</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><h3 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h3><p>addLast(e)            </p>
-<p>O(n) ，跟链表里面的元素个数 n 有关。</p>
-<p>addFirst(e)        </p>
-<p>O(1) ，跟链表里面的元素个数 n 无关。</p>
-<p>add(index ,e)</p>
-<p>O(2/n) = O(n) ，跟链表里面的元素个数 n 有关，可以想像成链表里面的元素需要查找 2/n 的次数，常数忽略。</p>
-<p>因此，添加操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
-<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>removeLast(e)            </p>
-<p>O(n) ，跟链表里面的元素个数 n 有关。</p>
-<p>removeFirst(e)        </p>
-<p>O(1) ，跟链表里面的元素个数 n 无关。</p>
-<p>remove(index ,e)</p>
-<p>O(2/n) = O(n) ，跟链表里面的元素个数 n 有关，可以想像成链表里面的元素需要查找 2/n 的次数，常数忽略。</p>
-<p>因此，删除操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
-<h3 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3><p>set(index ,e)    </p>
-<p>O(n) ，跟链表里面的元素个数 n 有关，(即不支持随机访问)</p>
-<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p>get(index) </p>
-<p>O(n) ，跟链表里面的元素个数 n 有关。</p>
-<p>contain(e)        </p>
-<p>O(n) ，跟链表里面的元素个数 n 有关。</p>
-<p>总结：链表的增删改查操作的时间复杂度全为 O(n) 级别的，但是如果只对链表头做操作的话，复杂度是 O(1) 级别的。因此，链表不适合去查询（只查链表头的数据）和修改，增删操作也只操作链表头数据。如果只做这些操作，那么复杂度是 O(1) 级别的，且由于是真正的动态数据结构，没有动态数组的扩容操作，性能会好一些。</p>
-<h2 id="基于链表实现的栈结构"><a href="#基于链表实现的栈结构" class="headerlink" title="基于链表实现的栈结构"></a>基于链表实现的栈结构</h2><pre><code>package fanda.zeng.stack;
-
-import fanda.zeng.linkedlist.LinkedList;
-
-/**
- * @Description: 基于链表实现的栈结构
- * @Author: fanda
- * @Date: 2019/5/13
- */
-public class LinkedListStack&lt;E&gt; implements Stack&lt;E&gt; {
+</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><h3 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h3><p>addLast(e)    ，<strong>O(n)</strong> ，跟链表里面的元素个数 n 有关。</p>
+<p>addFirst(e)    ，<strong>O(1)</strong> ，跟链表里面的元素个数 n 无关。</p>
+<p>add(index ,e) ，<strong>O(2/n) = O(n)</strong> ，跟链表里面的元素个数 n 有关，可以想像成链表里面的元素需要移动 2/n 次，常数忽略。</p>
+<p><em>因此，添加操作的时间复杂度为 <strong>O(n)</strong> 级别的，取最糟糕的情况。</em></p>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>removeLast(e) ，<strong>O(n)</strong> ，跟链表里面的元素个数 n 有关。</p>
+<p>removeFirst(e)    ，<strong>O(1)</strong> ，跟链表里面的元素个数 n 无关。</p>
+<p>remove(index ,e) ，<strong>O(2/n) = O(n)</strong> ，跟链表里面的元素个数 n 有关，可以想像成链表里面的元素需要移动 2/n 次，常数忽略。</p>
+<p><em>因此，删除操作的时间复杂度为 <strong>O(n)</strong> 级别的，取最糟糕的情况。</em></p>
+<h3 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3><p>set(index ,e) ，<strong>O(n)</strong> ，跟链表里面的元素个数 n 有关，(即不支持随机访问)</p>
+<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p>get(index) ，<strong>O(n)</strong> ，跟链表里面的元素个数 n 有关。</p>
+<p>contain(e) ，<strong>O(n)</strong> ，跟链表里面的元素个数 n 有关。</p>
+<p><em>总结：链表的增删改查操作的时间复杂度全为 <strong>O(n)</strong> 级别的，但是如果只对链表头做操作的话，复杂度是 <strong>O(1)</strong> 级别的，因此，链表只适合对链表头数据进行操作,由于没有动态数组的扩缩容操作，此时性能会更好一些。</em></p>
+<h2 id="底层为链表的栈"><a href="#底层为链表的栈" class="headerlink" title="底层为链表的栈"></a>底层为链表的栈</h2><pre><code>public class LinkedListStack&lt;E&gt; implements Stack&lt;E&gt; {
 
     private LinkedList&lt;E&gt; linkedList;
 
@@ -743,18 +699,7 @@ public class LinkedListStack&lt;E&gt; implements Stack&lt;E&gt; {
         res.append(&quot;LinkedListStack: TOP &quot;);
         res.append(linkedList);
         return res.toString();
-    }
-
-    public static void main(String[] args) {
-        LinkedListStack&lt;Integer&gt; linkedListStack = new LinkedListStack&lt;&gt;();
-        for (int i = 0; i &lt; 5; i++) {
-            linkedListStack.push(i);
-            System.out.println(linkedListStack);
-        }
-        linkedListStack.pop();
-        System.out.println(linkedListStack);
-    }
-
+    }    
 }
 </code></pre><h2 id="ArrayStack-和-LinkedListStack-的性能比较"><a href="#ArrayStack-和-LinkedListStack-的性能比较" class="headerlink" title="ArrayStack 和 LinkedListStack 的性能比较"></a>ArrayStack 和 LinkedListStack 的性能比较</h2><pre><code>public class Main {
 
@@ -782,19 +727,12 @@ public class LinkedListStack&lt;E&gt; implements Stack&lt;E&gt; {
         return (endTime - startTime) / 1000000000.0;
     }
 }
-</code></pre><p>结果：</p>
+</code></pre><p>运行结果：</p>
 <pre><code>arrayStack need time = 0.064225789
 
 linkedListStack need time = 0.019631385
-</code></pre><p>总结：LinkedListStack 和 ArrayStack 都是 O（1）级别的，相差不大，如果需要 new 的空间比较大的话，LinkedListStack 的速度可能比 ArrayStack 还慢。</p>
-<h2 id="基于链表实现的队列结构"><a href="#基于链表实现的队列结构" class="headerlink" title="基于链表实现的队列结构"></a>基于链表实现的队列结构</h2><pre><code>package fanda.zeng.queue;
-
-/**
- * @Description: 基于链表实现的队列节构
- * @Author: fanda
- * @Date: 2019/5/13
- */
-public class LinkedListQueue&lt;E&gt; implements Queue&lt;E&gt; {
+</code></pre><p>总结：<code>LinkedListStack</code> 和 <code>ArrayStack</code> 都是 <strong>O(1)</strong> 级别的，性能相差不大，如果需要 <code>new</code> 的数据量较大的话，<code>LinkedListStack</code> 的性能可能比 <code>ArrayStack</code> 还差。</p>
+<h2 id="底层为链表的队列"><a href="#底层为链表的队列" class="headerlink" title="底层为链表的队列"></a>底层为链表的队列</h2><pre><code>public class LinkedListQueue&lt;E&gt; implements Queue&lt;E&gt; {
 
     //头节点和尾节点
     private Node head, tail;
@@ -895,24 +833,11 @@ public class LinkedListQueue&lt;E&gt; implements Queue&lt;E&gt; {
         }
 
     }
-
-    public static void main(String[] args) {
-        LinkedListQueue&lt;Integer&gt; queue = new LinkedListQueue&lt;&gt;();
-        for (int i = 0; i &lt; 10; i++) {
-            queue.enqueue(i);
-            System.out.println(queue.toString());
-            if (i % 3 == 2) {//每隔3个元素，移除队首一个元素
-                queue.dequeue();
-                System.out.println(queue.toString());
-            }
-        }
-    }
 }
 </code></pre><h2 id="LinkedListQueue-、LoopQueue-、ArrayQueue-性能比较"><a href="#LinkedListQueue-、LoopQueue-、ArrayQueue-性能比较" class="headerlink" title="LinkedListQueue 、LoopQueue 、ArrayQueue 性能比较"></a>LinkedListQueue 、LoopQueue 、ArrayQueue 性能比较</h2><pre><code>public class QueueMain {
 
     public static void main(String[] args) {
         int opCount = 10000;
-           //int opCount = 100000;
         ArrayQueue&lt;Integer&gt; arrayQueue = new ArrayQueue&lt;&gt;();
         LoopQueue&lt;Integer&gt; loopQueue = new LoopQueue&lt;&gt;();
         LinkedListQueue&lt;Integer&gt; linkedListQueue = new LinkedListQueue&lt;&gt;();
@@ -939,31 +864,24 @@ public class LinkedListQueue&lt;E&gt; implements Queue&lt;E&gt; {
         return (endTime - startTime) / 1000000000.0;
     }
 }
-</code></pre><p>测试数量为 10000 时的结果：</p>
+</code></pre><p>测试数据量为 10000 时的运行结果：</p>
 <pre><code>arrayQueue need time = 0.412026981
 loopQueue need time = 0.005801394
 linkedListQueue need time = 0.003621125
-</code></pre><p>测试数量为 100000 时的结果：</p>
+</code></pre><p>测试数据量为 100000 时的运行结果：</p>
 <pre><code>arrayQueue need time = 62.304321669
 loopQueue need time = 0.044549178
 linkedListQueue need time = 0.061632932
-</code></pre><p>总结： 因为 LinkedListQueue 和 LoopQueue 的复杂度级别都是 O(1) ，所以时间相差不大，当数量比较大的时候 LinkedListQueue 所消耗的时间比 LoopQueue 还大，ArrayQueue 的级别为 （n）的，性能最差。</p>
-<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>本质上，将原来的问题，转化为更小的同一个问题。</p>
-<p>比如：数组求和</p>
+</code></pre><p><em>总结： 因为 <code>LinkedListQueue</code> 和 <code>LoopQueue</code> 的复杂度都是 <strong>O(1)</strong> ，所以性能相差不大，但是 <code>ArrayQueue</code> 的复杂度为 <strong>O(n)</strong>的，所以性能最差。当数据量较大的时候，<code>LinkedListQueue</code> 所消耗的时间比 <code>LoopQueue</code> 还要大。</em></p>
+<h2 id="递归"><a href="#递归" class="headerlink" title="递归"></a>递归</h2><p>本质上，是将原来的问题，转化为更小的同一个问题。</p>
+<p>比如，数组求和：</p>
 <p>Sum(arr[0…n-1]) = arr[0] + Sum(arr[1…n-1])</p>
 <p>Sum(arr[1…n-1]) = arr[1] + Sum(arr[2…n-1])</p>
 <p>…….</p>
 <p>Sum(arr[n-1…n-1]) = arr[n-1] + Sum([])</p>
-<p>求数组 0 到 n-1 的数组的和，就是求第一个数组的值加上 1 到 n-1 的数组的和，依此类推，这样就变成更小的同一问题了。</p>
-<p>代码实现：</p>
-<pre><code>package fanda.zeng.linkedlist;
-
-/** 
- * @Description: 求和，用于展示递归方法
- * @Author: fanda
- * @Date: 2019/5/14 
- */ 
-public class Sum {
+<p>分析：求数组索引从 0 到 n-1 的和，就是求索引为 0 的值加上索引从 1 到 n-1 的和，依此类推，这样就变成更小的同一问题了。</p>
+<p>求和代码如下：</p>
+<pre><code>public class Sum {
 
     public static void main(String[] args) {
         int[] arr = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
@@ -996,15 +914,8 @@ public class Sum {
 <p>示例:</p>
 <p>输入: 1-&gt;2-&gt;6-&gt;3-&gt;4-&gt;5-&gt;6, val = 6</p>
 <p>输出: 1-&gt;2-&gt;3-&gt;4-&gt;5</p>
-<p>代码实现：</p>
-<pre><code>package fanda.zeng.linkedlist;
-
-/**
- * @Description: LeetCode 203号题目（移除链表元素）
- * @Author: fanda
- * @Date: 2019/5/13
- */
-public class Soluction203 {
+<p>解题代码如下：</p>
+<pre><code>public class Soluction203 {
 
     public static void main(String[] args) {
         int[] arr = new int[]{3, 53, 2, 7, 12, 5, 3};
@@ -1297,7 +1208,7 @@ public class Soluction203 {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加操作"><span class="nav-number">1.2.1.</span> <span class="nav-text">添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除操作"><span class="nav-number">1.2.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">1.2.3.</span> <span class="nav-text">修改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询操作"><span class="nav-number">1.2.4.</span> <span class="nav-text">查询操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于链表实现的栈结构"><span class="nav-number">1.3.</span> <span class="nav-text">基于链表实现的栈结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayStack-和-LinkedListStack-的性能比较"><span class="nav-number">1.4.</span> <span class="nav-text">ArrayStack 和 LinkedListStack 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基于链表实现的队列结构"><span class="nav-number">1.5.</span> <span class="nav-text">基于链表实现的队列结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedListQueue-、LoopQueue-、ArrayQueue-性能比较"><span class="nav-number">1.6.</span> <span class="nav-text">LinkedListQueue 、LoopQueue 、ArrayQueue 性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.7.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.8.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#203-移除链表元素"><span class="nav-number">1.8.1.</span> <span class="nav-text">203.移除链表元素</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">1.</span> <span class="nav-text">链表</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#链表代码"><span class="nav-number">1.1.</span> <span class="nav-text">链表代码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加操作"><span class="nav-number">1.2.1.</span> <span class="nav-text">添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除操作"><span class="nav-number">1.2.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">1.2.3.</span> <span class="nav-text">修改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询操作"><span class="nav-number">1.2.4.</span> <span class="nav-text">查询操作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层为链表的栈"><span class="nav-number">1.3.</span> <span class="nav-text">底层为链表的栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ArrayStack-和-LinkedListStack-的性能比较"><span class="nav-number">1.4.</span> <span class="nav-text">ArrayStack 和 LinkedListStack 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#底层为链表的队列"><span class="nav-number">1.5.</span> <span class="nav-text">底层为链表的队列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LinkedListQueue-、LoopQueue-、ArrayQueue-性能比较"><span class="nav-number">1.6.</span> <span class="nav-text">LinkedListQueue 、LoopQueue 、ArrayQueue 性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#递归"><span class="nav-number">1.7.</span> <span class="nav-text">递归</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.8.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#203-移除链表元素"><span class="nav-number">1.8.1.</span> <span class="nav-text">203.移除链表元素</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>

@@ -109,19 +109,19 @@
 
 
 
-<meta name="description" content="集合不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。 代码实现：首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 集合接口类package fanda.zeng.set;  /**   * @Description: 定义集合的接口  * @Author: fanda  * @Date: 2019/">
+<meta name="description" content="集合不能存放重复元素，分为有序集合 (基于搜索树的实现) 和无序集合 (基于哈希表的实现) 。 集合代码实现首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 集合接口定义public interface Set&amp;lt;E&amp;gt; {     void add(E e);      void remove(E e);      boo">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="集合">
 <meta property="og:url" content="http://yoursite.com/2019/05/14/data_structures/Set/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="集合不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。 代码实现：首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 集合接口类package fanda.zeng.set;  /**   * @Description: 定义集合的接口  * @Author: fanda  * @Date: 2019/">
-<meta property="og:image" content="https://cl.ly/c7d6ad6f63e4/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%A0%91%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.jpg">
-<meta property="og:updated_time" content="2019-05-15T07:04:36.985Z">
+<meta property="og:description" content="集合不能存放重复元素，分为有序集合 (基于搜索树的实现) 和无序集合 (基于哈希表的实现) 。 集合代码实现首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 集合接口定义public interface Set&amp;lt;E&amp;gt; {     void add(E e);      void remove(E e);      boo">
+<meta property="og:image" content="https://cl.ly/71df0861db52/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%A0%91%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.jpg">
+<meta property="og:updated_time" content="2019-05-17T09:41:03.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="集合">
-<meta name="twitter:description" content="集合不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。 代码实现：首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 集合接口类package fanda.zeng.set;  /**   * @Description: 定义集合的接口  * @Author: fanda  * @Date: 2019/">
-<meta name="twitter:image" content="https://cl.ly/c7d6ad6f63e4/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%A0%91%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.jpg">
+<meta name="twitter:description" content="集合不能存放重复元素，分为有序集合 (基于搜索树的实现) 和无序集合 (基于哈希表的实现) 。 集合代码实现首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。 集合接口定义public interface Set&amp;lt;E&amp;gt; {     void add(E e);      void remove(E e);      boo">
+<meta name="twitter:image" content="https://cl.ly/71df0861db52/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%A0%91%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.jpg">
 
 
 
@@ -413,16 +413,9 @@
       
 
       
-        <h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><p>不能存放重复元素。分为有序集合(基于搜索树的实现)和无序集合(基于哈希表的实现)。</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><p>首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。</p>
-<h3 id="集合接口类"><a href="#集合接口类" class="headerlink" title="集合接口类"></a>集合接口类</h3><pre><code>package fanda.zeng.set;
-
-/** 
- * @Description: 定义集合的接口
- * @Author: fanda
- * @Date: 2019/5/14 
- */ 
-public interface Set&lt;E&gt; {
+        <h1 id="集合"><a href="#集合" class="headerlink" title="集合"></a>集合</h1><p>不能存放重复元素，分为有序集合 (基于搜索树的实现) 和无序集合 (基于哈希表的实现) 。</p>
+<h2 id="集合代码实现"><a href="#集合代码实现" class="headerlink" title="集合代码实现"></a>集合代码实现</h2><p>首先，我们先定义一个集合需要用到的接口方法，因为集合的底层实现可以是多样的，只要实现了接口方法的，都可以称为集合。</p>
+<h3 id="集合接口定义"><a href="#集合接口定义" class="headerlink" title="集合接口定义"></a>集合接口定义</h3><pre><code>public interface Set&lt;E&gt; {
     void add(E e);
 
     void remove(E e);
@@ -433,19 +426,7 @@ public interface Set&lt;E&gt; {
 
     boolean isEmpty();
 }
-</code></pre><h3 id="基于二分搜索树实现的集合类"><a href="#基于二分搜索树实现的集合类" class="headerlink" title="基于二分搜索树实现的集合类"></a>基于二分搜索树实现的集合类</h3><pre><code>package fanda.zeng.set;
-
-import fanda.zeng.bst.BST;
-import fanda.zeng.utils.FileOperation;
-
-import java.util.ArrayList;
-
-/**
- * @Description: 基于BST实现的集合
- * @Author: fanda
- * @Date: 2019/5/14
- */
-public class BSTSet&lt;E extends Comparable&lt;E&gt;&gt; implements Set&lt;E&gt; {
+</code></pre><h3 id="底层为二分搜索树的集合"><a href="#底层为二分搜索树的集合" class="headerlink" title="底层为二分搜索树的集合"></a>底层为二分搜索树的集合</h3><pre><code>public class BSTSet&lt;E extends Comparable&lt;E&gt;&gt; implements Set&lt;E&gt; {
 
     private BST&lt;E&gt; bst;
 
@@ -480,19 +461,7 @@ public class BSTSet&lt;E extends Comparable&lt;E&gt;&gt; implements Set&lt;E&gt;
     }
 
 }
-</code></pre><h3 id="基于链表实现的集合类"><a href="#基于链表实现的集合类" class="headerlink" title="基于链表实现的集合类"></a>基于链表实现的集合类</h3><pre><code>package fanda.zeng.set;
-
-import fanda.zeng.linkedlist.LinkedList;
-import fanda.zeng.utils.FileOperation;
-
-import java.util.ArrayList;
-
-/**
- * @Description: 基于LinkedList实现的集合
- * @Author: fanda
- * @Date: 2019/5/14
- */
-public class LinkedListSet&lt;E&gt; implements Set&lt;E&gt; {
+</code></pre><h3 id="底层为链表的集合"><a href="#底层为链表的集合" class="headerlink" title="底层为链表的集合"></a>底层为链表的集合</h3><pre><code>public class LinkedListSet&lt;E&gt; implements Set&lt;E&gt; {
 
     private LinkedList&lt;E&gt; linkedList ;
 
@@ -529,37 +498,21 @@ public class LinkedListSet&lt;E&gt; implements Set&lt;E&gt; {
     }
 
 }
-</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p>O(logn) 级别的复杂度比 O(n) 级别的要快很多。</p>
-<h3 id="LinkedListSet-的时间复杂度分析"><a href="#LinkedListSet-的时间复杂度分析" class="headerlink" title="LinkedListSet 的时间复杂度分析"></a>LinkedListSet 的时间复杂度分析</h3><pre><code>void add(E e) ; O(n)级别
-
-void remove(E e) ; O(n)级别
-
-boolean contains(E e) ; O(n)级别
-</code></pre><h3 id="BSTSet-的时间复杂度分析"><a href="#BSTSet-的时间复杂度分析" class="headerlink" title="BSTSet 的时间复杂度分析"></a>BSTSet 的时间复杂度分析</h3><p><img src="https://cl.ly/c7d6ad6f63e4/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%A0%91%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.jpg" alt=""></p>
-<p>假设是一颗满二叉树 ，则:</p>
-<p>0 层 : 1 个节点</p>
-<p>1 层 : 2 个节点</p>
-<p>2 层 : 4 个节点</p>
-<p>3 层 : 8 个节点</p>
-<p>…</p>
-<p>h-1 层 : 2^(h-1) 个节点</p>
-<p>总共是 h 层，共有如下这么多的节点数：</p>
-<p> T = 2^0 + 2^1 + 2^2 + 2^3 + … + 2^(h-1)</p>
-<p>根据等比数列的公式可得：</p>
-<p> T = (1 * (1 - 2^h )) / (1 - 2) = 2^h -1</p>
-<p>因此： h = log(n+1) = O(logn)</p>
-<pre><code>void add(E e) ; O(logn)级别
-
-E remove() ; O(logn)级别
-
-E contains() ; O(logn)级别
-</code></pre><h2 id="BSTSet-和-LinkedListSet-的性能比较"><a href="#BSTSet-和-LinkedListSet-的性能比较" class="headerlink" title="BSTSet 和 LinkedListSet 的性能比较"></a>BSTSet 和 LinkedListSet 的性能比较</h2><pre><code>package fanda.zeng.set;
-
-import fanda.zeng.utils.FileOperation;
-
-import java.util.ArrayList;
-
-public class SetMain {
+</code></pre><h2 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h2><p><strong>O(logn)</strong> 级别的复杂度比 <strong>O(n)</strong> 级别的要快很多。</p>
+<h3 id="LinkedListSet-的时间复杂度分析"><a href="#LinkedListSet-的时间复杂度分析" class="headerlink" title="LinkedListSet 的时间复杂度分析"></a>LinkedListSet 的时间复杂度分析</h3><p>void add(E e) ， <strong>O(n)</strong> 级别</p>
+<p>void remove(E e) ， <strong>O(n)</strong> 级别</p>
+<p>boolean contains(E e) ， <strong>O(n)</strong> 级别</p>
+<h3 id="BSTSet-的时间复杂度分析"><a href="#BSTSet-的时间复杂度分析" class="headerlink" title="BSTSet 的时间复杂度分析"></a>BSTSet 的时间复杂度分析</h3><p><img src="https://cl.ly/71df0861db52/%E4%BA%8C%E5%88%86%E6%90%9C%E7%B4%A2%E6%A0%91%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90.jpg" alt=""></p>
+<p>如上图所示，总共是 h 层，共有如下 T 的节点数：</p>
+<pre><code>T = 2^0 + 2^1 + 2^2 + 2^3 + ... + 2^(h-1)
+</code></pre><p>根据等比数列的公式可得：</p>
+<pre><code>T = (1 * (1 - 2^h )) / (1 - 2) = 2^h -1
+</code></pre><p>结论： <code>h = log(n+1) = O(logn)</code></p>
+<p>那么底层为二分搜索树的集合的复杂度如下：</p>
+<p>void add(E e) ， <strong>O(logn)</strong> 级别</p>
+<p>E remove() ， <strong>O(logn)</strong> 级别</p>
+<p>E contains() ， <strong>O(logn)</strong> 级别</p>
+<h2 id="BSTSet-和-LinkedListSet-的性能比较"><a href="#BSTSet-和-LinkedListSet-的性能比较" class="headerlink" title="BSTSet 和 LinkedListSet 的性能比较"></a>BSTSet 和 LinkedListSet 的性能比较</h2><pre><code>public class SetMain {
 
     public static void main(String[] args) {
         String fileName = &quot;F:\\java_projects\\data_structure\\DataStructures\\src\\a-tale-of-two-cities.txt&quot;;
@@ -585,11 +538,11 @@ public class SetMain {
         return (endTime - startTime) / 1000000000.0;
     }
 }
-</code></pre><p>结果：</p>
+</code></pre><p>运行结果：</p>
 <pre><code>testSet(bstSet,fileName) = 0.418924909
 
 testSet(linkedListSet,fileName) = 7.559209249
-</code></pre><p>总结：BSTSet 的性能比 LinkedListSet 好很多，因些 BSTSet 是 O（logn）级别的，LinkedListSet 是 O（n）级别的。</p>
+</code></pre><p><em>总结：<code>BSTSet</code> 的性能比 <code>LinkedListSet</code> 好很多，因为 <code>BSTSet</code> 是 <strong>O(logn)</strong> 级别的，<code>LinkedListSet</code> 是 <strong>O(n)</strong> 级别的。</em></p>
 <h2 id="LeetCode-的题目解答"><a href="#LeetCode-的题目解答" class="headerlink" title="LeetCode 的题目解答"></a>LeetCode 的题目解答</h2><h3 id="349-两个数组的交集"><a href="#349-两个数组的交集" class="headerlink" title="349.两个数组的交集"></a>349.两个数组的交集</h3><p>给定两个数组，编写一个函数来计算它们的交集。</p>
 <p>示例 1:</p>
 <pre><code>输入: nums1 = [1,2,2,1], nums2 = [2,2]
@@ -597,7 +550,7 @@ testSet(linkedListSet,fileName) = 7.559209249
 </code></pre><p>示例 2:</p>
 <pre><code>输入: nums1 = [4,9,5], nums2 = [9,4,9,8,4]
 输出: [9,4]
-</code></pre><p>代码实现：</p>
+</code></pre><p>解题代码如下：</p>
 <pre><code>public int[] intersection(int[] nums1, int[] nums2) {
     TreeSet&lt;Integer&gt; treeSet = new TreeSet&lt;&gt;();
     // 将第一个数组做去重处理
@@ -846,7 +799,7 @@ testSet(linkedListSet,fileName) = 7.559209249
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#集合"><span class="nav-number">1.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.1.</span> <span class="nav-text">代码实现：</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集合接口类"><span class="nav-number">1.1.1.</span> <span class="nav-text">集合接口类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于二分搜索树实现的集合类"><span class="nav-number">1.1.2.</span> <span class="nav-text">基于二分搜索树实现的集合类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基于链表实现的集合类"><span class="nav-number">1.1.3.</span> <span class="nav-text">基于链表实现的集合类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListSet-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListSet 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTSet-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTSet 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTSet-和-LinkedListSet-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTSet 和 LinkedListSet 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#349-两个数组的交集"><span class="nav-number">1.4.1.</span> <span class="nav-text">349.两个数组的交集</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#集合"><span class="nav-number">1.</span> <span class="nav-text">集合</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#集合代码实现"><span class="nav-number">1.1.</span> <span class="nav-text">集合代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集合接口定义"><span class="nav-number">1.1.1.</span> <span class="nav-text">集合接口定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层为二分搜索树的集合"><span class="nav-number">1.1.2.</span> <span class="nav-text">底层为二分搜索树的集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#底层为链表的集合"><span class="nav-number">1.1.3.</span> <span class="nav-text">底层为链表的集合</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时间复杂度分析"><span class="nav-number">1.2.</span> <span class="nav-text">时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#LinkedListSet-的时间复杂度分析"><span class="nav-number">1.2.1.</span> <span class="nav-text">LinkedListSet 的时间复杂度分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BSTSet-的时间复杂度分析"><span class="nav-number">1.2.2.</span> <span class="nav-text">BSTSet 的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BSTSet-和-LinkedListSet-的性能比较"><span class="nav-number">1.3.</span> <span class="nav-text">BSTSet 和 LinkedListSet 的性能比较</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LeetCode-的题目解答"><span class="nav-number">1.4.</span> <span class="nav-text">LeetCode 的题目解答</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#349-两个数组的交集"><span class="nav-number">1.4.1.</span> <span class="nav-text">349.两个数组的交集</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
