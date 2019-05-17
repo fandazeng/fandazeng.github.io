@@ -109,17 +109,17 @@
 
 
 
-<meta name="description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+<meta name="description" content="动态数组数组特点 只能存储同一种数据类型的数据。 一旦初始化，长度固定。  数组中的元素与元素之间的内存地址是连续的  数组的优点是：随机访问。数组最好应用于索引有语意的情况下。 动态数组： Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要封装自己的数组类，数组的大小可以动态变化。 数据结构数据结构的本质跟数据库一样，也是储存数据，然后再对数据进行高效的增删改查操作，只不过">
 <meta name="keywords" content="java,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="数组">
 <meta property="og:url" content="http://yoursite.com/2019/05/10/data_structures/Array/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
-<meta property="og:updated_time" content="2019-05-10T10:33:39.465Z">
+<meta property="og:description" content="动态数组数组特点 只能存储同一种数据类型的数据。 一旦初始化，长度固定。  数组中的元素与元素之间的内存地址是连续的  数组的优点是：随机访问。数组最好应用于索引有语意的情况下。 动态数组： Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要封装自己的数组类，数组的大小可以动态变化。 数据结构数据结构的本质跟数据库一样，也是储存数据，然后再对数据进行高效的增删改查操作，只不过">
+<meta property="og:updated_time" content="2019-05-17T07:39:25.309Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="数组">
-<meta name="twitter:description" content="动态数组数组的优点是：快速查询。数组最好应用于索引有语意的情况下。 Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。 数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的">
+<meta name="twitter:description" content="动态数组数组特点 只能存储同一种数据类型的数据。 一旦初始化，长度固定。  数组中的元素与元素之间的内存地址是连续的  数组的优点是：随机访问。数组最好应用于索引有语意的情况下。 动态数组： Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要封装自己的数组类，数组的大小可以动态变化。 数据结构数据结构的本质跟数据库一样，也是储存数据，然后再对数据进行高效的增删改查操作，只不过">
 
 
 
@@ -411,12 +411,18 @@
       
 
       
-        <h1 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h1><p>数组的优点是：快速查询。<br>数组最好应用于索引有语意的情况下。</p>
-<p>Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要创建我们自己的数组类，数组的大小可以动态变化，我们称之为动态数组。</p>
-<p>数据结构的本质跟数据库一样的，也是储存数据，之后再对数据进行高效的增删改查操作，只不过我们创建的数据结构会把数据存储在内存中。学数据结构，就是要学数据是通过什么样的方式来进行存储的，以及怎样的对数据进行增删改查操作。</p>
-<p>注意：数组的容量(capacity)跟实际存储的大小(size)的区分，容量是数组最大可以存储数据的大小，实际存储的数量小于等于容量。</p>
-<h2 id="简单的时间复杂度分析"><a href="#简单的时间复杂度分析" class="headerlink" title="简单的时间复杂度分析"></a>简单的时间复杂度分析</h2><p>O(1) , O(n) , O(logn) , O(nlogn) , O(n^2)</p>
-<p>大O 描述的是算法的运行时间和输入数据之间的关系。</p>
+        <h1 id="动态数组"><a href="#动态数组" class="headerlink" title="动态数组"></a>动态数组</h1><h2 id="数组特点"><a href="#数组特点" class="headerlink" title="数组特点"></a>数组特点</h2><ul>
+<li>只能存储同一种数据类型的数据。</li>
+<li>一旦初始化，长度固定。 </li>
+<li>数组中的元素与元素之间的内存地址是连续的</li>
+</ul>
+<p>数组的优点是：随机访问。<br>数组最好应用于索引有语意的情况下。</p>
+<p>动态数组： Java 中的数组是静态数组，创建的时候就决定了数组的大小，所以我们需要封装自己的数组类，数组的大小可以动态变化。</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>数据结构的本质跟数据库一样，也是储存数据，然后再对数据进行高效的增删改查操作，只不过数据结构把数据存储在内存中。学习数据结构，就是要了解数据是通过怎样的方式来进行存储以及增删改查操作。</p>
+<h2 id="数组的容量跟大小"><a href="#数组的容量跟大小" class="headerlink" title="数组的容量跟大小"></a>数组的容量跟大小</h2><p>数组的容量 (capacity) 是数组最大可以存储数据的大小，实际存储的大小 (size) 小于等于容量。</p>
+<h2 id="简单的时间复杂度分析"><a href="#简单的时间复杂度分析" class="headerlink" title="简单的时间复杂度分析"></a>简单的时间复杂度分析</h2><p>常见的时间复杂度有如下几种：</p>
+<p><strong>O(1) ，O(n) ， O(logn) ， O(nlogn) ， O(n^2)</strong></p>
+<p>大写的 O (简称大O) 描述的是算法的运行时间和输入数据之间的关系。</p>
 <p>比如有这样一个方法：</p>
 <pre><code>public static int sum(int[] nums) {
        int sum = 0;
@@ -425,28 +431,28 @@
        }
        return sum;
    }
-</code></pre><p>这个方法的时间复杂度为 O(n) ，为什么呢？</p>
-<p>首先要给 n 一个定义，在这个算法中， n 是 nums 中的元素的个数。根据定义，所以这个算法运行时间的多少与 nums 中的元素的个数成线性关系。之所以叫 O(n) ，是因为我们忽略了常数，实际时间 T = c1*n +c2 。在上述算法中，每个加法运算时，都需要取出元素，然后运行加法运算，然后再返回结果，这里面需要的时间可以比作为 c1 。在开始的时候，我们需要初始化 sum ，然后把 0 赋值给 sum ，这里面的时间可以算作 c2。因为 c1 和 c2 实际上是常数，而且很难确定(这跟 CPU 的运作有关)，因此可以忽略。其实大 O  的意思是渐进时间复杂度，描述的是 n 趋近于无穷的情况，算法之间的快慢。上述时间公式中，当 n 趋近于无穷的情况时，小的项就可以忽略了，n 越大，越能体现一个算法的快慢。</p>
-<p>因此，以下实际时间对应的时间复杂度如下:</p>
+</code></pre><p>这个方法的时间复杂度为 <strong>O(n)</strong> ，为什么呢？</p>
+<ol>
+<li><p>首先要给 n 一个定义，在这个算法中， n 是 nums 中元素的个数。由定义可知，该算法运行的时间与 nums 中的元素个数成线性关系。</p>
+</li>
+<li><p>该算法实际时间时间应该如以下公式：<code>T = c1*n +c2</code> 。上述算法每次运行加法运算时都需要取出元素，然后运行加法运算，最后再返回结果，这过程需要的时间可以比作为 c1 ，sum 的初始化时间可以算作 c2，。因为 c1 和 c2 实际上是常数，而且很难确定(这跟 CPU 的运作有关)，因此可以忽略。</p>
+</li>
+<li><p>实际上，大 O  的意思是渐进时间复杂度，描述的是 n 趋近于无穷时，算法之间的时间快慢。上述时间公式中，当 n 趋近于无穷的情况时，小的项就可以忽略了，n 越大，越能体现一个算法的快慢。</p>
+</li>
+</ol>
+<p>因此，以下时间公式对应的时间复杂度如下:</p>
 <ul>
-<li><p>T = 2*n +2              O(n)</p>
+<li><p>T = 2n +2          ，    <strong>O(n)</strong></p>
 </li>
-<li><p>T = 2000*n +10000        O(n)</p>
+<li><p>T = 2000n +10000    ，    <strong>O(n)</strong></p>
 </li>
-<li><p>T = 1<em>n</em>n +10            O(n^2)</p>
+<li><p>T = 1n^2 +10        ，    <strong>O(n^2)</strong></p>
 </li>
-<li><p>T = 2<em>n</em>n +10n +10        O(n^2)</p>
+<li><p>T = 2n^2 +10n +10    ，    <strong>O(n^2)</strong></p>
 </li>
 </ul>
-<p>如果一个算法的复杂度为 O(n^2) ，另一个算法为 O(n) ，并不能说明在任何输入的情况下，O(n^2) 的时间要大于 O(n)的时间，具体的我们要看前面的常数。在实际运用中，不一定非要选择一个 O(n) 的算法而抛弃 O(n^2) 的算法，要看 n 的数量。</p>
-<h2 id="代码实现："><a href="#代码实现：" class="headerlink" title="代码实现："></a>代码实现：</h2><pre><code>package fanda.zeng.array;
-
-/**
- * @Description: 自定义动态数组
- * @Author: fanda
- * @Date: 2019/5/10
- */
-public class Array&lt;E&gt; {
+<p><strong>注意：如果一个算法的复杂度为 O(n^2) ，另一个算法为 O(n) ，并不能说明在任何输入的情况下，O(n^2) 的时间要大于 O(n)的时间，具体要看前面的常数。在实际运用中，不一定非要选择一个 O(n) 的算法而抛弃 O(n^2) 的算法，要根据 n 的数量来决定。</strong></p>
+<h1 id="动态数组代码实现"><a href="#动态数组代码实现" class="headerlink" title="动态数组代码实现"></a>动态数组代码实现</h1><pre><code>public class Array&lt;E&gt; {
 
     // 类内维护的数组
     private E[] data;
@@ -706,68 +712,32 @@ public class Array&lt;E&gt; {
         }
         res.append(&apos;]&apos;);
         return res.toString();
-    }
-
-    public static void main(String[] args) {
-
-        Array&lt;Integer&gt; scores = new Array&lt;&gt;();
-        for (int i = 0; i &lt; 10; i++) {
-            scores.addLast(i);
-        }
-
-        // 增
-        scores.addFirst(-1);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.addLast(200);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.add(10, 100);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-
-        // 删
-        scores.removeFirst();
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.removeLast();
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.remove(5);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-        scores.removeElement(6);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-
-        //改
-        scores.set(0, 99);
-        System.out.println(scores.toString() + &quot;\n&quot;);
-
-        // 查
-        System.out.println(scores.getFirst() + &quot; 、&quot; + scores.getLast() + &quot; 、&quot; +
-                scores.get(5) + &quot; 、&quot; + scores.contain(6) + &quot; 、&quot; + scores.find(60));
-    }
+    }    
 }
-</code></pre><h2 id="动态数组的时间复杂度分析"><a href="#动态数组的时间复杂度分析" class="headerlink" title="动态数组的时间复杂度分析"></a>动态数组的时间复杂度分析</h2><h3 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h3><p>addLast(e)            </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
-<p>addFirst(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>add(index ,e)</p>
-<p>O(2/n) = O(n) ，跟数组里面的元素个数 n 有关，可以想像成数组里面的元素需要移动 2/n 的次数，常数忽略。</p>
-<p>因此，添加操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
-<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>removeLast(e)            </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
-<p>removeFirst(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>remove(index ,e)</p>
-<p>O(2/n) = O(n) ，跟数组里面的元素个数 n 有关，可以想像成数组里面的元素需要移动 2/n 的次数，常数忽略。</p>
-<p>因此，删除操作的时间复杂度为 O(n) 级别的，取最糟糕的情况。</p>
-<h3 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3><p>set(index ,e)    </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关，(即支持随机访问)</p>
-<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p>get(index) </p>
-<p>O(1) ，跟数组里面的元素个数 n 无关。</p>
-<p>contain(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>find(e)        </p>
-<p>O(n) ，跟数组里面的元素个数 n 有关。</p>
-<p>因此，查询操作在已知索引情况下的时间复杂度为 O(1) 级别的，否则为 O(n) 级别的 。</p>
-<h3 id="resize-方法"><a href="#resize-方法" class="headerlink" title="resize 方法"></a>resize 方法</h3><p>这里要用均摊计算，计算均摊时间复杂度，不能用最坏的情况，这样比较有意义。</p>
-<p>假设当前 capacity = 8 ,并且每一次添加操作都使用 addLast 。则需要 9 次 addLast 操作，才触发一次 resize 方法，再加上 8 次的赋值操作，总共进行了 17 次基本操作(给一个空间赋值)。所以平均每次 addLast 操作，进行了 2 次基本操作。现在假设 capacity = n ,则 n+1 次 addLast 操作才会触发一次 resize 方法，总共进行 2n+1 次基本操作，所以平均每次 addLast 操作，进行了 2 次基本操作。这样均摊计算，时间复杂度为 O(1) 级别的。</p>
-<p><strong>总结：在索引已知的情况下，查、改操作为 O(1) 级别的，增、删操作则跟索引无关，为 O(n) 级别的。所以就像开头所说的，数组最好在已知索引的情况下使用，这样便可以快速地进行查、改操作。</strong></p>
+</code></pre><h2 id="动态数组的时间复杂度分析"><a href="#动态数组的时间复杂度分析" class="headerlink" title="动态数组的时间复杂度分析"></a>动态数组的时间复杂度分析</h2><h3 id="添加操作"><a href="#添加操作" class="headerlink" title="添加操作"></a>添加操作</h3><p>addLast(e)    ，<strong>O(1)</strong> ，跟数组里面的元素个数 n <strong>无关</strong>。</p>
+<p>addFirst(e)    ，<strong>O(n)</strong> ，跟数组里面的元素个数 n <strong>有关</strong>。</p>
+<p>add(index ,e) ，<strong>O(2/n) = O(n)</strong> ，跟数组里面的元素个数 n <strong>有关</strong>，可以想像成数组里面的元素需要移动 2/n 次，常数忽略。</p>
+<p><em>因此，添加操作的时间复杂度为 <strong>O(n)</strong> 级别的，取最糟糕的情况。</em></p>
+<h3 id="删除操作"><a href="#删除操作" class="headerlink" title="删除操作"></a>删除操作</h3><p>removeLast(e) ，<strong>O(1)</strong> ，跟数组里面的元素个数 n <strong>无关</strong>。</p>
+<p>removeFirst(e)    ，<strong>O(n)</strong> ，跟数组里面的元素个数 n <strong>有关</strong>。</p>
+<p>remove(index ,e) ，<strong>O(2/n) = O(n)</strong> ，跟数组里面的元素个数 n <strong>有关</strong>，可以想像成数组里面的元素需要移动 2/n 次，常数忽略。</p>
+<p><em>因此，删除操作的时间复杂度为 <strong>O(n)</strong> 级别的，取最糟糕的情况。</em></p>
+<h3 id="修改操作"><a href="#修改操作" class="headerlink" title="修改操作"></a>修改操作</h3><p>set(index ,e) ，<strong>O(1)</strong> ，跟数组里面的元素个数 n <strong>无关</strong>，(即支持随机访问)</p>
+<h3 id="查询操作"><a href="#查询操作" class="headerlink" title="查询操作"></a>查询操作</h3><p>get(index) ，<strong>O(1)</strong> ，跟数组里面的元素个数 n <strong>无关</strong>。</p>
+<p>contain(e) ，<strong>O(n)</strong> ，跟数组里面的元素个数 n <strong>有关</strong>。</p>
+<p>find(e)    ，<strong>O(n)</strong> ，跟数组里面的元素个数 n <strong>有关</strong>。</p>
+<p><em>因此，查询操作在已知索引情况下的时间复杂度为 <strong>O(1)</strong> 级别，否则为 <strong>O(n)</strong> 级别 。</em></p>
+<h3 id="resize-方法"><a href="#resize-方法" class="headerlink" title="resize 方法"></a>resize 方法</h3><p>这里要用均摊的方式来计算，计算均摊时间复杂度，不取最坏的情况，这样才比较有意义。</p>
+<p>分析如下：</p>
+<ol>
+<li><p>假设当前 <code>capacity = 8</code> ，并且每次添加操作都使用 <code>addLast</code> ，则需要 <code>9</code> 次 <code>addLast</code> 操作才触发一次 <code>resize</code> 方法，再加上 <code>8</code> 次的拷贝值操作，总共进行了 <code>17</code> 次基本操作(给一个空间赋值算一次)。因此，平均每次 <code>addLast</code> 操作，进行了 <code>2</code> 次基本操作。</p>
+</li>
+<li><p>现在假设 <code>capacity = n</code> ,则 <code>n+1</code> 次 <code>addLast</code> 操作才会触发一次 <code>resize</code> 方法，总共进行 <code>2n+1</code> 次基本操作，所以平均每次 <code>addLast</code> 操作，进行了 <code>2</code> 次基本操作。</p>
+</li>
+<li><p>这样均摊来计算，时间复杂度为 <strong>O(1)</strong> 级别的。</p>
+</li>
+</ol>
+<p><em>总结：在索引已知的情况下，查、改操作为 <strong>O(1)</strong> 级别的，增、删操作则跟索引无关，为 <strong>O(n)</strong> 级别的。所以就像开头所说的，数组最好在已知索引的情况下使用，这样便可以快速地进行查、改操作。</em></p>
 
       
     </div>
@@ -993,7 +963,7 @@ public class Array&lt;E&gt; {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态数组"><span class="nav-number">1.</span> <span class="nav-text">动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的时间复杂度分析"><span class="nav-number">1.1.</span> <span class="nav-text">简单的时间复杂度分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码实现："><span class="nav-number">1.2.</span> <span class="nav-text">代码实现：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态数组的时间复杂度分析"><span class="nav-number">1.3.</span> <span class="nav-text">动态数组的时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加操作"><span class="nav-number">1.3.1.</span> <span class="nav-text">添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除操作"><span class="nav-number">1.3.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">1.3.3.</span> <span class="nav-text">修改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询操作"><span class="nav-number">1.3.4.</span> <span class="nav-text">查询操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize-方法"><span class="nav-number">1.3.5.</span> <span class="nav-text">resize 方法</span></a></li></ol></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#动态数组"><span class="nav-number">1.</span> <span class="nav-text">动态数组</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数组特点"><span class="nav-number">1.1.</span> <span class="nav-text">数组特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据结构"><span class="nav-number">1.2.</span> <span class="nav-text">数据结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数组的容量跟大小"><span class="nav-number">1.3.</span> <span class="nav-text">数组的容量跟大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#简单的时间复杂度分析"><span class="nav-number">1.4.</span> <span class="nav-text">简单的时间复杂度分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#动态数组代码实现"><span class="nav-number">2.</span> <span class="nav-text">动态数组代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#动态数组的时间复杂度分析"><span class="nav-number">2.1.</span> <span class="nav-text">动态数组的时间复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#添加操作"><span class="nav-number">2.1.1.</span> <span class="nav-text">添加操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除操作"><span class="nav-number">2.1.2.</span> <span class="nav-text">删除操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改操作"><span class="nav-number">2.1.3.</span> <span class="nav-text">修改操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询操作"><span class="nav-number">2.1.4.</span> <span class="nav-text">查询操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#resize-方法"><span class="nav-number">2.1.5.</span> <span class="nav-text">resize 方法</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
