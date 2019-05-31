@@ -1,0 +1,1152 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="java,基础知识," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="类的定义类的定义由访问级别、类型、类名、是否抽象、是否静态、泛型标识、继承或实现关键字、父类或接口名称等组成。类的访问级别有 public 和无访问控制符，类型分为 class 、 interface 、 enum 。 类主要由两部分组成：成员和方法。在定义类时，推荐首先定义变量，然后定义方法。公有方法是类的调用者和维护者最关心的方法，因此最好首屏展示；保护方法只被子类关心，重要性仅次于公有方法；">
+<meta name="keywords" content="java,基础知识">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类介绍">
+<meta property="og:url" content="http://yoursite.com/2019/05/30/data_structures/Class/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="类的定义类的定义由访问级别、类型、类名、是否抽象、是否静态、泛型标识、继承或实现关键字、父类或接口名称等组成。类的访问级别有 public 和无访问控制符，类型分为 class 、 interface 、 enum 。 类主要由两部分组成：成员和方法。在定义类时，推荐首先定义变量，然后定义方法。公有方法是类的调用者和维护者最关心的方法，因此最好首屏展示；保护方法只被子类关心，重要性仅次于公有方法；">
+<meta property="og:image" content="https://cl.ly/3502879e6ccc/%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E8%AF%AD%E6%B3%95%E5%8C%BA%E5%88%AB.jpg">
+<meta property="og:image" content="https://cl.ly/7ab301f292ea/%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6.jpg">
+<meta property="og:image" content="https://cl.ly/85dd0c84d159/this%E4%B8%8Esuper.jpg">
+<meta property="og:image" content="https://cl.ly/fe210057bbd8/%E7%B1%BB%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE1.jpg">
+<meta property="og:image" content="https://cl.ly/b319130d2294/%E7%B1%BB%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg">
+<meta property="og:image" content="https://cl.ly/e7382380aad0/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.jpg">
+<meta property="og:updated_time" content="2019-05-31T09:09:02.896Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="类介绍">
+<meta name="twitter:description" content="类的定义类的定义由访问级别、类型、类名、是否抽象、是否静态、泛型标识、继承或实现关键字、父类或接口名称等组成。类的访问级别有 public 和无访问控制符，类型分为 class 、 interface 、 enum 。 类主要由两部分组成：成员和方法。在定义类时，推荐首先定义变量，然后定义方法。公有方法是类的调用者和维护者最关心的方法，因此最好首屏展示；保护方法只被子类关心，重要性仅次于公有方法；">
+<meta name="twitter:image" content="https://cl.ly/3502879e6ccc/%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E8%AF%AD%E6%B3%95%E5%8C%BA%E5%88%AB.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/30/data_structures/Class/"/>
+
+
+
+
+
+     <title> 类介绍 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/30/data_structures/Class/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">类介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-30T11:08:39+08:00">
+                2019-05-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/类介绍/" itemprop="url" rel="index">
+                    <span itemprop="name">类介绍</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/05/30/data_structures/Class/" class="leancloud_visitors" data-flag-title="类介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="类的定义"><a href="#类的定义" class="headerlink" title="类的定义"></a>类的定义</h2><p>类的定义由访问级别、类型、类名、是否抽象、是否静态、泛型标识、继承或实现关键字、父类或接口名称等组成。类的访问级别有 <code>public</code> 和无访问控制符，类型分为 <code>class</code> 、 <code>interface</code> 、 <code>enum</code> 。</p>
+<p>类主要由两部分组成：成员和方法。在定义类时，推荐首先定义变量，然后定义方法。公有方法是类的调用者和维护者最关心的方法，因此最好首屏展示；保护方法只被子类关心，重要性仅次于公有方法；私有方法对外部来说是一个黑盒实现，因此一般不需要被特别关注；最后是 <code>getter/setter</code> 方法，虽然它们也是公有方法，但是因为承载的信息价值较低，所以放在类最后。</p>
+<p><em>方法顺序： 公有方法 -&gt; 保护方法 -&gt; 私有方法 -&gt; getter/setter 方法 。</em></p>
+<h2 id="接口与抽象类"><a href="#接口与抽象类" class="headerlink" title="接口与抽象类"></a>接口与抽象类</h2><p>定义类的过程就是抽象和封装的过程，而接口与抽象类则是对实体类进行更高层次的抽象，仅定义公共行为和特征。接口与抽象类均不能被实例化，但可以定义引用变量指向实例对象。</p>
+<p>接口与抽象类从语法上的区别如下：</p>
+<p><img src="https://cl.ly/3502879e6ccc/%E6%8E%A5%E5%8F%A3%E4%B8%8E%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E8%AF%AD%E6%B3%95%E5%8C%BA%E5%88%AB.jpg" alt=""></p>
+<p>抽象类在被继承时体现的是 <code>is-a</code> 关系，接口在被实现时体现的是 <code>can-do</code> 关系。抽象类是模板式设计，而接口是契约式设计。接口是顶级的 “类” ，虽然关键字是 <code>interface</code> ，但是编译之后的字码码扩展码仍是 <code>.class</code> 。抽象类是二当家，接口位于顶层，而抽象类对各个接口进行了组合，然后实现部分接口行为。</p>
+<p><em>建议： 当纠结定义接口还是抽象类时，优先推荐定义为接口，遵循接口隔离原则，按某个维度划分成多个接口，然后再用抽象类去 <code>implements</code> 某些接口，这样做可方便后续的扩展和重构。</em></p>
+<h2 id="内部类"><a href="#内部类" class="headerlink" title="内部类"></a>内部类</h2><p>有如下4种类型：</p>
+<ul>
+<li>静态内部类，如： <code>static class StaticInnerClass{}</code> ;</li>
+<li>成员内部类，如： <code>private class InstanceInnerClass{}</code> ;</li>
+<li>局部内部类，定义在方法或者表达式内部； </li>
+<li>匿名内部类，如： <code>(new Thread(){}).start()</code> ;</li>
+</ul>
+<p>外部类与内部类之间使用 <strong>$</strong> 符号分隔，匿名内部类使用数字进行编号，而方法内部类，在类名前还有一个编号来标识是哪个方法。匿名内部类和包内静态内部类是比较常用的方式，这样做的好处是：</p>
+<ol>
+<li>作用域不会扩散到包外。</li>
+<li>可以通过 “外部类.内部类”的方式直接访问。</li>
+<li>内部类可以访问外部类中的所有静态属性和方法。</li>
+</ol>
+<p>在 JDK 源码中，使用内部类封装某种属性和操作的方式比较常见。</p>
+<h2 id="访问权限控制"><a href="#访问权限控制" class="headerlink" title="访问权限控制"></a>访问权限控制</h2><p>Java 中的访问权限包括四个等级，访问权限控制及可见范围如下表：</p>
+<p><img src="https://cl.ly/7ab301f292ea/%E8%AE%BF%E9%97%AE%E6%9D%83%E9%99%90%E6%8E%A7%E5%88%B6.jpg" alt=""></p>
+<p>在定义类时，要慎重思考该方法、属性、内部类的访问权限，提倡严控访问范围：</p>
+<ol>
+<li>如果不允许外部直接通过 new 创建对象，构造方法必须是 <code>private</code></li>
+<li>工具类不允许有 <code>public</code> 或 <code>default</code> 构造方法</li>
+<li>类非 <code>static</code> 成员变量并且与子类共享，必须是 <code>protected</code></li>
+<li>类非 <code>static</code> 成员变量并且仅在本类使用，必须是 <code>private</code></li>
+<li>类 <code>static</code> 成员变量如果仅在本类使用，必须是 <code>private</code></li>
+<li>若是 <code>static</code> 成员变量，必须考虑是否为 <code>final</code></li>
+<li>类成员方法只供类内部调用，必须是 <code>private</code></li>
+<li>类成员方法只对继承类公开，那么限制为 <code>protected</code></li>
+</ol>
+<h2 id="this-与-super"><a href="#this-与-super" class="headerlink" title="this 与 super"></a>this 与 super</h2><p>如果 <code>this</code> 和 <code>super</code> 指代构造方法，即在一个构造方法中必须出现在方法体的第一行，只能使用 <code>this</code> 或者 <code>super</code> 之一，且只能出现一次。由于 <code>this</code> 和 <code>super</code> 都在实例化阶段调用，所以不能在静态方法和静态代码块中使用 <code>this</code> 和 <code>super</code> 关键字。</p>
+<p><code>this</code> 与 <code>super</code> 的异同点如下图：</p>
+<p><img src="https://cl.ly/85dd0c84d159/this%E4%B8%8Esuper.jpg" alt=""></p>
+<h2 id="类关系"><a href="#类关系" class="headerlink" title="类关系"></a>类关系</h2><p>有如下6种类型：</p>
+<p>【继承】 extends <strong>(is -a</strong>)<br>【实现】 implements (<strong>can-do</strong>)<br>【组合】 类是成员变量 (<strong>contains-a</strong>)<br>【聚合】 类是成员变量 (<strong>has-a</strong>)<br>【依赖】 是除组合与聚合外的单向弱关系，比如使用另一个类的属性、方法或以其作为方法的参数输入或方法的返回值输出 (<strong>depends-a</strong>)<br>【关联】 是互相平等的依赖关系 (<strong>links-a</strong>)</p>
+<p>分析：</p>
+<p>组合：类关系中的组合是一种完全绑定的关系，所有成员共同完成一件使命，它们的生命周期是一样的。组合体现的是非常强的整体与部分的关系，同生共死，部分不能在整体之间共享。<br>聚合：聚合是一种可以拆分的整体与部分的关系，是非常松散的暂时组合，部分可以被拆出来给另加一个整体。<br>依赖：依赖往往是模块解耦的最佳点。<br>关联：可以在关联上进行解耦，但是难度大于依赖关系。</p>
+<p>在业务重构过程中，往往会把原来强组合的关系拆开来，供其他模块调用。</p>
+<p><img src="https://cl.ly/fe210057bbd8/%E7%B1%BB%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE1.jpg" alt=""></p>
+<p><img src="https://cl.ly/b319130d2294/%E7%B1%BB%E5%85%B3%E7%B3%BB%E7%A4%BA%E6%84%8F%E5%9B%BE2.jpg" alt=""></p>
+<h2 id="序列化"><a href="#序列化" class="headerlink" title="序列化"></a>序列化</h2><p>内存中的数据对象只有转换为二进制流才可以进行数据持久化和网络传输。将数据对象转换为二进制流的过程称为对象的序列化。反之，将二进制流恢复为数据对象的过程称为反序列化。</p>
+<h3 id="Java-原生序列化"><a href="#Java-原生序列化" class="headerlink" title="Java 原生序列化"></a>Java 原生序列化</h3><p>Java 类通过实现 <code>Srializable</code> 接口来实现该类对象的序列化，这个接口非常特殊，没有任何方法，只起标识作用。Java 序列化保留了对象类的元数据（如类、成员变量、继承类信息等），以及对象数据等，兼容性最好，但不支持跨_语言，而且性能一般。</p>
+<p>实现 <code>Serializable</code> 接口的类建议设置 <code>serialVersionUID</code> 字段值，如果不设置，那么每次运行时，编译器会根据类的内部实现，包括类名、接口名、方法和属性等来自动生成 <code>serialVersionUID</code> 。如果类的源代码有修改，那么重新编译后 <code>serialVersionUID</code> 的取值可能会发生变化。因此实现 <code>Serializable</code> 接口的类一定要显式地定义 <code>serialVersionUID</code> 属性值。修改类时需要根据兼容性决定是否修改。</p>
+<ul>
+<li>如果是兼容升级，请不要修改 <code>serialVersionUID</code> 字段，避免反序列化失败。</li>
+<li>如果是不兼容升级，需要修改 <code>serialVersionUID值</code> ，避免反序列化混乱。</li>
+</ul>
+<p><em>注意：使用 Java 原生序列化需注意， Java 反序列化时不会调用类的无参构造方法， 而是调用 <code>native</code> 方法将成员变量赋值为对应类型的初始值。基于性能及兼容性考虑，不推荐使用 Java 原生序列化。</em></p>
+<h3 id="Hessian-序列化"><a href="#Hessian-序列化" class="headerlink" title="Hessian 序列化"></a>Hessian 序列化</h3><p><code>Hessian</code> 序列化是一种支持动态类型、跨语言、基于对象传输的网络协议。 Java 对象序列化的二进制流可以被其他语言（如C+、Python)反序列化。耗时比原生的要快，但是 <code>Hesian</code> 会把复杂对象所有属性存储在一一个 <code>Map</code> 中进行序列化。所以在父类、子存在同名成员变量的情况下，<code>Hessian</code> 序列化时，先序列化子类，然后序列化父类，因此反序列化结果会导致子类同名成员变量被父类的值覆盖。</p>
+<h3 id="JSON-原生序列化"><a href="#JSON-原生序列化" class="headerlink" title="JSON 原生序列化"></a>JSON 原生序列化</h3><p>是一种轻量级的数据交换格式，将数据对象转换为 <code>JSON</code> 字符串，可读性比较好，方便调试。在序列化过程中抛弃了类型信息，所以反序列化时只有提供类型信息才能准确地反序列化。</p>
+<p>注意：应用开发者对序列化要有一定的安全防范意识，对传入数据的内容进行校验或权限控制，及时更新安全漏洞，避免受到攻击。<a href="https://www.cnblogs.com/ssooking/p/5875215.html" target="_blank" rel="external">https://www.cnblogs.com/ssooking/p/5875215.html</a></p>
+<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><h3 id="方法签名"><a href="#方法签名" class="headerlink" title="方法签名"></a>方法签名</h3><p>方法签名包括方法名称和参数列表，是 JVM 标识方法的唯一索引，不包括返回值，更加不包括访问权限控制符、类型异常等。</p>
+<h3 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h3><p>参数在方法中，属于方法签名的一部分，包括参数类型和参数个数，多个参数用逗号相隔。形参是在方法定义阶段，实参是方法调用阶段。</p>
+<p><em>无论是对于基本数据类型，还是引用变量，Java 中参数传递都是值复制的传递过程。对于引用变量，复制指向对象的首地址，双方都可以通过自己的引用变量修改指向对象的相关属性。</em></p>
+<h4 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h4><p>可变参数（JDK5）：适用于不确定参数个数的场景（尽量不要使用，如果一定要用，一个方法中只能有一个可变参数，且要放在最后一个参数，建议不要用 <code>Object</code> 作为可变参数）。</p>
+<pre><code>用“参数类型...”的方式定义,如：
+public PrintStream printf(String format, Object... args){
+    return format(format, args);
+}
+//调用方法示例
+System.out.printf(&quot;%d&quot;, 8);
+System.out.printf(&quot;%d %s&quot;, 8, &quot;145sad&quot;);
+</code></pre><p>方法体中应该对传入的参数保持理性不信任，所以方法的第一步骤不是功能实现，而是参数预处理：</p>
+<ul>
+<li>入参保护：批处理数据时，对参数数量进行判断和控制。</li>
+<li>参数校验</li>
+</ul>
+<h4 id="参数校验场景"><a href="#参数校验场景" class="headerlink" title="参数校验场景"></a>参数校验场景</h4><p>需要进行参数校验的场景：</p>
+<ul>
+<li>调用频度低的方法。</li>
+<li>执行时间开销很大的方法。此情形中，参数校验时间几乎可以忽略不计，但如果因为参数错误导致中间执行回退或者错误，则得不信失。</li>
+<li>需要极高稳定性和可用性的方法。</li>
+<li>对外提供的开放接口。</li>
+<li>敏感权限入口。</li>
+</ul>
+<p>不需要进行参数校验的场景：</p>
+<ul>
+<li>极有可能被循环调用的方法。但在方法说明里必须<strong>注明外部参数检查</strong>。</li>
+<li>底层调用频度较高的方法。参数错误不太可能到底层才会暴露问题。</li>
+<li>声明成 <code>private</code> 的方法，能够确定参数没有问题，可以不校验。</li>
+</ul>
+<h3 id="构造方法"><a href="#构造方法" class="headerlink" title="构造方法"></a>构造方法</h3><p>方法名与类名相同的特殊方法，在对象初始化时可以通过不同的构造方法实现不同方式的对象初始化，有如下特征：</p>
+<ul>
+<li>名称必须与类名相同。</li>
+<li>是没有返回类型的，即使是 <code>void</code> 也不能有。它返回对象的地址并赋值给引用变量。</li>
+<li>不能被继承，不能被覆写，不能被直接调用(通过 <code>new</code> 关键字，<code>super</code> 调用父类构造，反射方式)。</li>
+<li>类定义时提供了默认无参构造，显式定义了有参构造，如果需要使用无参构造，也需显式定义无参构造。</li>
+<li>可以设置为私有方法。</li>
+</ul>
+<p>在类中，初始化顺序：静态代码块-&gt;构造方法。其中静态代码块只会被执行一次，第二次对象实例化时，不会运行。如果有继承关系，则初始化顺序为：父类静态代码块-&gt;子类静态代码块-&gt;父类构造方法-&gt;子类构造方法。</p>
+<p><em>接口不能定义构造方法，抽象类可以。枚举类中可以定义，但不能加 <code>public</code> 修饰，默认是 <code>private</code> 的，是绝对的单例，不允许外部以创建对象的方式生成枚举对象。构造方法的使命是构造对象时进行传参操作，不要引入业务逻辑。可以将初始化业务逻放在某个方法中，比如 <code>init()</code> ，当对象确认完成初始化工作之后，再显式调用。</em></p>
+<h3 id="类内方法"><a href="#类内方法" class="headerlink" title="类内方法"></a>类内方法</h3><p>除构造方法外，类中还有三类方法：实例方法、静态方法、静态代码块。</p>
+<p>实例方法： 依附于某个实际对象，并可以通过引用变量调用其方法，只有在对象创建之后才会被分配入口地址，方法内可以调用静态变量和静态方法。</p>
+<p>静态方法： 又称为类方法，当类加载后，即分配相应的内存空间，方法内不能使用实例成员变量和实例方法(可以调用静态变量和静态方法)，不能使用 <code>this</code> 和 <code>super</code> 关键字。如果使用了可修改的对象，那么在并发时会存在线程安全问题。</p>
+<p>静态代码块： 在类加载时就被调用，并且只执行一次，先于构造方法执行，不能存在于任何方法体内。方法内不能使用实例成员变量和实例方法(可以调用静态变量和静态方法)，不能使用 <code>this</code> 和 <code>super</code> 关键字。</p>
+<h3 id="getter-setter"><a href="#getter-setter" class="headerlink" title="getter/setter"></a>getter/setter</h3><p>一般不包含任何业务逻辑，仅仅是为类成员属性的读取和修改，好处：</p>
+<ul>
+<li>满足面向对象的封装特性。</li>
+<li>有利于统一控制。</li>
+</ul>
+<p>容易出错的定义方式：</p>
+<ul>
+<li><code>getter/setter</code> 中添加业务逻辑。</li>
+<li>同时定义 <code>isXxx()</code> 和<code>getXxx() 。</code></li>
+<li>相同的属性名容易带来歧义。</li>
+</ul>
+<h3 id="同步-异步"><a href="#同步-异步" class="headerlink" title="同步/异步"></a>同步/异步</h3><p>同步调用，是刚性调用，是阻塞式操作，必须等待调用方法体执行结束。</p>
+<p>异步调用，是柔性调用，是非阻塞式操作，在执行过程中，如调用其他方法，自己可以继承执行而不被阻塞等待方法调用完毕。调用结果由某种机制反向通知。</p>
+<h3 id="覆写"><a href="#覆写" class="headerlink" title="覆写"></a>覆写</h3><p>如果父类定义的方法达不到子类的期望，那么子类可以重新实现方法覆盖父类的实现。因为有些子类是延迟加载的，甚至是网络加载的，所以最终的实现需要在运行期判断，这就是所谓的动态绑定。动态绑定是多态性得以实现的重要因素，元空间有一个方法表保存着每 个可以实例化类的方法信息，JVM可以通过方法表快速地激活实例方法。如果某个类覆写了父类的某个方法，则方法表中的方法指向引用会指向子类的实现处。</p>
+<p>覆写是子类实现接口或者继承父类时，保持方法签名一致，实现不同的方法体，是垂直方向上行为的不同实现。</p>
+<p>代码通常是用这样的方式来调用子类的方法，通常这也被称作向上转型：</p>
+<pre><code>Father father = new Son();
+//Son覆写了此方法
+Father.doSomething();
+</code></pre><p>向上转型时，通过父类引用执行子类方法时需要注意以下两点：</p>
+<ol>
+<li>无法调用到子类中存在而父类本身不存在的方法。</li>
+<li>可以调用到子类中覆写了父类的方法，这是一种多态实现。</li>
+</ol>
+<p>想成功地覆写父类方法，需要满足以下4个条件(一大两小两同)：</p>
+<ul>
+<li>一大： 子类的方法访问权限只能相同或者变大。</li>
+<li>两小： 抛出异常和返回值只能变小，能够转型成父类对象。</li>
+<li>两同： 方法名和参数必须严格一致。</li>
+</ul>
+<p><em>注意：覆写只能针对非静态，非 <code>final</code> 、非构造方法。如果想在子类覆写的方法中调用父类方法，可以使用 <code>super</code> 关键字</em></p>
+<h3 id="重载"><a href="#重载" class="headerlink" title="重载"></a>重载</h3><p>重载是在同一个类中，如果多个方法有相同的名字、不同的参数，是水平方向上行为的不同实现。</p>
+<p>JVM 在重载方法中，选择合适的目标方法的顺序如下：</p>
+<ol>
+<li>精确匹配。</li>
+<li>如果是基本数据类型，自动转换成更大表示范围的基本类型。</li>
+<li>通过自动拆箱与装箱。</li>
+<li>通过子类向上转型继承路线依次匹配。</li>
+<li>通过可变参数匹配。</li>
+</ol>
+<h3 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h3><p>在没有泛型的时候，我们通常将入参定义为 <code>Object</code> 类型，进行强制类型转换时存在风险，泛型则能够解决这个问题。泛型的本质是类型参数化，解决不确定具体对象类型的问题。泛型可以定义在类、接口、方法中，编译器通过识别尖括号和括号内的内容来解析泛型。泛型定义时的，约定俗成的符号包括如下：</p>
+<ol>
+<li>E(Element)，用于集合中的元素。</li>
+<li>T(the Type of object)，表示某个类。</li>
+<li>K(Key)、V(Value)，用于键值对元素。</li>
+</ol>
+<p>如下泛型方法能正常编译和运行：</p>
+<pre><code>public class GenericDemo&lt;T&gt; {
+
+    static &lt;String, T, Alibaba&gt; String get(String string, Alibaba alibaba) {
+        return string;
+    }
+
+    public static void main(String[] args) {
+        Integer first = 222;
+        Long second = 333L;
+
+        Integer result = get(first, second);
+        System.out.println(result);
+    }
+}
+</code></pre><p>加深理解：</p>
+<ol>
+<li>尖括号里的每个元素都指代种未知类型 <code>Srinrg</code> 出现在尖括号里，它就不是 <code>java.lamg.sring</code> ，而仅仅是一个代号。 类名后方定义的泛型 <code>&lt;T&gt;</code> 和 <code>get()</code> 前方定义的 <code>&lt;T&gt;</code> 是两个指代，可以完全不同，互不影响。</li>
+<li>尖插号的位置非常讲究，必须在类名之后或方法返回值之前。</li>
+<li>泛型在定义处只具备执行 <code>Object</code> 方法的能力。因此想在 <code>get()</code> 内部执行 <code>string.longValue() + albaba.intValure()</code> 是做不到的，此时泛型只能调用 <code>Object</code> 类中的方法，如 <code>toString()</code>。</li>
+<li>对于编译之后的字节码指令，其实没有这些花头花脑的方法签名，充分说明了泛型只是一种编写代码时的语法检查。（类型擦除）</li>
+</ol>
+<p>使用泛型的好处：</p>
+<ul>
+<li>类型安全</li>
+<li>提升可读性</li>
+<li>代码重用</li>
+</ul>
+<h2 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h2><h3 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h3><p>基本数据类型是指不可再分的原子数据类型，内存中直接存储此类型的值，通过内存地址即可直接访问到数据，并且此内存区域只能存放这种类型的值。共有9种基本数据类型，分别是：</p>
+<pre><code>boolean、byte、char、short、int、long、float、double、refvar(引用变量、引用句柄)
+</code></pre><p>除了最后一个，其他都有包装类： <code>char</code> 对应的为 <code>Character</code> 和 <code>int</code> 对应的为 <code>Integer</code> ，其他对包装类名就是把首字母大写即可。</p>
+<p><img src="https://cl.ly/e7382380aad0/%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.jpg" alt=""></p>
+<p>注意：浮点数使用后缀 <code>f</code> 和 <code>d</code> 区别标识单精度和双精度，没写则默认为双精度。字符不可以用双引号方式赋值，那是字符串的表示方式。</p>
+<p>引用分成两种数据类型： 引用变量本身(<code>refvar</code>)和引用指向的对象(<code>refobj</code>)。<code>refvar</code> 是基本的数据类型，默认值为 <code>null</code>，存储 <code>refobj</code> 的首地址，可以直接使用双等号 <code>==</code> 进行等值判断。</p>
+<p>不论是多么小的对象，最少占用空间 <code>12B</code>（用于存储基本信息，称为对象头），但由于存储空间分配必须是 <code>8B</code> 的倍数，所以初始分配空间至少是 <code>16B</code> 。</p>
+<p>对象分为三块存储区：</p>
+<pre><code>·对象头（12B）
+            对象标记：哈希码、[GC标记]、[GC次数]、[同步锁标记]、[偏向锁持有者]。占用8B，存储格式与JVM具体实现有关。
+            类元信息：存储对象指向它的类元数据即首地址，占用4B
+·实例数据：存储本类的实例成员变量和所有可见的父类成员变量。
+·对齐填充：对象的存储空间分配单位是8个字节，所以不足8的倍数会自动填充
+</code></pre><h3 id="包装类型"><a href="#包装类型" class="headerlink" title="包装类型"></a>包装类型</h3><p>解决了基本数据类型无法做到的事情：泛型类型参数、序列化、类型转换、高频区间数据缓存，尤其是最后一项。</p>
+<p>推荐所有包装类对象之间值的比较都用 <code>equals()</code> 方法。（因为超出缓存区间的值就无法用 <code>==</code> 比较了，在缓存区间内时，对象是由 <code>IntegerCache.cache</code> 产生的，会复用已有对象，所以可以用 <code>==</code> 比较），对6个包装类直接赋值时，就是调用对应包装类的静态工厂方法。以 <code>Integer</code> 为例：</p>
+<pre><code>public static Integer valueOf(int i) {
+    if(i &gt;= IntegerCache.low &amp;&amp; i &lt;= IntegerCache.high)
+        return IntegerCache.cache[i + (-IntegerCache.low)];
+    return new Integer(i);
+}
+</code></pre><p>所以，推荐使用 <code>valueOf()</code> ，合理的利用缓存，提升程序性能。各包装类缓存区间，在上表。其中，<code>Integer</code> 是唯一一个可以修改缓存范围的包装类，在<code>VM options</code> 加入参数 <code>-XX:AutoBoxCacheMax=7777</code>，即可设置最大缓存为7777。</p>
+<p>在选择使用包装类还是基本数据类型的时候，推荐使用如下方法：</p>
+<ul>
+<li>所有的 <code>POJO</code>（简单Java对象）类属性必须使用包装数据类型</li>
+<li><code>RPC</code> 方法返回值和参数必须使用包装数据类型</li>
+<li>所有的局部变量推荐使用基本数据类型</li>
+</ul>
+<h3 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h3><p>字符串不是基本数据类型，是堆上分配来的。字符串相关类型主要有三种：</p>
+<h4 id="String"><a href="#String" class="headerlink" title="String"></a>String</h4><p>是<strong>只读字符串</strong>，典型的 <code>immutable</code> 对象，对它的任何改动，其实都是创建一个新对象，再把引用指向该对象。<code>String</code> 对象赋值操作后，会在常量池中进行缓存，如果下次申请创建对象时，缓存已经存在，则直接返回相应引用</p>
+<h4 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h4><p>可以在原对象上进行修改，是<strong>线程安全</strong>的。JDK5引入的 <code>StringBuilder</code> 与 <code>StringBuffer</code> 均继承自<code>AbstractStringBuilder</code>，两个子类的很多方法都是通过＂<code>super</code>. 方法()”的方式调用抽象父类中的方法，此抽象类在内部与 <code>String</code> 一样，也是以字符数组的形式存储字符串的。</p>
+<h4 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h4><p>可以在原对象上进行修改，是<strong>非线程安全</strong>的，把是否需要进行多线程加锁交给工程师决定，操作效率比 <code>StringBuffer</code> 高。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"><i class="fa fa-tag"></i> java</a>
+          
+            <a href="/tags/基础知识/" rel="tag"><i class="fa fa-tag"></i> 基础知识</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/30/data_structures/ObjectOriented/" rel="next" title="面向对象">
+                <i class="fa fa-chevron-left"></i> 面向对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">15</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#类的定义"><span class="nav-number">1.</span> <span class="nav-text">类的定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口与抽象类"><span class="nav-number">2.</span> <span class="nav-text">接口与抽象类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内部类"><span class="nav-number">3.</span> <span class="nav-text">内部类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问权限控制"><span class="nav-number">4.</span> <span class="nav-text">访问权限控制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#this-与-super"><span class="nav-number">5.</span> <span class="nav-text">this 与 super</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类关系"><span class="nav-number">6.</span> <span class="nav-text">类关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#序列化"><span class="nav-number">7.</span> <span class="nav-text">序列化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Java-原生序列化"><span class="nav-number">7.1.</span> <span class="nav-text">Java 原生序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hessian-序列化"><span class="nav-number">7.2.</span> <span class="nav-text">Hessian 序列化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSON-原生序列化"><span class="nav-number">7.3.</span> <span class="nav-text">JSON 原生序列化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#方法"><span class="nav-number">8.</span> <span class="nav-text">方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法签名"><span class="nav-number">8.1.</span> <span class="nav-text">方法签名</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参数"><span class="nav-number">8.2.</span> <span class="nav-text">参数</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#可变参数"><span class="nav-number">8.2.1.</span> <span class="nav-text">可变参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参数校验场景"><span class="nav-number">8.2.2.</span> <span class="nav-text">参数校验场景</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构造方法"><span class="nav-number">8.3.</span> <span class="nav-text">构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类内方法"><span class="nav-number">8.4.</span> <span class="nav-text">类内方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#getter-setter"><span class="nav-number">8.5.</span> <span class="nav-text">getter/setter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步-异步"><span class="nav-number">8.6.</span> <span class="nav-text">同步/异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#覆写"><span class="nav-number">8.7.</span> <span class="nav-text">覆写</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载"><span class="nav-number">8.8.</span> <span class="nav-text">重载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#泛型"><span class="nav-number">8.9.</span> <span class="nav-text">泛型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据类型"><span class="nav-number">9.</span> <span class="nav-text">数据类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型"><span class="nav-number">9.1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#包装类型"><span class="nav-number">9.2.</span> <span class="nav-text">包装类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串"><span class="nav-number">9.3.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#String"><span class="nav-number">9.3.1.</span> <span class="nav-text">String</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StringBuffer"><span class="nav-number">9.3.2.</span> <span class="nav-text">StringBuffer</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#StringBuilder"><span class="nav-number">9.3.3.</span> <span class="nav-text">StringBuilder</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
