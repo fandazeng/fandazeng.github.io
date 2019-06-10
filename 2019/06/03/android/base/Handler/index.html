@@ -118,7 +118,7 @@
 <meta property="og:description" content="Handler因为 Android 只允许在主线程更新 UI ，所以我们在子线程获取到的数据需要切换线程到主线程再做 UI 处理，而 Handler 是一种用于线程间消息传递的机制，能够实现线程切换的功能。 基本使用方式步骤一： 创建 Handler 实例 // callback 方式 private Handler callbackHandler = new Handler(new Handle">
 <meta property="og:image" content="https://cl.ly/a17c91aa39d4/Handler%20%E6%9C%BA%E5%88%B6%E6%97%B6%E5%BA%8F%E5%9B%BE.jpg">
 <meta property="og:image" content="https://cl.ly/d5557b7257da/handleMessage%E8%B0%83%E7%94%A8%E9%93%BE.jpg">
-<meta property="og:updated_time" content="2019-06-05T07:35:19.041Z">
+<meta property="og:updated_time" content="2019-06-10T02:20:46.774Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Handler 机制">
 <meta name="twitter:description" content="Handler因为 Android 只允许在主线程更新 UI ，所以我们在子线程获取到的数据需要切换线程到主线程再做 UI 处理，而 Handler 是一种用于线程间消息传递的机制，能够实现线程切换的功能。 基本使用方式步骤一： 创建 Handler 实例 // callback 方式 private Handler callbackHandler = new Handler(new Handle">
@@ -1045,7 +1045,9 @@ private static void handleCallback(Message message) {
         nativeWake(mPtr);
     }
 }
-</code></pre><h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>在整个 <code>Handler</code> 机制中，<code>Message</code> 就像信件一样在其中传递，作为线程消息传递的物件，我们看看 <code>Message</code> 类。</p>
+</code></pre><p>从源码可以看出当我们调用 <code>quit</code> 方法时，如果 <code>safe</code> 为 <code>false</code> 时，执行的是 <code>removeAllMessagesLocked</code> 方法，该方法主要是把 <code>MessageQueue</code> 消息池中所有的消息全部清空，无论是延迟消息（延迟消息是指通过 <code>sendMessageDelayed</code> 或通过 <code>postDelayed</code> 等方法发送）还是非延迟消息。</p>
+<p>当 <code>safe</code> 为 <code>true</code> 时，其内部调用的是 <code>removeAllFutureMessagesLocked</code> 方法，该方法只会清空 <code>MessageQueue</code> 消息池中所有的延迟消息，并将消息池中所有的非延迟消息派发出去让 <code>Handler</code> 去处理完成后才停止 <code>Looper</code> 循环。</p>
+<h3 id="Message"><a href="#Message" class="headerlink" title="Message"></a>Message</h3><p>在整个 <code>Handler</code> 机制中，<code>Message</code> 就像信件一样在其中传递，作为线程消息传递的物件，我们看看 <code>Message</code> 类。</p>
 <pre><code>public final class Message implements Parcelable {
 
     // 让接收者知道消息是做什么的
@@ -1254,6 +1256,10 @@ mMyHandler.postDelayed(new Runnable() {
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2019/06/10/android/base/HandlerThread/" rel="prev" title="HandlerThread 使用及分析">
+                HandlerThread 使用及分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -1326,7 +1332,7 @@ mMyHandler.postDelayed(new Runnable() {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">40</span>
+                <span class="site-state-item-count">42</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

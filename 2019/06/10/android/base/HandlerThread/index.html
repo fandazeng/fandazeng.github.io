@@ -1,0 +1,1134 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="android,线程,异步," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="HandlerThread先看 HandlerThread 的成员变量，源码如下： public class HandlerThread extends Thread {     // 线程优先级     int mPriority;     // 线程 ID     int mTid = -1;     // 跟线程绑定的 Looper     Looper mLooper;     // 跟线">
+<meta name="keywords" content="android,线程,异步">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HandlerThread 使用及分析">
+<meta property="og:url" content="http://yoursite.com/2019/06/10/android/base/HandlerThread/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="HandlerThread先看 HandlerThread 的成员变量，源码如下： public class HandlerThread extends Thread {     // 线程优先级     int mPriority;     // 线程 ID     int mTid = -1;     // 跟线程绑定的 Looper     Looper mLooper;     // 跟线">
+<meta property="og:updated_time" content="2019-06-10T06:50:24.716Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HandlerThread 使用及分析">
+<meta name="twitter:description" content="HandlerThread先看 HandlerThread 的成员变量，源码如下： public class HandlerThread extends Thread {     // 线程优先级     int mPriority;     // 线程 ID     int mTid = -1;     // 跟线程绑定的 Looper     Looper mLooper;     // 跟线">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/06/10/android/base/HandlerThread/"/>
+
+
+
+
+
+     <title> HandlerThread 使用及分析 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/android/base/HandlerThread/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">HandlerThread 使用及分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-10T14:26:06+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/android/线程切换/" itemprop="url" rel="index">
+                    <span itemprop="name">线程切换</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/06/10/android/base/HandlerThread/" class="leancloud_visitors" data-flag-title="HandlerThread 使用及分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="HandlerThread"><a href="#HandlerThread" class="headerlink" title="HandlerThread"></a>HandlerThread</h1><p>先看 <code>HandlerThread</code> 的成员变量，源码如下：</p>
+<pre><code>public class HandlerThread extends Thread {
+    // 线程优先级
+    int mPriority;
+    // 线程 ID
+    int mTid = -1;
+    // 跟线程绑定的 Looper
+    Looper mLooper;
+    // 跟线程绑定的 Handler
+    Handler mHandler;
+}
+</code></pre><p>接着，我们看一下 <code>HandlerThread</code> 的构造函数：</p>
+<pre><code>// 构造方法，传入线程名称
+public HandlerThread(String name) {
+    super(name);
+    mPriority = Process.THREAD_PRIORITY_DEFAULT;
+}
+
+// 构造方法，传入线程名称和线程优先级
+public HandlerThread(String name, int priority) {
+    super(name);
+    mPriority = priority;
+}
+</code></pre><p>共有两个构造方法，入参 <code>name</code> 表示线程名称，入参 <code>priority</code> 表示线程的优先级。</p>
+<p>接着，有一个模板方法，供扩展用，在 <code>Looper</code> 工作之前会回调，如下：</p>
+<pre><code>// 子类覆写,Looper.loop() 之前会回调
+protected void onLooperPrepared() {
+}
+</code></pre><p>默认是空实现，供子类实现逻辑。</p>
+<p>因为 <code>HandlerThread</code> 是 <code>Thread</code> 的子类，所以我们重点看一下 <code>run</code> 方法：</p>
+<pre><code>@Override
+public void run() {
+    mTid = Process.myTid();
+    // 创建 Looper
+    Looper.prepare();
+    // 持有锁机制来获得当前线程的Looper对象
+    synchronized (this) {
+        mLooper = Looper.myLooper();
+        // 唤醒，当前线程已经创建mLooper对象成功，这里主要是通知getLooper方法中的wait
+        notifyAll();
+    }
+    // 设置线程的优先级
+    Process.setThreadPriority(mPriority);
+    // 这里默认是空方法的实现，我们可以重写这个方法来做一些 Looper工作之前的准备，方便扩展
+    onLooperPrepared();
+    // Looper 开始工作
+    Looper.loop();
+    mTid = -1;
+}
+</code></pre><p>在 <code>Android</code> 系统中，我们执行完耗时操作都要另外开启子线程来执行，执行完线程以后线程会自动销毁。所以当我们需要经常异步处理任务时，需要反复开启和销毁线程，非常消耗性能。而 <code>HandlerThread</code> 的工作机制就是 <code>Handler</code> 的工作机制，运行了 <code>run</code> 方法，<code>Looper</code> 就进入死循环，线程也就不会销毁，我们可以通过 <code>HandlerThread</code> 来串行执行多个不同的异步任务。</p>
+<p>通过源码可知，<code>HandlerThread</code> 是自带 <code>Looper</code> 的 <code>Thread</code> ，那么怎样获取当前的 <code>Looper</code> 呢？</p>
+<pre><code>// 获取当前的 Looper
+public Looper getLooper() {
+        // 线程没有启动或者已经死亡时返回 null
+        if (!isAlive()) {
+            return null;
+        }
+
+        // If the thread has been started, wait until the looper has been created.
+        synchronized (this) {
+            // 线程已经启动但是 Looper 对象还没有创建完成
+            while (isAlive() &amp;&amp; mLooper == null) {
+                try {
+                    // 等待
+                    wait();
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+        return mLooper;
+    } 
+</code></pre><p>上述分析说到，<code>HandlerThread</code> 开启之后不会自动销毁，那肯定就有主动销毁的方法，如下：</p>
+<pre><code>// 退出 Looper 循环，把当前消息队列中的所有消息都抛弃
+public boolean quit() {
+    Looper looper = getLooper();
+    if (looper != null) {
+        looper.quit();
+        return true;
+    }
+    return false;
+}
+
+// 退出 Looper 循环，它会让消息队列中的非延迟消息继续得到处理，只抛弃延时消息
+public boolean quitSafely() {
+    Looper looper = getLooper();
+    if (looper != null) {
+        looper.quitSafely();
+        return true;
+    }
+    return false;
+}
+</code></pre><p>还有一些其他的方法，如下：</p>
+<pre><code>// 获取线程绑定的 Handler
+public Handler getThreadHandler() {
+    if (mHandler == null) {
+        mHandler = new Handler(getLooper());
+    }
+    return mHandler;
+}
+
+// 返回线程ID
+public int getThreadId() {
+    return mTid;
+}
+</code></pre><p><code>HandlerThread</code> 的源码就是这么多，接下来我们看一下 <code>HandlerThread</code> 是怎样使用的。</p>
+<h2 id="基本使用方式"><a href="#基本使用方式" class="headerlink" title="基本使用方式"></a>基本使用方式</h2><h3 id="步骤一：-创建-HandlerThread-实例"><a href="#步骤一：-创建-HandlerThread-实例" class="headerlink" title="步骤一： 创建 HandlerThread 实例"></a>步骤一： 创建 HandlerThread 实例</h3><pre><code>mHandlerThread = new HandlerThread(&quot;test&quot;);
+</code></pre><h3 id="步骤二：-启动线程"><a href="#步骤二：-启动线程" class="headerlink" title="步骤二： 启动线程"></a>步骤二： 启动线程</h3><pre><code>mHandlerThread.start();
+</code></pre><h3 id="步骤三：-创建子线程-Handler"><a href="#步骤三：-创建子线程-Handler" class="headerlink" title="步骤三： 创建子线程 Handler"></a>步骤三： 创建子线程 Handler</h3><pre><code>mThreadHandler = new Handler(mHandlerThread.getLooper()) {
+        @Override
+        public void handleMessage(Message msg) {
+            Log.d(&quot;HandlerThreadActivity&quot;, Thread.currentThread().getName());
+
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } finally {
+                mUIHandler.sendMessage(mUIHandler.obtainMessage(1, &quot;success&quot;));
+            }
+        }
+    };
+</code></pre><p>注意：子线程的 <code>Handler</code> 创建时需要用到 <code>HandlerThread</code> 的 <code>Looper</code> ，这样才能保证 <code>Handler</code> 发送的消息在子线程做处理。</p>
+<h3 id="步骤四：-销毁线程"><a href="#步骤四：-销毁线程" class="headerlink" title="步骤四： 销毁线程"></a>步骤四： 销毁线程</h3><pre><code>mHandlerThread.quit();
+</code></pre><h2 id="完整的使用案例"><a href="#完整的使用案例" class="headerlink" title="完整的使用案例"></a>完整的使用案例</h2><pre><code>public class HandlerThreadActivity extends AppCompatActivity implements View.OnClickListener {
+
+    TextView mStartThread;
+
+    HandlerThread mHandlerThread;
+
+    private Handler mThreadHandler;
+
+    private UIHandler mUIHandler = new UIHandler(this);
+
+    private static class UIHandler extends Handler {
+
+        private WeakReference&lt;HandlerThreadActivity&gt; mWeakReference;
+
+        public UIHandler(HandlerThreadActivity activity) {
+            mWeakReference = new WeakReference&lt;&gt;(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (mWeakReference.get() != null) {
+                Log.d(&quot;HandlerThreadActivity&quot;, Thread.currentThread().getName());
+                Toast.makeText(mWeakReference.get(), msg.obj.toString(), Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_handler_thread);
+        mStartThread = findViewById(R.id.tv_send_message);
+        mStartThread.setOnClickListener(this);
+        mHandlerThread = new HandlerThread(&quot;test&quot;);
+        mHandlerThread.start();
+
+        mThreadHandler = new Handler(mHandlerThread.getLooper()) {
+            @Override
+            public void handleMessage(Message msg) {
+                Log.d(&quot;HandlerThreadActivity&quot;, Thread.currentThread().getName());
+
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                } finally {
+                    mUIHandler.sendMessage(mUIHandler.obtainMessage(1, &quot;success&quot;));
+                }
+            }
+        };
+    }
+
+    @Override
+    public void onClick(View v) {
+        mThreadHandler.sendEmptyMessage(1);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mHandlerThread.quit();
+
+    }
+}
+</code></pre><p>主要是模拟子线程处理耗时操作，案例中在主线程通过子线程的 <code>Handler</code> 发送了一个空消息，子线程通过回调休眠了两秒钟后，通过主线程的 <code>Handler</code> 发送一个成功的消息，最后显示了一个成功的提示。 </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/android/" rel="tag"><i class="fa fa-tag"></i> android</a>
+          
+            <a href="/tags/线程/" rel="tag"><i class="fa fa-tag"></i> 线程</a>
+          
+            <a href="/tags/异步/" rel="tag"><i class="fa fa-tag"></i> 异步</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/03/android/base/Handler/" rel="next" title="Handler 机制">
+                <i class="fa fa-chevron-left"></i> Handler 机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/10/android/base/IntentService/" rel="prev" title="IntentService 使用及分析">
+                IntentService 使用及分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">42</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#HandlerThread"><span class="nav-number">1.</span> <span class="nav-text">HandlerThread</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本使用方式"><span class="nav-number">1.1.</span> <span class="nav-text">基本使用方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤一：-创建-HandlerThread-实例"><span class="nav-number">1.1.1.</span> <span class="nav-text">步骤一： 创建 HandlerThread 实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤二：-启动线程"><span class="nav-number">1.1.2.</span> <span class="nav-text">步骤二： 启动线程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤三：-创建子线程-Handler"><span class="nav-number">1.1.3.</span> <span class="nav-text">步骤三： 创建子线程 Handler</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#步骤四：-销毁线程"><span class="nav-number">1.1.4.</span> <span class="nav-text">步骤四： 销毁线程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#完整的使用案例"><span class="nav-number">1.2.</span> <span class="nav-text">完整的使用案例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
