@@ -1,0 +1,1656 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="参考: EventBus3.0源码解析 EventBus 初始化通常都是直接通过静态方法 getDefault() 来获得实例，代码如下： public static EventBus getDefault() {     EventBus instance = defaultInstance;     if (instance == null) {         synchronized (E">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="EventBus源码解析">
+<meta property="og:url" content="http://yoursite.com/2019/07/03/github/glide/EventBus源码解析/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="参考: EventBus3.0源码解析 EventBus 初始化通常都是直接通过静态方法 getDefault() 来获得实例，代码如下： public static EventBus getDefault() {     EventBus instance = defaultInstance;     if (instance == null) {         synchronized (E">
+<meta property="og:updated_time" content="2019-07-04T07:51:47.711Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="EventBus源码解析">
+<meta name="twitter:description" content="参考: EventBus3.0源码解析 EventBus 初始化通常都是直接通过静态方法 getDefault() 来获得实例，代码如下： public static EventBus getDefault() {     EventBus instance = defaultInstance;     if (instance == null) {         synchronized (E">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/03/github/glide/EventBus源码解析/"/>
+
+
+
+
+
+     <title> EventBus源码解析 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/03/github/glide/EventBus源码解析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">EventBus源码解析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-03T15:58:35+08:00">
+                2019-07-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/EventBus/" itemprop="url" rel="index">
+                    <span itemprop="name">EventBus</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/03/github/glide/EventBus源码解析/" class="leancloud_visitors" data-flag-title="EventBus源码解析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考: <a href="https://juejin.im/post/5cb431c9e51d456e5c5baacb#heading-8" target="_blank" rel="external">EventBus3.0源码解析</a></p>
+<h2 id="EventBus-初始化"><a href="#EventBus-初始化" class="headerlink" title="EventBus 初始化"></a>EventBus 初始化</h2><p>通常都是直接通过静态方法 <code>getDefault()</code> 来获得实例，代码如下：</p>
+<pre><code>public static EventBus getDefault() {
+    EventBus instance = defaultInstance;
+    if (instance == null) {
+        synchronized (EventBus.class) {
+            instance = EventBus.defaultInstance;
+            if (instance == null) {
+                instance = EventBus.defaultInstance = new EventBus();
+            }
+        }
+    }
+    return instance;
+}
+</code></pre><p>这是一个单例模式的方法，使用了双重判断的方式，防止并发的问题，还能极大的提高效率。上述方法中调用了如下的默认构造：</p>
+<pre><code>public EventBus() {
+    this(DEFAULT_BUILDER);
+}
+</code></pre><p>上述构造方法中又调用了带参的构造方法，并传入了默认了 <code>Builder</code> 对象：</p>
+<pre><code>private static final EventBusBuilder DEFAULT_BUILDER = new EventBusBuilder();
+</code></pre><p>我们也可以通过 <code>EventBus</code> 的 <code>builder()</code> 方法来构造一个新的 <code>EventBus</code> 对象或者修改默认的 <code>builder</code> 参数：</p>
+<pre><code>public static EventBusBuilder builder() {
+    return new EventBusBuilder();
+}
+</code></pre><p>这个方法会返回一个 <code>EventBusBuilder</code> 对象，也就是默认的 <code>Builder</code> 对象。最后，如果直接通过 <code>build()</code> 方法来创建 <code>EventBus</code> 对象的话，那就是独立配置的 <code>EventBus</code> ，跟 <code>getDefault()</code> 返回的对象不是同一个。</p>
+<p>每个新建的 <code>EventBus</code> 发布和订阅事件都是相互隔离的，即一个 <code>EventBus</code> 对象中的发布者发布事件，另一个 <code>EventBus</code> 对象中的订阅者不会收到该订阅。如果通过 <code>installDefaultEventBus()</code> 方法来创建对象，则是修改默认对象的参数，之后通过 <code>getDefault()</code> 方法获取的对象都是同一个单例对象。</p>
+<pre><code>// 独立配置的 EventBus，跟 getDefault() 返回的对象不是同一个
+public EventBus build() {
+    return new EventBus(this);
+}
+
+// 修改默认对象的参数，之后通过 getDefault() 方法获取的对象都是同一个单例对象
+public EventBus installDefaultEventBus() {
+    synchronized (EventBus.class) {
+        if (EventBus.defaultInstance != null) {
+            throw new EventBusException(&quot;Default instance already exists.&quot; +
+                    &quot; It may be only set once before it&apos;s used the first time to ensure consistent behavior.&quot;);
+        }
+        EventBus.defaultInstance = build();
+        return EventBus.defaultInstance;
+    }
+}
+</code></pre><p>我们在上一篇文章配置索引文件时，调用的就是修改默认的 <code>EventBus</code> 单例对象：</p>
+<pre><code>EventBus.builder().ignoreGeneratedIndex(false).
+            addIndex(new MyEventBusIndex()).installDefaultEventBus();
+</code></pre><h2 id="EventBus-注册"><a href="#EventBus-注册" class="headerlink" title="EventBus 注册"></a>EventBus 注册</h2><p>注册方法的代码如下：</p>
+<pre><code>public void register(Object subscriber) {
+    // 拿到订阅者的运行时类型Class
+    Class&lt;?&gt; subscriberClass = subscriber.getClass();
+    // 利用订阅者的Class去查找类中声明的订阅方法
+    List&lt;SubscriberMethod&gt; subscriberMethods = subscriberMethodFinder.findSubscriberMethods(subscriberClass);
+    synchronized (this) {
+        //循环遍历逐个将订阅者和订阅方法订阅到EventBus
+        for (SubscriberMethod subscriberMethod : subscriberMethods) {
+            subscribe(subscriber, subscriberMethod);
+        }
+    }
+}
+</code></pre><p>步骤归纳：</p>
+<ol>
+<li>拿到订阅者对象 <code>subscriber</code> 。</li>
+<li>根据订阅者对象查找到所有的订阅方法。</li>
+<li>把订阅者和订阅方法订阅到 <code>EventBus</code> 。</li>
+</ol>
+<h3 id="查找订阅方法"><a href="#查找订阅方法" class="headerlink" title="查找订阅方法"></a>查找订阅方法</h3><p>首先来看一下 <code>SubscriberMethod</code> 类，该类是对我们声明的订阅方法和参数的封装。</p>
+<pre><code>public class SubscriberMethod {
+    final Method method;    // 方法
+    final ThreadMode threadMode;    // 执行线程
+    final Class&lt;?&gt; eventType;   // 事件类型
+    final int priority;     // 优先级
+    final boolean sticky;   // 粘性事件
+    /** Used for efficient comparison */
+    String methodString;
+
+    public SubscriberMethod(Method method, Class&lt;?&gt; eventType, ThreadMode threadMode, int priority, boolean sticky) {
+        this.method = method;
+        this.threadMode = threadMode;
+        this.eventType = eventType;
+        this.priority = priority;
+        this.sticky = sticky;
+    }
+}
+</code></pre><p>在上述第二步使用了一个 <code>SubscriberMethodFinder</code> 实例来进行方法查找。 <code>SubscriberMethodFinder</code> 这个类是专门用来查找订阅方法的，<code>findSubscriberMethods()</code> 最后返回了一个 <code>SubscriberMethod</code> 集合。</p>
+<pre><code>List&lt;SubscriberMethod&gt; findSubscriberMethods(Class&lt;?&gt; subscriberClass) {
+    // 如果subscriberClass类注册过，那么直接从METHOD_CACHE缓存中获取信息返回
+    List&lt;SubscriberMethod&gt; subscriberMethods = METHOD_CACHE.get(subscriberClass);
+    if (subscriberMethods != null) {
+        return subscriberMethods;
+    }
+
+    // 是否忽略注解处理器生成的索引文件，默认 false
+    if (ignoreGeneratedIndex) {
+        // 使用反射来寻找订阅方法信息
+        subscriberMethods = findUsingReflection(subscriberClass);
+    } else {
+        //先根据生成的索引文件来寻找订阅方法信息，索引文件中找不到，再使用反射寻找
+        subscriberMethods = findUsingInfo(subscriberClass);
+    }
+    // 没有订阅方法，直接抛异常
+    if (subscriberMethods.isEmpty()) {
+        ...异常
+    } else {
+        // 将查找的方法最后都存进了内存缓存METHOD_CACHE中, 对应关系是订阅类和它的订阅方法
+        METHOD_CACHE.put(subscriberClass, subscriberMethods);
+        return subscriberMethods;
+    }
+}
+</code></pre><p>首先就是通过缓存来获取，因为查找是比较耗时的操作，缓存可以提高效率。 <code>METHOD_CACHE</code> 是一个以订阅者 <code>Class</code> 为 <code>Key</code>, 订阅方法集合为 <code>Value</code> 的线程安全的的 <code>HashMap</code>，定义如下：</p>
+<pre><code>private static final Map&lt;Class&lt;?&gt;, List&lt;SubscriberMethod&gt;&gt; METHOD_CACHE = new ConcurrentHashMap&lt;&gt;();
+</code></pre><p>第一次执行肯定是没有缓存的，然后会根据 <code>ignoreGeneratedIndex</code> 来执行不同的方法。从方法名来看，一个是使用反射去查找，另一个是使用已有的信息去查找(也就是通过 apt 技术生成的索引文件来查找)。</p>
+<p><code>ignoreGeneratedIndex</code> 这个值默认是 <code>false</code> ，因为反射开销大，所以默认是走 <code>findUsingInfo()</code> 分支，但是在 <code>findUsingInfo()</code> 方法中会检查本地是否有 <code>apt</code> 预先解析出的订阅者信息，如果没有，还是会执行反射方法<code>findUsingReflectionInSingleClass()</code> 。</p>
+<p><code>apt</code> 的部分涉及到了注解处理器，这里只看反射获取的情况:</p>
+<pre><code>private List&lt;SubscriberMethod&gt; findUsingReflection(Class&lt;?&gt; subscriberClass) {
+    FindState findState = prepareFindState();
+    findState.initForSubscriber(subscriberClass);
+
+    // 循环找到有效的注册方法
+    while (findState.clazz != null) {
+        // 使用反射查找一个类的订阅方法
+        findUsingReflectionInSingleClass(findState);
+        //将父类赋给findState.clazz，往上进行查找
+        findState.moveToSuperclass();
+    }
+    // 此时，已经把有效的订阅信息收集到了findState的subscriberMethods变量中
+    return getMethodsAndRelease(findState);
+}
+</code></pre><p>因为子类会继承父类的方法，所以当子类找不到时，需要去查找父类。这里使用了一个 <code>while</code> 循环递归进行查找。查找过程使用了一个新的对象 <code>FindState</code> ,它是用来存储查找过程中的一些信息，方便进行迭代查找。它的类定义：</p>
+<pre><code>static class FindState {
+    //订阅方法集合
+    final List&lt;SubscriberMethod&gt; subscriberMethods = new ArrayList&lt;&gt;();
+    final Map&lt;Class, Object&gt; anyMethodByEventType = new HashMap&lt;&gt;();
+    final Map&lt;String, Class&gt; subscriberClassByMethodKey = new HashMap&lt;&gt;();
+    final StringBuilder methodKeyBuilder = new StringBuilder(128);
+
+    //当前订阅者
+    Class&lt;?&gt; subscriberClass;
+    //当前查找的类
+    Class&lt;?&gt; clazz;
+    //是否跳过父类查找
+    boolean skipSuperClasses;
+    SubscriberInfo subscriberInfo;
+}
+</code></pre><p>真正开始使用反射解析一个类的订阅方法如下：</p>
+<pre><code>private void findUsingReflectionInSingleClass(FindState findState) {
+    Method[] methods;
+    try {
+        //getDeclaredMethods在某些设备上会出现NoClassDefFoundError
+        // getDeclaredMethods()方法的效率要优于getMethods()
+        methods = findState.clazz.getDeclaredMethods();
+    } catch (Throwable th) {
+        // 如果报错了，再调用 getMethods() 方法获取
+        // Workaround for java.lang.NoClassDefFoundError, see https://github.com/greenrobot/EventBus/issues/149
+        methods = findState.clazz.getMethods();
+        // 忽略父类，因为 .getMethods() 方法已经获取到了父类方法了
+        findState.skipSuperClasses = true;
+    }
+    for (Method method : methods) {
+        // // 获取方法的修饰符, 比如public, static等修饰符
+        int modifiers = method.getModifiers();
+        // 注册方法是 PUBLIC 的，而且不是抽象，静态，VOLATILE 等的
+        if ((modifiers &amp; Modifier.PUBLIC) != 0 &amp;&amp; (modifiers &amp; MODIFIERS_IGNORE) == 0) {
+            // 获取方法的参数信息
+            Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();
+            // 方法只有一个参数
+            if (parameterTypes.length == 1) {
+                Subscribe subscribeAnnotation = method.getAnnotation(Subscribe.class);
+                // 如果方法有@Subscribe注解信息
+                if (subscribeAnnotation != null) {
+                    Class&lt;?&gt; eventType = parameterTypes[0];
+                    // 检查当前method是否是有效的订阅方法
+                    if (findState.checkAdd(method, eventType)) {
+                        ThreadMode threadMode = subscribeAnnotation.threadMode();
+                        // 保存对应的信息，包括方法、参数类型、线程类型、优先级和是否sticky
+                        findState.subscriberMethods.add(new SubscriberMethod(method, eventType, threadMode,
+                                subscribeAnnotation.priority(), subscribeAnnotation.sticky()));
+                    }
+                }
+            } else if (strictMethodVerification &amp;&amp; method.isAnnotationPresent(Subscribe.class)) {
+               ...异常
+            }
+        } else if (strictMethodVerification &amp;&amp; method.isAnnotationPresent(Subscribe.class)) {
+             ...异常
+        }
+    }
+}
+</code></pre><p>总的来说，上述方法有如下三步：</p>
+<p>一. 获取到订阅者所有的方法。<br>二. 遍历处理方法，通过修饰符、参数个数、指定注解和 <code>EventType</code> 来筛选有效的订阅方法。<br>三. 将订阅方法添加进 <code>findState</code> 的 <code>subscriberMethods</code> 这个 <code>List</code> 中。</p>
+<p>上述方法中，有一个非常重要的方法 <code>checkAdd()</code> ，这个方法决定了是否订阅方法可以被保存下来进而能接收到消息：</p>
+<pre><code>boolean checkAdd(Method method, Class&lt;?&gt; eventType) {
+    // 考虑到同一个类里面通常只会有一个方法监听同一类事件，为了效率，所以EventBus先根据事件类型去匹配同一个类中是否已经有添加过的方法监听同一类事件
+    // HashMap 保存数据时，如果已经存在key，会返回对应的旧的值
+    Object existing = anyMethodByEventType.put(eventType, method);
+    // 没有，则直接认为该方法为有效订阅方法
+    if (existing == null) {
+        return true;
+    } else {
+        if (existing instanceof Method) {
+            if (!checkAddWithMethodSignature((Method) existing, eventType)) {
+                // Paranoia check
+                throw new IllegalStateException();
+            }
+            // Put any non-Method object to &quot;consume&quot; the existing Method
+            // 因为前面会调用 checkAddWithMethodSignature 方法把 existing 消费掉了，所以这里要调用这行代码，避免重复处理
+            anyMethodByEventType.put(eventType, this);
+        }
+        return checkAddWithMethodSignature(method, eventType);
+    }
+}
+</code></pre><p>一般来说，一个类不会有对同一个 <code>EventType</code> 写多个方法，会直接保存方法后返回 <code>true</code> ，即为有效订阅方法。对于出现了同一个类中同样的 <code>EventType</code> 写了多个方法，还有当 <code>findUsingReflection()</code> 中进行下一轮循环，会进行父类查找，如果子类继承了父类的订阅方法的情况，就会使用 <code>checkAddWithMethodSignature()</code> 方法来进行下一步的判断了：</p>
+<pre><code>private boolean checkAddWithMethodSignature(Method method, Class&lt;?&gt; eventType) {
+        // 根据一定规则计算出方法的唯一特征名称
+        methodKeyBuilder.setLength(0);
+        methodKeyBuilder.append(method.getName());
+        methodKeyBuilder.append(&apos;&gt;&apos;).append(eventType.getName());
+
+        String methodKey = methodKeyBuilder.toString();
+        Class&lt;?&gt; methodClass = method.getDeclaringClass();
+        Class&lt;?&gt; methodClassOld = subscriberClassByMethodKey.put(methodKey, methodClass);
+        // 如果具有该特征名称的方法之前还没有添加过 或者 之前添加过的方法所在的类是当前方法所在类的父类或者接口
+        if (methodClassOld == null || methodClassOld.isAssignableFrom(methodClass)) {
+            // Only add if not already found in a sub class
+            return true;
+        } else {
+            // Revert the put, old class is further down the class hierarchy
+            // 恢复成之前的方法，即新方法不保存，通常是父类的方法被子类重写了，所以唯一特征名称一致，
+            // 但是父类的方法不保存，只保留子类重写的方法。
+            subscriberClassByMethodKey.put(methodKey, methodClassOld);
+            return false;
+        }
+    }
+</code></pre><p>对于同一类中同样的 <code>EventType</code> 写了多个方法，因为方法名不同，所以[方法名&gt;eventType]的Key不同，<code>methodClassOld</code> 会为 <code>null</code> ，直接返回 <code>true</code> 。所以这种情况会将所有相同 <code>EventType</code> 的方法都进行保存。</p>
+<p>对于子类重写父类方法的情况，则 <code>methodClassOld</code>（即子类）不为 <code>null</code> ,并且 <code>methodClassOld</code> 也不是 <code>methodClass</code> 的父类，所以会返回 <code>false</code> 。即对于子类重写父类订阅方法，只会保存子类的订阅方法，忽略父类的订阅方法。</p>
+<p>至此，<code>findState</code> 的查找任务就结束了，通过循环向父类查找，将订阅者的订阅方法都保存在了其内部变量 <code>subscriberMethods</code> 列表中。</p>
+<p>最后，会调用 <code>getMethodsAndRelease()</code> 来将 <code>findState</code> 中的 <code>subscriberMethods</code> 取出并返回，然后将使用完的 <code>findState</code> 实例置空恢复后又放回实例池中，将实例回收利用，节省了新的开销，代码如下：</p>
+<pre><code>private List&lt;SubscriberMethod&gt; getMethodsAndRelease(FindState findState) {
+    // 将findState中的subscriberMethods取出
+    List&lt;SubscriberMethod&gt; subscriberMethods = new ArrayList&lt;&gt;(findState.subscriberMethods);
+    // 回收资料
+    findState.recycle();
+    // 将使用完的findState实例置空恢复后又放回实例池中，将实例回收利用，节省了新的开销
+    synchronized (FIND_STATE_POOL) {
+        for (int i = 0; i &lt; POOL_SIZE; i++) {
+            if (FIND_STATE_POOL[i] == null) {
+                FIND_STATE_POOL[i] = findState;
+                break;
+            }
+        }
+    }
+    return subscriberMethods;
+}
+</code></pre><p>至此，查找订阅方法的流程就结束了。我们再将所有步骤归纳一下：</p>
+<p>一. 先从订阅类获取到订阅者所有的方法。<br>二. 遍历处理方法，通过修饰符、参数个数、指定注解和 <code>EventType</code> 来筛选有效的订阅方法。<br>三. 将订阅方法添加进 <code>findState</code> 的 <code>subscriberMethods</code> 这个 <code>List</code> 中。<br>四. 再从订阅类的父类往上进行查找。<br>五. 取出所有的订阅方法返回并进行回收处理。</p>
+<h3 id="订阅事件"><a href="#订阅事件" class="headerlink" title="订阅事件"></a>订阅事件</h3><p>回到 <code>register()</code> 方法中的第三步，对上一步查找到的订阅方法集合进行了遍历调用 <code>subscribe()</code> 方法。来看看 <code>subscribe()</code> 方法做了什么事：</p>
+<pre><code>private void subscribe(Object subscriber, SubscriberMethod subscriberMethod) {
+    Class&lt;?&gt; eventType = subscriberMethod.eventType;
+    // 实例一个Subscription对象，内部持有了订阅者和订阅方法
+    Subscription newSubscription = new Subscription(subscriber, subscriberMethod);
+    CopyOnWriteArrayList&lt;Subscription&gt; subscriptions = subscriptionsByEventType.get(eventType);
+    if (subscriptions == null) {
+        subscriptions = new CopyOnWriteArrayList&lt;&gt;();
+        subscriptionsByEventType.put(eventType, subscriptions);
+    } else {
+        // 多次注册会报错
+        if (subscriptions.contains(newSubscription)) {
+            throw new EventBusException(&quot;Subscriber &quot; + subscriber.getClass() + &quot; already registered to event &quot;
+                    + eventType);
+        }
+    }
+
+    // 根据优先级排序Subscription
+    int size = subscriptions.size();
+    for (int i = 0; i &lt;= size; i++) {
+        if (i == size || subscriberMethod.priority &gt; subscriptions.get(i).subscriberMethod.priority) {
+            subscriptions.add(i, newSubscription);
+            break;
+        }
+    }
+
+    // typesBySubscriber保存了订阅者对应的所有EventType
+    List&lt;Class&lt;?&gt;&gt; subscribedEvents = typesBySubscriber.get(subscriber);
+    if (subscribedEvents == null) {
+        subscribedEvents = new ArrayList&lt;&gt;();
+        typesBySubscriber.put(subscriber, subscribedEvents);
+    }
+    subscribedEvents.add(eventType);
+
+    // 粘性订阅方法要立即处理
+    if (subscriberMethod.sticky) {
+        // 是否考虑注册方法的参数，事件的继承关系，默认为 true
+        if (eventInheritance) {
+            Set&lt;Map.Entry&lt;Class&lt;?&gt;, Object&gt;&gt; entries = stickyEvents.entrySet();
+            for (Map.Entry&lt;Class&lt;?&gt;, Object&gt; entry : entries) {
+                Class&lt;?&gt; candidateEventType = entry.getKey();
+                // 看当前EventType是否是已有的stickyEvent的父类
+                if (eventType.isAssignableFrom(candidateEventType)) {
+                    // 取出缓存的Event
+                    Object stickyEvent = entry.getValue();
+                    // 立即投递事件
+                    checkPostStickyEventToSubscription(newSubscription, stickyEvent);
+                }
+            }
+        } else {
+            Object stickyEvent = stickyEvents.get(eventType);
+            checkPostStickyEventToSubscription(newSubscription, stickyEvent);
+        }
+    }
+}
+</code></pre><p>方法归纳：</p>
+<p>一. 将订阅者和订阅方法封装到 <code>subscriptionsByEventType</code> ，它可以根据 <code>EventType</code> 拿到所有的 <code>Subscription</code> 对象，<code>Subscription</code> 对象中就有订阅者和订阅方法。这样当有 <code>EventType</code> 消息过来时，可以快速的传递给订阅者的订阅方法。(用来给 <code>post</code> 方法来分发事件的)。<br>二. 将订阅者封装到 <code>typesBySubscriber</code> ，它可以根据订阅类拿到所有的 <code>EventType</code> 。这样当我们调用调用 <code>unregister(this)</code> 时，就可以拿到 <code>EventType</code> ，又根据 <code>EventType</code> 拿到所有订阅者和方法，进行解绑了。(用来反注册的)。<br>三. 如果当前订阅方法是粘性方法，则立即去查找是否有本地事件，有的话就立即投递。这也就是为什么粘性事件在注册时会立即回调订阅方法的原因。</p>
+<p>至此，注册流程就结束了。总的来说，就是把订阅者和订阅事件都缓存到了 <code>EventBus</code> 的成员变量 <code>subscriptionsByEventType</code> 和 <code>typesBySubscriber</code>，接下来就要用到这两个变量进行事件的分发和反注册了。</p>
+<h2 id="注销事件"><a href="#注销事件" class="headerlink" title="注销事件"></a>注销事件</h2><p>注册对应的就是反注册，也就是注销，可以调用 <code>unregister</code> 进行注销：</p>
+<pre><code>public synchronized void unregister(Object subscriber) {
+    // 通过订阅者拿到它订阅的所有的订阅事件类型
+    List&lt;Class&lt;?&gt;&gt; subscribedTypes = typesBySubscriber.get(subscriber);
+    if (subscribedTypes != null) {
+        // 遍历事件类型集合，根据事件类型解绑
+        for (Class&lt;?&gt; eventType : subscribedTypes) {
+            unsubscribeByEventType(subscriber, eventType);
+        }
+        // 从记录中移除订阅者
+        typesBySubscriber.remove(subscriber);
+    } else {
+        logger.log(Level.WARNING, &quot;Subscriber to unregister was not registered before: &quot; + subscriber.getClass());
+    }
+}
+</code></pre><p>上述方法，又会调用如下方法：</p>
+<pre><code>private void unsubscribeByEventType(Object subscriber, Class&lt;?&gt; eventType) {
+    // 根据事件类型拿到所有的Subscription
+    List&lt;Subscription&gt; subscriptions = subscriptionsByEventType.get(eventType);
+    if (subscriptions != null) {
+        int size = subscriptions.size();
+        // 遍历所有Subscription，符合解除条件的进行remove
+        for (int i = 0; i &lt; size; i++) {
+            Subscription subscription = subscriptions.get(i);
+            if (subscription.subscriber == subscriber) {
+                subscription.active = false;
+                subscriptions.remove(i);
+                i--;
+                size--;
+            }
+        }
+    }
+}
+</code></pre><p>注销其实就是把对应的注册者和对应的注册信息从记录中移除。</p>
+<h2 id="发送事件"><a href="#发送事件" class="headerlink" title="发送事件"></a>发送事件</h2><p><code>EventBus</code> 提供了两种发送方法 <code>post()</code> 和 <code>postSticky()</code> 。<code>post()</code> 发送的是非粘性的事件，<code>postSticky()</code> 发送的是粘性事件。</p>
+<h3 id="post-方式"><a href="#post-方式" class="headerlink" title="post 方式"></a>post 方式</h3><pre><code>public void post(Object event) {
+    // 从当前线程中取出PostingThreadState
+    PostingThreadState postingState = currentPostingThreadState.get();
+    // 拿到EventType队列
+    List&lt;Object&gt; eventQueue = postingState.eventQueue;
+    eventQueue.add(event);
+
+    // 当前线程是否有消息正在投递
+    if (!postingState.isPosting) {
+        // 当前线程是否是主线程
+        postingState.isMainThread = isMainThread();
+        // 当前线程是否正在发送事件的标识
+        postingState.isPosting = true;
+        if (postingState.canceled) {
+            throw new EventBusException(&quot;Internal error. Abort state was not reset&quot;);
+        }
+        try {
+            // 遍历队列里面的每个事件
+            while (!eventQueue.isEmpty()) {
+                // 单个事件具体处理逻辑
+                postSingleEvent(eventQueue.remove(0), postingState);
+            }
+        } finally {
+            // 重置标志
+            postingState.isPosting = false;
+            postingState.isMainThread = false;
+        }
+    }
+}
+</code></pre><p>这里面有一个 <code>PostingThreadState</code> 对象，我们看一下该类的定义：</p>
+<pre><code>final static class PostingThreadState {
+    // 当前线程的事件队列
+    final List&lt;Object&gt; eventQueue = new ArrayList&lt;&gt;();
+    // 是否有事件正在分发
+    boolean isPosting;
+    // post 的线程是否在主线程
+    boolean isMainThread;
+    // 订阅者和订阅方法的封装类
+    Subscription subscription;
+    // 事件
+    Object event;
+    // 是否取消分发
+    boolean canceled;
+}
+</code></pre><p><code>PostingThreadState</code> 是通过 <code>currentPostingThreadState.get()</code> 来获取实例的：</p>
+<pre><code>private final ThreadLocal&lt;PostingThreadState&gt; currentPostingThreadState = new ThreadLocal&lt;PostingThreadState&gt;() {
+    @Override
+    protected PostingThreadState initialValue() {
+        return new PostingThreadState();
+    }
+};
+</code></pre><p><code>ThreadLocal</code> 保证了数据只对当前线程可见，其他线程是不可见的，这样的话当我们从不同的线程中去取数据，数据相当于是分开保存，设置和读取就会比较快。</p>
+<p>接着会调用<code>postSingleEvent()</code> 对事件进行分发：</p>
+<pre><code>private void postSingleEvent(Object event, PostingThreadState postingState) throws Error {
+    Class&lt;?&gt; eventClass = event.getClass();
+    boolean subscriptionFound = false;
+    // 如果是可继承的事件
+    if (eventInheritance) {
+        // 查找Event的所有父类、接口类以及父类的接口类(Event的父类和接口也是Event)
+        List&lt;Class&lt;?&gt;&gt; eventTypes = lookupAllEventTypes(eventClass);
+        int countTypes = eventTypes.size();
+        for (int h = 0; h &lt; countTypes; h++) {
+            Class&lt;?&gt; clazz = eventTypes.get(h);
+            // 根据查找到的所有Class（Event），逐个寻找订阅者，进行分发event
+            subscriptionFound |= postSingleEventForEventType(event, postingState, clazz);
+        }
+    } else {
+        // 如果不是可继承的事件，则直接对事件进行分发
+        subscriptionFound = postSingleEventForEventType(event, postingState, eventClass);
+    }
+
+    // 如果没有找到订阅者，报异常(调用了 post 方法，也写了方法，但是没有调用 register 方法)
+    if (!subscriptionFound) {
+        if (logNoSubscriberMessages) {
+            logger.log(Level.FINE, &quot;No subscribers registered for event &quot; + eventClass);
+        }
+        if (sendNoSubscriberEvent &amp;&amp; eventClass != NoSubscriberEvent.class &amp;&amp;
+                eventClass != SubscriberExceptionEvent.class) {
+            post(new NoSubscriberEvent(this, event));
+        }
+    }
+}
+</code></pre><p>这个方法的作用很简单，就是做了个分支处理：如果是可继承的事件，则查找到它的所有父事件，然后再往下分发。继续看 <code>postSingleEventForEventType()</code> 方法：</p>
+<pre><code>private boolean postSingleEventForEventType(Object event, PostingThreadState postingState, Class&lt;?&gt; eventClass) {
+    CopyOnWriteArrayList&lt;Subscription&gt; subscriptions;
+    // 可能同时在多个线程同时发送Event,subscriptionsByEventType是共有常量，所以需要加锁
+    synchronized (this) {
+        // 根据Event的类型拿到所有订阅者和订阅方法的封装类列表
+        subscriptions = subscriptionsByEventType.get(eventClass);
+    }
+    if (subscriptions != null &amp;&amp; !subscriptions.isEmpty()) {
+        for (Subscription subscription : subscriptions) {
+            postingState.event = event;
+            postingState.subscription = subscription;
+            boolean aborted = false;
+            try {
+                // 逐个通知订阅者
+                postToSubscription(subscription, event, postingState.isMainThread);
+                aborted = postingState.canceled;
+            } finally {
+                postingState.event = null;
+                postingState.subscription = null;
+                postingState.canceled = false;
+            }
+            if (aborted) {
+                break;
+            }
+        }
+        return true;
+    }
+    return false;
+}
+</code></pre><p>这个方法很简单，就是根据 <code>Event</code> 的类型拿到所有订阅者和订阅方法的封装类列表，然后遍历通知，关键方法在于<code>postToSubscription()</code> :</p>
+<pre><code>private void postToSubscription(Subscription subscription, Object event, boolean isMainThread) {
+    // 根据订阅线程模式进行分支处理
+    switch (subscription.subscriberMethod.threadMode) {
+        case POSTING:
+            // 直接调用在本线程
+            invokeSubscriber(subscription, event);
+            break;
+        case MAIN:
+            if (isMainThread) {
+                // 如果就在主线程，则直接调用
+                invokeSubscriber(subscription, event);
+            } else {
+                // 如果不在主线程，则使用mainThreadPoster
+                mainThreadPoster.enqueue(subscription, event);
+            }
+            break;
+        case MAIN_ORDERED:
+            if (mainThreadPoster != null) {
+                mainThreadPoster.enqueue(subscription, event);
+            } else {
+                // temporary: technically not correct as poster not decoupled from subscriber
+                invokeSubscriber(subscription, event);
+            }
+            break;
+        case BACKGROUND:
+            if (isMainThread) {
+                // 如果在主线程，使用backgroundPoster
+                backgroundPoster.enqueue(subscription, event);
+            } else {
+                // 如果不在主线程，则直接在当前线程调用
+                invokeSubscriber(subscription, event);
+            }
+            break;
+        case ASYNC:
+            // 启动新的线程调用，asyncPoster
+            asyncPoster.enqueue(subscription, event);
+            break;
+        default:
+            throw new IllegalStateException(&quot;Unknown thread mode: &quot; + subscription.subscriberMethod.threadMode);
+    }
+}
+</code></pre><p>这里就是 <code>EventBus</code> 的线程切换了，根据注解定义的线程在不同的分支进行方法回调，方法执行是通过反射来实现的，反射方法如下：</p>
+<pre><code>void invokeSubscriber(Subscription subscription, Object event) {
+    try {
+        // 直接反射调用
+        subscription.subscriberMethod.method.invoke(subscription.subscriber, event);
+    } catch (InvocationTargetException e) {
+        handleSubscriberException(subscription, event, e.getCause());
+    } catch (IllegalAccessException e) {
+        throw new IllegalStateException(&quot;Unexpected exception&quot;, e);
+    }
+}
+</code></pre><p>分发流程归纳：</p>
+<p>一. 获取当前线程的 <code>PostingThreadState</code> 对象从而获取到当前线程的事件队列。<br>二. 通过事件类型获取到所有订阅者集合。<br>三. 通过反射执行订阅者中的订阅方法。</p>
+<p>接下来，我们分析一下线程切换用到的几个 <code>Poster</code> 。</p>
+<h3 id="mainThreadPoster"><a href="#mainThreadPoster" class="headerlink" title="mainThreadPoster"></a>mainThreadPoster</h3><pre><code>mainThreadPoster = new HandlerPoster(this, Looper.getMainLooper(), 10);
+</code></pre><p><code>mainThreadPoster</code> 是个自定义的类 <code>HandlerPoster</code> ，它的目的是在主线程中调用订阅方法，而 <code>EventBus</code> 使用的就是我们熟悉的 <code>Handler</code> ：</p>
+<pre><code>public class HandlerPoster extends Handler implements Poster {
+
+    // 一个待处理消息的队列
+    private final PendingPostQueue queue;
+    // 最大处理时间
+    private final int maxMillisInsideHandleMessage;
+    private final EventBus eventBus;
+    private boolean handlerActive;
+
+    protected HandlerPoster(EventBus eventBus, Looper looper, int maxMillisInsideHandleMessage) {
+        super(looper);
+        this.eventBus = eventBus;
+        this.maxMillisInsideHandleMessage = maxMillisInsideHandleMessage;
+        queue = new PendingPostQueue();
+    }
+
+    public void enqueue(Subscription subscription, Object event) {
+        // 获取一个PendingPost实例
+        PendingPost pendingPost = PendingPost.obtainPendingPost(subscription, event);
+        synchronized (this) {
+            // 入队
+            queue.enqueue(pendingPost);
+            if (!handlerActive) {
+                handlerActive = true;
+                // 主线程的handler发送消息，发送到主线程
+                if (!sendMessage(obtainMessage())) {
+                    throw new EventBusException(&quot;Could not send handler message&quot;);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        boolean rescheduled = false;
+        try {
+            long started = SystemClock.uptimeMillis();
+            while (true) {
+                // 从队列中取出一个pendingPost
+                PendingPost pendingPost = queue.poll();
+                // 如果队列里的消息处理完毕，就直接跳出循环。
+                if (pendingPost == null) {
+                    synchronized (this) {
+                        // Check again, this time in synchronized
+                        pendingPost = queue.poll();
+                        if (pendingPost == null) {
+                            handlerActive = false;
+                            return;
+                        }
+                    }
+                }
+                // 调用订阅方法并会回收pendingPost
+                eventBus.invokeSubscriber(pendingPost);
+                long timeInMethod = SystemClock.uptimeMillis() - started;
+                // 如果方法的执行时间超过最大执行时间(默认10毫秒)
+                if (timeInMethod &gt;= maxMillisInsideHandleMessage) {
+                    if (!sendMessage(obtainMessage())) {
+                        throw new EventBusException(&quot;Could not send handler message&quot;);
+                    }
+                    rescheduled = true;
+                    return;
+                }
+            }
+        } finally {
+            handlerActive = rescheduled;
+        }
+    }
+}
+</code></pre><p><code>HandlerPoster</code> 是自定义的 <code>Handler</code> ,发送消息使用的是 <code>Looper.getMainLooper()</code> 即主线程的 <code>Handler</code> 。 内部定义了一个最大处理消息时间，默认是 <code>10</code> 毫秒，所以说我们一定不要在订阅方法中做耗时操作。还维护了一个 <code>PendingPostQueue</code> ，它是自定义的一个基于链表实现的队列。</p>
+<p>队列维护的是 <code>PendingPost</code> 类，它封装了订阅者 <code>subscription</code> 实例和事件 <code>event</code> 实例；它内部又维护了一个大小为 <code>10000</code> 的 <code>PendingPost</code>（数组集合）池，用来重复利用 <code>PendingPost</code> 实例。然后将 <code>PendingPost</code> 实例入队到上一步说的 <code>PendingPostQueue</code> 队列中。接着使用主线程的 <code>Handler</code> 发送一个消息。</p>
+<p>接下来就是在 <code>handleMessage()</code> 中处理消息了，使用了 <code>while</code> 循环，不断从队列中去取 <code>PendingPost</code> 处理，但是加了个最大执行时间处理，因为是在主线程调用，所以一旦超时，就退出队列，并重新尝试去再进入队列。</p>
+<h3 id="BackgroundPoster"><a href="#BackgroundPoster" class="headerlink" title="BackgroundPoster"></a>BackgroundPoster</h3><p><code>BackgroundPoster</code> 的作用是将 <code>UI</code> 线程的订阅方法调度在非 <code>UI</code> 线程中。即它是要执行在新的 <code>Thread</code> 中的，而开启线程我们最常用的就是 <code>Runnable</code> , 来看看源码：</p>
+<pre><code>final class BackgroundPoster implements Runnable, Poster {
+
+    private final PendingPostQueue queue;
+    private final EventBus eventBus;
+
+    private volatile boolean executorRunning;
+
+    BackgroundPoster(EventBus eventBus) {
+        this.eventBus = eventBus;
+        queue = new PendingPostQueue();
+    }
+
+    public void enqueue(Subscription subscription, Object event) {
+        // 从消息池中构建一个PendingPost
+        PendingPost pendingPost = PendingPost.obtainPendingPost(subscription, event);
+        synchronized (this) {
+            // 入队
+            queue.enqueue(pendingPost);
+            if (!executorRunning) {
+                executorRunning = true;
+                // 线程池调度执行，尽可能使用一个后台线程去依次排队执行订阅方法
+                eventBus.getExecutorService().execute(this);
+            }
+        }
+    }
+
+    @Override
+    public void run() {
+        try {
+            try {
+                while (true) {
+                    PendingPost pendingPost = queue.poll(1000);
+                    if (pendingPost == null) {
+                        synchronized (this) {
+                            // Check again, this time in synchronized
+                            pendingPost = queue.poll();
+                            if (pendingPost == null) {
+                                executorRunning = false;
+                                return;
+                            }
+                        }
+                    }
+                    eventBus.invokeSubscriber(pendingPost);
+                }
+            } catch (InterruptedException e) {
+                eventBus.getLogger().log(Level.WARNING, Thread.currentThread().getName() + &quot; was interruppted&quot;, e);
+            }
+        } finally {
+            executorRunning = false;
+        }
+    }
+
+}
+
+private final static ExecutorService DEFAULT_EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+</code></pre><p>里面通过一个可缓存的线程池去执行 <code>BackgroundPoster</code> 这个 <code>Runnable</code> ，总体跟 <code>HandlerPoster</code> 的流程类似，但是有两点不一样的地方，分别为：</p>
+<p>一. 使用了 <code>poll(int maxMillisToWait)</code> 方法，这个设计很巧妙，当取到最后发现队列为空后，会 <code>wait 1000</code> 毫秒，当有有新的信息来临时就会唤醒线程，<code>poll</code> 出消息。这样设计就减少了发送消息的次数，节省了资源。<br>二. 因为是在子线程执行，所以就没有方法执行时间的限制了。</p>
+<h3 id="AsyncPoster"><a href="#AsyncPoster" class="headerlink" title="AsyncPoster"></a>AsyncPoster</h3><pre><code>class AsyncPoster implements Runnable, Poster {
+
+    private final PendingPostQueue queue;
+    private final EventBus eventBus;
+
+    AsyncPoster(EventBus eventBus) {
+        this.eventBus = eventBus;
+        queue = new PendingPostQueue();
+    }
+
+    public void enqueue(Subscription subscription, Object event) {
+        PendingPost pendingPost = PendingPost.obtainPendingPost(subscription, event);
+        queue.enqueue(pendingPost);
+        // 直接开启新的线程执行，每条消息都直接开启新的后台线程立即执行
+        eventBus.getExecutorService().execute(this);
+    }
+
+    @Override
+    public void run() {
+        //  直接取出消息执行
+        PendingPost pendingPost = queue.poll();
+        if(pendingPost == null) {
+            throw new IllegalStateException(&quot;No pending post available&quot;);
+        }
+        eventBus.invokeSubscriber(pendingPost);
+    }
+
+}
+</code></pre><p>可以看到 <code>AsyncPoster</code> 和 <code>BackgroundPoster</code> 非常的相似，因为它们的功能也非常相似。但是不同之处在于： <code>BackgroundPoster</code> 是尽可能使用一个后台线层去依次排队执行订阅方法；而 <code>AsyncPoster</code> 则是每条消息都直接开启新的后台线程立即执行。</p>
+<h3 id="postSticky-方式"><a href="#postSticky-方式" class="headerlink" title="postSticky 方式"></a>postSticky 方式</h3><p>当注册了粘性事件后，立即能收到还没有注册时系统发出的最后一个事件。</p>
+<pre><code>public void postSticky(Object event) {
+    synchronized (stickyEvents) {
+        stickyEvents.put(event.getClass(), event);
+    }
+    // Should be posted after it is putted, in case the subscriber wants to remove immediately
+    post(event);
+}
+</code></pre><p><code>postSticky()</code> 方法用来发送一个粘性事件，在这个方法中，直接将粘性事件保存在了一个 <code>Map</code> 集合中，而 <code>key</code> 就是 <code>Event的Class</code> 对象。接着就调用正常的 <code>post()</code> 方法了。</p>
+<p>那为什么我们后注册的方法也能接收到之前发出的粘性事件呢，答案就在上面提到的注册方法 <code>subscribe()</code> 中的最后一段：</p>
+<pre><code>private void subscribe(Object subscriber, SubscriberMethod subscriberMethod) {
+    ...
+
+    // 如果是粘性事件，则直接发送出去
+    if (subscriberMethod.sticky) {
+            if (eventInheritance) {
+                // 从stickyEvents取出粘性事件的Class对象
+                Set&lt;Map.Entry&lt;Class&lt;?&gt;, Object&gt;&gt; entries = stickyEvents.entrySet();
+                for (Map.Entry&lt;Class&lt;?&gt;, Object&gt; entry : entries) {
+                    Class&lt;?&gt; candidateEventType = entry.getKey();
+                    // 如果订阅的事件是保存的粘性事件Class或它的父类
+                    if (eventType.isAssignableFrom(candidateEventType)) {
+                        // 取出缓存的Event
+                        Object stickyEvent = entry.getValue();
+                        // 将缓存的Event发送出去
+                        checkPostStickyEventToSubscription(newSubscription, stickyEvent);
+                    }
+                }
+            } else {
+                Object stickyEvent = stickyEvents.get(eventType);
+                checkPostStickyEventToSubscription(newSubscription, stickyEvent);
+            }
+        }
+}
+</code></pre><p>在我们注册订阅方法和事件时，如果是粘性事件，就直接会将事件发送给注册了相同 <code>Event</code> 的订阅者，方法中调用了<code>checkPostStickyEventToSubscription(newSubscription, stickyEvent)</code> 方法：</p>
+<pre><code>private void checkPostStickyEventToSubscription(Subscription newSubscription, Object stickyEvent) {
+    if (stickyEvent != null) {
+        // If the subscriber is trying to abort the event, it will fail (event is not tracked in posting state)
+        // --&gt; Strange corner case, which we don&apos;t take care of here.
+        postToSubscription(newSubscription, stickyEvent, Looper.getMainLooper() == Looper.myLooper());
+    }
+}
+</code></pre><p>直接又调用了<code>postToSubscription()</code> 方法，根据指定线程分别进行分发。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/03/github/glide/EventBus使用详解/" rel="next" title="EventBus使用详解">
+                <i class="fa fa-chevron-left"></i> EventBus使用详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-初始化"><span class="nav-number">1.</span> <span class="nav-text">EventBus 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-注册"><span class="nav-number">2.</span> <span class="nav-text">EventBus 注册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找订阅方法"><span class="nav-number">2.1.</span> <span class="nav-text">查找订阅方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订阅事件"><span class="nav-number">2.2.</span> <span class="nav-text">订阅事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注销事件"><span class="nav-number">3.</span> <span class="nav-text">注销事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送事件"><span class="nav-number">4.</span> <span class="nav-text">发送事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#post-方式"><span class="nav-number">4.1.</span> <span class="nav-text">post 方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mainThreadPoster"><span class="nav-number">4.2.</span> <span class="nav-text">mainThreadPoster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BackgroundPoster"><span class="nav-number">4.3.</span> <span class="nav-text">BackgroundPoster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncPoster"><span class="nav-number">4.4.</span> <span class="nav-text">AsyncPoster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#postSticky-方式"><span class="nav-number">4.5.</span> <span class="nav-text">postSticky 方式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
