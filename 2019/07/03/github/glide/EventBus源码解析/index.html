@@ -116,7 +116,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/07/03/github/glide/EventBus源码解析/index.html">
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="参考: EventBus3.0源码解析 EventBus 初始化通常都是直接通过静态方法 getDefault() 来获得实例，代码如下： public static EventBus getDefault() {     EventBus instance = defaultInstance;     if (instance == null) {         synchronized (E">
-<meta property="og:updated_time" content="2019-07-04T07:51:47.711Z">
+<meta property="og:updated_time" content="2019-07-29T10:39:16.122Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="EventBus源码解析">
 <meta name="twitter:description" content="参考: EventBus3.0源码解析 EventBus 初始化通常都是直接通过静态方法 getDefault() 来获得实例，代码如下： public static EventBus getDefault() {     EventBus instance = defaultInstance;     if (instance == null) {         synchronized (E">
@@ -1232,17 +1232,8 @@ private final static ExecutorService DEFAULT_EXECUTOR_SERVICE = Executors.newCac
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/images/avatar.jpg"
@@ -1342,22 +1333,6 @@ private final static ExecutorService DEFAULT_EXECUTOR_SERVICE = Executors.newCac
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-初始化"><span class="nav-number">1.</span> <span class="nav-text">EventBus 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-注册"><span class="nav-number">2.</span> <span class="nav-text">EventBus 注册</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#查找订阅方法"><span class="nav-number">2.1.</span> <span class="nav-text">查找订阅方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#订阅事件"><span class="nav-number">2.2.</span> <span class="nav-text">订阅事件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注销事件"><span class="nav-number">3.</span> <span class="nav-text">注销事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送事件"><span class="nav-number">4.</span> <span class="nav-text">发送事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#post-方式"><span class="nav-number">4.1.</span> <span class="nav-text">post 方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mainThreadPoster"><span class="nav-number">4.2.</span> <span class="nav-text">mainThreadPoster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BackgroundPoster"><span class="nav-number">4.3.</span> <span class="nav-text">BackgroundPoster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsyncPoster"><span class="nav-number">4.4.</span> <span class="nav-text">AsyncPoster</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#postSticky-方式"><span class="nav-number">4.5.</span> <span class="nav-text">postSticky 方式</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

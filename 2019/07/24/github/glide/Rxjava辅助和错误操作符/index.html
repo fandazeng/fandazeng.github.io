@@ -116,7 +116,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/07/24/github/glide/Rxjava辅助和错误操作符/index.html">
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="Rxjava 辅助和错误操作符RxJava 的辅助操作符主要包括如下内容：  delay，延迟指定的时间后再发射数据。  toList，将所有的数据最终以 List 的形式输出，返回 SingleObserver 对象。  toMap，将所有的数据最终以 Map 的形式输出（默认是HashMap)，返回 SingleObserver 对象。  toMultiMap，将原始 Observable 发">
-<meta property="og:updated_time" content="2019-07-29T09:55:24.868Z">
+<meta property="og:updated_time" content="2019-07-29T10:38:53.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Rxjava辅助和错误操作符">
 <meta name="twitter:description" content="Rxjava 辅助和错误操作符RxJava 的辅助操作符主要包括如下内容：  delay，延迟指定的时间后再发射数据。  toList，将所有的数据最终以 List 的形式输出，返回 SingleObserver 对象。  toMap，将所有的数据最终以 Map 的形式输出（默认是HashMap)，返回 SingleObserver 对象。  toMultiMap，将原始 Observable 发">
@@ -1177,17 +1177,8 @@ private void testOnExceptionResumeNext() {
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview sidebar-panel">
+      <section class="site-overview sidebar-panel sidebar-panel-active">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/images/avatar.jpg"
@@ -1287,22 +1278,6 @@ private void testOnExceptionResumeNext() {
 
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava-辅助和错误操作符"><span class="nav-number">1.</span> <span class="nav-text">Rxjava 辅助和错误操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#操作符示例代码"><span class="nav-number">2.</span> <span class="nav-text">操作符示例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#delay-示例"><span class="nav-number">2.1.</span> <span class="nav-text">delay 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toList-示例"><span class="nav-number">2.2.</span> <span class="nav-text">toList 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toMap-示例"><span class="nav-number">2.3.</span> <span class="nav-text">toMap 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toMultimap-示例"><span class="nav-number">2.4.</span> <span class="nav-text">toMultimap 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#toSortedList-示例"><span class="nav-number">2.5.</span> <span class="nav-text">toSortedList 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timeOut-示例"><span class="nav-number">2.6.</span> <span class="nav-text">timeOut 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timestamp-示例"><span class="nav-number">2.7.</span> <span class="nav-text">timestamp 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#timeInterval-示例"><span class="nav-number">2.8.</span> <span class="nav-text">timeInterval 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnNext-doAfterNext-示例"><span class="nav-number">2.9.</span> <span class="nav-text">doOnNext/doAfterNext 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnError-示例"><span class="nav-number">2.10.</span> <span class="nav-text">doOnError 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnComplete-示例"><span class="nav-number">2.11.</span> <span class="nav-text">doOnComplete 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnEach-示例"><span class="nav-number">2.12.</span> <span class="nav-text">doOnEach 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnTerminate-doAfterTerminate-示例"><span class="nav-number">2.13.</span> <span class="nav-text">doOnTerminate/doAfterTerminate 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnFinally-示例"><span class="nav-number">2.14.</span> <span class="nav-text">doOnFinally 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnFinally-和-doAfterTerminate-的调用顺序示例"><span class="nav-number">2.15.</span> <span class="nav-text">doOnFinally 和 doAfterTerminate 的调用顺序示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#doOnSubscribe-示例"><span class="nav-number">2.16.</span> <span class="nav-text">doOnSubscribe 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onErrorReturn-onErrorReturnItem-示例"><span class="nav-number">2.17.</span> <span class="nav-text">onErrorReturn/onErrorReturnItem 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onErrorResumeNext-示例"><span class="nav-number">2.18.</span> <span class="nav-text">onErrorResumeNext 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#onExceptionResumeNext-示例"><span class="nav-number">2.19.</span> <span class="nav-text">onExceptionResumeNext 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#retry-retryWhen-示例"><span class="nav-number">2.20.</span> <span class="nav-text">retry/retryWhen 示例</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
