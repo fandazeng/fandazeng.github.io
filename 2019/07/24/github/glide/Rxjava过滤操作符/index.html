@@ -1,0 +1,1256 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Rxjava 过滤操作符RxJava 的过滤操作符主要包括如下内容：  debounce/throttleWithTimeout，过滤一段指定的时间内的数据，发射后续的数据(后续没有数据，发射最后一项数据并回调 onCompleted )，默认在 computation 调度器上执行。  distinct，过滤掉重复的数据，只允许还没有发射过的数据项通过。  elementAt，只发射第 N 项数">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava过滤操作符">
+<meta property="og:url" content="http://yoursite.com/2019/07/24/github/glide/Rxjava过滤操作符/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Rxjava 过滤操作符RxJava 的过滤操作符主要包括如下内容：  debounce/throttleWithTimeout，过滤一段指定的时间内的数据，发射后续的数据(后续没有数据，发射最后一项数据并回调 onCompleted )，默认在 computation 调度器上执行。  distinct，过滤掉重复的数据，只允许还没有发射过的数据项通过。  elementAt，只发射第 N 项数">
+<meta property="og:updated_time" content="2019-07-29T09:58:38.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava过滤操作符">
+<meta name="twitter:description" content="Rxjava 过滤操作符RxJava 的过滤操作符主要包括如下内容：  debounce/throttleWithTimeout，过滤一段指定的时间内的数据，发射后续的数据(后续没有数据，发射最后一项数据并回调 onCompleted )，默认在 computation 调度器上执行。  distinct，过滤掉重复的数据，只允许还没有发射过的数据项通过。  elementAt，只发射第 N 项数">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/24/github/glide/Rxjava过滤操作符/"/>
+
+
+
+
+
+     <title> Rxjava过滤操作符 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/github/glide/Rxjava过滤操作符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Rxjava过滤操作符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T10:58:27+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Rxjava/" itemprop="url" rel="index">
+                    <span itemprop="name">Rxjava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/24/github/glide/Rxjava过滤操作符/" class="leancloud_visitors" data-flag-title="Rxjava过滤操作符">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Rxjava-过滤操作符"><a href="#Rxjava-过滤操作符" class="headerlink" title="Rxjava 过滤操作符"></a>Rxjava 过滤操作符</h2><p>RxJava 的过滤操作符主要包括如下内容：</p>
+<ul>
+<li><p><strong>debounce/throttleWithTimeout</strong>，过滤一段指定的时间内的数据，发射后续的数据(后续没有数据，发射最后一项数据并回调 onCompleted )，默认在 computation 调度器上执行。</p>
+</li>
+<li><p><strong>distinct</strong>，过滤掉重复的数据，只允许还没有发射过的数据项通过。</p>
+</li>
+<li><p><strong>elementAt</strong>，只发射第 N 项数据，传入的索引 index 从 0 开始，如果你传递的值为 5 ，那么它会发射第 6 项的数据，返回的是 MaybeObserver 。</p>
+</li>
+<li><p><strong>filter</strong>，指定一个函数来过滤数据项，只有通过条件的数据才会被发射。</p>
+</li>
+<li><p><strong>ofType</strong>，是 filter 操作符的一个特殊形式，它只发射指定类型的数据。</p>
+</li>
+<li><p><strong>first/firstElement</strong>，只发射第一个数据，在没有发射任何数据时发射一个你在参数中指定的默认值。</p>
+</li>
+<li><p><strong>last/lastElement</strong>，只发射最后一个数据，在没有发射任何数据时发射一个你在参数中指定的默认值。</p>
+</li>
+<li><p><strong>single</strong>，发送数据是一项的话输出此项的值，若是多个数据则抛出异常执行 onError() 方法，如果没有发射任何值，可以返回重载方法传的默认值，返回的是 SingleObserver 。</p>
+</li>
+<li><p><strong>ignoreElements</strong>，丢弃所有的正常数据，只发射错误或完成通知，是对数据源的处理，返回 CompletableObserver 对象，而 empty（）是创建空的 Observable 。</p>
+</li>
+<li><p><strong>sample/throttleLast</strong>，定期发射 Observable 最近的数据，跟 throttleLast 操作符等价，默认在 computation 调度器上执行。</p>
+</li>
+<li><p><strong>throttleFirst</strong>，定期发射 Observable 发射的第一项数据，默认在 computation 调度器上执行 。</p>
+</li>
+<li><p><strong>skip</strong>，跳过指定规则的某些数据项，发射剩下的数据项。</p>
+</li>
+<li><p><strong>take/takeLast</strong>，只发射前或后 N 项数据。</p>
+</li>
+</ul>
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>这里如果使用的是 Observer ，则默认为如下实现：</p>
+<pre><code>mObserver = new Observer&lt;Object&gt;() {
+    @Override
+    public void onSubscribe(Disposable d) {
+    }
+
+    @Override
+    public void onNext(Object o) {
+        Log.d(TAG, &quot;收到消息==&quot; + o + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        Log.d(TAG, &quot;错误:&quot; + e.getMessage() + &quot; == 错误线程为：&quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onComplete() {
+        Log.d(TAG, &quot;完成&quot; + &quot; == 完成线程为：&quot; + Thread.currentThread().getName());
+    }
+};
+</code></pre><h3 id="debounce-示例"><a href="#debounce-示例" class="headerlink" title="debounce 示例"></a>debounce 示例</h3><pre><code>/**
+ * 过滤一段指定的时间内的数据，发射后续的数据(后续没有数据，发射最后一项数据并回调 onCompleted)，默认在 computation 调度器上执行
+ * throttleWithTimeout 和 debounce 效果一样
+ *
+ * 结果如下：
+ *
+ *收到消息==10 == 消息线程为：main
+ * 收到消息==11 == 消息线程为：main
+ * 收到消息==12 == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testDebounce() {
+    Observable.range(1, 12).flatMap(new Function&lt;Integer, ObservableSource&lt;String&gt;&gt;() {
+        @Override
+        public ObservableSource&lt;String&gt; apply(Integer integer) throws Exception {
+            Thread.sleep(100 * integer);
+            // 从9开始才发射一个数据，9*100 刚好少于1秒的第一个数
+            // 注意：先 sleep 后发射数据和先发射数据后 sleep 的区别
+            return Observable.just(integer + &quot;&quot;);
+        }
+    }).debounce(1, TimeUnit.SECONDS).subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(mObserver);
+}
+</code></pre><h3 id="distinct-示例"><a href="#distinct-示例" class="headerlink" title="distinct 示例"></a>distinct 示例</h3><pre><code>/**
+ * 过滤掉重复的数据，只允许还没有发射过的数据项通过
+ * 
+ * 结果如下；
+ * 
+ * 收到消息==1 == 消息线程为：main
+ * 收到消息==2 == 消息线程为：main
+ * 收到消息==3 == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testDistinct() {
+    Observable.just(1, 2, 1, 1, 2, 3).distinct().subscribe(mObserver);
+
+    // 它只判定两个相邻的数据是否是不同的，因此只会从序列中过滤掉连续重复的数据
+    Observable.just(1, 2, 1, 1, 2, 3).distinctUntilChanged().subscribe(mObserver);
+
+    // 这个函数根据原始Observable发射的数据项产生一个 Key，然后，比较这些Key而不是数据本身，来判定两个数据是否是不同的
+    Observable.just(1, 2, 1, 1, 2, 3).distinct(new Function&lt;Number, Boolean&gt;() {
+        @Override
+        public Boolean apply(Number number) throws Exception {
+            return number.intValue() % 2 == 0;
+        }
+    }).subscribe(mObserver);
+
+    // 和 distinct(Func1)    一样，根据一个函数产生的Key判定两个相邻的数据项是不是不同的
+    Observable.just(1, 2, 1, 1, 2, 3).distinctUntilChanged(new Function&lt;Number, Boolean&gt;() {
+        @Override
+        public Boolean apply(Number number) throws Exception {
+            return number.intValue() % 2 == 0;
+        }
+    }).subscribe(mObserver);
+}
+</code></pre><h3 id="elementAt-示例"><a href="#elementAt-示例" class="headerlink" title="elementAt 示例"></a>elementAt 示例</h3><pre><code>/**
+ * 只发射第N项数据，传入的 index 是个索引，从 0 开始，，如果你传递给    elementAt    的值为5，那么它会发射第 六项的数据，返回 MaybeObserver
+ *
+ * 结果如下：
+ *
+ * 完成 == 完成线程为：main
+ */
+private void testElementAt() {
+    //  如果 Index 越界了，会回调 onComplete ,但是如果你传递一 个负数索引值，它仍然会抛出一个    IndexOutOfBoundsException    异常。
+    // elementAt
+
+    // 如果 Index 越界了，会回调 onError ,但是如果你传递一 个负数索引值，它仍然会抛出一个    IndexOutOfBoundsException    异常。
+    //     elementAtOrError(int)
+
+    //  如果索引值大于数据 项数，它会发射一个默认值（通过额外的参数指定），而不是抛出异常。
+    //  但是如果你传递一 个负数索引值，它仍然会抛出一个    IndexOutOfBoundsException    异常。
+    // elementAt(int,T)
+
+    Observable.range(0, 9).elementAt(11).subscribe(new MaybeObserver&lt;Integer&gt;() {
+        @Override
+        public void onSubscribe(Disposable d) {
+        }
+
+        @Override
+        public void onSuccess(Integer integer) {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.d(TAG, &quot;错误:&quot; + e.getMessage() + &quot; == 错误线程为：&quot; + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onComplete() {
+            Log.d(TAG, &quot;完成&quot; + &quot; == 完成线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h3 id="filter-示例"><a href="#filter-示例" class="headerlink" title="filter 示例"></a>filter 示例</h3><pre><code>/**
+ * 指定一个函数来过滤数据项，只有通过条件的数据才会被发射
+ * 
+ * 结果如下：
+ * 
+ * 收到消息==1 == 消息线程为：main
+ * 收到消息==2 == 消息线程为：main
+ * 收到消息==3 == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testFilter() {
+    Observable.range(1, 5).filter(new Predicate&lt;Integer&gt;() {
+        @Override
+        public boolean test(Integer integer) throws Exception {
+            return integer &lt; 4;
+        }
+    }).subscribe(mObserver);
+}
+</code></pre><h3 id="ofType-示例"><a href="#ofType-示例" class="headerlink" title="ofType 示例"></a>ofType 示例</h3><pre><code>/**
+ * 是 filter     操作符的一个特殊形式。它过滤一个Observable只发射指定类型的数据
+ *
+ * 结果如下：
+ *
+ * 收到消息==one == 消息线程为：main
+ * 收到消息==two == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testOfType() {
+    Observable.just(0, &quot;one&quot;, 6, 4, &quot;two&quot;, 8).ofType(String.class).subscribe(mObserver);
+}
+</code></pre><h3 id="first-firstElement-示例"><a href="#first-firstElement-示例" class="headerlink" title="first/firstElement 示例"></a>first/firstElement 示例</h3><pre><code>/**
+ * 只发射第一个数据
+ * 
+ * 结果如下：
+ *
+ * 收到消息==1 == 消息线程为：main
+ */
+private void testFirst() {
+    // 只发射第一个数据，返回一个 MaybeObservable，如果有数据发射，不会再回调 onComplete ，这是 MaybeObservable 的特征
+    Disposable firstElement = Observable.just(1, 2, 3).firstElement().subscribe(new Consumer&lt;Integer&gt;() {
+        @Override
+        public void accept(Integer integer) throws Exception {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+
+    //  只发射第一个数据，在没有发射任何数据时发射一个你在参数中指定的默认值，返回一个 SingleObservable
+    Disposable firstDefault = Observable.&lt;Integer&gt;empty().first(100).subscribe(new Consumer&lt;Integer&gt;() {
+
+        @Override
+        public void accept(Integer integer) throws Exception {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h3 id="single-示例"><a href="#single-示例" class="headerlink" title="single 示例"></a>single 示例</h3><pre><code>/**
+ * 发送数据是一项的话输出此项的值，若是多个数据则抛出异常执行onError()方法，返回 SingleObserver
+ * 如果没有发射任何值，可以用重载方法传的默认值
+ *
+ * 结果如下；
+ *
+ * 错误:Sequence contains more than one element! == 错误线程为：main
+ */
+private void testSingle() {
+    Observable.range(0, 20).filter(new Predicate&lt;Integer&gt;() {
+        @Override
+        public boolean test(Integer integer) throws Exception {
+            return integer &gt; 10;
+        }
+    }).single(100).subscribe(new SingleObserver&lt;Integer&gt;() {
+        @Override
+        public void onSubscribe(Disposable d) {
+        }
+
+        @Override
+        public void onSuccess(Integer integer) {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.d(TAG, &quot;错误:&quot; + e.getMessage() + &quot; == 错误线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h3 id="ignoreElements-示例"><a href="#ignoreElements-示例" class="headerlink" title="ignoreElements 示例"></a>ignoreElements 示例</h3><p>   /**</p>
+<pre><code> * 丢弃所有的正常数据，只发射错误或完成通知，是对数据源的处理，返回 CompletableObserver 对象，而 empty（）是创建空的 Observable
+ * 
+ * 结果如下；
+ * 
+ * 错误:测试异常 == 错误线程为：main
+ */
+private void testIgnoreElements() {
+    Observable.range(0, 10).concatWith(Observable.error(new Throwable(&quot;测试异常&quot;)))
+            .ignoreElements().subscribe(new CompletableObserver() {
+        @Override
+        public void onSubscribe(Disposable d) {
+        }
+
+        @Override
+        public void onComplete() {
+            Log.d(TAG, &quot;完成&quot; + &quot; == 完成线程为：&quot; + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+            Log.d(TAG, &quot;错误:&quot; + e.getMessage() + &quot; == 错误线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h3 id="throttleFirst-示例"><a href="#throttleFirst-示例" class="headerlink" title="throttleFirst 示例"></a>throttleFirst 示例</h3><pre><code>/**
+ * 定期发射Observable发射的数据项的第一项 ，默认在 computation 调度器上执行
+ *
+ * 结果如下；
+ *
+ * 收到消息==0 == 消息线程为：main
+ * 收到消息==5 == 消息线程为：main
+ * 收到消息==9 == 消息线程为：main
+ * 收到消息==13 == 消息线程为：main
+ * 收到消息==17 == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testthrottleFirst() {
+    Observable.range(0, 20).flatMap(new Function&lt;Integer, ObservableSource&lt;Integer&gt;&gt;() {
+        @Override
+        public ObservableSource&lt;Integer&gt; apply(Integer integer) throws Exception {
+            Thread.sleep(500);
+            return Observable.just(integer);
+        }
+    }).throttleFirst(2, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(mObserver);
+}
+</code></pre><h3 id="skip-示例"><a href="#skip-示例" class="headerlink" title="skip 示例"></a>skip 示例</h3><pre><code>private void testSkip() {
+    //  忽略Observable发射的前N项数据，只保留之后的数据。
+    Observable.interval(1, TimeUnit.SECONDS).skip(2).subscribe(mObserver);
+
+    // 丢弃原始Observable开始的那段时间发射的数据，时长和时间单位通过参数指定
+    Observable.intervalRange(0, 10, 0, 1, TimeUnit.SECONDS).skip(5, TimeUnit.SECONDS)
+            .subscribe(mObserver);
+
+    // 忽略原始Observable发射的后N项数据，只保留之前的数据。
+    Observable.range(0, 10).skipLast(5).subscribe(mObserver);
+
+    // 丢弃在原始Observable的最后一段时间内发射的数据
+    Observable.range(0, 100).flatMap(new Function&lt;Integer, ObservableSource&lt;?&gt;&gt;() {
+        @Override
+        public ObservableSource&lt;?&gt; apply(Integer integer) throws Exception {
+            Thread.sleep(200);
+            return Observable.just(integer);
+        }
+    }).skipLast(5, TimeUnit.SECONDS).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread()).subscribe(mObserver);
+}
+</code></pre><h3 id="take-示例"><a href="#take-示例" class="headerlink" title="take 示例"></a>take 示例</h3><pre><code>/**
+ * take 只发射前面的N项数据 take(1) 等价于 first
+ * takeLast 只发射后面的N项数据 takeLast(1) 等价于 last
+ */
+private void testTake() {
+    // 只发射前面4个数据
+     Observable.range(1, 5).take(2).subscribe(mObserver);
+    // 只发射后面4个数据
+    Observable.range(1, 10).takeLast(4).subscribe(mObserver);
+
+    // 只获取3秒内发射的数据
+    Observable.intervalRange(0, 10, 0, 1, TimeUnit.SECONDS)
+            .take(3, TimeUnit.SECONDS)
+            .subscribe(mObserver);
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/23/github/glide/Rxjava变换操作符/" rel="next" title="Rxjava变换操作符">
+                <i class="fa fa-chevron-left"></i> Rxjava变换操作符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/24/github/glide/Rxjava条件和布尔操作符/" rel="prev" title="Rxjava条件和布尔操作符">
+                Rxjava条件和布尔操作符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava-过滤操作符"><span class="nav-number">1.</span> <span class="nav-text">Rxjava 过滤操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#示例代码"><span class="nav-number">2.</span> <span class="nav-text">示例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#debounce-示例"><span class="nav-number">2.1.</span> <span class="nav-text">debounce 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#distinct-示例"><span class="nav-number">2.2.</span> <span class="nav-text">distinct 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#elementAt-示例"><span class="nav-number">2.3.</span> <span class="nav-text">elementAt 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#filter-示例"><span class="nav-number">2.4.</span> <span class="nav-text">filter 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ofType-示例"><span class="nav-number">2.5.</span> <span class="nav-text">ofType 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#first-firstElement-示例"><span class="nav-number">2.6.</span> <span class="nav-text">first/firstElement 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#single-示例"><span class="nav-number">2.7.</span> <span class="nav-text">single 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ignoreElements-示例"><span class="nav-number">2.8.</span> <span class="nav-text">ignoreElements 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#throttleFirst-示例"><span class="nav-number">2.9.</span> <span class="nav-text">throttleFirst 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#skip-示例"><span class="nav-number">2.10.</span> <span class="nav-text">skip 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#take-示例"><span class="nav-number">2.11.</span> <span class="nav-text">take 示例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

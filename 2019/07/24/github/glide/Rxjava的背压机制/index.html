@@ -1,0 +1,1208 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Rxjava的背压机制在 RxJava 中，会遇到被观察者发送消息太快以至于它的操作符或者订阅者不能及时处理相关的消息，这就是典型的背压场景。 背压： 是指在异步场景下，被观察者发送事件速度远快于观察者处理的速度，从而导致下游的 buffer 溢出的现象。 注意：必须要在异步的场景下才会出现，即被观察者和观察者处于不同的线程中。 Rxjava的背压策略在 RxJava2.x 中，用 Flowabl">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava的背压机制">
+<meta property="og:url" content="http://yoursite.com/2019/07/24/github/glide/Rxjava的背压机制/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Rxjava的背压机制在 RxJava 中，会遇到被观察者发送消息太快以至于它的操作符或者订阅者不能及时处理相关的消息，这就是典型的背压场景。 背压： 是指在异步场景下，被观察者发送事件速度远快于观察者处理的速度，从而导致下游的 buffer 溢出的现象。 注意：必须要在异步的场景下才会出现，即被观察者和观察者处于不同的线程中。 Rxjava的背压策略在 RxJava2.x 中，用 Flowabl">
+<meta property="og:updated_time" content="2019-07-29T09:46:20.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava的背压机制">
+<meta name="twitter:description" content="Rxjava的背压机制在 RxJava 中，会遇到被观察者发送消息太快以至于它的操作符或者订阅者不能及时处理相关的消息，这就是典型的背压场景。 背压： 是指在异步场景下，被观察者发送事件速度远快于观察者处理的速度，从而导致下游的 buffer 溢出的现象。 注意：必须要在异步的场景下才会出现，即被观察者和观察者处于不同的线程中。 Rxjava的背压策略在 RxJava2.x 中，用 Flowabl">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/24/github/glide/Rxjava的背压机制/"/>
+
+
+
+
+
+     <title> Rxjava的背压机制 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/github/glide/Rxjava的背压机制/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Rxjava的背压机制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T16:25:45+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Rxjava/" itemprop="url" rel="index">
+                    <span itemprop="name">Rxjava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/24/github/glide/Rxjava的背压机制/" class="leancloud_visitors" data-flag-title="Rxjava的背压机制">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Rxjava的背压机制"><a href="#Rxjava的背压机制" class="headerlink" title="Rxjava的背压机制"></a>Rxjava的背压机制</h2><p>在 RxJava 中，会遇到被观察者发送消息太快以至于它的操作符或者订阅者不能及时处理相关的消息，这就是典型的背压场景。</p>
+<p>背压： 是指在<strong>异步场景</strong>下，被观察者发送事件速度远快于观察者处理的速度，从而导致下游的 buffer 溢出的现象。</p>
+<p><strong>注意：必须要在异步的场景下才会出现，即被观察者和观察者处于不同的线程中。</strong></p>
+<h2 id="Rxjava的背压策略"><a href="#Rxjava的背压策略" class="headerlink" title="Rxjava的背压策略"></a>Rxjava的背压策略</h2><p>在 RxJava2.x 中，用 <code>Flowable</code> 来专门支持背压，默认队列为 <code>128</code> ，并且<strong>要求所有的操作符强制支持背压</strong>。</p>
+<p>Flowable 共有 5 种背压策略：</p>
+<pre><code>public enum BackpressureStrategy {
+
+    // 此策略表示，通过 Create方法创建的 Flowable没有指定背压策略，不会对通过 OnNext发射的数据做缓存或丢弃处理，需要下游通过背压操作符(onBackpressureBuffer()/onBackpressureDrop()/onBackpressureLatest())指定背压策略
+    MISSING,
+
+    // 此策略表示，如果放入 Flowable的异步缓存池中的数据超限了，则会抛出 Missing Backpressure Exception异常
+    ERROR,
+
+    // 此策略表示， Flowable 的异步缓存池同 Observable 一样，没有固定大小，可以无限制添加数据，不会抛出 Missing Backpressure Exception异常，但会导致 OOM(Out Of Memory)
+    BUFFER,
+
+    // 此策略表示，如果 Flowable 的异步缓存池满了，则会丢掉将要放入缓存池的数据
+    DROP,
+
+    // 此策略表示，如果 Flowable 的异步缓存池满了，则会丢掉将要放入缓存池的数据，但是总能获取到最后最新的数据
+    LATEST
+}
+</code></pre><h2 id="没有背压处理的情况"><a href="#没有背压处理的情况" class="headerlink" title="没有背压处理的情况"></a>没有背压处理的情况</h2><pre><code>/**
+ * 演示没有背压处理的情况 ，会内存溢出
+ */
+private void testBackPressureExpection() {
+    Disposable disposable = Observable.create(new ObservableOnSubscribe&lt;Integer&gt;() {
+
+        @Override
+        public void subscribe(ObservableEmitter&lt;Integer&gt; emitter) throws Exception {
+            for (int i = 0; ; i++) {
+                emitter.onNext(i);
+            }
+        }
+    }).subscribeOn(Schedulers.newThread()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer&lt;Integer&gt;() {
+        @Override
+        public void accept(Integer integer) throws Exception {
+            TimeUnit.SECONDS.sleep(2);
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h2 id="MissingBackpressureException-异常的情况"><a href="#MissingBackpressureException-异常的情况" class="headerlink" title="MissingBackpressureException 异常的情况"></a>MissingBackpressureException 异常的情况</h2><pre><code>/**
+ * 会报 MissingBackpressureException，默认缓存量为128
+ */
+private void testStrategyError() {
+    Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+        @Override
+        public void subscribe(FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
+            for (int i = 0; i &lt; 129; i++) {
+                emitter.onNext(i);
+            }
+        }
+    }, BackpressureStrategy.ERROR).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber&lt;Integer&gt;() {
+
+                @Override
+                public void onSubscribe(Subscription s) {
+                    Log.d(TAG, &quot;onSubscribe&quot;);
+                    mSubscription = s;
+                }
+
+                @Override
+                public void onNext(Integer integer) {
+                    Log.d(TAG, &quot;onNext: &quot; + integer);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.w(TAG, &quot;onError: &quot;, t);
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.d(TAG, &quot;onComplete&quot;);
+                }
+            });
+}
+</code></pre><h2 id="MISSING-策略的情况"><a href="#MISSING-策略的情况" class="headerlink" title="MISSING 策略的情况"></a>MISSING 策略的情况</h2><pre><code>/**
+ * MISSING 指没有用任何策略，会报 MissingBackpressureException
+ * 可以通过 onBackpressureDrop() 、onBackpressureBuffer() 等设置策略
+ * 如果是系统的操作符，为了避免背压，也可以用 onBackpressureDrop() 、onBackpressureBuffer() 等设置策略
+ */
+private void testStrategyMissing() {
+    Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+        @Override
+        public void subscribe(FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
+            for (int i = 0; i &lt; 129; i++) {
+                emitter.onNext(i);
+            }
+        }
+    }, BackpressureStrategy.MISSING).onBackpressureBuffer().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber&lt;Integer&gt;() {
+
+                @Override
+                public void onSubscribe(Subscription s) {
+                    Log.d(TAG, &quot;onSubscribe&quot;);
+                    mSubscription = s;
+                }
+
+                @Override
+                public void onNext(Integer integer) {
+                    Log.d(TAG, &quot;onNext: &quot; + integer);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.w(TAG, &quot;onError: &quot;, t);
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.d(TAG, &quot;onComplete&quot;);
+                }
+            });
+
+}
+</code></pre><h2 id="测试传入的策略"><a href="#测试传入的策略" class="headerlink" title="测试传入的策略"></a>测试传入的策略</h2><pre><code>/**
+ * Latest 当缓存满了会丢弃数据，但总能获取到最后最新的数据
+ * Drop 当缓存满了会丢弃数据，获取的是丢弃部分数据后缓存的数据，不是最后最新的
+ */
+public void testStrategy(BackpressureStrategy strategy) {
+    Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+        @Override
+        public void subscribe(FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
+            for (int i = 0; i &lt; 10000; i++) {
+                emitter.onNext(i);
+            }
+        }
+    }, strategy).subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber&lt;Integer&gt;() {
+
+                @Override
+                public void onSubscribe(Subscription s) {
+                    Log.d(TAG, &quot;onSubscribe&quot;);
+                    mSubscription = s;
+                    request();
+                }
+
+                @Override
+                public void onNext(Integer integer) {
+                    Log.d(TAG, &quot;onNext: &quot; + integer);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.w(TAG, &quot;onError: &quot;, t);
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.d(TAG, &quot;onComplete&quot;);
+                }
+            });
+}
+</code></pre><h2 id="测试同步的-requested"><a href="#测试同步的-requested" class="headerlink" title="测试同步的 requested"></a>测试同步的 requested</h2><pre><code>/**
+ * 测试同步的 requested ，默认为 0
+ */
+public void testSyncRequested() {
+    Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+        @Override
+        public void subscribe(FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
+            Log.d(TAG, &quot;First requested = &quot; + emitter.requested());
+            boolean flag;
+            for (int i = 0; ; i++) {
+                flag = false;
+                // 等于0就不发射数据了，即使策略是 Error ，也没有超出默认的缓存量
+                while (emitter.requested() == 0) {
+                    if (!flag) {
+                        Log.d(TAG, &quot;Oh no! I can&apos;t emit value!&quot;);
+                        flag = true;
+                    }
+                }
+                emitter.onNext(i);
+                Log.d(TAG, &quot;emit &quot; + i + &quot; , requested = &quot; + emitter.requested());
+            }
+        }
+    }, BackpressureStrategy.ERROR)
+            .subscribe(new Subscriber&lt;Integer&gt;() {
+
+                @Override
+                public void onSubscribe(Subscription s) {
+                    Log.d(TAG, &quot;onSubscribe&quot;);
+                    mSubscription = s;
+                    request();
+                }
+
+                @Override
+                public void onNext(Integer integer) {
+                    Log.d(TAG, &quot;onNext: &quot; + integer);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.w(TAG, &quot;onError: &quot;, t);
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.d(TAG, &quot;onComplete&quot;);
+                }
+            });
+}
+</code></pre><h2 id="测试异步的-requested"><a href="#测试异步的-requested" class="headerlink" title="测试异步的 requested"></a>测试异步的 requested</h2><pre><code>/**
+ * 异步的情况下，requested 默认为128，即默认可以处理128个数据
+ * 下游能够处理，即 requested ！=0 时，才会发送数据
+ * 如果等于0，会根据策略 drop 、latest 、buffer 、error 等来处理数据，等待下一次的 request
+ * &lt;p&gt;
+ * 注意：
+ * 同步的时候，下游 request 多少，上游的 requested 就是多少
+ * 异步的时候，下游请求的多少跟上游无关，上游的 requested 默认是128，每当取出96个数据时，requested 增加95
+ */
+public void testAsynRequested() {
+    Flowable.create(new FlowableOnSubscribe&lt;Integer&gt;() {
+        @Override
+        public void subscribe(FlowableEmitter&lt;Integer&gt; emitter) throws Exception {
+            Log.d(TAG, &quot;First requested = &quot; + emitter.requested());
+            boolean flag;
+            for (int i = 0; ; i++) {
+                flag = false;
+                // 等于0就不发射数据了，即使策略是 Error ，也没有超出默认的缓存量
+                while (emitter.requested() == 0) {
+                    if (emitter.isCancelled()) {
+                        break;
+                    }
+                    if (!flag) {
+                        Log.d(TAG, &quot;Oh no! I can&apos;t emit value!&quot;);
+                        flag = true;
+                    }
+                }
+                emitter.onNext(i);
+                Log.d(TAG, &quot;emit &quot; + i + &quot; , requested = &quot; + emitter.requested());
+            }
+        }
+    }, BackpressureStrategy.ERROR)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(new Subscriber&lt;Integer&gt;() {
+
+                @Override
+                public void onSubscribe(Subscription s) {
+                    Log.d(TAG, &quot;onSubscribe&quot;);
+                    mSubscription = s;
+                }
+
+                @Override
+                public void onNext(Integer integer) {
+                    Log.d(TAG, &quot;onNext: &quot; + integer);
+                }
+
+                @Override
+                public void onError(Throwable t) {
+                    Log.w(TAG, &quot;onError: &quot;, t);
+                }
+
+                @Override
+                public void onComplete() {
+                    Log.d(TAG, &quot;onComplete&quot;);
+                }
+            });
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/24/github/glide/Rxjava合并和连接操作符/" rel="next" title="Rxjava合并和连接操作符">
+                <i class="fa fa-chevron-left"></i> Rxjava合并和连接操作符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/24/github/glide/Rxjava辅助和错误操作符/" rel="prev" title="Rxjava辅助和错误操作符">
+                Rxjava辅助和错误操作符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava的背压机制"><span class="nav-number">1.</span> <span class="nav-text">Rxjava的背压机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava的背压策略"><span class="nav-number">2.</span> <span class="nav-text">Rxjava的背压策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#没有背压处理的情况"><span class="nav-number">3.</span> <span class="nav-text">没有背压处理的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MissingBackpressureException-异常的情况"><span class="nav-number">4.</span> <span class="nav-text">MissingBackpressureException 异常的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MISSING-策略的情况"><span class="nav-number">5.</span> <span class="nav-text">MISSING 策略的情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试传入的策略"><span class="nav-number">6.</span> <span class="nav-text">测试传入的策略</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试同步的-requested"><span class="nav-number">7.</span> <span class="nav-text">测试同步的 requested</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试异步的-requested"><span class="nav-number">8.</span> <span class="nav-text">测试异步的 requested</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

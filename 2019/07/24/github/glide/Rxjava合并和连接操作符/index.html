@@ -1,0 +1,1285 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Rxjava 合并和连接操作符RxJava 的合并操作符主要包括如下内容：  combineLatest，当多个 Observable 中的任何一个发射了数据时，使用一个函数结合每个 Observable 发射的最近数据项，并且基于这个函数的结果发射数据。  join，该操作符只要在另一个 Observable 发射的数据定义的时间窗口内，这个 Observable 发射了一条数据，就结合两个 O">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava合并和连接操作符">
+<meta property="og:url" content="http://yoursite.com/2019/07/24/github/glide/Rxjava合并和连接操作符/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Rxjava 合并和连接操作符RxJava 的合并操作符主要包括如下内容：  combineLatest，当多个 Observable 中的任何一个发射了数据时，使用一个函数结合每个 Observable 发射的最近数据项，并且基于这个函数的结果发射数据。  join，该操作符只要在另一个 Observable 发射的数据定义的时间窗口内，这个 Observable 发射了一条数据，就结合两个 O">
+<meta property="og:updated_time" content="2019-07-29T09:56:37.332Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava合并和连接操作符">
+<meta name="twitter:description" content="Rxjava 合并和连接操作符RxJava 的合并操作符主要包括如下内容：  combineLatest，当多个 Observable 中的任何一个发射了数据时，使用一个函数结合每个 Observable 发射的最近数据项，并且基于这个函数的结果发射数据。  join，该操作符只要在另一个 Observable 发射的数据定义的时间窗口内，这个 Observable 发射了一条数据，就结合两个 O">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/24/github/glide/Rxjava合并和连接操作符/"/>
+
+
+
+
+
+     <title> Rxjava合并和连接操作符 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/24/github/glide/Rxjava合并和连接操作符/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Rxjava合并和连接操作符</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-24T15:00:08+08:00">
+                2019-07-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Rxjava/" itemprop="url" rel="index">
+                    <span itemprop="name">Rxjava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/24/github/glide/Rxjava合并和连接操作符/" class="leancloud_visitors" data-flag-title="Rxjava合并和连接操作符">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Rxjava-合并和连接操作符"><a href="#Rxjava-合并和连接操作符" class="headerlink" title="Rxjava 合并和连接操作符"></a>Rxjava 合并和连接操作符</h2><p>RxJava 的合并操作符主要包括如下内容：</p>
+<ul>
+<li><p><strong>combineLatest</strong>，当多个 Observable 中的任何一个发射了数据时，使用一个函数结合每个 Observable 发射的最近数据项，并且基于这个函数的结果发射数据。</p>
+</li>
+<li><p><strong>join</strong>，该操作符只要在另一个 Observable 发射的数据定义的时间窗口内，这个 Observable 发射了一条数据，就结合两个 Observable 发射的数据。即一个 Observable 的每个数据跟基座的 Observable 的所有数据都结合一次，是一对多的关系。先发射数据的 Observable 为基座。</p>
+</li>
+<li><p><strong>merge</strong>，将多个 Observable 的输出合并，就好像它们是一个单个的 Observable 一样，合并的 Observable 发射的数据可能会交错（顺序发生变化），有一个类似的操作符 Concat 不会让数据交错，能够保持数据的顺序性。在此过程中任何一个原始 Observable 的 onError 通知都会被立即传递给观察者，而且会终止合并后的 Observable 。</p>
+</li>
+<li><p><strong>mergeDelayError</strong>，跟 merge 同样的作用，但是它会保留 onError 通知直到合并后的 Observable 所有的数据发射完成，在那时它才会把 onError 传递给观察者。</p>
+</li>
+<li><p><strong>zip</strong>，使用一个函数按顺序结合多个 Observable 发射的数据项，然后发射这个函数返回的结果。它按照严格的顺序应用这个函数。它只发射与发射数据项最少的那个 Observable 一样多的数据，假如两个 Observable 数据分布为 4 项，5 项，则最终合并是 4 项。</p>
+</li>
+<li><p><strong>startWith/concatWith</strong>，startWith 在发射数据之前先发射一个指定的数据序列 (头添加)，最后发射的数据永远排在最前面。concatWith，在发射数据后面发射一个指定的数据序列 (尾添加)。</p>
+</li>
+</ul>
+<p>RxJava 的连接操作符主要包括如下内容：</p>
+<ul>
+<li><p><strong>ConnectableObservable.connect()</strong>，指示一个可连接的 Observable 开始发射数据。</p>
+</li>
+<li><p><strong>Observable.publish()</strong>，将一个 Observable 转换为一个可连接的 Observable 。</p>
+</li>
+<li><p><strong>Observable.replay</strong>，确保所有的订阅者收到相同的数据序列，即使它们在 Observable 开始发射数据之后才订阅。</p>
+</li>
+</ul>
+<h2 id="合并操作符示例代码"><a href="#合并操作符示例代码" class="headerlink" title="合并操作符示例代码"></a>合并操作符示例代码</h2><p>这里如果使用的是 Observer ，则默认为如下实现：</p>
+<pre><code>mObserver = new Observer&lt;Object&gt;() {
+    @Override
+    public void onSubscribe(Disposable d) {
+    }
+
+    @Override
+    public void onNext(Object o) {
+        Log.d(TAG, &quot;收到消息==&quot; + o + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onError(Throwable e) {
+        Log.d(TAG, &quot;错误:&quot; + e.getMessage() + &quot; == 错误线程为：&quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onComplete() {
+        Log.d(TAG, &quot;完成&quot; + &quot; == 完成线程为：&quot; + Thread.currentThread().getName());
+    }
+};
+</code></pre><h3 id="combineLatest-示例"><a href="#combineLatest-示例" class="headerlink" title="combineLatest 示例"></a>combineLatest 示例</h3><pre><code>/**
+ * 当多个 Observable 中的任何一个发射了数据时，使用一个函数结合每个 Observable 发射的最近数据项，并且基于这个函数的结果发射数据
+ *
+ * 结果如下；
+ *
+ * 收到消息==observableA:1=====observableB:14=====observableC:104===== == 消息线程为：RxComputationThreadPool-1
+ * 收到消息==observableA:2=====observableB:14=====observableC:104===== == 消息线程为：RxComputationThreadPool-1
+ * 收到消息==observableA:3=====observableB:14=====observableC:104===== == 消息线程为：RxComputationThreadPool-1
+ * 收到消息==observableA:4=====observableB:14=====observableC:104===== == 消息线程为：RxComputationThreadPool-1
+ * 完成 == 完成线程为：RxComputationThreadPool-1
+ */
+private void testCombineLatest() {
+    Observable&lt;Integer&gt; observableA = Observable.range(1, 4).delay(1, TimeUnit.SECONDS);
+    Observable&lt;Integer&gt; observableB = Observable.range(10, 5);
+    Observable&lt;Integer&gt; observableC = Observable.range(100, 5);
+
+    Observable.combineLatest(observableA, observableB, observableC, new Function3&lt;Integer, Integer, Integer, String&gt;() {
+        @Override
+        public String apply(Integer integer, Integer integer2, Integer integer3) throws Exception {
+            return &quot;observableA:&quot; + integer + &quot;=====&quot; + &quot;observableB:&quot; + integer2 + &quot;=====&quot; + &quot;observableC:&quot; + integer3 + &quot;=====&quot;;
+        }
+    }).subscribe(mObserver);
+}
+</code></pre><h3 id="join-示例"><a href="#join-示例" class="headerlink" title="join 示例"></a>join 示例</h3><pre><code>/**
+ * 该操作符只要在另一个Observable发射的数据定义的时间窗口内，这个Observable发射了一条数据，就结合两个Observable发射的数据
+ * 即一个 Observable 的每个数据跟基座的 Observable 的所有数据都结合一次，是一对多的关系。先发射数据的 Observable 为基座。
+ *
+ * 结果如下；
+ *
+ * observableB==7 == 消息线程为：main
+ * observableB==8 == 消息线程为：main
+ * observableA==1 == 消息线程为：RxComputationThreadPool-1
+ * observableA ==1observableB ==7== 消息线程为：RxComputationThreadPool-1
+ * 收到消息==8 == 消息线程为：RxComputationThreadPool-1-1
+ * observableA ==1observableB ==8== 消息线程为：RxComputationThreadPool-1
+ * 收到消息==9 == 消息线程为：RxComputationThreadPool-1-1
+ * observableA==2 == 消息线程为：RxComputationThreadPool-1
+ * observableA ==2observableB ==7== 消息线程为：RxComputationThreadPool-1-1
+ * 收到消息==9 == 消息线程为：RxComputationThreadPool-1
+ * observableA ==2observableB ==8== 消息线程为：RxComputationThreadPool-1
+ * 收到消息==10 == 消息线程为：RxComputationThreadPool-1-1
+ * 完成 == 完成线程为：RxComputationThreadPool-1
+ *
+ */
+private void testJoin() {
+    Observable&lt;Integer&gt; observableA = Observable.range(1, 2).delay(1, TimeUnit.SECONDS);
+    Observable&lt;Integer&gt; observableB = Observable.range(7, 2);
+    observableA.join(observableB, new Function&lt;Integer, ObservableSource&lt;Integer&gt;&gt;() {
+        @Override
+        public ObservableSource&lt;Integer&gt; apply(Integer integer) throws Exception {
+            Log.d(TAG, &quot;observableA==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+            return Observable.just(integer).delay(1, TimeUnit.SECONDS);
+        }
+    }, new Function&lt;Integer, ObservableSource&lt;Integer&gt;&gt;() {
+        @Override
+        public ObservableSource&lt;Integer&gt; apply(Integer integer) throws Exception {
+            Log.d(TAG, &quot;observableB==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+            return Observable.just(integer).delay(1, TimeUnit.SECONDS);
+        }
+    }, new BiFunction&lt;Integer, Integer, Integer&gt;() {
+        @Override
+        public Integer apply(Integer integer, Integer integer2) throws Exception {
+            Log.d(TAG, &quot;observableA ==&quot; + integer + &quot;observableB ==&quot; + integer2 + &quot;== 消息线程为：&quot; + Thread.currentThread().getName());
+            return integer + integer2;
+        }
+    }).subscribe(mObserver);
+}
+</code></pre><h3 id="merge-示例"><a href="#merge-示例" class="headerlink" title="merge 示例"></a>merge 示例</h3><pre><code>/**
+ * 将多个Observables的输出合并，就好像它们是一个单个的Observable一样，合并的Observable发射的数据可能会交错（顺序发生变化），
+ * 有一个类似的操作符 Concat 不会让数据交错，能够保持数据的顺序性。
+ * 在此过程中任何一个原始Observable的onError通知都会被立即传递给观察者，而且会终止合并后的Observable。
+ * 
+ * 结果如下；
+ * 
+ * 收到消息==1 == 消息线程为：main
+ * 收到消息==2 == 消息线程为：main
+ * 收到消息==5 == 消息线程为：main
+ * 收到消息==6 == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testMerge() {
+    Observable&lt;Integer&gt; observableA = Observable.range(1, 2);
+    Observable&lt;Integer&gt; observableB = Observable.range(5, 2);
+    Observable.merge(observableA, observableB).subscribe(mObserver);
+}
+</code></pre><h3 id="mergeDelayError-示例"><a href="#mergeDelayError-示例" class="headerlink" title="mergeDelayError 示例"></a>mergeDelayError 示例</h3><pre><code>/**
+ * 将多个Observables的输出合并，就好像它们是一个单个的Observable一样，合并的Observable发射的数据可能会交错（顺序发生变化），
+ * 有一个类似的操作符 concatDelayError 不会让数据交错，能够保持数据的顺序性。
+ * 但是它会保留 onError 通知直到合并后的 Observable 所有的数据发射完成，在那时它才会把 onError 传递给观察者。
+ * 
+ * 结果如下；
+ * 
+ * 收到消息==100 == 消息线程为：main
+ * 收到消息==0 == 消息线程为：main
+ * 收到消息==1 == 消息线程为：main
+ * 收到消息==2 == 消息线程为：main
+ * 错误:error == 错误线程为：main
+ */
+private void testMergeDelayError() {
+    Observable&lt;Integer&gt; observableA = Observable.range(1, 2);
+    Observable&lt;Integer&gt; observableB = Observable.range(5, 2);
+    Observable.merge(observableA, observableB).subscribe(mObserver);
+}
+</code></pre><h3 id="zip-示例"><a href="#zip-示例" class="headerlink" title="zip 示例"></a>zip 示例</h3><pre><code>/**
+ * 使用一个函数按顺序结合多个 Observable 发射的数据项，然后发射这个函数返回的结果。
+ * 它按照严格的顺序应用这个函数。它只发射与发射数据项最少的那个Observable一样多的数据，假如两个Observable数据分布为4项，5项，则最终合并是4项
+ * 
+ * 结果如下；
+ * 
+ * 收到消息==observableA: 1 ==== observableB: 7 == 消息线程为：main
+ * 收到消息==observableA: 2 ==== observableB: 8 == 消息线程为：main
+ */
+private void testZip() {
+    Observable&lt;Integer&gt; observableA = Observable.range(1, 2);   // 1 2
+    Observable&lt;Integer&gt; observableB = Observable.range(7, 3);   // 7 8 9
+    Observable.zip(observableA, observableB, new BiFunction&lt;Integer, Integer, String&gt;() {
+        @Override
+        public String apply(Integer integer, Integer integer2) throws Exception {
+            return &quot;observableA: &quot; + integer + &quot; ==== &quot; + &quot;observableB: &quot; + integer2;
+        }
+    }).subscribe(mObserver);
+}
+</code></pre><h3 id="startWith-示例"><a href="#startWith-示例" class="headerlink" title="startWith 示例"></a>startWith 示例</h3><pre><code>/**
+ * startWith 在发射数据之前先发射一个指定的数据序列 (头添加)，最后发射的数据永远排在最前面
+ * concatWith 在发射数据后面发射一个指定的数据序列 (尾添加)
+ * 
+ * 结果如下；
+ * 
+ * 收到消息==15 == 消息线程为：main
+ * 收到消息==500 == 消息线程为：main
+ * 收到消息==100 == 消息线程为：main
+ * 收到消息==200 == 消息线程为：main
+ * 收到消息==0 == 消息线程为：main
+ * 收到消息==1 == 消息线程为：main
+ * 收到消息==2 == 消息线程为：main
+ * 完成 == 完成线程为：main
+ */
+private void testStartWith() {
+    Observable.range(0, 3).startWithArray(100, 200).startWith(500)
+            .startWith(Observable.range(15, 1)).subscribe(mObserver);
+}
+</code></pre><h2 id="ConnectableObservable"><a href="#ConnectableObservable" class="headerlink" title="ConnectableObservable"></a>ConnectableObservable</h2><p><code>ConnectableObservable</code> 继承自 <code>Observable</code> ，然而它并不是在调用 <code>subscribe()</code> 的时候发射数据，而是只有对其使用 <code>connect</code> 操作符它才会发射数据，所以可以用来更灵活地控制数据发射的时机，另外，<code>ConnectableObservable</code> 是 <code>Hot Observable</code> 。</p>
+<h2 id="publish"><a href="#publish" class="headerlink" title="publish"></a>publish</h2><pre><code> /**
+ * 发射的数据是共享的 ,默认在 Computation 调度器上
+ * 
+ * 结果如下；
+ * 
+ * 第1个订阅：0-&gt;time:08:04:22 == 消息线程为：main
+ * 第1个订阅：1-&gt;time:08:04:22 == 消息线程为：main
+ * 第1个订阅：2-&gt;time:08:04:23 == 消息线程为：main
+ * 第1个订阅：3-&gt;time:08:04:24 == 消息线程为：main
+ * 第2个订阅：3-&gt;time:08:04:24 == 消息线程为：RxComputationThreadPool-1
+ * 第1个订阅：4-&gt;time:08:04:25 == 消息线程为：main
+ * 第2个订阅：4-&gt;time:08:04:25 == 消息线程为：RxComputationThreadPool-1
+ * 第1个订阅：5-&gt;time:08:04:26 == 消息线程为：main
+ * 第2个订阅：5-&gt;time:08:04:26 == 消息线程为：RxComputationThreadPool-1
+ * 
+ */
+private void testPublish() {
+    final SimpleDateFormat format = new SimpleDateFormat(&quot;HH:mm:ss&quot;, Locale.CANADA);
+    Observable&lt;Long&gt; oldObservable = Observable.interval(1, TimeUnit.SECONDS).take(6);
+
+    // 转换成 ConnectableObservable
+    ConnectableObservable&lt;Long&gt; connectableObservable = oldObservable.publish();
+
+    // 可以在 subscribe 之前先调用 connect ，等到 subscribe 之后就会马上发射数据了
+    connectableObservable.connect();
+    Disposable disposable = connectableObservable.subscribeOn(Schedulers.io()).
+            observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer&lt;Long&gt;() {
+        @Override
+        public void accept(Long aLong) throws Exception {
+            Log.d(TAG, &quot;第1个订阅：&quot; + aLong + &quot;-&gt;time:&quot; + format.format(new Date()) + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+
+    // 延迟3秒再订阅
+    connectableObservable.delaySubscription(3, TimeUnit.SECONDS).doOnDispose(new Action() {
+        @Override
+        public void run() throws Exception {
+            Log.d(TAG, &quot;解除订阅了&quot; + &quot; == 解除订阅的线程为：&quot; + Thread.currentThread().getName());
+        }
+    }).subscribe(new Observer&lt;Long&gt;() {
+        @Override
+        public void onSubscribe(Disposable d) {
+            addDispose(d);
+        }
+
+        @Override
+        public void onNext(Long aLong) {
+            Log.d(TAG, &quot;第2个订阅：&quot; + aLong + &quot;-&gt;time:&quot; + format.format(new Date()) + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+        }
+
+        @Override
+        public void onComplete() {
+        }
+    });
+
+
+    // 调用 connect 才会发射数据，subscribe 是不会发射数据的，可以更加灵活的控制发射时机，ConnectableObservable 是 Hot Observable
+    // connectableObservable.connect();
+
+    addDispose(disposable);
+}
+</code></pre><h2 id="replay"><a href="#replay" class="headerlink" title="replay"></a>replay</h2><pre><code> /**
+ * 跟 publish 类似，也是转换成 ConnectableObservable ,但是观察者无论何时开始订阅，都能收到所有的数据(变成了 Cold ？)
+ * &lt;p&gt;
+ * 第1个订阅：0-&gt;time:12:28:31 == 消息线程为：main
+ * 第1个订阅：1-&gt;time:12:28:32 == 消息线程为：main
+ * 第1个订阅：2-&gt;time:12:28:33 == 消息线程为：main
+ * 第2个订阅：0-&gt;time:12:28:33 == 消息线程为：RxComputationThreadPool-2
+ * 第2个订阅：1-&gt;time:12:28:33 == 消息线程为：RxComputationThreadPool-2
+ * 第2个订阅：2-&gt;time:12:28:33 == 消息线程为：RxComputationThreadPool-2
+ * 第1个订阅：3-&gt;time:12:28:34 == 消息线程为：main
+ * 第2个订阅：3-&gt;time:12:28:34 == 消息线程为：RxComputationThreadPool-1
+ * 第1个订阅：4-&gt;time:12:28:35 == 消息线程为：main
+ * 第2个订阅：4-&gt;time:12:28:35 == 消息线程为：RxComputationThreadPool-1
+ * 第2个订阅：5-&gt;time:12:28:36 == 消息线程为：RxComputationThreadPool-1
+ * 第1个订阅：5-&gt;time:12:28:36 == 消息线程为：main
+ */
+private void testReplay() {
+    final SimpleDateFormat format = new SimpleDateFormat(&quot;HH:mm:ss&quot;, Locale.CANADA);
+    Observable&lt;Long&gt; oldObservable = Observable.interval(1, TimeUnit.SECONDS).take(6);
+
+    // 转换成 ConnectableObservable
+    // 最好先限定缓存的大小，否则缓存的数据会占用很大的内存，可能会造成OOM
+    ConnectableObservable&lt;Long&gt; connectableObservable = oldObservable.replay(100);
+
+    // 可以在 subscribe 之前先调用 connect ，等到 subscribe 之后就会马上发射数据了
+    connectableObservable.connect();
+    Disposable disposable = connectableObservable.subscribeOn(Schedulers.io()).
+            observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer&lt;Long&gt;() {
+        @Override
+        public void accept(Long aLong) throws Exception {
+            Log.d(TAG, &quot;第1个订阅：&quot; + aLong + &quot;-&gt;time:&quot; + format.format(new Date()) + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+
+    // 延迟3秒再订阅
+    Disposable disposable2 = connectableObservable.delaySubscription(3, TimeUnit.SECONDS).subscribe(new Consumer&lt;Long&gt;() {
+        @Override
+        public void accept(Long aLong) throws Exception {
+            Log.d(TAG, &quot;第2个订阅：&quot; + aLong + &quot;-&gt;time:&quot; + format.format(new Date()) + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+
+    addDispose(disposable, disposable2);
+}
+</code></pre><h2 id="refCount"><a href="#refCount" class="headerlink" title="refCount"></a>refCount</h2><p><code>refCount</code> 操作符是将 <code>ConnectableObservable</code> 转换成普通的 <code>Observable</code> ，同时又保持了<code>Hot Observable</code> 的特征。特别注意的是，要所有的订阅者都取消订阅后，在重新订阅时数据流才会从头开始发射，如果只有部分订阅者取消，则取消的订阅者或新的订阅者再次订阅的时候，不会再头开始发射，从当前数据发射并共享。</p>
+<pre><code>/**
+ * 调用了 refCount 操作符之后，变成普通的 Observable ，不再需要调用 connect 来触发数据发射
+ * 
+ * 结果如下；
+ * 
+ * RefCountObservable第1个订阅：0-&gt;time:08:19:33
+ * RefCountObservable第1个订阅：1-&gt;time:08:19:34
+ * RefCountObservable第1个订阅：2-&gt;time:08:19:35
+ * RefCountObservable第1个订阅：3-&gt;time:08:19:36
+ * RefCountObservable第2个订阅：3-&gt;time:08:19:36
+ * RefCountObservable第1个订阅：4-&gt;time:08:19:37
+ * RefCountObservable第2个订阅：4-&gt;time:08:19:37
+ * RefCountObservable第1个订阅：5-&gt;time:08:19:38
+ * RefCountObservable第2个订阅：5-&gt;time:08:19:38
+ */
+ private void testRefCount() {
+    final SimpleDateFormat format = new SimpleDateFormat(&quot;HH:mm:ss&quot;, Locale.CANADA);
+    Observable&lt;Long&gt; oldObservable = Observable.interval(1, TimeUnit.SECONDS).take(6);
+
+    // 转换成 ConnectableObservable
+    ConnectableObservable&lt;Long&gt; connectableObservable = oldObservable.publish();
+
+    // 转换成普通的 Observable，但是保留了 Hot 的特征，
+    // 要所有的订阅者都取消订阅后，在重新订阅时数据流才会从头开始发射
+    // 如果只有部分订阅者取消，则取消的订阅者或新的订阅者再次订阅的时候，不会再头开始发射，从当前数据发射并共享
+    Observable&lt;Long&gt; refCountObservable = connectableObservable.refCount();
+
+    Disposable refCountdisposable = refCountObservable.subscribe(new Consumer&lt;Long&gt;() {
+        @Override
+        public void accept(Long aLong) throws Exception {
+            Log.d(TAG, &quot;RefCountObservable第1个订阅：&quot; + aLong + &quot;-&gt;time:&quot; + format.format(new Date()));
+        }
+    });
+
+    // 延迟3秒再订阅
+    Disposable refCountdisposable2 = refCountObservable.delaySubscription(3, TimeUnit.SECONDS).subscribe(new Consumer&lt;Long&gt;() {
+        @Override
+        public void accept(Long aLong) throws Exception {
+            Log.d(TAG, &quot;RefCountObservable第2个订阅：&quot; + aLong + &quot;-&gt;time:&quot; + format.format(new Date()));
+        }
+    });
+
+    addDispose(refCountdisposable, refCountdisposable2);
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/24/github/glide/Rxjava条件和布尔操作符/" rel="next" title="Rxjava条件和布尔操作符">
+                <i class="fa fa-chevron-left"></i> Rxjava条件和布尔操作符
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/24/github/glide/Rxjava的背压机制/" rel="prev" title="Rxjava的背压机制">
+                Rxjava的背压机制 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava-合并和连接操作符"><span class="nav-number">1.</span> <span class="nav-text">Rxjava 合并和连接操作符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#合并操作符示例代码"><span class="nav-number">2.</span> <span class="nav-text">合并操作符示例代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#combineLatest-示例"><span class="nav-number">2.1.</span> <span class="nav-text">combineLatest 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#join-示例"><span class="nav-number">2.2.</span> <span class="nav-text">join 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge-示例"><span class="nav-number">2.3.</span> <span class="nav-text">merge 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mergeDelayError-示例"><span class="nav-number">2.4.</span> <span class="nav-text">mergeDelayError 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip-示例"><span class="nav-number">2.5.</span> <span class="nav-text">zip 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#startWith-示例"><span class="nav-number">2.6.</span> <span class="nav-text">startWith 示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConnectableObservable"><span class="nav-number">3.</span> <span class="nav-text">ConnectableObservable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#publish"><span class="nav-number">4.</span> <span class="nav-text">publish</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#replay"><span class="nav-number">5.</span> <span class="nav-text">replay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#refCount"><span class="nav-number">6.</span> <span class="nav-text">refCount</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

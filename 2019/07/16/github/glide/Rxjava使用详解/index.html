@@ -1,0 +1,1102 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Rxjava 介绍响应式编程(Reactive Programming，简称RP)，是一种面向数据流和变化传播的编程范式，有以下几个特点：异步、数据流和变化传播。 RXJava 是 Reactive Extensions 在 JVM 平台上的一个实现，通过使用观察者序列来构建异步、基于事件的程序。 RxJava 可以说是观察者设计模式的一个扩展，支持不同的数据事件流和额外的操作类，允许通过声明式的">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Rxjava使用介绍">
+<meta property="og:url" content="http://yoursite.com/2019/07/16/github/glide/Rxjava使用详解/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Rxjava 介绍响应式编程(Reactive Programming，简称RP)，是一种面向数据流和变化传播的编程范式，有以下几个特点：异步、数据流和变化传播。 RXJava 是 Reactive Extensions 在 JVM 平台上的一个实现，通过使用观察者序列来构建异步、基于事件的程序。 RxJava 可以说是观察者设计模式的一个扩展，支持不同的数据事件流和额外的操作类，允许通过声明式的">
+<meta property="og:updated_time" content="2019-07-29T10:01:20.249Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Rxjava使用介绍">
+<meta name="twitter:description" content="Rxjava 介绍响应式编程(Reactive Programming，简称RP)，是一种面向数据流和变化传播的编程范式，有以下几个特点：异步、数据流和变化传播。 RXJava 是 Reactive Extensions 在 JVM 平台上的一个实现，通过使用观察者序列来构建异步、基于事件的程序。 RxJava 可以说是观察者设计模式的一个扩展，支持不同的数据事件流和额外的操作类，允许通过声明式的">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/16/github/glide/Rxjava使用详解/"/>
+
+
+
+
+
+     <title> Rxjava使用介绍 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/16/github/glide/Rxjava使用详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Rxjava使用介绍</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-16T09:37:44+08:00">
+                2019-07-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Rxjava/" itemprop="url" rel="index">
+                    <span itemprop="name">Rxjava</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/16/github/glide/Rxjava使用详解/" class="leancloud_visitors" data-flag-title="Rxjava使用介绍">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Rxjava-介绍"><a href="#Rxjava-介绍" class="headerlink" title="Rxjava 介绍"></a>Rxjava 介绍</h2><p>响应式编程(Reactive Programming，简称RP)，是一种面向数据流和变化传播的编程范式，有以下几个特点：<strong>异步</strong>、<strong>数据流</strong>和<strong>变化传播</strong>。</p>
+<p><code>RXJava</code> 是 <code>Reactive Extensions</code> 在 <code>JVM</code> 平台上的一个实现，通过使用观察者序列来构建异步、基于事件的程序。 <code>RxJava</code> 可以说是观察者设计模式的一个扩展，支持不同的数据事件流和额外的操作类，允许通过声明式的方式构建不同的执行序列，通过抽象的方式屏蔽底层的多线程实现、同步、线程安全、并发数据结构、非阻塞 IO 等逻辑。</p>
+<h2 id="Rxjava-基础知识"><a href="#Rxjava-基础知识" class="headerlink" title="Rxjava 基础知识"></a>Rxjava 基础知识</h2><h3 id="Observable"><a href="#Observable" class="headerlink" title="Observable"></a>Observable</h3><p><code>RxJava</code> 的使用通常需要三步:</p>
+<p>一. 创建 Observable</p>
+<p><code>Observable</code> 的意思是被观察者，使用 <code>RxJava</code> 时需要创建一个被观察者，它会决定什么时候触发事件以及触发怎样的事件。有点类似上游发送命令，可以在这里决定异步操作模块的顺序和异步操作模块的次数。</p>
+<p>二. 创建 Observer</p>
+<p><code>Observer</code> 即观察者，它可以在不同的线程中执行任务。这种模式可以极大地简化并发操作，因为它创建了一个处于待命状态的观察者哨兵，可以在未来某个时刻响应 <code>Observable</code> 的通知，而不需要阻塞等待 <code>Observable</code> 发射数据。</p>
+<p>三. 使用 subscribe 进行订阅</p>
+<p>创建了 <code>Observable</code> 和 <code>Observer</code> 之后，我们还需要使用<code>subscribe()</code> 方法将它们连接起来，这样整个上下游就能衔接起来实现链式调用，比如：</p>
+<pre><code>String[] array = {&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;, &quot;5&quot;};
+Disposable disposable = Observable.just(array).subscribe(new Consumer&lt;String[]&gt;() {
+    @Override
+    public void accept(String[] strings) throws Exception {
+        for (String string : strings) {
+            Log.d(TAG, &quot;收到消息==&quot; + string + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    }
+});
+</code></pre><p><code>just</code> 是创建 <code>Observable</code> 的操作符，<code>Consumer</code> 是消费者，用于接收单个值，除外，还有 <code>Action</code> ，用于接收无参数类型。在 <code>RxJava</code> 中，被观察者，观察者，<code>subscribe()</code> 方法三者缺一不可，<strong>只有使用了 subscribe() 方法才会开始发送数据</strong>。</p>
+<h3 id="被观察者类型"><a href="#被观察者类型" class="headerlink" title="被观察者类型"></a>被观察者类型</h3><ul>
+<li><p><strong>Observable</strong>，能够发射 <strong>0</strong> 或 <strong>n</strong> 个数据，并以成功或错误事件终止。</p>
+</li>
+<li><p><strong>Flowable</strong> ，能够发射 <strong>0</strong> 或 <strong>n</strong> 个数据，并以成功或错误事件终止，支持背压，可以控制数据源发射的速度。</p>
+</li>
+<li><p><strong>Single</strong> ，只有 <code>onSuccess</code> 和 <code>onError</code>，并没有 <code>onComplete</code> 。其中，<code>onSuccess</code> 用于发射数据，且只能发射 <strong>1</strong> 个数据，后面即使再发射数据也不会做任何处理。</p>
+</li>
+<li><p><strong>Completable</strong>，不发射任何数据，只有 <code>onComplete</code> 和 <code>onError</code> 事件。</p>
+</li>
+<li><p><strong>Maybe</strong> ，<code>single</code> 和 <code>completable</code> 的结合体，只能发射 <strong>0</strong> 或 <strong>1</strong> 个数据，后续发的数据不会做任何处理，有 <code>onComplete</code> 和 <code>onError</code> 事件。如果先调用了 <code>onComplete</code> ，即使后面再调用 <code>onSuccess</code> 也不会发射任何数据。在没有数据发射时，会回调 <code>onComplete</code> ，如果有数据发射或回调了 <code>onError</code>，则不会再执行 <code>onComplete</code> 了。</p>
+</li>
+</ul>
+<h2 id="热-Observable-和-冷-Observable"><a href="#热-Observable-和-冷-Observable" class="headerlink" title="热 Observable 和 冷 Observable"></a>热 Observable 和 冷 Observable</h2><p><code>Hot Observable</code> ，无论有没有观察者进行订阅，事件始终都会发生。当 <code>Hot Observable</code> 有多个订阅者时（多个观察者进行订阅时），<code>Hot Observable</code> 与订阅者们的关系是一对多的关系，可以与多个订阅者共享信息，就像一个广播电台，所有在此刻收听的听众都会听到同一首歌。</p>
+<p><code>Cold Observable</code> 是只有观察者订阅了，才开始执行发射数据流的代码。并且 <code>Cold Observable</code> 和 <code>Observer</code> 只能是一对一的关系。当有多个不同的订阅者时，消息是重新完整发送 的。也就是说，对 <code>Cold Observable</code> 而言，有多个 <code>Observer</code> 的时候，它们各自的事件是独立的，就像一张音乐 CD ，人们可以独立购买并听取它。</p>
+<h2 id="Subject-和-Processor"><a href="#Subject-和-Processor" class="headerlink" title="Subject 和 Processor"></a>Subject 和 Processor</h2><p><code>Subject</code> 是一种特殊的存在，既是 <code>Observable</code> ，又是 <code>Observer</code> ,即又是被观察的对象又是观察者，共有 <strong>4</strong> 种不同的类别：</p>
+<ul>
+<li><p><strong>AsyncSubject</strong>，无论订阅发生在什么时候，只发射最后一个数据，<strong>必须调用 onComplete 才会开始发送数据</strong>。</p>
+</li>
+<li><p><strong>BehaviorSubject</strong>，发送订阅之前的一个数据(没发射数据则发送一个默认数据)和订阅之后的全部数据。</p>
+</li>
+<li><p><strong>ReplaySubject</strong>，无论订阅发生在什么时候，都发射全部数据。</p>
+</li>
+<li><p><strong>PublishSubject</strong>，发送订阅之后的全部数据。</p>
+</li>
+</ul>
+<p><code>Processor</code> 跟 <code>Subject</code> 的作用相同，<strong>能够支持背压控制</strong>，也有 4 种类型，分别为 <code>AsyncProcessor</code> 、 <code>BehaviorProcessor</code> 、 <code>ReplayProcessor</code> 、 <code>PublishProcessor</code> 。</p>
+<h2 id="线程调度"><a href="#线程调度" class="headerlink" title="线程调度"></a>线程调度</h2><p>在默认情况下，<code>RxJava</code> 只在当前线程中运行，它是单线程的。此时 <code>Observable</code> 用于发射数据流，<code>Observer</code> 用于接收和响应数据流，各种操作符(Operators) 用于加工数据流，它们都在同一个线程中运行，实现出来的是一个同步的函数响应式。然而，函数响应式的实际应用是大部分操作都在后台处理，前台响应的一个过程。此时会涉及使用多线程来操作，我们可以使用 <code>RxJava</code> 的调度器(Scheduler)来实现。</p>
+<p>共有6种线程调度类型：</p>
+<ul>
+<li><p><strong>single</strong>，使用定长为1的线程池(new Scheduled Thread pool(1)），重复利用这个线程。</p>
+</li>
+<li><p><strong>newThread</strong>，每次都启用新线程，并在新线程中执行操作。</p>
+</li>
+<li><p><strong>computation</strong>，使用的固定的线程池(Fixed Scheduler Pool)，大小为 CPU 核数，适用于 CPU 密集型计算。</p>
+</li>
+<li><p><strong>io</strong>，适合 IO 操作（读写文件、读写数据库、网络信息交互等）所使用的 Scheduler。行为模式和 new Thread() 差不多，区别在于 io 的内部实现是用一个无数量上限的线程池，可以重用空闲的线程，因此多数情况下，io 比 new Thread 更有效率。</p>
+</li>
+<li><p><strong>trampoline</strong>，直接在当前线程运行，如果当前线程有其他任务正在执行，则会先暂停其他任务。</p>
+</li>
+<li><p><strong>Schedulers.from</strong>，如果内置的 Scheduler 不能满足业务需求，那么可以使用自定义的 Executor 作为调度器，以满足个性化需求。</p>
+</li>
+</ul>
+<p>默认 <code>Observable</code> 和 <code>Observer</code> 处于同一线程中，我们可以使用 <code>subscribeOn()</code> 和<code>observeOn()</code> 来切换到指定线程来工作。</p>
+<p><strong>subscribeOn</strong>，用来指定对数据的处理运行在特定的线程上，若多次使用，只有第一次起作用。<br><strong>observeOn</strong>，用来指定下游操作运行在特定的线程上，多次使用都会起作用。</p>
+<h2 id="代码示例"><a href="#代码示例" class="headerlink" title="代码示例"></a>代码示例</h2><h3 id="SingleObservable-示例"><a href="#SingleObservable-示例" class="headerlink" title="SingleObservable 示例"></a>SingleObservable 示例</h3><pre><code>/**
+ * 只能发射零或一个数据，后续发的数据不会做任何处理
+ * 
+ * 收到消息==2 == 消息线程为：main
+ */
+private void testSingleObservable() {
+    Disposable disposable = Single.create(new SingleOnSubscribe&lt;Integer&gt;() {
+
+        @Override
+        public void subscribe(SingleEmitter&lt;Integer&gt; emitter) throws Exception {
+            emitter.onSuccess(2);
+            emitter.onSuccess(3);
+        }
+    }).subscribe(new Consumer&lt;Integer&gt;() {
+        @Override
+        public void accept(Integer integer) throws Exception {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h3 id="CompletableObservable-示例"><a href="#CompletableObservable-示例" class="headerlink" title="CompletableObservable 示例"></a>CompletableObservable 示例</h3><pre><code>/**
+ * 不会发射任何数据，只有 onComplete 和 onError 事件
+ */
+private void testCompletableObservable() {
+    Disposable disposable = Completable.create(new CompletableOnSubscribe() {
+        @Override
+        public void subscribe(CompletableEmitter emitter) throws Exception {
+            TimeUnit.SECONDS.sleep(1);
+            emitter.onComplete();
+
+        }
+    }).andThen(Observable.range(1, 10)).subscribe(new Consumer&lt;Integer&gt;() {
+        @Override
+        public void accept(Integer integer) throws Exception {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre><h3 id="MaybeObservable-示例"><a href="#MaybeObservable-示例" class="headerlink" title="MaybeObservable 示例"></a>MaybeObservable 示例</h3><pre><code>/**
+ * single 和 completable 的结合体，只能发射零或一个数据，后续发的数据不会做任何处理，有 onComplete 和 onError 事件
+ * 
+ * 收到消息==1 == 消息线程为：main
+ * 
+ * 后续的 2 和 onComplete 事件不会收到
+ */
+private void testMaybeObservable() {
+    Disposable disposable = Maybe.create(new MaybeOnSubscribe&lt;Integer&gt;() {
+
+        @Override
+        public void subscribe(MaybeEmitter&lt;Integer&gt; emitter) throws Exception {
+            emitter.onSuccess(1);
+            emitter.onSuccess(2);
+            emitter.onComplete();
+        }
+    }).subscribe(new Consumer&lt;Integer&gt;() {
+        @Override
+        public void accept(Integer integer) throws Exception {
+            Log.d(TAG, &quot;收到消息==&quot; + integer + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    }, new Consumer&lt;Throwable&gt;() {
+        @Override
+        public void accept(Throwable throwable) throws Exception {
+
+        }
+    }, new Action() {
+        @Override
+        public void run() throws Exception {
+            Log.d(TAG, &quot;Maybe Complete==&quot;  + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+
+    // 如果没有发射任何数据时，会回调 onComplete ，有发射数据或 onError ，则不会再回调 onComplete
+    Maybe.empty().subscribe(new MaybeObserver&lt;Object&gt;() {
+
+        @Override
+        public void onSubscribe(Disposable d) {
+
+        }
+
+        @Override
+        public void onSuccess(Object o) {
+            Log.d(TAG, &quot;收到消息==&quot; + o + &quot; == 消息线程为：&quot; + Thread.currentThread().getName());
+        }
+
+        @Override
+        public void onError(Throwable e) {
+
+        }
+
+        @Override
+        public void onComplete() {
+            Log.d(TAG, &quot;完成&quot; + &quot; == 完成线程为：&quot; + Thread.currentThread().getName());
+        }
+    });
+}
+</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/03/github/glide/EventBus源码解析/" rel="next" title="EventBus源码解析">
+                <i class="fa fa-chevron-left"></i> EventBus源码解析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/07/23/github/glide/Rxjava创建操作符/" rel="prev" title="Rxjava创建操作符">
+                Rxjava创建操作符 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava-介绍"><span class="nav-number">1.</span> <span class="nav-text">Rxjava 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Rxjava-基础知识"><span class="nav-number">2.</span> <span class="nav-text">Rxjava 基础知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Observable"><span class="nav-number">2.1.</span> <span class="nav-text">Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#被观察者类型"><span class="nav-number">2.2.</span> <span class="nav-text">被观察者类型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#热-Observable-和-冷-Observable"><span class="nav-number">3.</span> <span class="nav-text">热 Observable 和 冷 Observable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Subject-和-Processor"><span class="nav-number">4.</span> <span class="nav-text">Subject 和 Processor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程调度"><span class="nav-number">5.</span> <span class="nav-text">线程调度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代码示例"><span class="nav-number">6.</span> <span class="nav-text">代码示例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SingleObservable-示例"><span class="nav-number">6.1.</span> <span class="nav-text">SingleObservable 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CompletableObservable-示例"><span class="nav-number">6.2.</span> <span class="nav-text">CompletableObservable 示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MaybeObservable-示例"><span class="nav-number">6.3.</span> <span class="nav-text">MaybeObservable 示例</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
