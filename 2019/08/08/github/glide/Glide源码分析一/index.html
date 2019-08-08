@@ -1,0 +1,1492 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager with(@NonNull View view">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Glide源码分析一">
+<meta property="og:url" content="http://yoursite.com/2019/08/08/github/glide/Glide源码分析一/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager with(@NonNull View view">
+<meta property="og:updated_time" content="2019-08-08T06:30:05.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Glide源码分析一">
+<meta name="twitter:description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager with(@NonNull View view">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/08/github/glide/Glide源码分析一/"/>
+
+
+
+
+
+     <title> Glide源码分析一 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/08/github/glide/Glide源码分析一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Glide源码分析一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-08T09:40:52+08:00">
+                2019-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Glide/" itemprop="url" rel="index">
+                    <span itemprop="name">Glide</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/08/github/glide/Glide源码分析一/" class="leancloud_visitors" data-flag-title="Glide源码分析一">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Glide-的-with-源码分析"><a href="#Glide-的-with-源码分析" class="headerlink" title="Glide 的 with 源码分析"></a>Glide 的 with 源码分析</h2><p>以下分析的所有源码，都只是部分源码，只为了总体流程分析。</p>
+<p><code>Glide</code> 显示网络图片最简单的代码如下：</p>
+<pre><code>Glide.with(this).load(url).into(mImageView);
+</code></pre><p>接下来，我们一步步分析 <code>with</code> 的源码。</p>
+<pre><code>  // 传入View 
+public static RequestManager with(@NonNull View view) {
+  return getRetriever(view.getContext()).get(view);
+}
+
+  // 传入 Fragment
+public static RequestManager with(@NonNull Fragment fragment) {
+  return getRetriever(fragment.getContext()).get(fragment);
+}
+
+  // 传入 FragmentActivity
+public static RequestManager with(@NonNull FragmentActivity activity) {
+  return getRetriever(activity).get(activity);
+}
+
+  // 传入 Activity
+public static RequestManager with(@NonNull Activity activity) {
+  return getRetriever(activity).get(activity);
+}
+
+  // 传入 Context
+public static RequestManager with(@NonNull Context context) {
+  return getRetriever(context).get(context);
+}
+</code></pre><p>共有 5 个重载的 <code>with</code> 方法，分别在不同的场景使用，但是所有的方法都会调用 <code>getRetriever</code> 方法。</p>
+<pre><code>private static RequestManagerRetriever getRetriever(@Nullable Context context) {
+  return Glide.get(context).getRequestManagerRetriever();
+}
+</code></pre><p>接下来，重点分析 <code>get</code> 方法。</p>
+<pre><code>public static Glide get(@NonNull Context context) {
+  if (glide == null) {
+      // 获取Glide注解自动生成的一个Module配置器
+    GeneratedAppGlideModule annotationGeneratedModule =
+        getAnnotationGeneratedGlideModules(context.getApplicationContext());
+    synchronized (Glide.class) {
+      if (glide == null) {
+        checkAndInitializeGlide(context, annotationGeneratedModule);
+      }
+    }
+  }
+
+  return glide;
+}
+</code></pre><p>该方法是一个双检锁单例模式，首先调用 <code>getAnnotationGeneratedGlideModules</code> 方法来获取 <code>Glide</code> 注解自动生成的一个配置器类，主要是利用反射机制来构建一个配置类实例，这个类是在注解生成器里面生成的。</p>
+<pre><code>private static GeneratedAppGlideModule getAnnotationGeneratedGlideModules(Context context) {
+  GeneratedAppGlideModule result = null;
+    Class&lt;GeneratedAppGlideModule&gt; clazz =
+        (Class&lt;GeneratedAppGlideModule&gt;)
+            Class.forName(&quot;com.bumptech.glide.GeneratedAppGlideModuleImpl&quot;);
+    result =
+        clazz.getDeclaredConstructor(Context.class).newInstance(context.getApplicationContext());
+  return result;
+}
+</code></pre><p>然后调用 <code>checkAndInitializeGlide</code> 来检查并初始化 <code>Glide</code> 。</p>
+<pre><code>private static void checkAndInitializeGlide(
+    @NonNull Context context, @Nullable GeneratedAppGlideModule generatedAppGlideModule) {
+  isInitializing = true;
+  initializeGlide(context, generatedAppGlideModule);
+  isInitializing = false;
+}
+</code></pre><p>重点在 <code>initializeGlide</code> 方法。</p>
+<pre><code>private static void initializeGlide(
+    @NonNull Context context, @Nullable GeneratedAppGlideModule generatedAppGlideModule) {
+    // 创建了一个构建器对象 GlideBuilder ，默认的一些参数和配置
+  initializeGlide(context, new GlideBuilder(), generatedAppGlideModule);
+}
+</code></pre><p>接着又调用了一个重载的 <code>initializeGlide</code> 方法，这才是真正初始化 <code>Glide</code> 的方法。</p>
+<pre><code>private static void initializeGlide(
+    @NonNull Context context,
+    @NonNull GlideBuilder builder,
+    @Nullable GeneratedAppGlideModule annotationGeneratedModule) {
+  Context applicationContext = context.getApplicationContext();
+  List&lt;com.bumptech.glide.module.GlideModule&gt; manifestModules = Collections.emptyList();
+  // 1.如果没有注解生成器，或者开启了 Manifest 的检索
+  if (annotationGeneratedModule == null || annotationGeneratedModule.isManifestParsingEnabled()) {
+    manifestModules = new ManifestParser(applicationContext).parse();
+  }
+
+  // 2.编译时自动生成的类中，包含了需要排除的GlideModule，逐个将其移除
+  if (annotationGeneratedModule != null
+      &amp;&amp; !annotationGeneratedModule.getExcludedModuleClasses().isEmpty()) {
+    Set&lt;Class&lt;?&gt;&gt; excludedModuleClasses = annotationGeneratedModule.getExcludedModuleClasses();
+    Iterator&lt;com.bumptech.glide.module.GlideModule&gt; iterator = manifestModules.iterator();
+    while (iterator.hasNext()) {
+      com.bumptech.glide.module.GlideModule current = iterator.next();
+      if (!excludedModuleClasses.contains(current.getClass())) {
+        continue;
+      }
+      iterator.remove();
+    }
+  }
+
+  RequestManagerRetriever.RequestManagerFactory factory =
+      annotationGeneratedModule != null
+          ? annotationGeneratedModule.getRequestManagerFactory()
+          : null;
+  builder.setRequestManagerFactory(factory);
+
+  // 3.下面的代码是回调 Module 的 applyOptions 方法来配置属性
+  // 用户自定义配置的属性就生效了
+  for (com.bumptech.glide.module.GlideModule module : manifestModules) {
+    module.applyOptions(applicationContext, builder);
+  }
+  if (annotationGeneratedModule != null) {
+    annotationGeneratedModule.applyOptions(applicationContext, builder);
+  }
+
+  // 4.实例化 Glide
+  Glide glide = builder.build(applicationContext);
+
+  // 5.下面的代码是回调 Module 的  registerComponents 方法来注册组件
+  for (com.bumptech.glide.module.GlideModule module : manifestModules) {
+      module.registerComponents(applicationContext, glide, glide.registry);
+  }
+  if (annotationGeneratedModule != null) {
+    annotationGeneratedModule.registerComponents(applicationContext, glide, glide.registry);
+  }
+  applicationContext.registerComponentCallbacks(glide);
+  // 6.赋值给单例对象
+  Glide.glide = glide;
+}
+</code></pre><p>该初始化方法主要做的工作如下：</p>
+<ol>
+<li>检索 Manifest 文件配置的 GlideModule 。</li>
+<li>移除重复的 GlideModule 。</li>
+<li>回调 GlideModule 的 applyOptions 方法来配置自定义的属性。</li>
+<li>调用 build 方法来构建 Glide 实例。</li>
+<li>回调 GlideModule 的  registerComponents 方法来注册组件。</li>
+<li>把 glide 实例赋值给单例对象。</li>
+</ol>
+<p>在第 4 步中会构建 <code>Glide</code> 实例，整个框架非常重要的初始化内容都在这里实现，下面我们重点来看一下这个 <code>build</code> 方法。</p>
+<pre><code>Glide build(@NonNull Context context) {
+    if (sourceExecutor == null) {
+        // 创建资源加载请求器，是一个线程池，用于加载源数据(URL等)
+      sourceExecutor = GlideExecutor.newSourceExecutor();
+    }
+
+    if (diskCacheExecutor == null) {
+        // 创建磁盘缓存请求器，是一个线程池
+      diskCacheExecutor = GlideExecutor.newDiskCacheExecutor();
+    }
+
+    if (animationExecutor == null) {
+        // 创建动画加载请求器，是一个线程池
+      animationExecutor = GlideExecutor.newAnimationExecutor();
+    }
+
+    if (memorySizeCalculator == null) {
+        // 内存计算器
+      memorySizeCalculator = new MemorySizeCalculator.Builder(context).build();
+    }
+
+    if (connectivityMonitorFactory == null) {
+        // 网络状态检测器
+      connectivityMonitorFactory = new DefaultConnectivityMonitorFactory();
+    }
+
+    if (bitmapPool == null) {
+        // 创建 bitmap 资源缓存池，用于资源的回收和缓存，避免由于大量创建和回收 bitmap 导致内存抖动
+      int size = memorySizeCalculator.getBitmapPoolSize();
+      if (size &gt; 0) {
+        bitmapPool = new LruBitmapPool(size);
+      } else {
+        bitmapPool = new BitmapPoolAdapter();
+      }
+    }
+
+    // 数组资源缓存池
+    if (arrayPool == null) {
+      arrayPool = new LruArrayPool(memorySizeCalculator.getArrayPoolSizeInBytes());
+    }
+
+    if (memoryCache == null) {
+        // 内存缓存，用于缓存加载完成和显示的图片数据资源
+      memoryCache = new LruResourceCache(memorySizeCalculator.getMemoryCacheSize());
+    }
+
+    if (diskCacheFactory == null) {
+        // 磁盘缓存器，默认为 APP 内部私密目录
+      diskCacheFactory = new InternalCacheDiskCacheFactory(context);
+    }
+
+    if (engine == null) {
+        // 创建图片加载引擎，用于执行图片加载请求驱动，注意传入的参数
+      engine =
+          new Engine(
+              memoryCache,
+              diskCacheFactory,
+              diskCacheExecutor,
+              sourceExecutor,
+              GlideExecutor.newUnlimitedSourceExecutor(),
+              animationExecutor,
+              isActiveResourceRetentionAllowed);
+    }
+
+    // 构建一个请求监听器列表
+    if (defaultRequestListeners == null) {
+      defaultRequestListeners = Collections.emptyList();
+    } else {
+      defaultRequestListeners = Collections.unmodifiableList(defaultRequestListeners);
+    }
+
+    // 请求索引器
+    RequestManagerRetriever requestManagerRetriever =
+        new RequestManagerRetriever(requestManagerFactory);
+
+    // 创建 Glide，注意传入的参数
+    return new Glide(
+        context,
+        engine,
+        memoryCache,
+        bitmapPool,
+        arrayPool,
+        requestManagerRetriever,
+        connectivityMonitorFactory,
+        logLevel,
+        defaultRequestOptionsFactory,
+        defaultTransitionOptions,
+        defaultRequestListeners,
+        isLoggingRequestOriginsEnabled,
+        isImageDecoderEnabledForBitmaps,
+        hardwareBitmapFdLimit);
+  }
+}
+</code></pre><p>这个方法主要是实例化一些对象，真正实例化 <code>Glide</code> 对象是最后面的<code>new Glide()</code> ，那么我们继续分析 <code>Glide</code> 的构造方法。由于该方法代码量非常多，故省略大量代码，只显示核心逻辑。</p>
+<pre><code>Glide(
+    @NonNull Context context,
+    @NonNull Engine engine,
+    @NonNull MemoryCache memoryCache,
+    @NonNull BitmapPool bitmapPool,
+    @NonNull ArrayPool arrayPool,
+    @NonNull RequestManagerRetriever requestManagerRetriever,
+    @NonNull ConnectivityMonitorFactory connectivityMonitorFactory,
+    int logLevel,
+    @NonNull RequestOptionsFactory defaultRequestOptionsFactory,
+    @NonNull Map&lt;Class&lt;?&gt;, TransitionOptions&lt;?, ?&gt;&gt; defaultTransitionOptions,
+    @NonNull List&lt;RequestListener&lt;Object&gt;&gt; defaultRequestListeners,
+    boolean isLoggingRequestOriginsEnabled,
+    boolean isImageDecoderEnabledForBitmaps,
+    int hardwareBitmapFdLimit) {
+
+    // 赋值
+  this.engine = engine;
+  this.bitmapPool = bitmapPool;
+  this.arrayPool = arrayPool;
+  this.memoryCache = memoryCache;
+  this.requestManagerRetriever = requestManagerRetriever;
+  this.connectivityMonitorFactory = connectivityMonitorFactory;
+  this.defaultRequestOptionsFactory = defaultRequestOptionsFactory;
+
+  final Resources resources = context.getResources();
+
+  // 新建注册器
+  registry = new Registry();
+  registry.register(new DefaultImageHeaderParser());
+  if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O_MR1) {
+    registry.register(new ExifInterfaceImageHeaderParser());
+  }
+
+  List&lt;ImageHeaderParser&gt; imageHeaderParsers = registry.getImageHeaderParsers();
+
+  // 创建解码器
+  ByteBufferGifDecoder byteBufferGifDecoder =
+      new ByteBufferGifDecoder(context, imageHeaderParsers, bitmapPool, arrayPool);
+  ResourceDecoder&lt;ParcelFileDescriptor, Bitmap&gt; parcelFileDescriptorVideoDecoder =
+      VideoDecoder.parcel(bitmapPool);
+
+  ResourceDecoder&lt;ByteBuffer, Bitmap&gt; byteBufferBitmapDecoder;
+  ResourceDecoder&lt;InputStream, Bitmap&gt; streamBitmapDecoder;
+  if (isImageDecoderEnabledForBitmaps &amp;&amp; Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.P) {
+    streamBitmapDecoder = new InputStreamBitmapImageDecoderResourceDecoder();
+    byteBufferBitmapDecoder = new ByteBufferBitmapImageDecoderResourceDecoder();
+  } else {
+    Downsampler downsampler =
+        new Downsampler(
+            registry.getImageHeaderParsers(),
+            resources.getDisplayMetrics(),
+            bitmapPool,
+            arrayPool);
+    byteBufferBitmapDecoder = new ByteBufferBitmapDecoder(downsampler);
+    streamBitmapDecoder = new StreamBitmapDecoder(downsampler, arrayPool);
+  }
+
+  ResourceDrawableDecoder resourceDrawableDecoder = new ResourceDrawableDecoder(context);
+  // 创建数据转换器
+  ResourceLoader.StreamFactory resourceLoaderStreamFactory =
+      new ResourceLoader.StreamFactory(resources);
+  ResourceLoader.UriFactory resourceLoaderUriFactory = new ResourceLoader.UriFactory(resources);
+  ResourceLoader.FileDescriptorFactory resourceLoaderFileDescriptorFactory =
+      new ResourceLoader.FileDescriptorFactory(resources);
+  ResourceLoader.AssetFileDescriptorFactory resourceLoaderAssetFileDescriptorFactory =
+      new ResourceLoader.AssetFileDescriptorFactory(resources);
+  BitmapEncoder bitmapEncoder = new BitmapEncoder(arrayPool);
+
+  // 创建转码器
+  BitmapBytesTranscoder bitmapBytesTranscoder = new BitmapBytesTranscoder();
+  GifDrawableBytesTranscoder gifDrawableBytesTranscoder = new GifDrawableBytesTranscoder();
+
+  ContentResolver contentResolver = context.getContentResolver();
+
+  // 注册各个类型的解码器和编码器
+  registry
+      .append(ByteBuffer.class, new ByteBufferEncoder())
+      .append(InputStream.class, new StreamEncoder(arrayPool))
+
+      // 这里省略大量注册代码
+
+      .register(
+          Drawable.class,
+          byte[].class,
+          new DrawableBytesTranscoder(
+              bitmapPool, bitmapBytesTranscoder, gifDrawableBytesTranscoder))
+      .register(GifDrawable.class, byte[].class, gifDrawableBytesTranscoder);
+
+  // 创建图片显示目标对象工厂
+  ImageViewTargetFactory imageViewTargetFactory = new ImageViewTargetFactory();
+  // 创建 GlideContext 对象，注意传入的参数
+  glideContext =
+      new GlideContext(
+          context,
+          arrayPool,
+          registry,
+          imageViewTargetFactory,
+          defaultRequestOptionsFactory,
+          defaultTransitionOptions,
+          defaultRequestListeners,
+          engine,
+          isLoggingRequestOriginsEnabled,
+          logLevel);
+}
+</code></pre><p>该方法主要是初始化模型转换器、解码器、转码器和编码器，并对各种类型在注册表一一进行注册。</p>
+<p><code>Glide</code> 的加载流程可以概括为以下流程：</p>
+<pre><code>model(数据源)--&gt;data(转换数据)--&gt;decode(解码)--&gt;transformed(缩放)--&gt;transcoded(转码)--&gt;encoded(编码保存到本地)
+</code></pre><p>这个流程非常重要，后面的源码分析就是一步步对流程的每个步骤进行分析。注册表里注册的各种模型转换器、解码器、转码器和编码器，都分别在各个步骤起作用。</p>
+<p>到这里，<code>Glide</code> 的 <code>get</code> 方法终于分析完成，那么让我们回到 <code>getRetriever</code> 方法，在实例化 <code>Glide后</code>，会调用 <code>getRequestManagerRetriever</code> 方法来获取 <code>RequestManagerRetriever</code> 对象。</p>
+<pre><code>public RequestManagerRetriever getRequestManagerRetriever() {
+  return requestManagerRetriever;
+} 
+</code></pre><p>回到最开始的 <code>with</code> 方法可知，后面会根据不会场景来调用 <code>RequestManagerRetriever</code> 的重载 <code>get</code> 方法。接下来我们分析最常用的入参为 <code>Activity</code> 的重载方法。</p>
+<pre><code>public RequestManager get(@NonNull Activity activity) {
+    // 是否后台线程
+  if (Util.isOnBackgroundThread()) {
+      // 获取 getApplicationContext，调用重载的 get 方法
+    return get(activity.getApplicationContext());
+  } else {
+    assertNotDestroyed(activity);
+    android.app.FragmentManager fm = activity.getFragmentManager();
+    return fragmentGet(activity, fm, /*parentHint=*/ null, isActivityVisible(activity));
+  }
+}
+</code></pre><p>接下来，重点分析 <code>fragmentGet</code> 方法：</p>
+<pre><code>private RequestManager fragmentGet(
+      @NonNull Context context,
+      @NonNull android.app.FragmentManager fm,
+      @Nullable android.app.Fragment parentHint,
+      boolean isParentVisible) {
+      // 获取一个命名为FRAGMENT_TAG的fragment，如不存在，则新建一个RequestManagerFragment，并添加到当前页面中。
+    RequestManagerFragment current = getRequestManagerFragment(fm, parentHint, isParentVisible);
+    RequestManager requestManager = current.getRequestManager();
+    if (requestManager == null) {
+      Glide glide = Glide.get(context);
+      // 创建 RequestManager，RequestManager 会把自己放进生命周期监听器集合里
+      requestManager =
+          factory.build(
+              glide, current.getGlideLifecycle(), current.getRequestManagerTreeNode(), context);
+        // 把 RequestManager 设置到当前的 fragment 对象里
+      current.setRequestManager(requestManager);
+    }
+    return requestManager;
+  }
+</code></pre><p><code>Glide</code> 是通过在页面中添加一个 <code>Fragment</code> 来动态监听页面的创建和销毁，从而达到依赖页面生命周期，动态管理请求的目的。</p>
+<p>那么到底是怎样通过 Fragment 来实现的生命周期监听呢？下面详细分析一下。</p>
+<p>首先，看一下 <code>RequestManagerFragment</code> 的构造方法，如下：</p>
+<pre><code>public RequestManagerFragment() {
+  this(new ActivityFragmentLifecycle());
+}
+</code></pre><p>在构造方法中，构建了一个生命周期监听器对象 <code>ActivityFragmentLifecycle</code> 。然后会在 <code>Fragment</code> 的各个生命周期中调用该监听器的对应的方法。</p>
+<pre><code>@Override
+public void onAttach(Activity activity) {
+  super.onAttach(activity);
+  try {
+    registerFragmentWithRoot(activity);
+  } catch (IllegalStateException e) {
+    // OnAttach can be called after the activity is destroyed, see #497.
+    if (Log.isLoggable(TAG, Log.WARN)) {
+      Log.w(TAG, &quot;Unable to register fragment with root&quot;, e);
+    }
+  }
+}
+
+@Override
+public void onDetach() {
+  super.onDetach();
+  unregisterFragmentWithRoot();
+}
+
+@Override
+public void onStart() {
+  super.onStart();
+  lifecycle.onStart();
+}
+
+@Override
+public void onStop() {
+  super.onStop();
+  lifecycle.onStop();
+}
+
+@Override
+public void onDestroy() {
+  super.onDestroy();
+  lifecycle.onDestroy();
+  unregisterFragmentWithRoot();
+}
+</code></pre><p>那么，重点就在于这个监听器对象了，源码如下：</p>
+<pre><code>class ActivityFragmentLifecycle implements Lifecycle {
+  private final Set&lt;LifecycleListener&gt; lifecycleListeners =
+      Collections.newSetFromMap(new WeakHashMap&lt;LifecycleListener, Boolean&gt;());
+  private boolean isStarted;
+  private boolean isDestroyed;
+
+  @Override
+  public void addListener(@NonNull LifecycleListener listener) {
+    lifecycleListeners.add(listener);
+
+    if (isDestroyed) {
+      listener.onDestroy();
+    } else if (isStarted) {
+      listener.onStart();
+    } else {
+      listener.onStop();
+    }
+  }
+
+  @Override
+  public void removeListener(@NonNull LifecycleListener listener) {
+    lifecycleListeners.remove(listener);
+  }
+
+  void onStart() {
+    isStarted = true;
+    for (LifecycleListener lifecycleListener : Util.getSnapshot(lifecycleListeners)) {
+      lifecycleListener.onStart();
+    }
+  }
+
+  void onStop() {
+    isStarted = false;
+    for (LifecycleListener lifecycleListener : Util.getSnapshot(lifecycleListeners)) {
+      lifecycleListener.onStop();
+    }
+  }
+
+  void onDestroy() {
+    isDestroyed = true;
+    for (LifecycleListener lifecycleListener : Util.getSnapshot(lifecycleListeners)) {
+      lifecycleListener.onDestroy();
+    }
+  }
+}
+</code></pre><p>主要是将各个 <code>LifecycleListener</code> 对象添加到集合里面，然后在不同的生命周期来遍历处理对应的生命周期方法。那么这个 <code>LifecycleListener</code> 又有谁呢？其实就包括 <code>RequestManager</code> 对象。我们来看一下 <code>RequestManager</code> 里面添加到监听器集合里的代码。</p>
+<pre><code>  RequestManager(
+      Glide glide,
+      Lifecycle lifecycle,
+      RequestManagerTreeNode treeNode,
+      RequestTracker requestTracker,
+      ConnectivityMonitorFactory factory,
+      Context context) {
+    this.glide = glide;
+    this.lifecycle = lifecycle;
+    this.treeNode = treeNode;
+    this.requestTracker = requestTracker;
+    this.context = context;
+
+    connectivityMonitor =
+        factory.build(
+            context.getApplicationContext(),
+            new RequestManagerConnectivityListener(requestTracker));    
+
+    if (Util.isOnBackgroundThread()) {
+      mainHandler.post(addSelfToLifecycle);
+    } else {
+        // 把自己添加到监听器里，来监听加载的整个生命周期
+      lifecycle.addListener(this);
+    }
+        // 添加网络监听器
+    lifecycle.addListener(connectivityMonitor);
+
+    defaultRequestListeners =
+        new CopyOnWriteArrayList&lt;&gt;(glide.getGlideContext().getDefaultRequestListeners());
+    setRequestOptions(glide.getGlideContext().getDefaultRequestOptions());
+
+    glide.registerRequestManager(this);
+  }
+
+private final Runnable addSelfToLifecycle =
+      new Runnable() {
+        @Override
+        public void run() {
+          lifecycle.addListener(RequestManager.this);
+        }
+  };
+</code></pre><p>由此可知，<code>RequestManager</code> 和 <code>ConnectivityMonitor</code> 都被添加到了生命周期监听。由于每个 <code>with</code> 方法都会实例化一个 <code>RequestManager</code> 对象 和 <code>ConnectivityMonitor</code> 对象，而且这两个对象添加到了生命周期监听，并被设置到了对应的 <code>Fragment</code> 对象里面，所以每个请求都会跟随 <code>fragment</code> 的生命周期。</p>
+<p>最后会返回一个 <code>RequestManager</code> 对象，即 <code>Glide</code> 的 <code>with</code> 对象最终会得到一个 <code>RequestManager</code> 对象。</p>
+<p>如果传入的是 <code>applicationContext</code> ，会调用如下方法来获取 <code>RequestManager</code> 对象 ：</p>
+<pre><code>private RequestManager getApplicationManager(@NonNull Context context) {
+  if (applicationManager == null) {
+    synchronized (this) {
+      if (applicationManager == null) {
+        Glide glide = Glide.get(context.getApplicationContext());
+          // 构造一个 ApplicationLifecycle 对象传入
+        applicationManager =
+            factory.build(
+                glide,
+                new ApplicationLifecycle(),
+                new EmptyRequestManagerTreeNode(),
+                context.getApplicationContext());
+      }
+    }
+  }
+
+  return applicationManager;
+}
+</code></pre><p>至此，总结一下 <code>Glide</code> 的初始化流程：</p>
+<ol>
+<li>获取 Glide 注解自动生成的一个配置器类。</li>
+<li>检索 Manifest 文件配置的 GlideModule 。</li>
+<li>移除重复的 GlideModule 。</li>
+<li>回调 GlideModule 的 applyOptions 方法来配置自定义的属性。</li>
+<li>调用 build 方法来构建 Glide 实例。</li>
+<li>回调 GlideModule 的 registerComponents 方法来注册组件。</li>
+<li>把 glide 实例赋值给单例对象。</li>
+<li>在 RequestManagerRetriever 的重载 get 方法中建立生命周期监听，并返回一个RequestManager。</li>
+</ol>
+<p>在上述的第 5 步，<code>build</code> 方法处理的内容如下：</p>
+<ol>
+<li>新建线程池</li>
+<li>新建图片缓存池和缓存池</li>
+<li>新建内存缓存管理器</li>
+<li>新建默认本地缓存管理器</li>
+<li>新建请求引擎Engine</li>
+<li>新建RequestManger检索器</li>
+<li>在 Glide 的构造方法中初始化模型转换器、解码器、转码器和编码器，并对各种类型在注册表一一进行注册。</li>
+</ol>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/31/github/glide/GlideV4使用详解/" rel="next" title="GlideV4使用详解">
+                <i class="fa fa-chevron-left"></i> GlideV4使用详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/08/github/glide/Glide源码分析二/" rel="prev" title="Glide源码分析二">
+                Glide源码分析二 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Glide-的-with-源码分析"><span class="nav-number">1.</span> <span class="nav-text">Glide 的 with 源码分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

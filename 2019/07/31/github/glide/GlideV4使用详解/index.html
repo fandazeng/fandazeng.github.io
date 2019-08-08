@@ -1,0 +1,1408 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="概述要想使用Glidev4版本，首先需要将这个库引入到我们的项目当中。在你的 build.gradle 中添加下面这行代码： implementation &amp;apos;com.github.bumptech.glide:glide:4.9.0&amp;apos; //使用Generated API需要引入  annotationProcessor &amp;apos;com.github.bumptech.gli">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GlideV4使用详解">
+<meta property="og:url" content="http://yoursite.com/2019/07/31/github/glide/GlideV4使用详解/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="概述要想使用Glidev4版本，首先需要将这个库引入到我们的项目当中。在你的 build.gradle 中添加下面这行代码： implementation &amp;apos;com.github.bumptech.glide:glide:4.9.0&amp;apos; //使用Generated API需要引入  annotationProcessor &amp;apos;com.github.bumptech.gli">
+<meta property="og:image" content="https://cl.ly/0Q370f08270s/Screen%20recording%202017-06-09%20at%2010.10.10%20AM.gif">
+<meta property="og:image" content="https://cl.ly/1c2y3Z260H2K/Screen%20recording%202017-06-09%20at%2003.06.48%20PM.gif">
+<meta property="og:image" content="https://cl.ly/0n37343q0M1n/Screen%20recording%202017-06-09%20at%2003.19.15%20PM.gif">
+<meta property="og:image" content="https://cl.ly/0W41013k3T2G/Image%202017-06-09%20at%204.11.33%20PM.png">
+<meta property="og:image" content="https://cl.ly/3z081H2e0y2Y/Screen%20recording%202017-06-09%20at%2004.29.26%20PM.gif">
+<meta property="og:image" content="https://cl.ly/2a0V0V152e37/Screen%20recording%202017-06-09%20at%2004.42.48%20PM.gif">
+<meta property="og:image" content="https://cl.ly/003r3J1w3h3L/Screen%20recording%202017-06-09%20at%2011.45.52%20AM.gif">
+<meta property="og:updated_time" content="2019-08-02T02:26:01.400Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GlideV4使用详解">
+<meta name="twitter:description" content="概述要想使用Glidev4版本，首先需要将这个库引入到我们的项目当中。在你的 build.gradle 中添加下面这行代码： implementation &amp;apos;com.github.bumptech.glide:glide:4.9.0&amp;apos; //使用Generated API需要引入  annotationProcessor &amp;apos;com.github.bumptech.gli">
+<meta name="twitter:image" content="https://cl.ly/0Q370f08270s/Screen%20recording%202017-06-09%20at%2010.10.10%20AM.gif">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/07/31/github/glide/GlideV4使用详解/"/>
+
+
+
+
+
+     <title> GlideV4使用详解 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/31/github/glide/GlideV4使用详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">GlideV4使用详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-31T09:51:35+08:00">
+                2019-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/glide/" itemprop="url" rel="index">
+                    <span itemprop="name">glide</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/07/31/github/glide/GlideV4使用详解/" class="leancloud_visitors" data-flag-title="GlideV4使用详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>要想使用Glidev4版本，首先需要将这个库引入到我们的项目当中。在你的 <code>build.gradle</code> 中添加下面这行代码：</p>
+<pre><code>implementation &apos;com.github.bumptech.glide:glide:4.9.0&apos;
+//使用Generated API需要引入 
+annotationProcessor &apos;com.github.bumptech.glide:compiler:4.9.0&apos;
+</code></pre><p>目前最新的版本就是 4.9.0 这个版本。</p>
+<p><strong>注意：</strong>Glide中需要用到网络功能，因此你还得在 AndroidManifest.xml 中声明一下网络权限才行：</p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot;/&gt;
+</code></pre><p>如果权限没加，虽然不会报错，但是图片加载没有反应。</p>
+<p>如果你正在从 URL 加载图片，Glide 可以自动帮助你处理片状网络连接：它可以监听用户的连接状态并在用户重新连接到网络时重启之前失败的请求。如果 Glide 检测到你的应用拥有 ACCESS_NETWORK_STATE 权限，Glide 将自动监听连接状态而不需要额外的改动。所以我们最好还要把 ACCESS_NETWORK_STATE 权限也加上。</p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.ACCESS_NETWORK_STATE&quot;/&gt;
+</code></pre><p>如果要从本地文件夹加载图片或缓存图片到本地，则还需要读写权限，如下：</p>
+<pre><code>&lt;uses-permission android:name=&quot;android.permission.READ_EXTERNAL_STORAGE&quot; /&gt;
+
+&lt;uses-permission android:name=&quot;android.permission.WRITE_EXTERNAL_STORAGE&quot; /&gt;
+</code></pre><h2 id="加载图片"><a href="#加载图片" class="headerlink" title="加载图片"></a>加载图片</h2><p>如果你想从网络上加载一张图片到 <code>ImageView</code> 上，只需要这样写：</p>
+<pre><code>String url = &quot;http://www.jianbihua.cc/uploads/allimg/140215/2-140215123319130.jpg&quot;;
+
+Glide.with(this).load(url).into(iv_image);
+</code></pre><p>运行效果如下：</p>
+<p><img src="https://cl.ly/0Q370f08270s/Screen%20recording%202017-06-09%20at%2010.10.10%20AM.gif" alt=""></p>
+<p>一个完整的功能请求，要求至少有三个参数，先 <code>with()</code> ，再 <code>load()</code> ，最后 <code>into()</code> 。</p>
+<ul>
+<li><p><code>with()</code> ，用于创建一个加载图片的实例。 <code>with()</code> 方法可以接收 <code>Context、Activity</code>或者 <code>Fragment</code> 类型的参数。不管是在 <code>Activity</code> 还是 <code>Fragment</code>中 调用<code>with()</code>方法，都可以直接传 <code>this</code> 。那如果调用的地方既不在 <code>Activity</code> 中也不在  <code>Fragment</code> 中呢？也没关系，我们可以获取当前应用程序的<code>ApplicationContext</code>，传入到<code>with()</code>方法当中。注意 <code>with()</code> 方法中传入的实例会决定 <code>Glide</code> 加载图片的生命周期，如果传入的是<code>Activity</code>或者 <code>Fragment</code> 的实例，那么当这个 <code>Activity</code> 或  <code>Fragment</code> 被销毁的时候，Glide 会自动取消加载并回收资源。如果传入的是 <code>ApplicationContext</code> ，那么只有当应用程序被杀掉的时候，图片加载才会停止。</p>
+</li>
+<li><p><code>load()</code> ，这个方法用于指定待加载的图片资源，Glide支持加载各种各样的图片资源，包括网络图片、本地图片、应用资源、二进制流、Uri对象等等。 </p>
+</li>
+<li><p>into() ，需要加载显示图片的 <code>ImageView</code> ，也有一些重载的方法，属于高级用法，后面再讲。</p>
+</li>
+</ul>
+<p>除外，我们也可以调用对应的 clear 方法来手动取消加载：</p>
+<pre><code>Glide.with(this).clear(imageView);
+</code></pre><h2 id="加载进阶"><a href="#加载进阶" class="headerlink" title="加载进阶"></a>加载进阶</h2><p>三步走之中，估计大家最关心的就是 <code>load()</code> 方法，那么我们再进阶一下，看看有哪些重载方法可以用。</p>
+<p> <strong>从应用资源中加载</strong></p>
+<pre><code>int resourceId = R.mipmap.ic_launcher;
+
+Glide.with(context).load(resourceId).into(imageViewResource);
+</code></pre><p> <strong>从文件中加载</strong></p>
+<pre><code>//这个文件可能不存在于你的设备中。然而你可以指定一个图片路径。
+File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), &quot;Running.jpg&quot;);
+
+Glide.with(context).load(file).into(imageViewFile);
+</code></pre><p> <strong>从 Uri 中加载</strong></p>
+<pre><code>Uri uri = resourceIdToUri(context, R.mipmap.future_studio_launcher);
+
+Glide.with(context).load(uri).into(imageViewUri);
+</code></pre><h2 id="占位图"><a href="#占位图" class="headerlink" title="占位图"></a>占位图</h2><p>Glide允许用户指定三种不同类型的占位符，分别在三种不同场景使用：</p>
+<p>占位符(Placeholder)：当请求正在执行时被展示的 Drawable ，当请求成功完成时，占位符会被请求到的资源替换。如果被请求的资源是从内存中加载出来的，那么占位符可能根本不会被显示。如果请求失败并且没有设置 error Drawable ，则占位符将被持续展示。类似地，如果请求的url/model为 null ，并且 error Drawable 和 fallback 都没有设置，那么占位符也会继续显示。</p>
+<p>错误符(Error)： 请求失败后被展示的 Drawable ，如果请求的url/model为 null ，并且 fallback 没有设置，那么该占位符也会继续显示。</p>
+<p>后备回调符(Fallback)： 在请求的url/model为 null 时展示，对 null 的一个特殊处理。</p>
+<p>总结：如果只设置了 Placeholder ，则出现 error 或 url 为 null 时，还会展示 Placeholder 。如果也设置了 error ，则出现 error 或 url 为 null 时，会展示 error 。如果也设置了 fallback ，则会在 url 为 null 时显示 fallback 。</p>
+<pre><code>Glide.with(this).load(url).placeholder(new ColorDrawable(Color.BLACK))
+        .error(new ColorDrawable(Color.RED))
+        .fallback(new ColorDrawable(Color.GRAY)).into(mImageView);
+
+Glide.with(this).load(url).placeholder(R.mipmap.icon_place_holder)
+        .error(R.mipmap.icon_error)
+        .fallback(R.mipmap.icon_fallbackl).into(mImageView);
+</code></pre><p>对应的占位符可以传入 Drawable 或资源 ID 。</p>
+<h3 id="在失败时开始新的请求"><a href="#在失败时开始新的请求" class="headerlink" title="在失败时开始新的请求"></a>在失败时开始新的请求</h3><p>使用 error API 来指定一个 RequestBuilder，以在主请求失败时开始一次新的加载，如下示例会在 url2 加载失败时加载 url 。</p>
+<pre><code>Glide.with(this).load(url2).placeholder(R.mipmap.icon_place_holder)
+        .error(Glide.with(this).load(url))
+        .fallback(R.mipmap.icon_fallbackl).into(mImageView2);
+</code></pre><h2 id="选项-Options"><a href="#选项-Options" class="headerlink" title="选项(Options)"></a>选项(Options)</h2><h3 id="请求选项-RequestOptions"><a href="#请求选项-RequestOptions" class="headerlink" title="请求选项(RequestOptions)"></a>请求选项(RequestOptions)</h3><p>Glide中的大部分设置项都可以直接应用在 Glide.with().load(url) 返回的 RequestBuilder 对象上。如果你想让你的应用的不同部分之间共享相同的加载选项，你也可以初始化一个新的 RequestOptions 对象，并在每次加载时通过 apply() 方法传入这个对象：</p>
+<pre><code>RequestOptions requestOptions = new RequestOptions();
+requestOptions.placeholder(new ColorDrawable(Color.BLACK))
+        .error(new ColorDrawable(Color.RED))
+        .fallback(new ColorDrawable(Color.GRAY));
+
+Glide.with(this).load(url).apply(requestOptions).into(mImageView);
+
+Glide.with(this).load(url2).apply(requestOptions).into(mImageView2);
+</code></pre><p>apply() 方法可以被调用多次，因此 RequestOption 可以被组合使用。如果 RequestOptions 对象之间存在相互冲突的设置，那么只有最后一个被应用的 RequestOptions 会生效。</p>
+<h3 id="过渡选项-TransitionOptions"><a href="#过渡选项-TransitionOptions" class="headerlink" title="过渡选项(TransitionOptions )"></a>过渡选项(TransitionOptions )</h3><p>TransitionOptions 用于决定你的加载完成时会发生什么，使用 TransitionOption 可以应用以下变换：</p>
+<ul>
+<li>View淡入</li>
+<li>与占位符交叉淡入</li>
+<li>或者什么都不发生</li>
+</ul>
+<p>不同于RequestOptions，TransitionOptions是特定资源类型独有的，你能使用的变换取决于你让Glide加载哪种类型的资源。这样的结果是，假如你请求加载一个 Bitmap ，你需要使用 BitmapTransitionOptions ，而不是 DrawableTransitionOptions 。</p>
+<pre><code>Glide.with(this).load(url).transition(DrawableTransitionOptions
+        .withCrossFade(new DrawableCrossFadeFactory.Builder(1000).setCrossFadeEnabled(true).build()))
+        .skipMemoryCache(true)
+        .diskCacheStrategy(DiskCacheStrategy.NONE)
+        .apply(requestOptions).into(mImageView);
+
+Glide.with(this).asBitmap().load(url2).transition(BitmapTransitionOptions.withCrossFade(1000)).apply(requestOptions).into(mImageView2);
+</code></pre><h3 id="RequestBuilder"><a href="#RequestBuilder" class="headerlink" title="RequestBuilder"></a>RequestBuilder</h3><p>RequestBuilder 是Glide中请求的骨架，负责携带请求的url和你的设置项来开始一个新的加载过程。RequestBuilders 是特定于它们将要加载的资源类型的，默认情况下你会得到一个 Drawable RequestBuilder ，要构造一个 RequestBuilder 对象，你可以通过先调用 Glide.with()然后再调用某一个 as 方法来完成：</p>
+<pre><code>RequestBuilder&lt;Bitmap&gt; requestBuilder2 = Glide.with(this).asBitmap(); 
+</code></pre><p>或先调用 Glide.with() 然后 load()：</p>
+<pre><code>RequestBuilder&lt;Drawable&gt; requestBuilder = Glide.with(this).load(url);
+</code></pre><p>RequestBuilder 也可以被复用于开始多个请求：</p>
+<pre><code>RequestBuilder&lt;Drawable&gt; requestBuilder =
+        Glide.with(fragment)
+            .asDrawable()
+            .apply(requestOptions);
+
+for (int i = 0; i &lt; numViews; i++) {
+   ImageView view = viewGroup.getChildAt(i);
+   String url = urls.get(i);
+   requestBuilder.load(url).into(view);
+}
+</code></pre><h2 id="加载动画"><a href="#加载动画" class="headerlink" title="加载动画"></a>加载动画</h2><p>我们在加载图片的时候，肯定不希望图片突然显示出来，平滑地显示是非常有必要的，Glide 默认开启淡入淡出动画，我们在代码中不设置，默认开启，设置了也可以，代码如下:</p>
+<pre><code>String url = &quot;http://www.jianbihua.cc/uploads/allimg/140215/2-140215123319130&quot;;
+Glide.with(this)
+.load(url)
+.placeholder(R.mipmap.icon_home_placeholder)
+.error(R.mipmap.icon_loading_error)
+.crossFade()
+.into(iv_image);
+</code></pre><p> <code>crossFade()</code> 方法还有一个重载方法 <code>crossFade(int duration)</code> ，duration 用来设置动画持续时间，默认时间是300毫秒。具体的效果，大家可以自行测试观察。</p>
+<p> 可能这时候就有小伙伴要搞事情了，我就不想要加载动画，直接显示图片，那也是可以的。 <code>.dontAnimate()</code> 方法即可禁掉加载动画，代码如下：</p>
+<pre><code>String url = &quot;http://www.jianbihua.cc/uploads/allimg/140215/2-140215123319130.jpg&quot;;
+Glide.with(this).load(url).dontAnimate().into(iv_image);
+</code></pre><p>可能这时候又有小伙伴要搞事情了，我要动画，但是我想自定义加载动画，不要默认的，那也是可以的。在讲自定义动画前，我要说明一下，动画仅仅用于不从缓存中加载的情况。如果图片被缓存过了，它的显示是非常快的，因此动画是没有必要的，并且不显示的。</p>
+<p>动画设置通过方法 animate()，该方法有两个重载方法，也就代码着两种不同的加载动画方式。</p>
+<p><strong>从资源中加载动画</strong></p>
+<p>我们可以传入一个动画id来加载图片动画，比如我们设置从左滑入的动画， <code>android.R.anim.slide_in_left</code> 。下面这段代码是这个动画的XML描述：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;&gt;  
+    &lt;translate android:fromXDelta=&quot;-50%p&quot; android:toXDelta=&quot;0&quot;
+        android:duration=&quot;@android:integer/config_mediumAnimTime&quot;/&gt;
+    &lt;alpha android:fromAlpha=&quot;0.0&quot; android:toAlpha=&quot;1.0&quot;
+        android:duration=&quot;@android:integer/config_mediumAnimTime&quot; /&gt;
+&lt;/set&gt; 
+</code></pre><p>从左滑入的代码设置如下：</p>
+<pre><code>String url = &quot;http://www.jianbihua.cc/uploads/allimg/140215/2-140215123319130.jpg&quot;;
+
+Glide.with(this).load(url).animat(android.R.anim.slide_in_left).into(iv_image);
+</code></pre><p><img src="https://cl.ly/1c2y3Z260H2K/Screen%20recording%202017-06-09%20at%2003.06.48%20PM.gif" alt=""></p>
+<p>上述的代码是Android自带的动画，我们可以创建自己的XML动画，比如一个先放大后缩小到原来大小的动画。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;set xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot; android:fillAfter=&quot;true&quot; android:duration=&quot;1000&quot;&gt;
+
+&lt;scale
+    android:fromXScale=&quot;1.2&quot;
+    android:fromYScale=&quot;1.2&quot;
+    android:toXScale=&quot;1.0&quot;
+    android:toYScale=&quot;1.0&quot;
+    android:pivotX=&quot;50%&quot;
+    android:pivotY=&quot;50%&quot; /&gt;
+
+&lt;/set&gt;
+</code></pre><p>缩放动画代码设置如下：</p>
+<pre><code>Glide.with(this).load(url).animat(R.anim.zoom_in).into(iv_image);
+</code></pre><p><img src="https://cl.ly/0n37343q0M1n/Screen%20recording%202017-06-09%20at%2003.19.15%20PM.gif" alt=""></p>
+<p><strong>通过自定义类实现动画</strong></p>
+<p>我们通过这种方式来实现一下上述的缩放动画：</p>
+<pre><code>ViewPropertyAnimation.Animator animatorObject = new ViewPropertyAnimation.Animator() {
+        @Override
+        public void animate(View view) {
+
+            //  如果 view 是一个自定义的View ，可以在这先找到要实现动画的子View，再做动画处理。
+
+            ObjectAnimator animatorX = ObjectAnimator.ofFloat(view, &quot;scaleX&quot;, 1.2f, 1.0f);
+            ObjectAnimator animatorY = ObjectAnimator.ofFloat(view, &quot;scaleY&quot;, 1.2f, 1.0f);
+            AnimatorSet animatorSet = new AnimatorSet();
+            animatorSet.play(animatorX).with(animatorY);
+            animatorSet.setDuration(2000);
+            animatorSet.start();
+        }
+    };
+
+Glide.with(this).load(url).animat(animatorObject).into(iv_image);
+</code></pre><p>最后实现的效果和上述的一样。这种方式可以实现一些比较复杂的动画，也可以解决 <code>into()</code> 方法中没有加载常规ImageView，而是其他对象时的动画处理。我们在后面再讲 <code>into()</code> 加载的其他对象。</p>
+<h2 id="指定图片大小"><a href="#指定图片大小" class="headerlink" title="指定图片大小"></a>指定图片大小</h2><p>实际上，使用Glide在绝大多数情况下我们都是不需要指定图片大小的。</p>
+<p>在学习本节内容之前，你可能还需要先了解一个概念，就是我们平时在加载图片的时候很容易会造成内存浪费。什么叫内存浪费呢？比如说一张图片的尺寸是1000<em>1000像素，但是我们界面上的ImageView可能只有200</em>200像素，这个时候如果你不对图片进行任何压缩就直接读取到内存中，这就属于内存浪费了，因为程序中根本就用不到这么高像素的图片。</p>
+<p>而使用Glide，我们就完全不用担心图片内存浪费，甚至是内存溢出的问题。因为Glide从来都不会直接将图片的完整尺寸全部加载到内存中，而是用多少加载多少。Glide会自动判断ImageView的大小，然后只将这么大的图片像素加载到内存当中，帮助我们节省内存开支。</p>
+<p>也正是因为Glide是如此的智能，所以刚才在开始的时候我就说了，在绝大多数情况下我们都是不需要指定图片大小的，因为Glide会自动根据ImageView的大小来决定图片的大小。</p>
+<p>当你还没有目标 View 去知道尺寸的时候，比如，如果 APP 想要在闪屏界面预热缓存，它还不能测量 ImageView 的尺寸。然而，你如果知道这个图片要多小，用 <code>override(width,height)</code> 提供明确的尺寸。</p>
+<pre><code>Glide.with(this).load(url).override(200,200).into(iv_image);
+</code></pre><p>现在 Glide只会将图片加载成200*200像素的尺寸，而不会管你的 ImageView的大小是多少了。</p>
+<h2 id="变换图像"><a href="#变换图像" class="headerlink" title="变换图像"></a>变换图像</h2><p> 在Glide中，Transformations 可以获取资源并修改它，然后返回被修改后的资源。通常变换操作是用来完成剪裁或对位图应用过滤器，但它也可以用于转换GIF动画，甚至自定义的资源类型。 默认变换是 fitCenter ，Glide 提供了三个标准选项： <code>centerCrop()</code> 、 <code>circleCrop</code> 和 <code>fitCenter()</code> 。其实效果跟设置 ImageView 的 ScaleType 是一样的。</p>
+<p> <code>CenterCrop()</code> ，即缩放图像让它填充到 ImageView 界限内并且裁剪额外的部分。ImageView 可能会完全填充，但图像可能不会完整显示。</p>
+<p> <code>fitCenter()</code> ，即缩放图像让图像都测量出来等于或小于 ImageView 的边界范围。该图像将会完全显示，但可能不会填满整个 ImageView。</p>
+<p>  <code>circleCrop()</code> ，变换为圆形。</p>
+<p>代码和效果如下：</p>
+<pre><code>// 通过 RequestOptions 也可以设置
+RequestOptions options = new RequestOptions().centerCrop();
+
+Glide.with(this).load(url).centerCrop().into(iv_image);
+</code></pre><p><img src="https://cl.ly/0W41013k3T2G/Image%202017-06-09%20at%204.11.33%20PM.png" alt=""></p>
+<p>默认情况下，每个 transform() 调用，或任何特定转换方法(fitCenter(), centerCrop(), bitmapTransform() etc)的调用都会替换掉之前的变换。</p>
+<p>如果你想在单次加载中应用多个变换，可使用 .transform() ，传入多个变换类。</p>
+<pre><code>Glide.with(this).load(url).transform(new CenterCrop(),new CircleCrop()).placeholder(new ColorDrawable(Color.BLACK))
+        .error(new ColorDrawable(Color.RED))
+        .fallback(new ColorDrawable(Color.GRAY)).into(mImageView);
+</code></pre><p><strong>注意：传入变换参数的顺序，决定了这些变换的应用顺序。Transformation 可以被重复使用</strong></p>
+<h3 id="ImageView的自动变换"><a href="#ImageView的自动变换" class="headerlink" title="ImageView的自动变换"></a>ImageView的自动变换</h3><p>在Glide中，当你为一个 ImageView 开始加载时，Glide可能会自动应用 FitCenter 或 CenterCrop ，这取决于view的 ScaleType 。如果 scaleType 是 CENTER_CROP , Glide 将会自动应用 CenterCrop 变换。如果 scaleType 为 FIT_CENTER 或 CENTER_INSIDE ，Glide会自动使用 FitCenter 变换。当然，可以使用  transform() 方法来传入我们想要的变换。另外，也可以通过使用 dontTransform() 确保不会自动应用任何变换。</p>
+<h2 id="指定图片格式"><a href="#指定图片格式" class="headerlink" title="指定图片格式"></a>指定图片格式</h2><p>Glide是支持加载 GIF 图片的，而使用Glide加载GIF图并不需要编写什么额外的代码，Glide内部会自动判断图片格式。比如这是一张GIF图片的URL地址：</p>
+<pre><code>http://img.zcool.cn/community/01822155c1a44f6ac7253f360673f6.gif
+</code></pre><p>代码如下：</p>
+<pre><code>Glide.with(this).load(gifUrl)
+.diskCacheStrategy(DiskCacheStrategy.SOURCE)
+.into(iv_image);
+</code></pre><p>我们只需要像之前那样把地址放在 load() 方法里面即可，如果是 gif ，就会播放。如果加载速度过慢或加载不出来，可以加上 <code>.diskCacheStrategy(DiskCacheStrategy.SOURCE)</code> ，这是 Glide 的缓存策略，后面再讲。</p>
+<p>效果如下：</p>
+<p><img src="https://cl.ly/3z081H2e0y2Y/Screen%20recording%202017-06-09%20at%2004.29.26%20PM.gif" alt=""></p>
+<p>如果你只想显示 GIF 图片的第一帧，可以调用 asBitmap()方法。</p>
+<pre><code>Glide.with(this).load(gifUrl)
+.asBitmap()
+.diskCacheStrategy(DiskCacheStrategy.SOURCE)
+.into(iv_image);
+</code></pre><p>效果如下：</p>
+<p><img src="https://cl.ly/2a0V0V152e37/Screen%20recording%202017-06-09%20at%2004.42.48%20PM.gif" alt=""></p>
+<p>如果你期望这个 URL 是一个 Gif，Glide 不会自动检查是否是 Gif。但是我们可以设置只显示 GIF，如果不是则加载错误，方法为 <code>asGif()</code> 。</p>
+<p>代码如下：</p>
+<pre><code>Glide.with(this).load(jpgUrl)
+.asGif()
+.diskCacheStrategy(DiskCacheStrategy.SOURCE)
+.into(iv_image);
+</code></pre><p>效果如下：</p>
+<p><img src="https://cl.ly/003r3J1w3h3L/Screen%20recording%202017-06-09%20at%2011.45.52%20AM.gif" alt=""></p>
+<p>没错，跟之前的占位图效果一样，即使是正常的图片链接，但是我们显式设置了要显示 GIF ，那只能是加载失败了。</p>
+<h2 id="缓存基础"><a href="#缓存基础" class="headerlink" title="缓存基础"></a>缓存基础</h2><p>Glide 通过使用默认的内存和硬盘缓存去避免不必要的网络请求。这两个缓存模块的作用各不相同，内存缓存的主要作用是防止应用重复将图片数据读取到内存当中，而硬盘缓存的主要作用是防止应用重复从网络或其他地方重复下载和读取数据。</p>
+<p>你也可以改变 Glide 的默认缓存行为，我们可以调用 <code>.skipMemoryCache(true)</code> 跳过内存缓存。这样 Glide 将不会把这张图片缓存到内存中去了。</p>
+<p><strong>注意：</strong>对于相同的URL，如果一开始没有跳过内存缓存，后面再调用的话，也还是会从内存中获取缓存的。</p>
+<p>对于硬盘缓存，可以用 <code>.diskCacheStrategy()</code> 方法改变默认行为，该方法需要传入一个枚举而不是一个简单的布尔值 。如果你想禁用硬盘缓存，则使用 DiskCacheStrategy.NONE 作为参数。</p>
+<pre><code>Glide.with(this).load(url)
+.skipMemoryCache(true)
+.diskCacheStrategy(DiskCacheStrategy.NONE)
+.into(iv_image);
+</code></pre><p>在了解其他枚举值的时候，我们先了解一下 Glide 的缓存策略。 Glide 默认会缓存原始图片和小版本的图片。比如，你请求的图片是 1000<em>1000 像素的，但是你的 <code>ImageView</code> 是 500</em>500 像素的，Glide将会把这两个尺寸都进行缓存。下面对枚举参数进行说明：</p>
+<ul>
+<li>DiskCacheStrategy.NONE 什么都不缓存，就像刚讨论的那样</li>
+<li>DiskCacheStrategy.SOURCE 仅仅只缓存原来的全分辨率的图像。在我们上面的例子中，将会只有一个 1000x1000 像素的图片</li>
+<li>DiskCacheStrategy.RESULT 仅仅缓存最终的图像，即，降低分辨率后的（或者是转换后的）</li>
+<li>DiskCacheStrategy.ALL 缓存所有版本的图像（默认行为）</li>
+</ul>
+<p>注意：某些情形下，只加载缓存中有的图片，不在缓存中则加载直接失败（比如省流量模式？），可以使用 onlyRetrieveFromCache 方法。</p>
+<pre><code>Glide.with(this).load(url).onlyRetrieveFromCache(true).into(mImageView2);
+</code></pre><h2 id="请求优化级"><a href="#请求优化级" class="headerlink" title="请求优化级"></a>请求优化级</h2><p>假设一下有这样一个场景，你需要显示一组图片，中间有一张非常大的，底部有两张小的。怎样才体验友好呢？最好是优先加载中间大图，再显示底部小图了，这就涉及优先级的问题了。 Glide 可以用 priority 枚举来设置优先级，调用 <code>.priority()</code> 方法。</p>
+<p>priority 枚举的值如下：</p>
+<ul>
+<li>Priority.LOW</li>
+<li>Priority.NORMAL</li>
+<li>Priority.HIGH</li>
+<li>Priority.IMMEDIATE</li>
+</ul>
+<p><strong>注意：</strong>虽然设置了优先级，但是不一定是按优先级的顺序显示图片，但是会尽可能地做优先级的处理显示。</p>
+<pre><code>Glide.with(this).load(url).priority(Priority.HIGH).into(iv_image);
+</code></pre><h2 id="缩略图"><a href="#缩略图" class="headerlink" title="缩略图"></a>缩略图</h2><p>缩略图是动态占位符。它也可以从网络中加载。如果缩略图比全尺寸图先加载完，就显示缩略图，否则就不显示。方法为 <code>.thumbnail(float sizeMultiplier)</code> ，sizeMultiplier 范围从 0~1f ，如果你传了 0.1f 作为参数， Glide将会显示原始图像的10%的大小。</p>
+<pre><code>Glide.with(this).load(url2).thumbnail(Glide.with(this).load(url2).override(mImageView.getWidth(),mImageView.getHeight())).skipMemoryCache(true)
+.diskCacheStrategy(DiskCacheStrategy.NONE).into(mImageView);
+</code></pre><p>如果你想加载网络图片来做缩略图，可以使用令一个重载方法，代码如下：</p>
+<pre><code>Glide.with(this).load(url2).thumbnail(Glide.with(this).load(url)).into(mImageView);
+</code></pre><h2 id="Targets"><a href="#Targets" class="headerlink" title="Targets"></a>Targets</h2><p>有时候我们加载图片，不一定要显示到 ImageView 中的，我们只想获取 Bitmap 图片。 Targets 是在做完所有加载和处理之后返回的结果。Targets 有很多种类，下面我们将一一介绍一下：</p>
+<p><strong>CustomTarget</strong></p>
+<p>默认如果不传入宽高，则图片的尺寸为 Target.SIZE_ORIGINAL，使用 Target.SIZE_ORIGINAL 可能非常低效，或如果你的图片足够大可能引发 OOM 。</p>
+<pre><code>Target&lt;Drawable&gt; customTarget = Glide.with(this).load(url)
+          .into(new CustomTarget&lt;Drawable&gt;() {
+              @Override
+              public void onResourceReady(@NonNull Drawable resource, @Nullable Transition&lt;? super Drawable&gt; transition) {
+                  mImageView.setImageDrawable(resource);
+              }
+
+              @Override
+              public void onLoadCleared(@Nullable Drawable placeholder) {
+
+              }
+          });
+</code></pre><p>其实我们拿到了 Drawable 或 Bitmap 后可以做很多处理，这里我直接加载到 ImageView ，效果跟之前一样。</p>
+<p>之前我们说过，Glide 将自动和我们加载 ImageView宽高尺寸的图片，这样更加高效。但是当我们传入 Target 的时候， Glide将无法知道宽高是多少了，只能加载源图，其实我们是可以自定义 Target 的大小的，下面请看：</p>
+<pre><code>Target&lt;Drawable&gt; customTarget = Glide.with(this).load(url)
+          .into(new CustomTarget&lt;Drawable&gt;(mImageView.getWidth(), mImageView.getHeight()) {
+              @Override
+              public void onResourceReady(@NonNull Drawable resource, @Nullable Transition&lt;? super Drawable&gt; transition) {
+                  mImageView.setImageDrawable(resource);
+              }
+
+              @Override
+              public void onLoadCleared(@Nullable Drawable placeholder) {
+
+              }
+          });
+</code></pre><p>在之前代码的基础上，我们指定了宽高，这样我们的加载效率会大大提高，如果源图尺寸很大的时候。 </p>
+<p>你也可以使用返回的 Target 来 clear() 之前的加载，这将在不需要开始新的加载的情况下释放掉任何相关资源(ImageViewTarget才会生效)：</p>
+<pre><code>Glide.with(this).clear(mImageViewTarget);
+</code></pre><p><strong>ViewTarget</strong></p>
+<p>如果你自定义了一个 View ，我们能不能直接通过 into（）来展示呢？ 答案是肯定的，我们可以通过 ViewTarget 来实现。让我们看一个简单的自定义 View，它继承自 FrameLayout 并内部使用了一个 ImageView 以及覆盖了一个 TextView 。</p>
+<pre><code>public class FutureStudioView extends FrameLayout {  
+    ImageView iv;
+    TextView tv;
+
+    public void initialize(Context context) {
+        inflate( context, R.layout.custom_view_futurestudio, this );
+
+        iv = (ImageView) findViewById( R.id.custom_view_image );
+        tv = (TextView) findViewById( R.id.custom_view_text );
+    }
+
+    public FutureStudioView(Context context, AttributeSet attrs) {
+        super( context, attrs );
+        initialize( context );
+    }
+
+    public FutureStudioView(Context context, AttributeSet attrs, int defStyleAttr) {
+        super( context, attrs, defStyleAttr );
+        initialize( context );
+    }
+
+    public void setImage(Drawable drawable) {
+        iv = (ImageView) findViewById( R.id.custom_view_image );
+
+        iv.setImageDrawable( drawable );
+    }
+}
+</code></pre><p>你不能使用常规的 Glide 的方法 .into()，因为我们的自定义 view 并不继承自 ImageView。因此，我们必须创建一个 ViewTarget，并用 .into() 方法：</p>
+<pre><code>private void loadImageViewTarget() {  
+    FutureStudioView customView = (FutureStudioView) findViewById( R.id.custom_view );
+
+    viewTarget = new ViewTarget&lt;FutureStudioView, GlideDrawable&gt;( customView ) {
+        @Override
+        public void onResourceReady(GlideDrawable resource, GlideAnimation&lt;? super GlideDrawable&gt; glideAnimation) {
+            this.view.setImage( resource.getCurrent() );
+        }
+    };
+
+    Glide
+        .with( context.getApplicationContext() ) // safer!
+        .load( eatFoodyImages[2] )
+        .into( viewTarget );
+}
+</code></pre><p>在 target 回调方法中，我们使用我们创建的方法 setImage(Drawable drawable) 在自定义 view 类中去设置图片。另外确保你注意到我们必须在 ViewTarget 的构造函数中传递我们自定义 view 作为参数： <code>new ViewTarget&lt;FutureStudioView, GlideDrawable&gt;(customView)</code> 。</p>
+<p><strong>NotificationTarget</strong></p>
+<p>下面我们用 RemoteViews 创建自定义界面的通知栏，布局和代码如下：</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;  
+&lt;LinearLayout  
+    xmlns:android=&quot;http://schemas.android.com/apk/res/android&quot;
+    android:layout_width=&quot;match_parent&quot;
+    android:layout_height=&quot;wrap_content&quot;
+    android:background=&quot;@android:color/white&quot;
+    android:orientation=&quot;vertical&quot;&gt;
+    &lt;LinearLayout
+        android:layout_width=&quot;match_parent&quot;
+        android:layout_height=&quot;wrap_content&quot;
+        android:orientation=&quot;horizontal&quot;
+        android:padding=&quot;2dp&quot;&gt;
+        &lt;ImageView
+            android:id=&quot;@+id/remoteview_notification_icon&quot;
+            android:layout_width=&quot;50dp&quot;
+            android:layout_height=&quot;50dp&quot;
+            android:layout_marginRight=&quot;2dp&quot;
+            android:layout_weight=&quot;0&quot;
+            android:scaleType=&quot;centerCrop&quot;/&gt;
+        &lt;LinearLayout
+            android:layout_width=&quot;0dp&quot;
+            android:layout_height=&quot;wrap_content&quot;
+            android:layout_weight=&quot;1&quot;
+            android:orientation=&quot;vertical&quot;&gt;
+            &lt;TextView
+                android:id=&quot;@+id/remoteview_notification_headline&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:ellipsize=&quot;end&quot;
+                android:singleLine=&quot;true&quot;
+                android:textSize=&quot;12sp&quot;/&gt;
+            &lt;TextView
+                android:id=&quot;@+id/remoteview_notification_short_message&quot;
+                android:layout_width=&quot;match_parent&quot;
+                android:layout_height=&quot;wrap_content&quot;
+                android:ellipsize=&quot;end&quot;
+                android:paddingBottom=&quot;2dp&quot;
+                android:singleLine=&quot;true&quot;
+                android:textSize=&quot;14sp&quot;
+                android:textStyle=&quot;bold&quot;/&gt;
+        &lt;/LinearLayout&gt;
+    &lt;/LinearLayout&gt;
+&lt;/LinearLayout&gt;  
+
+final RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.remoteview_notification);
+
+rv.setImageViewResource(R.id.remoteview_notification_icon, R.mipmap.future_studio_launcher);
+
+rv.setTextViewText(R.id.remoteview_notification_headline, &quot;Headline&quot;);  
+rv.setTextViewText(R.id.remoteview_notification_short_message, &quot;Short Message&quot;);
+
+// build notification
+NotificationCompat.Builder mBuilder =  
+new NotificationCompat.Builder(context)
+    .setSmallIcon(R.mipmap.future_studio_launcher)
+    .setContentTitle(&quot;Content Title&quot;)
+    .setContentText(&quot;Content Text&quot;)
+    .setContent(rv)
+    .setPriority( NotificationCompat.PRIORITY_MIN);
+
+final Notification notification = mBuilder.build();
+
+// set big content view for newer androids
+if (android.os.Build.VERSION.SDK_INT &gt;= 16) {  
+    notification.bigContentView = rv;
+}
+
+NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);  
+mNotificationManager.notify(NOTIFICATION_ID, notification); 
+</code></pre><p>这个代码片段为我们创建了三个重要的对象， notification 和 RemoteViews 以及常量 NOTIFICATION_ID。我们会需要这些去创建一个 NotificationTarget。</p>
+<pre><code>private NotificationTarget notificationTarget;
+
+...
+
+notificationTarget = new NotificationTarget(  
+    context,
+    rv,
+    R.id.remoteview_notification_icon,
+    notification,
+    NOTIFICATION_ID); 
+</code></pre><p>最后，我们像之前那样加载图片即可，只不过 into 传入的是 NotificationTarget 。</p>
+<p><strong>App Widgets</strong></p>
+<p>应用小部件加载网络图片，可以使用 Glide 提供的 AppWidgetTarget 来实现。</p>
+<pre><code>public class FSAppWidgetProvider extends AppWidgetProvider {
+
+private AppWidgetTarget appWidgetTarget;
+
+@Override
+public void onUpdate(Context context, AppWidgetManager appWidgetManager,
+                     int[] appWidgetIds) {
+
+    RemoteViews rv = new RemoteViews(context.getPackageName(), R.layout.custom_view_futurestudio);
+
+    appWidgetTarget = new AppWidgetTarget( context, rv, R.id.custom_view_image, appWidgetIds );
+
+    Glide
+            .with( context.getApplicationContext() ) // safer!
+            .load( GlideExampleActivity.eatFoodyImages[3] )
+            .asBitmap()
+            .into( appWidgetTarget );
+
+    pushWidgetUpdate(context, rv);
+}
+
+public static void pushWidgetUpdate(Context context, RemoteViews rv) {
+    ComponentName myWidget = new ComponentName(context, FSAppWidgetProvider.class);
+    AppWidgetManager manager = AppWidgetManager.getInstance(context);
+    manager.updateAppWidget(myWidget, rv);
+}
+}
+</code></pre><p>只需要把对应要传的参数都传入 Targets 即可，所有的操作都由 Glide 来完成 。</p>
+<h2 id="回调监听"><a href="#回调监听" class="headerlink" title="回调监听"></a>回调监听</h2><p>Glide 的回调监听跟大多数的回调一样，创建一个监听并传入 <code>.listener()</code> 方法即可。监听器用字段声明的形式，跟之前一样。</p>
+<pre><code>RequestListener&lt;String, Bitmap&gt; requestListener = new RequestListener&lt;String, Bitmap&gt;() {
+        @Override
+        public boolean onException(Exception e, String model, Target&lt;Bitmap&gt; target, boolean isFirstResource) {
+            ToastUtils.showShortToast(MainActivity.this,e.getMessage());
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(Bitmap resource, String model, Target&lt;Bitmap&gt; target, boolean isFromMemoryCache, boolean isFirstResource) {
+            return false;
+        }
+    };
+
+    Glide.with(this)
+            .load(url2)
+            .asBitmap()
+            .listener(requestListener)
+            .into(drawableTarget);
+</code></pre><p>上述回调中，onException 是加载错误时会回调，默认返回 false ，这样 Glide 会显示错误占位图等，返回 true 则没有后续处理。onResourceReady 是加载成功时会回调，我们可以在这里拿到 Bitmap 做相应处理。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/29/github/glide/使用Rxjava实现EventBus/" rel="next" title="使用 Rxjava 实现 EventBus">
+                <i class="fa fa-chevron-left"></i> 使用 Rxjava 实现 EventBus
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/08/github/glide/Glide源码分析一/" rel="prev" title="Glide源码分析一">
+                Glide源码分析一 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">22</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载图片"><span class="nav-number">2.</span> <span class="nav-text">加载图片</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载进阶"><span class="nav-number">3.</span> <span class="nav-text">加载进阶</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#占位图"><span class="nav-number">4.</span> <span class="nav-text">占位图</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#在失败时开始新的请求"><span class="nav-number">4.1.</span> <span class="nav-text">在失败时开始新的请求</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#选项-Options"><span class="nav-number">5.</span> <span class="nav-text">选项(Options)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求选项-RequestOptions"><span class="nav-number">5.1.</span> <span class="nav-text">请求选项(RequestOptions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#过渡选项-TransitionOptions"><span class="nav-number">5.2.</span> <span class="nav-text">过渡选项(TransitionOptions )</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RequestBuilder"><span class="nav-number">5.3.</span> <span class="nav-text">RequestBuilder</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#加载动画"><span class="nav-number">6.</span> <span class="nav-text">加载动画</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定图片大小"><span class="nav-number">7.</span> <span class="nav-text">指定图片大小</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#变换图像"><span class="nav-number">8.</span> <span class="nav-text">变换图像</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ImageView的自动变换"><span class="nav-number">8.1.</span> <span class="nav-text">ImageView的自动变换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定图片格式"><span class="nav-number">9.</span> <span class="nav-text">指定图片格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存基础"><span class="nav-number">10.</span> <span class="nav-text">缓存基础</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求优化级"><span class="nav-number">11.</span> <span class="nav-text">请求优化级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#缩略图"><span class="nav-number">12.</span> <span class="nav-text">缩略图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Targets"><span class="nav-number">13.</span> <span class="nav-text">Targets</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回调监听"><span class="nav-number">14.</span> <span class="nav-text">回调监听</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

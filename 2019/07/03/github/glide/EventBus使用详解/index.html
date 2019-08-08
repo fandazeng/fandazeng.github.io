@@ -587,8 +587,17 @@ defaultConfig {
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/images/avatar.jpg"
@@ -603,7 +612,7 @@ defaultConfig {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">60</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -614,7 +623,7 @@ defaultConfig {
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-count">22</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -688,6 +697,22 @@ defaultConfig {
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-介绍"><span class="nav-number">1.</span> <span class="nav-text">EventBus 介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EventBus-使用-反射模式"><span class="nav-number">2.</span> <span class="nav-text">EventBus 使用(反射模式)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#粘性事件"><span class="nav-number">2.1.</span> <span class="nav-text">粘性事件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscribe-注解"><span class="nav-number">2.2.</span> <span class="nav-text">@Subscribe 注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过APT技术生成索引文件方式"><span class="nav-number">2.3.</span> <span class="nav-text">通过APT技术生成索引文件方式</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
