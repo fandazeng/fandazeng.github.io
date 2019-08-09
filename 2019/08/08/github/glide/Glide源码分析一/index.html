@@ -109,17 +109,19 @@
 
 
 
-<meta name="description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager with(@NonNull View view">
+<meta name="description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 在这里，我先展示一张整体的加载流程图：  接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager wi">
 <meta name="keywords" content="github,第三方库">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Glide源码分析一">
 <meta property="og:url" content="http://yoursite.com/2019/08/08/github/glide/Glide源码分析一/index.html">
 <meta property="og:site_name" content="FandaCode">
-<meta property="og:description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager with(@NonNull View view">
-<meta property="og:updated_time" content="2019-08-08T06:30:05.791Z">
+<meta property="og:description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 在这里，我先展示一张整体的加载流程图：  接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager wi">
+<meta property="og:image" content="https://cl.ly/2067b05a0e84/Glide%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg">
+<meta property="og:updated_time" content="2019-08-09T03:51:59.472Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Glide源码分析一">
-<meta name="twitter:description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager with(@NonNull View view">
+<meta name="twitter:description" content="Glide 的 with 源码分析以下分析的所有源码，都只是部分源码，只为了总体流程分析。 Glide 显示网络图片最简单的代码如下： Glide.with(this).load(url).into(mImageView); 在这里，我先展示一张整体的加载流程图：  接下来，我们一步步分析 with 的源码。   // 传入View  public static RequestManager wi">
+<meta name="twitter:image" content="https://cl.ly/2067b05a0e84/Glide%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg">
 
 
 
@@ -414,7 +416,9 @@
         <h2 id="Glide-的-with-源码分析"><a href="#Glide-的-with-源码分析" class="headerlink" title="Glide 的 with 源码分析"></a>Glide 的 with 源码分析</h2><p>以下分析的所有源码，都只是部分源码，只为了总体流程分析。</p>
 <p><code>Glide</code> 显示网络图片最简单的代码如下：</p>
 <pre><code>Glide.with(this).load(url).into(mImageView);
-</code></pre><p>接下来，我们一步步分析 <code>with</code> 的源码。</p>
+</code></pre><p>在这里，我先展示一张整体的加载流程图：</p>
+<p><img src="https://cl.ly/2067b05a0e84/Glide%E5%8A%A0%E8%BD%BD%E6%B5%81%E7%A8%8B%E5%9B%BE.jpg" alt=""></p>
+<p>接下来，我们一步步分析 <code>with</code> 的源码。</p>
 <pre><code>  // 传入View 
 public static RequestManager with(@NonNull View view) {
   return getRetriever(view.getContext()).get(view);
@@ -1089,7 +1093,7 @@ private final Runnable addSelfToLifecycle =
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">60</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
