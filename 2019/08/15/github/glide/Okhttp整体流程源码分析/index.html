@@ -1,0 +1,1460 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Okhttp 使用注意：这里分析的 Okhttp 的版本是 3.7.0 版本。 Okhttp 的使用分为 3 步。  创建 OkHttpClient 对象。 创建请求对象 Request 。 通过 OkHttpClient 来执行 Request。  GET 同步方式使用示例如下： // 第一步，创建 OkHttpClient 对象 OkHttpClient client = new OkHttp">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Okhttp整体流程源码分析">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/github/glide/Okhttp整体流程源码分析/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Okhttp 使用注意：这里分析的 Okhttp 的版本是 3.7.0 版本。 Okhttp 的使用分为 3 步。  创建 OkHttpClient 对象。 创建请求对象 Request 。 通过 OkHttpClient 来执行 Request。  GET 同步方式使用示例如下： // 第一步，创建 OkHttpClient 对象 OkHttpClient client = new OkHttp">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/19127105-9b975bc031b6dfd3.jpg">
+<meta property="og:image" content="https://cl.ly/33f3c88dca0a/Okhttp%E6%95%B4%E4%BD%93%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B.png">
+<meta property="og:updated_time" content="2019-08-15T10:45:29.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Okhttp整体流程源码分析">
+<meta name="twitter:description" content="Okhttp 使用注意：这里分析的 Okhttp 的版本是 3.7.0 版本。 Okhttp 的使用分为 3 步。  创建 OkHttpClient 对象。 创建请求对象 Request 。 通过 OkHttpClient 来执行 Request。  GET 同步方式使用示例如下： // 第一步，创建 OkHttpClient 对象 OkHttpClient client = new OkHttp">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/19127105-9b975bc031b6dfd3.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/15/github/glide/Okhttp整体流程源码分析/"/>
+
+
+
+
+
+     <title> Okhttp整体流程源码分析 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/15/github/glide/Okhttp整体流程源码分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Okhttp整体流程源码分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-15T09:53:06+08:00">
+                2019-08-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Okhttp/" itemprop="url" rel="index">
+                    <span itemprop="name">Okhttp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/15/github/glide/Okhttp整体流程源码分析/" class="leancloud_visitors" data-flag-title="Okhttp整体流程源码分析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Okhttp-使用"><a href="#Okhttp-使用" class="headerlink" title="Okhttp 使用"></a>Okhttp 使用</h2><p><strong>注意：这里分析的 Okhttp 的版本是 3.7.0 版本。</strong></p>
+<p>Okhttp 的使用分为 3 步。</p>
+<ol>
+<li>创建 OkHttpClient 对象。</li>
+<li>创建请求对象 Request 。</li>
+<li>通过 OkHttpClient 来执行 Request。</li>
+</ol>
+<p><code>GET</code> 同步方式使用示例如下：</p>
+<pre><code>// 第一步，创建 OkHttpClient 对象
+OkHttpClient client = new OkHttpClient();
+
+// 第二步，创建请求对象 Request
+Request request = new Request.Builder().url(GET_URL).build();
+
+// 第三步，通过 OkHttpClient 来执行 Request
+Response response = client.newCall(request).execute();
+
+// 注意是  string() ,不是 toString()
+System.out.println(response.body().string());
+</code></pre><p><code>POST</code> 同步方式使用示例如下：</p>
+<pre><code>MediaType JSON_TYPE = MediaType.parse(&quot;application/json; charset=utf-8&quot;)
+
+    // 第一步，创建 OkHttpClient 对象
+ OkHttpClient okHttpClient = new OkHttpClient();
+
+ Blog blog = new Blog();
+ blog.content = &quot;新建的Blog&quot;;
+ blog.title = &quot;测试&quot;;
+ blog.author = &quot;怪盗kidou&quot;;
+
+    // 这里请求对象用到的请求体，因为是 Post 请求
+ RequestBody requestBody = RequestBody.create(JSON_TYPE, JSON.toJSONString(blog) );
+
+ // 第二步，创建请求对象 Request
+ Request request = new Request.Builder().url(POST_URL).post(requestBody).build();
+
+ Response response = okHttpClient.newCall(request).execute();
+
+ System.out.println(response.body().string());
+</code></pre><p><code>GET</code> 异步方式使用示例如下(<code>POST</code> 异步类似)：</p>
+<pre><code>OkHttpClient client = new OkHttpClient();
+
+Request request = new Request.Builder().url(GET_URL).build();
+
+// 用回调的方式获取对象，注意回调方法是在后台线程执行的，不是主线程
+client.newCall(request).enqueue(new Callback() {
+    @Override
+    public void onFailure(Call call, IOException e) {
+
+    }
+
+    @Override
+    public void onResponse(Call call, Response response) throws IOException {
+        // 注意是  string() ,不是 toString()
+        System.out.println(&quot;当前的线程 == &quot;+ Thread.currentThread().getName()+&quot;  内容为：&quot;+response.body().string());
+    }
+});
+</code></pre><h2 id="Okhttp-源码分析"><a href="#Okhttp-源码分析" class="headerlink" title="Okhttp 源码分析"></a>Okhttp 源码分析</h2><h3 id="OkHttpClient-类分析"><a href="#OkHttpClient-类分析" class="headerlink" title="OkHttpClient 类分析"></a>OkHttpClient 类分析</h3><pre><code>public class OkHttpClient implements Cloneable, Call.Factory, WebSocket.Factory {
+
+  final Dispatcher dispatcher;    // 任务分发器
+  final Proxy proxy;
+  final List&lt;Protocol&gt; protocols;
+  final List&lt;ConnectionSpec&gt; connectionSpecs;
+  final List&lt;Interceptor&gt; interceptors;
+  final List&lt;Interceptor&gt; networkInterceptors;
+  final EventListener.Factory eventListenerFactory;
+  final ProxySelector proxySelector;
+  final CookieJar cookieJar;
+  final Cache cache;
+  final InternalCache internalCache;
+  final SocketFactory socketFactory;
+  final SSLSocketFactory sslSocketFactory;
+  final CertificateChainCleaner certificateChainCleaner;
+  final HostnameVerifier hostnameVerifier;
+  final CertificatePinner certificatePinner;
+  final Authenticator proxyAuthenticator;
+  final Authenticator authenticator;
+  final ConnectionPool connectionPool;
+  final Dns dns;
+  final boolean followSslRedirects;
+  final boolean followRedirects;
+  final boolean retryOnConnectionFailure;
+  final int connectTimeout;
+  final int readTimeout;
+  final int writeTimeout;
+  final int pingInterval;
+
+  public OkHttpClient() {
+    // 创建默认的 Builder 内容
+    this(new Builder());
+  }
+｝
+</code></pre><p>这个类的参数非常多，内部是通过 <code>Builder</code> 模式来设置数据的，该对象包装了很多功能模块并对外提供统一的 <code>API</code>，这是典型的<strong>外观设计模式</strong>。这里先知道有这样一个类和一些参数，具体作用的在后面再分析。后面的分析也是这样，先理解整体流程，再详细分析。</p>
+<p><strong>注意：官方推荐的使用方式是使用一个全局的 <code>OkHttpClient</code> 在多个类之间共享。因为每个 <code>Client</code> 都会有一个自己的连接池和线程池，复用 <code>Client</code> 可以减少资源的浪费。</strong></p>
+<h3 id="Request-类分析"><a href="#Request-类分析" class="headerlink" title="Request 类分析"></a>Request 类分析</h3><p>这个类封装了请求用到的基本元素（请求地址、 请求方法、 请求头、 请求体等）。</p>
+<pre><code>public final class Request {
+  final HttpUrl url;    // 请求地址
+  final String method;    // 方法类型
+  final Headers headers;    // 请求头
+  final RequestBody body;    // 请求体
+  final Object tag;
+
+    // 懒初始化(在获取时才初始化)
+  private volatile CacheControl cacheControl; // Lazily initialized.
+
+  Request(Builder builder) {
+    this.url = builder.url;
+    this.method = builder.method;
+    this.headers = builder.headers.build();
+    this.body = builder.body;
+    this.tag = builder.tag != null ? builder.tag : this;
+  }
+
+  public Builder newBuilder() {
+    return new Builder(this);
+  }
+
+   //当没有 Cache-Control 请求头时，才会为 Null
+  public CacheControl cacheControl() {
+    CacheControl result = cacheControl;
+    // 在获取该对象时才初始化
+    return result != null ? result : (cacheControl = CacheControl.parse(headers));
+  }
+
+}
+</code></pre><p>由源码可知，该类也是应用了 <code>Buidler</code> 设计模式，里面的 <code>RequestBody</code> 对象用来保存请求体的内容 ，这是一个抽象类，里面有一些创建 <code>RequestBody</code> 实例的静态方法，比如：</p>
+<pre><code>   // 生成一个用于网络传输的请求体对象
+public static RequestBody create(MediaType contentType, String content) {
+  Charset charset = Util.UTF_8;
+  if (contentType != null) {
+    charset = contentType.charset();
+    if (charset == null) {
+      charset = Util.UTF_8;
+      contentType = MediaType.parse(contentType + &quot;; charset=utf-8&quot;);
+    }
+  }
+  byte[] bytes = content.getBytes(charset);
+  return create(contentType, bytes);
+}
+</code></pre><p>系统对该类有两个实现的子类，分别对应两种不同的 <code>MIME</code> 类型：</p>
+<ul>
+<li><p>FormBody ： “application/x-www-form-urlencoded” ，用于表单提交的。</p>
+</li>
+<li><p>MultipartBody ： “multipart/“+xxx ，用于文件上传的。</p>
+</li>
+</ul>
+<h3 id="Call-类分析"><a href="#Call-类分析" class="headerlink" title="Call 类分析"></a>Call 类分析</h3><p>有了 <code>OkHttpClient</code> 和 <code>Request</code> 对象，接下来会调用 <code>client.newCall(request)</code> 方法：</p>
+<pre><code>  @Override
+public Call newCall(Request request) {
+  return new RealCall(this, request, false /* for web socket */);
+}
+</code></pre><p>这是接口实现的方法，返回了一个 <code>RealCall</code> 对象，并把当前对象和 <code>Request</code> 传入，所以可以很方便地使用这两个对象。实际上，就是通过 <code>RealCall</code> 来操作请求的，这是一个非常核心的类，整体的请求流程都是在这个类完成。 <code>RealCall</code> 类实现了 <code>Call</code> 接口，那么我们先分析一下 <code>Call</code> 接口类：</p>
+<pre><code>public interface Call extends Cloneable {      
+    // 返回当前请求
+  Request request();
+    //同步执行请求
+  Response execute() throws IOException;
+    //异步执行请求
+  void enqueue(Callback responseCallback);
+    // 是否被执行
+  boolean isExecuted();
+    // 是否取消执行
+  boolean isCanceled();
+  Call clone();
+  // 工厂接口，给 OkHttpClient 实现来生成 RealCall 对象的
+  interface Factory {
+    Call newCall(Request request);
+  }
+}
+</code></pre><p>该类主要是规范请求相关的操作，我们来重点分析一下 <code>Call</code> 接口的实现类 <code>RealCall</code> 。</p>
+<pre><code>final class RealCall implements Call {
+  final OkHttpClient client;
+  final RetryAndFollowUpInterceptor retryAndFollowUpInterceptor;
+  final Request originalRequest;
+
+  RealCall(OkHttpClient client, Request originalRequest, boolean forWebSocket) {
+    final EventListener.Factory eventListenerFactory = client.eventListenerFactory();
+    // 参数赋值
+    this.client = client;
+    this.originalRequest = originalRequest;
+    this.forWebSocket = forWebSocket;
+    // 该对象是一个拦截器对象，处理请求失败的重试、重定向
+    this.retryAndFollowUpInterceptor = new RetryAndFollowUpInterceptor(client, forWebSocket);
+  }
+}
+</code></pre><p>该类的构造函数主要是进行了参数赋值，然后创建了一个 <code>RetryAndFollowUpInterceptor</code> 对象 。接下来我们先分析同步使用的情况。</p>
+<h3 id="RealCall-同步请求逻辑分析"><a href="#RealCall-同步请求逻辑分析" class="headerlink" title="RealCall 同步请求逻辑分析"></a>RealCall 同步请求逻辑分析</h3><p>先上源码：</p>
+<pre><code>@Override public Response execute() throws IOException {
+  synchronized (this) {
+      // 1.每个 Call 对象只能使用一次
+    if (executed) throw new IllegalStateException(&quot;Already Executed&quot;);
+    executed = true;
+  }
+  // 2.捕获这个请求的 StackTrace
+  captureCallStackTrace();
+  try {
+
+      // 3.将请求任务添加到同步队列
+    client.dispatcher().executed(this);
+      // 4.开始调用 chain 的每一个 interceptor，并拿到结果 response
+    Response result = getResponseWithInterceptorChain();
+    if (result == null) throw new IOException(&quot;Canceled&quot;);
+    return result;
+  } finally {
+      // 5.执行完成，将任务从队列中移除
+    client.dispatcher().finished(this);
+  }
+}
+</code></pre><p>总体来说，分为 5 步：</p>
+<ol>
+<li>先判断该请求是否已经在执行，是则抛异常，否则把状态设置为“执行中”。</li>
+<li>追踪方法调用栈。</li>
+<li>将请求任务添加到任务分发器的同步队列。</li>
+<li>执行拦截器调用链，并拿到结果。</li>
+<li>将任务从任务分发器的同步队列中移除。</li>
+</ol>
+<p>第二步的 <code>captureCallStackTrace()</code> 方法如下：</p>
+<pre><code>private void captureCallStackTrace() {
+   // 调用了 AndroidPlatform
+  Object callStackTrace = Platform.get().getStackTraceForCloseable(&quot;response.body().close()&quot;);
+  retryAndFollowUpInterceptor.setCallStackTrace(callStackTrace);
+}
+</code></pre><p>该方法主要是获取到一个方法调用栈对象，并把对象传入了 OkHttp 的第一个拦截器对象 <code>RetryAndFollowUpInterceptor</code> 。</p>
+<pre><code>public void setCallStackTrace(Object callStackTrace) {
+  this.callStackTrace = callStackTrace;
+}
+</code></pre><p>第三步的 <code>client.dispatcher().executed(this)</code> 方法，先通过 <code>dispatcher()</code> 方法来获得 Dispatcher 对象：</p>
+<pre><code>public Dispatcher dispatcher() {
+  return dispatcher;
+}
+</code></pre><p>那么这个 <code>Dispatcher</code> 是在哪里创建的呢？其实是在 <code>OkHttpClient</code> 的 <code>Builder</code> 方法里创建的，如下：</p>
+<pre><code>// OkHttpClient.java
+public Builder() {
+  dispatcher = new Dispatcher();
+    ...
+}
+</code></pre><p>那么，我们分析一下 <code>Dispatcher</code> 类：</p>
+<pre><code>public final class Dispatcher {
+    // 最大的请求任务数量
+  private int maxRequests = 64;        
+    //同一个主机的最大请求任务数量
+  private int maxRequestsPerHost = 5;    
+    // 没有可执行的请求任务时，即空闲时执行一些任务
+  private Runnable idleCallback;    
+  // 线程池，可以在构造中传入或执行异步请求时再初始化
+  private ExecutorService executorService;
+  // 存放待执行任务的的队列
+  private final Deque&lt;AsyncCall&gt; readyAsyncCalls = new ArrayDeque&lt;&gt;();
+  // 存放异步请求任务的队列
+  private final Deque&lt;AsyncCall&gt; runningAsyncCalls = new ArrayDeque&lt;&gt;();
+  // 存放同步请求任务的队列
+  private final Deque&lt;RealCall&gt; runningSyncCalls = new ArrayDeque&lt;&gt;();
+}
+</code></pre><p>同步执行的方法如下：</p>
+<pre><code>synchronized void executed(RealCall call) {
+    // 将请求添加到队列中
+  runningSyncCalls.add(call);
+}
+</code></pre><p>方法很简单，就是把当前运行的 <code>RealCall</code> 放进存放同步请求任务的队列中，然后调用 <code>getResponseWithInterceptorChain()</code> 拿到返回结果，这个方法非常重要，短短几行代码就实现了对请求的所有处理，它体现了 <code>OkHttp</code> 中一个很重要的核心设计——拦截器机制。同步请求先分析到这里，后面会重点分析拦截器机制。接下来执行的 <code>Dispather</code> 的 <code>finish</code> 方法如下：</p>
+<pre><code>void finished(RealCall call) {
+  // 注意第3个参数传入的是 false
+  finished(runningSyncCalls, call, false);
+}
+
+private &lt;T&gt; void finished(Deque&lt;T&gt; calls, T call, boolean promoteCalls) {
+  int runningCallsCount;
+  Runnable idleCallback;
+  synchronized (this) {
+    if (!calls.remove(call)) throw new AssertionError(&quot;Call wasn&apos;t in-flight!&quot;);
+    // 每次 remove 后，执行 promoteCalls 来轮转（异步任务才需要轮转，同步只移除就行）
+    if (promoteCalls) promoteCalls();
+    runningCallsCount = runningCallsCount();
+    idleCallback = this.idleCallback;
+  }
+
+  // 没有可执行的请求任务时会调用
+  if (runningCallsCount == 0 &amp;&amp; idleCallback != null) {
+    idleCallback.run();
+  }
+}
+</code></pre><p>该方法在同步请求时，只是移除相关的请求任务，并没有什么特殊的操作。</p>
+<h3 id="RealCall-异步请求逻辑分析"><a href="#RealCall-异步请求逻辑分析" class="headerlink" title="RealCall 异步请求逻辑分析"></a>RealCall 异步请求逻辑分析</h3><p>异步请求跟同步请求有许多相似的流程，下面的分析涉及相同代码时不再贴出源码。异步请求时，会调用 <code>RealCall</code> 的 <code>enqueue</code> 方法，如下：</p>
+<pre><code>@Override public void enqueue(Callback responseCallback) {
+  synchronized (this) {
+      // 任务是否正在请求
+    if (executed) throw new IllegalStateException(&quot;Already Executed&quot;);
+    executed = true;
+  }
+      // 捕获这个请求的 StackTrace
+  captureCallStackTrace();
+      // 将请求任务添加到异步队列
+  client.dispatcher().enqueue(new AsyncCall(responseCallback));
+}
+</code></pre><p>该方法需要传入一个回调对象，其他步骤跟同步方法类似，不过最后是调用了 <code>Dispather</code> 的 <code>enqueue</code> 方法 ，并传入了一个 <code>AsyncCall</code> 对象。</p>
+<pre><code>  // Dispather.java
+synchronized void enqueue(AsyncCall call) {
+    //如果正在执行的请求小于设定值即64，并且请求同一个主机的request小于设定值即5
+  if (runningAsyncCalls.size() &lt; maxRequests &amp;&amp; runningCallsForHost(call) &lt; maxRequestsPerHost) {
+      // 将请求任务添加到异步请求队列中
+    runningAsyncCalls.add(call);
+      // 执行这个任务
+    executorService().execute(call);
+  } else {
+      // 将请求任务添加到等请求队列中，等待调用时机
+    readyAsyncCalls.add(call);
+  }
+}
+</code></pre><p>根据源码和注释大家可以看到如果正在执行的异步请求小于 64 ，并且请求同一个主机小于 5 的时候就先往正在运行的队列里面添加这个 <code>call</code> ，然后用线程池去执行这个 <code>call</code> ,否则就把他放到等待队列里面。我们先重点看一下 <code>executorService()</code> 方法，这个方法返回一个 <code>ExecutorService</code> 对象：</p>
+<pre><code>public synchronized ExecutorService executorService() {
+  if (executorService == null) {
+    executorService = new ThreadPoolExecutor(0, Integer.MAX_VALUE, 60, TimeUnit.SECONDS,
+        new SynchronousQueue&lt;Runnable&gt;(), Util.threadFactory(&quot;OkHttp Dispatcher&quot;, false));
+  }
+  return executorService;
+}
+</code></pre><p>其实可以通过 <code>OkhttpClient</code> 的 <code>buidler</code> 方法来设置自定义的 <code>ExecutorService</code> 对象，如果没有设置，则用上述方法来创建一个线程池，我们来分析一下它的几个参数。</p>
+<ul>
+<li><p>核心线程数 corePoolSize：保持在线程池中的线程数，由于为 0 ，因此任何线程空闲时都不会被保留。</p>
+</li>
+<li><p>最大线程数 maximumPoolSize：线程池最大支持创建的线程数，这里指定了 <code>Integer.MAX_VALUE</code> 。</p>
+</li>
+<li><p>线程存活时间 keepAliveTime：线程空闲后所能存活的时间，若超过该时间就会被回收。这里指定的时间为 60 个时间单位（60s)，也就是说线程在空闲超过 60s 后就会被回收。</p>
+</li>
+<li><p>时间单位 unit：签名的线程存活时间的单位，这里为 TimeUnit.SECONDS 。</p>
+</li>
+<li><p>线程等待队列 workQueue：线程的等待队列，里面的元素会按序排队，依次执行，这里和指定的是 <code>SynchronousQueue</code> 。</p>
+</li>
+<li><p>线程工厂 threadFactory：线程的创建工厂这里传入的是 <code>Util.threadFactory</code> 方法创建的线程工厂。</p>
+</li>
+</ul>
+<p><strong>疑问一：为什么要采用 SynchronousQueue ？</strong></p>
+<p>首先我们先需要了解一下什么是 <code>SynchronousQueue</code> ，它虽然是一个队列，但它内部不存在任何的容器，它采用了一种经典的生产者——消费者模型，它有多个生产者和消费者，当一个生产线程进行生产操作（put）时，若没有消费者线程进行消费（take），那么该线程会阻塞，直到有消费者进行消费。也就是说，它仅仅实现了一个传递的操作，这种传递功能由于没有了中间的放入容器，再从容器中取出的过程，因此是一种快速传递元素的方式，这对于我们网络请求这种高频请求来说，是十分合适的。</p>
+<p><strong>疑问二：为什么线程池线程数量不设上限 ？</strong></p>
+<p>虽然线程池没设置数量上限，实际上线程数量是在 <code>Dispather</code> 中进行维护的，上述分析过程中有提到最大请求任务数量和同一个主机最大的请求数量，其实就是在控制线程的数量，不会让线程无限地创建。</p>
+<p>上面我们讲到，会通过线程池来执行 <code>AsyncCall</code> 对象，很显然这是一个 <code>Runnable</code> 对象，源码如下：</p>
+<pre><code>  // RealCall.java
+final class AsyncCall extends NamedRunnable {
+  private final Callback responseCallback;
+
+  AsyncCall(Callback responseCallback) {
+    super(&quot;OkHttp %s&quot;, redactedUrl());
+    this.responseCallback = responseCallback;
+  }       
+}
+</code></pre><p><code>AsyncCall</code> 类其实是 <code>RealCall</code> 的内部类，然后继承于 <code>NamedRunnable</code> 对象，<code>NamedRunnable</code> 是一个抽象类，源码如下：</p>
+<pre><code>// 该类主要是给执行该任务的线程命名
+public abstract class NamedRunnable implements Runnable {
+  protected final String name;
+
+  public NamedRunnable(String format, Object... args) {
+    this.name = Util.format(format, args);
+  }
+
+  @Override public final void run() {
+      // 设置了当前线程的name
+    String oldName = Thread.currentThread().getName();
+    Thread.currentThread().setName(name);
+    try {
+        // 给子类回调该抽象方法
+      execute();
+    } finally {
+      Thread.currentThread().setName(oldName);
+    }
+  }
+
+  protected abstract void execute();
+}
+</code></pre><p>那么接下来肯定是执行 <code>AsyncCall</code> 的 <code>execute</code> 方法：</p>
+<pre><code>@Override protected void execute() {
+      boolean signalledCallback = false;
+      try {
+          // 开始调用 chain 的每一个 interceptor，并拿到结果 response
+        Response response = getResponseWithInterceptorChain();
+        if (retryAndFollowUpInterceptor.isCanceled()) {
+          signalledCallback = true;
+          //回调，注意这里回调是在线程池中，不是主线程
+          responseCallback.onFailure(RealCall.this, new IOException(&quot;Canceled&quot;));
+        } else {
+          signalledCallback = true;
+          // 进行 callback 的回调，不是主线程
+          responseCallback.onResponse(RealCall.this, response);
+        }
+      } catch (IOException e) {
+        if (signalledCallback) {
+          // Do not signal the callback twice!
+          Platform.get().log(INFO, &quot;Callback failure for &quot; + toLoggableString(), e);
+        } else {
+          responseCallback.onFailure(RealCall.this, e);
+        }
+      } finally {
+      // 执行完成，将任务从队列中移除
+        client.dispatcher().finished(this);
+      }
+    }
+</code></pre><p>该方法跟同步执行时一样，先调用 <code>getResponseWithInterceptorChain()</code> 来获取响应结果，然后通过回调方法返回，最后执行 <code>Dispatcher</code> 的 <code>finished</code> 方法，由于 <code>getResponseWithInterceptorChain()</code> 涉及到拦截器机制，这里先分析异步请求时的 <code>finish</code> 方法：</p>
+<pre><code>void finished(AsyncCall call) {
+  finished(runningAsyncCalls, call, true);
+}
+</code></pre><p>该方法跟同步时传的入参有点不一样，这里第 3 个参数传入了 <code>true</code> ，由上面分析同步时的源码可知，如果是 <code>true</code> ，那么将执行 <code>promoteCalls()</code> 方法。</p>
+<pre><code>  // 负责ready的Call到running的Call的转化
+private void promoteCalls() {
+//如果当前执行的线程大于maxRequests(64)，则不操作
+  if (runningAsyncCalls.size() &gt;= maxRequests) return; // Already running max capacity.
+  // 没有待执行的任务了
+  if (readyAsyncCalls.isEmpty()) return; // No ready calls to promote.
+
+  for (Iterator&lt;AsyncCall&gt; i = readyAsyncCalls.iterator(); i.hasNext(); ) {
+    AsyncCall call = i.next();
+
+    if (runningCallsForHost(call) &lt; maxRequestsPerHost) {
+        // 从等待队列中移除掉
+      i.remove();
+      // 添加到存放异步请求任务的队列
+      runningAsyncCalls.add(call);
+        // 通过线程池来执行
+      executorService().execute(call);
+    }
+
+    // 达到最大的容量了
+    if (runningAsyncCalls.size() &gt;= maxRequests) return; // Reached max capacity.
+  }
+} 
+</code></pre><p>这个方法的作用是: 如果条件满足，那么就将等待执行的任务从等待队列中移除，然后放进正在执行的队列中，最后通过线程池执行。</p>
+<h3 id="拦截器机制"><a href="#拦截器机制" class="headerlink" title="拦截器机制"></a>拦截器机制</h3><p><code>OkHttp</code> 的网络请求的过程就是依赖于各种拦截器（Interceptor）实现的，我们先看看 <code>Interceptor</code> 的定义：</p>
+<pre><code>public interface Interceptor {
+    // 负责拦截
+  Response intercept(Chain chain) throws IOException;
+
+  interface Chain {
+    Request request();
+
+    // 负责分发、前行
+    Response proceed(Request request) throws IOException;
+
+    Connection connection();
+  }
+}
+</code></pre><p><code>Interceptor</code> 实际上是一个接口，里面只有一个方法 <code>intercept</code> 以及一个内部接口 <code>Chain</code>。</p>
+<p>上述分析中讲到，无论是同步还是异步请求，最终会通过 <code>getResponseWithInterceptorChain()</code> 方法来获取结果的，源码如下：</p>
+<pre><code>Response getResponseWithInterceptorChain() throws IOException {
+
+  List&lt;Interceptor&gt; interceptors = new ArrayList&lt;&gt;();
+  // 添加开发者自定义的 interceptors
+  interceptors.addAll(client.interceptors());
+  // 处理请求失败的重试、重定向
+  interceptors.add(retryAndFollowUpInterceptor);
+  // 添加一些请求的头部或其他信息，并对返回的 response 做一些友好的处理
+  interceptors.add(new BridgeInterceptor(client.cookieJar()));
+  // 判断缓存是否存在、读取缓存、更新缓存
+  interceptors.add(new CacheInterceptor(client.internalCache()));
+  // 建立客户端和服务端的连接
+  interceptors.add(new ConnectInterceptor(client));
+  if (!forWebSocket) {
+      // 添加开发者自定义的网络层拦截器
+    interceptors.addAll(client.networkInterceptors());
+  }
+
+  // 负责向服务器发送请求数据、从服务器读取响应数据
+  // 这个 interceptor 不会再递归调用了，面是直接返回 response 给上一个 interceptor
+  interceptors.add(new CallServerInterceptor(forWebSocket));
+
+  // 一个包装类，包含 interceptors 和 request
+  Interceptor.Chain chain = new RealInterceptorChain(
+      interceptors, null, null, null, 0, originalRequest);
+
+  // 开始调用 chain ，默认从0索引开始，即从第一个 interceptor 开始
+  return chain.proceed(originalRequest);
+}
+</code></pre><p>该方法就是不断地添加各种 <code>Interceptor</code> ，然后创建了一个 <code>RealInterceptorChain</code> 对象，并把 <code>Interceptor</code> 列表传入，最后执行 <code>chain.proceed(originalRequest)</code> 方法。</p>
+<p><strong>注意：这里添加 Interceptor 的顺序非常重要，首先添加的是开发者自定义的各种 Interceptor ，然后才添加系统的 RetryAndFollowUpInterceptor 对象，具体看注释说明。</strong></p>
+<p>接下来，我们重点看一下 <code>RealInterceptorChain</code> 的方法：</p>
+<pre><code>@Override public Response proceed(Request request) throws IOException {
+  return proceed(request, streamAllocation, httpCodec, connection);
+}
+
+public Response proceed(Request request, StreamAllocation streamAllocation, HttpCodec httpCodec,
+    RealConnection connection) throws IOException {
+
+  // 记录创建实例的个数
+  calls++;
+
+  // 创建一个 RealInterceptorChain 实例   ,并将索引加1，即调用下一个 interceptor
+  // 这里面是一个递归调用，分别遍历调用了所有的 interceptor ，然后从最后一个开始返回 response
+  RealInterceptorChain next = new RealInterceptorChain(
+      interceptors, streamAllocation, httpCodec, connection, index + 1, request);
+  // 取出下一个 interceptor
+  Interceptor interceptor = interceptors.get(index);
+  // 执行intercept方法，拦截器又会调用proceed()方法
+  Response response = interceptor.intercept(next);
+
+  return response;
+}
+</code></pre><p>在 <code>proceed</code> 方法里会再次创建一个 <code>RealInterceptorChain</code> 对象，但是传入的 <code>index</code> 参数会加 1 ，这个参数用来获取当前需要使用的拦截器，然后获取对应索引的拦截器，默认索引从 0 开始，最后执行拦截器的 <code>intercept</code> 方法，并把新的 <code>RealInterceptorChain</code> 对象传入，如果不是最后一个拦截器，则在拦截器里面又会调用<code>proceed()</code> 方法，通过这种递归的方式来遍历执行所有的拦截器。</p>
+<p>实际上，<code>intercept</code> 方法往往是如下的结构：</p>
+<pre><code>@Override 
+public Response intercept(Chain chain) throws IOException {
+    Request request = chain.request();
+    // Request阶段，该拦截器在Request阶段负责做的事情
+
+    // 调用RealInterceptorChain.proceed()，其实是在递归调用下一个拦截器的intercept()方法
+    response = ((RealInterceptorChain) chain).proceed(request, streamAllocation, null, null);
+
+    // Response阶段，完成了该拦截器在Response阶段负责做的事情，然后返回到上一层的拦截器。
+    return response;     
+}
+</code></pre><p>上面简单的三行代码将整个 <code>intercept</code> 过程分为了两个阶段：</p>
+<ul>
+<li><p>Request 阶段：执行一些该拦截器在 <code>Request</code> 阶段所负责的事情。</p>
+</li>
+<li><p>Response 阶段：完成该拦截器在 <code>Response</code> 阶段所负责的事情。</p>
+</li>
+</ul>
+<p>这其实是采用了一种递归的设计，将 <code>OkHttp</code> 的请求分为了几个阶段，分别代表了不同的拦截器，不同拦截器分别会在这个递归的过程中有两次对该请求的处理的可能，一次是在 <code>Request</code> 之前，一次是在 <code>Response</code> 之后，中间的过程中若出现了错误，则通过抛出异常来通知上层。</p>
+<p>其拦截器的整体执行流程如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/19127105-9b975bc031b6dfd3.jpg" alt=""></p>
+<p>框架的整体请求流程如下：</p>
+<p><img src="https://cl.ly/33f3c88dca0a/Okhttp%E6%95%B4%E4%BD%93%E8%AF%B7%E6%B1%82%E6%B5%81%E7%A8%8B.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/09/github/glide/Glide源码分析三/" rel="next" title="Glide源码分析三">
+                <i class="fa fa-chevron-left"></i> Glide源码分析三
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">62</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Okhttp-使用"><span class="nav-number">1.</span> <span class="nav-text">Okhttp 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Okhttp-源码分析"><span class="nav-number">2.</span> <span class="nav-text">Okhttp 源码分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#OkHttpClient-类分析"><span class="nav-number">2.1.</span> <span class="nav-text">OkHttpClient 类分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Request-类分析"><span class="nav-number">2.2.</span> <span class="nav-text">Request 类分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Call-类分析"><span class="nav-number">2.3.</span> <span class="nav-text">Call 类分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RealCall-同步请求逻辑分析"><span class="nav-number">2.4.</span> <span class="nav-text">RealCall 同步请求逻辑分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#RealCall-异步请求逻辑分析"><span class="nav-number">2.5.</span> <span class="nav-text">RealCall 异步请求逻辑分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拦截器机制"><span class="nav-number">2.6.</span> <span class="nav-text">拦截器机制</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
