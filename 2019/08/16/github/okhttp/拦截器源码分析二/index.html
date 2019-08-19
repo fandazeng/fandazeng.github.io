@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="缓存的作用 减少请求次数，较少服务器压力。 本地数据读取更快，让页面不会空白几百毫秒。 在无网络的情况下提供数据。  HTTP 缓存是最好的减少客户端服务器往返次数的方案，缓存提供了一种机制来保证客户端或者代理能够存储一些东西，而这些东西将会在稍后的 HTTP 响应中用到的。(即第一次请求了，到了客户端，缓存起来，下次如果请求还需要一些资源，就不用到服务器去取了)这样，就不用让一些资源再次跨越整个">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/5713484-b59ad898cbd27a14.png">
-<meta property="og:updated_time" content="2019-08-19T04:24:03.855Z">
+<meta property="og:updated_time" content="2019-08-19T07:38:46.777Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="缓存拦截器源码分析">
 <meta name="twitter:description" content="缓存的作用 减少请求次数，较少服务器压力。 本地数据读取更快，让页面不会空白几百毫秒。 在无网络的情况下提供数据。  HTTP 缓存是最好的减少客户端服务器往返次数的方案，缓存提供了一种机制来保证客户端或者代理能够存储一些东西，而这些东西将会在稍后的 HTTP 响应中用到的。(即第一次请求了，到了客户端，缓存起来，下次如果请求还需要一些资源，就不用到服务器去取了)这样，就不用让一些资源再次跨越整个">
@@ -892,6 +892,92 @@ public static String key(HttpUrl url) {
 <li><p>request == null, response == null：不允许使用网络请求，且没有缓存，在 CacheInterceptor 中会构建一个 504 的 response。</p>
 </li>
 </ul>
+<h2 id="ConnectInterceptor-分析"><a href="#ConnectInterceptor-分析" class="headerlink" title="ConnectInterceptor 分析"></a>ConnectInterceptor 分析</h2><pre><code>   @Override public Response intercept(Chain chain) throws IOException {
+    RealInterceptorChain realChain = (RealInterceptorChain) chain;
+    Request request = realChain.request();
+    StreamAllocation streamAllocation = realChain.streamAllocation();
+
+    // We need the network to satisfy this request. Possibly for validating a conditional GET.
+    boolean doExtensiveHealthChecks = !request.method().equals(&quot;GET&quot;);
+    // 获取流
+    HttpCodec httpCodec = streamAllocation.newStream(client, doExtensiveHealthChecks);
+    // 获取连接
+    RealConnection connection = streamAllocation.connection();
+
+    // 所有入参的对象都创建出来了，开始下个拦截器来请求
+    return realChain.proceed(request, streamAllocation, httpCodec, connection);
+  }
+}
+</code></pre><p>获取对应的流对象和连接对象，将这两个对象传入到下一个拦截器开始进行请求。</p>
+<h2 id="CallServerInterceptor-分析"><a href="#CallServerInterceptor-分析" class="headerlink" title="CallServerInterceptor 分析"></a>CallServerInterceptor 分析</h2><pre><code>@Override public Response intercept(Chain chain) throws IOException {
+   RealInterceptorChain realChain = (RealInterceptorChain) chain;
+   HttpCodec httpCodec = realChain.httpStream();
+   StreamAllocation streamAllocation = realChain.streamAllocation();
+   RealConnection connection = (RealConnection) realChain.connection();
+   Request request = realChain.request();
+
+   long sentRequestMillis = System.currentTimeMillis();
+   // 写入请求头
+   httpCodec.writeRequestHeaders(request);
+
+   Response.Builder responseBuilder = null;
+   if (HttpMethod.permitsRequestBody(request.method()) &amp;&amp; request.body() != null) {
+     if (&quot;100-continue&quot;.equalsIgnoreCase(request.header(&quot;Expect&quot;))) {
+       httpCodec.flushRequest();
+       responseBuilder = httpCodec.readResponseHeaders(true);
+     }
+       // 写入请求体
+     if (responseBuilder == null) {
+       Sink requestBodyOut = httpCodec.createRequestBody(request, request.body().contentLength());
+       BufferedSink bufferedRequestBody = Okio.buffer(requestBodyOut);
+       request.body().writeTo(bufferedRequestBody);
+       bufferedRequestBody.close();
+     } else if (!connection.isMultiplexed()) {
+       streamAllocation.noNewStreams();
+     }
+   }
+
+   httpCodec.finishRequest();
+
+   // 读取响应头
+   if (responseBuilder == null) {
+     responseBuilder = httpCodec.readResponseHeaders(false);
+   }
+
+   Response response = responseBuilder
+       .request(request)
+       .handshake(streamAllocation.connection().handshake())
+       .sentRequestAtMillis(sentRequestMillis)
+       .receivedResponseAtMillis(System.currentTimeMillis())
+       .build();
+
+       // 读取响应体
+   int code = response.code();
+   if (forWebSocket &amp;&amp; code == 101) {
+     // Connection is upgrading, but we need to ensure interceptors see a non-null response body.
+     response = response.newBuilder()
+         .body(Util.EMPTY_RESPONSE)
+         .build();
+   } else {
+     response = response.newBuilder()
+         .body(httpCodec.openResponseBody(response))
+         .build();
+   }
+
+   if (&quot;close&quot;.equalsIgnoreCase(response.request().header(&quot;Connection&quot;))
+       || &quot;close&quot;.equalsIgnoreCase(response.header(&quot;Connection&quot;))) {
+     streamAllocation.noNewStreams();
+   }
+
+   if ((code == 204 || code == 205) &amp;&amp; response.body().contentLength() &gt; 0) {
+     throw new ProtocolException(
+         &quot;HTTP &quot; + code + &quot; had non-zero Content-Length: &quot; + response.body().contentLength());
+   }
+   // 返回响应结果
+   return response;
+ }
+</code></pre><p>该拦截器主要做了5步：</p>
+<p>写入请求头 - 写入请求体 - 读取响应头 - 读取响应体 - 返回响应结果</p>
 
       
     </div>
@@ -1113,7 +1199,7 @@ public static String key(HttpUrl url) {
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存的作用"><span class="nav-number">1.</span> <span class="nav-text">缓存的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-缓存相关知识"><span class="nav-number">2.</span> <span class="nav-text">HTTP 缓存相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-报文"><span class="nav-number">2.1.</span> <span class="nav-text">HTTP 报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存分类"><span class="nav-number">2.2.</span> <span class="nav-text">缓存分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求头header中有关缓存的设置-详解"><span class="nav-number">3.</span> <span class="nav-text">请求头header中有关缓存的设置 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control"><span class="nav-number">3.1.</span> <span class="nav-text">Cache-Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求缓存指令"><span class="nav-number">3.1.1.</span> <span class="nav-text">请求缓存指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应缓存指令"><span class="nav-number">3.1.2.</span> <span class="nav-text">响应缓存指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified-If-Modified-Since"><span class="nav-number">3.3.</span> <span class="nav-text">Last-Modified / If-Modified-Since</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Etag-If-None-Match"><span class="nav-number">3.4.</span> <span class="nav-text">Etag / If-None-Match</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OkHttp-中的缓存机制"><span class="nav-number">4.</span> <span class="nav-text">OkHttp 中的缓存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#InternalCache"><span class="nav-number">4.1.</span> <span class="nav-text">InternalCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache"><span class="nav-number">4.2.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache-的配置入口"><span class="nav-number">4.2.1.</span> <span class="nav-text">Cache 的配置入口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的增、删、改、查操作"><span class="nav-number">4.3.</span> <span class="nav-text">缓存的增、删、改、查操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增操作——put-方法"><span class="nav-number">4.3.1.</span> <span class="nav-text">增操作——put()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删操作——move-方法"><span class="nav-number">4.3.2.</span> <span class="nav-text">删操作——move()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改操作——update-方法"><span class="nav-number">4.3.3.</span> <span class="nav-text">改操作——update()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查操作——get-方法"><span class="nav-number">4.3.4.</span> <span class="nav-text">查操作——get()方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CacheInterceptor-类详解"><span class="nav-number">5.</span> <span class="nav-text">CacheInterceptor 类详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CacheStrategy-详解"><span class="nav-number">6.</span> <span class="nav-text">CacheStrategy 详解</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#缓存的作用"><span class="nav-number">1.</span> <span class="nav-text">缓存的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP-缓存相关知识"><span class="nav-number">2.</span> <span class="nav-text">HTTP 缓存相关知识</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-报文"><span class="nav-number">2.1.</span> <span class="nav-text">HTTP 报文</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存分类"><span class="nav-number">2.2.</span> <span class="nav-text">缓存分类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#请求头header中有关缓存的设置-详解"><span class="nav-number">3.</span> <span class="nav-text">请求头header中有关缓存的设置 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache-Control"><span class="nav-number">3.1.</span> <span class="nav-text">Cache-Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#请求缓存指令"><span class="nav-number">3.1.1.</span> <span class="nav-text">请求缓存指令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#响应缓存指令"><span class="nav-number">3.1.2.</span> <span class="nav-text">响应缓存指令</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Expires"><span class="nav-number">3.2.</span> <span class="nav-text">Expires</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Last-Modified-If-Modified-Since"><span class="nav-number">3.3.</span> <span class="nav-text">Last-Modified / If-Modified-Since</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Etag-If-None-Match"><span class="nav-number">3.4.</span> <span class="nav-text">Etag / If-None-Match</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OkHttp-中的缓存机制"><span class="nav-number">4.</span> <span class="nav-text">OkHttp 中的缓存机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#InternalCache"><span class="nav-number">4.1.</span> <span class="nav-text">InternalCache</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cache"><span class="nav-number">4.2.</span> <span class="nav-text">Cache</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Cache-的配置入口"><span class="nav-number">4.2.1.</span> <span class="nav-text">Cache 的配置入口</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的增、删、改、查操作"><span class="nav-number">4.3.</span> <span class="nav-text">缓存的增、删、改、查操作</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#增操作——put-方法"><span class="nav-number">4.3.1.</span> <span class="nav-text">增操作——put()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删操作——move-方法"><span class="nav-number">4.3.2.</span> <span class="nav-text">删操作——move()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#改操作——update-方法"><span class="nav-number">4.3.3.</span> <span class="nav-text">改操作——update()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查操作——get-方法"><span class="nav-number">4.3.4.</span> <span class="nav-text">查操作——get()方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CacheInterceptor-类详解"><span class="nav-number">5.</span> <span class="nav-text">CacheInterceptor 类详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CacheStrategy-详解"><span class="nav-number">6.</span> <span class="nav-text">CacheStrategy 详解</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ConnectInterceptor-分析"><span class="nav-number">7.</span> <span class="nav-text">ConnectInterceptor 分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CallServerInterceptor-分析"><span class="nav-number">8.</span> <span class="nav-text">CallServerInterceptor 分析</span></a></li></ol></div>
             
 
           </div>
