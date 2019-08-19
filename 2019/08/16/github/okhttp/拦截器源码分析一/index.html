@@ -1,0 +1,1247 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="RetryAndFollowUpInterceptor 详解该拦截器主要是负责失败重连和重定向，我们先了解一下 HTTP 协议中的重定向。 HTTP 协议中的重定向HTTP 协议提供了一种重定向的功能，它通过由服务器返回特定格式的响应从而触发客户端的重定向。其对应的响应码格式为 3XX，并且会在响应头的 Location 字段中放入新的 URL，这样我们客户端就可以根据该 Location 字段所">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="拦截器源码分析一">
+<meta property="og:url" content="http://yoursite.com/2019/08/16/github/okhttp/拦截器源码分析一/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="RetryAndFollowUpInterceptor 详解该拦截器主要是负责失败重连和重定向，我们先了解一下 HTTP 协议中的重定向。 HTTP 协议中的重定向HTTP 协议提供了一种重定向的功能，它通过由服务器返回特定格式的响应从而触发客户端的重定向。其对应的响应码格式为 3XX，并且会在响应头的 Location 字段中放入新的 URL，这样我们客户端就可以根据该 Location 字段所">
+<meta property="og:updated_time" content="2019-08-19T04:18:42.333Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="拦截器源码分析一">
+<meta name="twitter:description" content="RetryAndFollowUpInterceptor 详解该拦截器主要是负责失败重连和重定向，我们先了解一下 HTTP 协议中的重定向。 HTTP 协议中的重定向HTTP 协议提供了一种重定向的功能，它通过由服务器返回特定格式的响应从而触发客户端的重定向。其对应的响应码格式为 3XX，并且会在响应头的 Location 字段中放入新的 URL，这样我们客户端就可以根据该 Location 字段所">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/16/github/okhttp/拦截器源码分析一/"/>
+
+
+
+
+
+     <title> 拦截器源码分析一 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/16/github/okhttp/拦截器源码分析一/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">拦截器源码分析一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-16T10:11:08+08:00">
+                2019-08-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Okhttp/" itemprop="url" rel="index">
+                    <span itemprop="name">Okhttp</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/16/github/okhttp/拦截器源码分析一/" class="leancloud_visitors" data-flag-title="拦截器源码分析一">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="RetryAndFollowUpInterceptor-详解"><a href="#RetryAndFollowUpInterceptor-详解" class="headerlink" title="RetryAndFollowUpInterceptor 详解"></a>RetryAndFollowUpInterceptor 详解</h2><p>该拦截器主要是负责失败重连和重定向，我们先了解一下 <code>HTTP</code> 协议中的重定向。</p>
+<h3 id="HTTP-协议中的重定向"><a href="#HTTP-协议中的重定向" class="headerlink" title="HTTP 协议中的重定向"></a>HTTP 协议中的重定向</h3><p><code>HTTP</code> 协议提供了一种重定向的功能，它通过由服务器返回特定格式的响应从而触发客户端的重定向。其对应的响应码格式为 <code>3XX</code>，并且会在响应头的 <code>Location</code> 字段中放入新的 <code>URL</code>，这样我们客户端就可以根据该 <code>Location</code> 字段所指定的 <code>URL</code> 重新请求从而得到需要的数据。</p>
+<h2 id="源码分析"><a href="#源码分析" class="headerlink" title="源码分析"></a>源码分析</h2><pre><code>@Override public Response intercept(Chain chain) throws IOException {
+  Request request = chain.request();
+
+  // 创建 StreamAllocation 类,三个参数分别对应：全局的连接池，连接线路Address, 堆栈对象
+  streamAllocation = new StreamAllocation(
+      client.connectionPool(), createAddress(request.url()), callStackTrace);
+
+  int followUpCount = 0;
+  Response priorResponse = null;
+  while (true) {
+    if (canceled) {
+        // 释放资源并抛出异常，结束流程
+      streamAllocation.release();
+      throw new IOException(&quot;Canceled&quot;);
+    }
+
+    Response response = null;
+    boolean releaseConnection = true;
+    try {
+         //  执行下一个拦截器，即BridgeInterceptor
+       // 这里有个很重要的信息，即会将初始化好的连接对象传递给下一个拦截器，
+      response = ((RealInterceptorChain) chain).proceed(request, streamAllocation, null, null);
+      releaseConnection = false;
+    } catch (RouteException e) {
+      // 如果有异常，判断是否要恢复
+      if (!recover(e.getLastConnectException(), false, request)) {
+        throw e.getLastConnectException();
+      }
+      releaseConnection = false;
+      // 可以恢复请求，继续循环
+      continue;
+    } catch (IOException e) {
+      boolean requestSendStarted = !(e instanceof ConnectionShutdownException);
+      if (!recover(e, requestSendStarted, request)) throw e;
+      releaseConnection = false;
+      continue;
+    } finally {
+      if (releaseConnection) {
+        streamAllocation.streamFailed(null);
+        streamAllocation.release();
+      }
+    }
+
+    if (priorResponse != null) {
+      response = response.newBuilder()
+          .priorResponse(priorResponse.newBuilder()
+                  .body(null)
+                  .build())
+          .build();
+    }
+
+    // 检查是否符合要求
+    Request followUp = followUpRequest(response);
+
+    if (followUp == null) {
+      if (!forWebSocket) {
+        streamAllocation.release();
+      }
+      return response;
+    }
+
+    //不符合，关闭响应流
+    closeQuietly(response.body());
+    // 是否超过最大重定向次数限制
+    if (++followUpCount &gt; MAX_FOLLOW_UPS) {
+      streamAllocation.release();
+      throw new ProtocolException(&quot;Too many follow-up requests: &quot; + followUpCount);
+    }
+
+    if (followUp.body() instanceof UnrepeatableRequestBody) {
+      streamAllocation.release();
+      throw new HttpRetryException(&quot;Cannot retry streamed HTTP body&quot;, response.code());
+    }
+
+    // 是否有相同的连接
+    if (!sameConnection(response, followUp.url())) {
+      streamAllocation.release();
+      // 重新赋值
+      streamAllocation = new StreamAllocation(
+          client.connectionPool(), createAddress(followUp.url()), callStackTrace);
+    } else if (streamAllocation.codec() != null) {
+      throw new IllegalStateException(&quot;Closing the body of &quot; + response
+          + &quot; didn&apos;t close its backing stream. Bad interceptor?&quot;);
+    }
+
+    request = followUp;
+    priorResponse = response;
+  }
+}
+</code></pre><p>总共分为如下步骤：</p>
+<p>Request 部分：</p>
+<ol>
+<li>根据 <code>url</code> 来构建一个 <code>Address</code> 对象，该对象描述了建立连接的所有配置信息，初始化一个 <code>Socket</code> 连接对象，基于 <code>Okio</code> 。</li>
+<li>将 <code>Address</code> 对象、 连接池和堆栈对象传入并构建 <code>StreamAllocation</code> 对象，这里只是初始化了一个连接对象，还没真正地去建立连接。</li>
+<li>开启一个死循环，实现不断地重定向。</li>
+<li>如果请求被取消了，则释放资源并抛出异常，循环结束。</li>
+<li>将初始化好的连接对象传递给下一个拦截器(BridgeInterceptor)并执行。</li>
+</ol>
+<p>Response 部分：</p>
+<ol>
+<li>如果请求发生异常，判断是否可以恢复请求，不能恢复则抛异常，结果循环。</li>
+<li>如果前一个响应不为空，则结合前一个响应和当前响应。</li>
+<li>根据响应码进行重定向判断，如果重定向后的请求为 null ，即不需要重定向，直接返回响应结果。</li>
+<li>重定向次数 +1 ，并判断是否超过最大次数限制，是则释放资源并抛出异常。</li>
+<li>把当前重定向的请求和响应保存起来，并根据重定向的请求继续循环。</li>
+</ol>
+<p>让我们来看一下重定向的方法 <code>followUpRequest</code> 到底做了什么操作：</p>
+<pre><code>private Request followUpRequest(Response userResponse) throws IOException {
+  if (userResponse == null) throw new IllegalStateException();
+  Connection connection = streamAllocation.connection();
+  Route route = connection != null
+      ? connection.route()
+      : null;
+  int responseCode = userResponse.code();
+
+  final String method = userResponse.request().method();
+  switch (responseCode) {
+    case HTTP_PROXY_AUTH:        //407，代理身份认证
+      Proxy selectedProxy = route != null
+          ? route.proxy()
+          : client.proxy();
+      if (selectedProxy.type() != Proxy.Type.HTTP) {
+        throw new ProtocolException(&quot;Received HTTP_PROXY_AUTH (407) code while not using proxy&quot;);
+      }
+      return client.proxyAuthenticator().authenticate(route, userResponse);
+
+    case HTTP_UNAUTHORIZED:    // 401 ，身份认证
+      return client.authenticator().authenticate(route, userResponse);
+
+    case HTTP_PERM_REDIRECT:    // 308
+    case HTTP_TEMP_REDIRECT:    //307
+      // 只对 GET 和 HEAD 请求做重定向处理
+      if (!method.equals(&quot;GET&quot;) &amp;&amp; !method.equals(&quot;HEAD&quot;)) {
+        return null;
+      }
+      // fall-through
+    case HTTP_MULT_CHOICE:    //300
+    case HTTP_MOVED_PERM:        //301
+    case HTTP_MOVED_TEMP:        //302
+    case HTTP_SEE_OTHER:        //303
+      // Does the client allow redirects?
+      // 如果客户端关闭了重定向，则直接返回 null
+      if (!client.followRedirects()) return null;
+
+      // 获取重定向的目标
+      String location = userResponse.header(&quot;Location&quot;);
+      if (location == null) return null;
+      HttpUrl url = userResponse.request().url().resolve(location);
+
+      if (url == null) return null;
+
+      if (!sameScheme &amp;&amp; !client.followSslRedirects()) return null;
+
+      Request.Builder requestBuilder = userResponse.request().newBuilder();
+      // 处理重定向使用的 method
+      if (HttpMethod.permitsRequestBody(method)) {
+        final boolean maintainBody = HttpMethod.redirectsWithBody(method);
+        if (HttpMethod.redirectsToGet(method)) {
+          requestBuilder.method(&quot;GET&quot;, null);
+        } else {
+          RequestBody requestBody = maintainBody ? userResponse.request().body() : null;
+          requestBuilder.method(method, requestBody);
+        }
+        if (!maintainBody) {
+          requestBuilder.removeHeader(&quot;Transfer-Encoding&quot;);
+          requestBuilder.removeHeader(&quot;Content-Length&quot;);
+          requestBuilder.removeHeader(&quot;Content-Type&quot;);
+        }
+      }
+
+      // When redirecting across hosts, drop all authentication headers. This
+      // is potentially annoying to the application layer since they have no
+      // way to retain them.
+      if (!sameConnection(userResponse, url)) {
+        requestBuilder.removeHeader(&quot;Authorization&quot;);
+      }
+      // 重新构建新的 request
+      return requestBuilder.url(url).build();
+
+    case HTTP_CLIENT_TIMEOUT:        // 408 ，需要重新发送一次相同的请求
+      if (userResponse.request().body() instanceof UnrepeatableRequestBody) {
+        return null;
+      }
+
+      return userResponse.request();
+
+    default:
+      return null;
+  }
+}
+</code></pre><p>主要是根据响应码和响应头，查看是否需要重定向，并重新设置请求。</p>
+<h2 id="BridgeInterceptor-详解"><a href="#BridgeInterceptor-详解" class="headerlink" title="BridgeInterceptor 详解"></a>BridgeInterceptor 详解</h2><p><code>BridgeInterceptor</code> 的名字取的非常形象，它就像一座桥梁，连接了用户与服务器。在用户向服务器发送请求时，它会把用户所构建的请求转换为向服务器请求的真正的 <code>Request</code>，而在服务器返回了响应后，它又会将服务器所返回的响应转换为用户所能够使用的 <code>Response</code> 。</p>
+<pre><code>@Override public Response intercept(Chain chain) throws IOException {
+  Request userRequest = chain.request();
+  Request.Builder requestBuilder = userRequest.newBuilder();
+
+  RequestBody body = userRequest.body();
+  // 将一些属性添加到请求头里
+  if (body != null) {
+    MediaType contentType = body.contentType();
+    if (contentType != null) {
+      requestBuilder.header(&quot;Content-Type&quot;, contentType.toString());
+    }
+
+    long contentLength = body.contentLength();
+    if (contentLength != -1) {
+      requestBuilder.header(&quot;Content-Length&quot;, Long.toString(contentLength));
+      requestBuilder.removeHeader(&quot;Transfer-Encoding&quot;);
+    } else {
+      requestBuilder.header(&quot;Transfer-Encoding&quot;, &quot;chunked&quot;);
+      requestBuilder.removeHeader(&quot;Content-Length&quot;);
+    }
+  }
+
+  if (userRequest.header(&quot;Host&quot;) == null) {
+    requestBuilder.header(&quot;Host&quot;, hostHeader(userRequest.url(), false));
+  }
+
+  if (userRequest.header(&quot;Connection&quot;) == null) {
+    requestBuilder.header(&quot;Connection&quot;, &quot;Keep-Alive&quot;);
+  }
+
+  boolean transparentGzip = false;
+  // 若未设置Accept-Encoding，自动设置gzip
+  if (userRequest.header(&quot;Accept-Encoding&quot;) == null &amp;&amp; userRequest.header(&quot;Range&quot;) == null) {
+    transparentGzip = true;
+    requestBuilder.header(&quot;Accept-Encoding&quot;, &quot;gzip&quot;);
+  }
+
+  // 获取 cookieJar 返回的 cookie 列表
+  List&lt;Cookie&gt; cookies = cookieJar.loadForRequest(userRequest.url());
+  if (!cookies.isEmpty()) {
+      // 根据 Okhpptclitent时候配置的 cookieJar 添加 Cookie 头信息
+    requestBuilder.header(&quot;Cookie&quot;, cookieHeader(cookies));
+  }
+
+  if (userRequest.header(&quot;User-Agent&quot;) == null) {
+    requestBuilder.header(&quot;User-Agent&quot;, Version.userAgent());
+  }
+
+  // 上述的处理，都是请求头的处理
+  // 把处理了请求头的请求传给下一个拦截器做处理
+  Response networkResponse = chain.proceed(requestBuilder.build());
+
+  // 保存响应的 cookie 信息
+  HttpHeaders.receiveHeaders(cookieJar, userRequest.url(), networkResponse.headers());
+
+  // 下面是响应头信息处理
+  Response.Builder responseBuilder = networkResponse.newBuilder()
+      .request(userRequest);
+
+  // 如果服务器返回的响应content是以gzip压缩过的，则会交给Okio先进行解压缩，
+  // 移除响应中的header Content-Encoding和Content-Length，构造新的响应返回。
+  if (transparentGzip
+      &amp;&amp; &quot;gzip&quot;.equalsIgnoreCase(networkResponse.header(&quot;Content-Encoding&quot;))
+      &amp;&amp; HttpHeaders.hasBody(networkResponse)) {
+    GzipSource responseBody = new GzipSource(networkResponse.body().source());
+    Headers strippedHeaders = networkResponse.headers().newBuilder()
+        .removeAll(&quot;Content-Encoding&quot;)
+        .removeAll(&quot;Content-Length&quot;)
+        .build();
+    responseBuilder.headers(strippedHeaders);
+    // 处理完成后，重新生成一个 response
+    responseBuilder.body(new RealResponseBody(strippedHeaders, Okio.buffer(responseBody)));
+  }
+  // 返回新的 response
+  return responseBuilder.build();
+}
+</code></pre><p>总共分为如下步骤：</p>
+<p>Request 部分：</p>
+<ol>
+<li>给请求头添加一些 <code>head</code> 信息，包括 Content-Type、 Content-Length、 Transfer-Encoding、 Host、 Connection、 Accept-Encoding、 User-Agent 等。</li>
+<li>若调用者未设置 Accept-Encoding ，则它会默认设置 gzip ，进行 gzip 压缩。</li>
+<li>如果有 Cookie ，则添加 Cookie 头信息。</li>
+<li>将包装过的请求对象传递给下一个拦截器(CacheInterceptor)并执行。</li>
+</ol>
+<p>Response 部分：</p>
+<ol>
+<li>将返回的响应里面的 Cookie 保存起来。</li>
+<li>如果服务器返回的响应 content 是以 gzip 压缩过的，则会交给 Okio 先进行解压缩并移除响应中的 header Content-Encoding 和 Content-Length ，构造新的响应返回。</li>
+<li>否则，直接返回 response 。</li>
+</ol>
+<p>其中 CookieJar 来自 OkHttpClient , 它是 OKHttp 的 Cookie 管理类，负责 Cookie 的存取。由于 CookieJar 是一个接口类，我们在构建 OkHttpClient 时，可以通过 builder 输入 CookieJar 的实现类。下面我们看一下 CookieJar 的源码：</p>
+<pre><code>public interface CookieJar {
+  // 默认没有 Cookie 的实现类
+  CookieJar NO_COOKIES = new CookieJar() {
+    @Override public void saveFromResponse(HttpUrl url, List&lt;Cookie&gt; cookies) {
+    }
+
+    @Override public List&lt;Cookie&gt; loadForRequest(HttpUrl url) {
+      return Collections.emptyList();
+    }
+  };
+
+
+  void saveFromResponse(HttpUrl url, List&lt;Cookie&gt; cookies);
+
+
+  List&lt;Cookie&gt; loadForRequest(HttpUrl url);
+}
+</code></pre><p>由源码可知，<code>OkHttp</code> 默认不处理 <code>Cookie</code> ，所以如果想对 <code>Cookie</code> 进行管理，需要自己实现该实现，在对应的接口方法里面对 <code>Cookie</code> 进行存取操作。需要注意的是，<code>loadForRequest()</code> 方法的返回值不能为 <code>null</code> 。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/15/github/glide/Okhttp整体流程源码分析/" rel="next" title="Okhttp整体流程源码分析">
+                <i class="fa fa-chevron-left"></i> Okhttp整体流程源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/16/github/okhttp/拦截器源码分析二/" rel="prev" title="缓存拦截器源码分析">
+                缓存拦截器源码分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">64</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#RetryAndFollowUpInterceptor-详解"><span class="nav-number">1.</span> <span class="nav-text">RetryAndFollowUpInterceptor 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTP-协议中的重定向"><span class="nav-number">1.1.</span> <span class="nav-text">HTTP 协议中的重定向</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#源码分析"><span class="nav-number">2.</span> <span class="nav-text">源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BridgeInterceptor-详解"><span class="nav-number">3.</span> <span class="nav-text">BridgeInterceptor 详解</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
