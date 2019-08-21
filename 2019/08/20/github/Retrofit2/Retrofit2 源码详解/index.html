@@ -1,0 +1,1582 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="Retrofit2 使用第一步：定义接口服务类，该类只能是接口类型，里面通过 Retrofit 提供的注解类来定义一些请求方法，比如： public interface BlogService {      @GET(&amp;quot;blog/{id}&amp;quot;)     Call&amp;lt;ResponseBody&amp;gt; getBlog(@Path(&amp;quot;id&amp;quot;) int id);">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Retrofit2 源码详解">
+<meta property="og:url" content="http://yoursite.com/2019/08/20/github/Retrofit2/Retrofit2 源码详解/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="Retrofit2 使用第一步：定义接口服务类，该类只能是接口类型，里面通过 Retrofit 提供的注解类来定义一些请求方法，比如： public interface BlogService {      @GET(&amp;quot;blog/{id}&amp;quot;)     Call&amp;lt;ResponseBody&amp;gt; getBlog(@Path(&amp;quot;id&amp;quot;) int id);">
+<meta property="og:image" content="https://cl.ly/0e851c4ccbd7/Retrofit2%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90.png">
+<meta property="og:updated_time" content="2019-08-21T07:30:14.586Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Retrofit2 源码详解">
+<meta name="twitter:description" content="Retrofit2 使用第一步：定义接口服务类，该类只能是接口类型，里面通过 Retrofit 提供的注解类来定义一些请求方法，比如： public interface BlogService {      @GET(&amp;quot;blog/{id}&amp;quot;)     Call&amp;lt;ResponseBody&amp;gt; getBlog(@Path(&amp;quot;id&amp;quot;) int id);">
+<meta name="twitter:image" content="https://cl.ly/0e851c4ccbd7/Retrofit2%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/20/github/Retrofit2/Retrofit2 源码详解/"/>
+
+
+
+
+
+     <title> Retrofit2 源码详解 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/20/github/Retrofit2/Retrofit2 源码详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Retrofit2 源码详解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-20T16:03:38+08:00">
+                2019-08-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/Retrofit2/" itemprop="url" rel="index">
+                    <span itemprop="name">Retrofit2</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/20/github/Retrofit2/Retrofit2 源码详解/" class="leancloud_visitors" data-flag-title="Retrofit2 源码详解">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Retrofit2-使用"><a href="#Retrofit2-使用" class="headerlink" title="Retrofit2 使用"></a>Retrofit2 使用</h2><p>第一步：定义接口服务类，该类只能是接口类型，里面通过 <code>Retrofit</code> 提供的注解类来定义一些请求方法，比如：</p>
+<pre><code>public interface BlogService {
+
+    @GET(&quot;blog/{id}&quot;)
+    Call&lt;ResponseBody&gt; getBlog(@Path(&quot;id&quot;) int id);
+}
+</code></pre><p>该接口定义了一个 <code>GET</code> 请求方法，方法名称为 <code>getBlog</code> ，返回的类型为 <code>Call&lt;ResponseBody&gt;</code> 。</p>
+<p>第二步：创建接口实现类。</p>
+<pre><code>Retrofit retrofit = new Retrofit.Builder()
+        .baseUrl(&quot;http://localhost:4567/&quot;)
+        .build();
+
+BlogService blogService = retrofit.create(BlogService.class);
+</code></pre><p>首先创建 <code>Retrofit</code> 实例，必须要传入 <code>baseUrl</code> ，不然会报错。 该实例是通过 <code>Builder</code> 模式生成的，里面可以配置相当多的参数，然后通过 <code>create</code> 方法来生成实现类，底层通过动态代理的方式来实现。</p>
+<p>第三步：调用相应接口方法，拿到 <code>Call</code> 实例，<code>Call</code> 对象是用来发起同步或异步请求的。</p>
+<pre><code>Call&lt;ResponseBody&gt; call = blogService.getBlog(2);
+</code></pre><p>第四步：执行请求。</p>
+<pre><code>call.enqueue(new Callback&lt;ResponseBody&gt;() {
+    @Override
+    public void onResponse(Call&lt;ResponseBody&gt; call, Response&lt;ResponseBody&gt; response) {
+        System.out.println(&quot;success: &quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onFailure(Call&lt;ResponseBody&gt; call, Throwable t) {
+        System.out.println(&quot;fail: &quot; + Thread.currentThread().getName());
+    }
+});
+</code></pre><h2 id="Retrofit-初始化"><a href="#Retrofit-初始化" class="headerlink" title="Retrofit 初始化"></a>Retrofit 初始化</h2><p><code>Retrofit</code> 的构造函数只是单纯地进行赋值处理，我们看一下它的实例变量：</p>
+<pre><code>// 一个线程安全的、支持高效并发的HashMap，Key 是 Method，Value 是 ServiceMethod，主要是用来做缓存的，避免重复解析接口方法。
+private final Map&lt;Method, ServiceMethod&lt;?&gt;&gt; serviceMethodCache = new ConcurrentHashMap&lt;&gt;();
+
+// Call 的工厂类，如果不自定义赋值，默认会是 OkHttpClient（实现了 Factory 接口）
+final okhttp3.Call.Factory callFactory;
+// HttpUrl 类型的地址
+final HttpUrl baseUrl;
+// 数据转换器
+final List&lt;Converter.Factory&gt; converterFactories;
+// Call 适配器
+final List&lt;CallAdapter.Factory&gt; callAdapterFactories;
+// 回调执行器，用来做线程切换的
+final @Nullable Executor callbackExecutor;
+// 是否提前检查接口注解信息
+final boolean validateEagerly;
+</code></pre><p>我们接着看 <code>Builder</code> 类：</p>
+<pre><code>public static final class Builder {
+    // 该类跟平台有关
+    private final Platform platform;
+    private @Nullable okhttp3.Call.Factory callFactory;
+    private @Nullable HttpUrl baseUrl;
+    private final List&lt;Converter.Factory&gt; converterFactories = new ArrayList&lt;&gt;();
+    private final List&lt;CallAdapter.Factory&gt; callAdapterFactories = new ArrayList&lt;&gt;();
+    private @Nullable Executor callbackExecutor;
+    private boolean validateEagerly;
+
+    Builder(Platform platform) {
+      this.platform = platform;
+    }
+
+    public Builder() {
+      this(Platform.get());
+    }
+}
+</code></pre><p>总体跟 <code>Retrofit</code> 的变量差不多，只是多了一个 <code>Platform</code> 变量，该类跟运行的平台相关，源码如下：</p>
+<pre><code>class Platform {
+  private static final Platform PLATFORM = findPlatform();
+
+  static Platform get() {
+    return PLATFORM;
+  }
+
+  private static Platform findPlatform() {
+    try {
+      Class.forName(&quot;android.os.Build&quot;);
+      if (Build.VERSION.SDK_INT != 0) {
+        return new Android();
+      }
+    } catch (ClassNotFoundException ignored) {
+    }
+    try {
+      Class.forName(&quot;java.util.Optional&quot;);
+      return new Java8();
+    } catch (ClassNotFoundException ignored) {
+    }
+    return new Platform();
+  }
+</code></pre><p><code>get</code> 方法会去调用 <code>findPlatform</code> 方法，这个里面很明显跟平台相关，<code>Class.forName</code> 要求 <code>JVM</code> 根据 <code>className</code> 查找并加载指定的类，如果未找到则抛出 <code>ClassNotFoundException</code> 。我们分析 <code>Android</code> 平台，所以会返回一个 <code>Android</code> 对象。</p>
+<pre><code>static class Android extends Platform {
+
+    // 获取默认的线程执行器
+    @Override public Executor defaultCallbackExecutor() {
+      return new MainThreadExecutor();
+    }
+
+    // 获取默认的 Call 适配器工厂类
+    @Override List&lt;? extends CallAdapter.Factory&gt; defaultCallAdapterFactories(
+        @Nullable Executor callbackExecutor) {
+      if (callbackExecutor == null) throw new AssertionError();
+      // 创建 DefaultCallAdapterFactory
+      DefaultCallAdapterFactory executorFactory = new DefaultCallAdapterFactory(callbackExecutor);
+      return Build.VERSION.SDK_INT &gt;= 24
+        ? asList(CompletableFutureCallAdapterFactory.INSTANCE, executorFactory)
+        : singletonList(executorFactory);
+    }
+
+    // 获取默认的数据转换器工厂类
+    @Override List&lt;? extends Converter.Factory&gt; defaultConverterFactories() {
+      return Build.VERSION.SDK_INT &gt;= 24
+          ? singletonList(OptionalConverterFactory.INSTANCE)
+          : Collections.&lt;Converter.Factory&gt;emptyList();
+    }
+
+    // 主线程执行器
+    static class MainThreadExecutor implements Executor {
+      private final Handler handler = new Handler(Looper.getMainLooper());
+
+      @Override public void execute(Runnable r) {
+        handler.post(r);
+      }
+    }
+  }
+</code></pre><p>该类主要是用于提供框架内部用到的 CallAdapter 工厂类、 Converter 工厂类和线程执行类，这几个类都非常重要，后面再分析。最后我们看一下 <code>build</code> 方法。</p>
+<pre><code>public Retrofit build() {
+// baseUrl 是必不可少的
+  if (baseUrl == null) {
+    throw new IllegalStateException(&quot;Base URL required.&quot;);
+  }
+
+  okhttp3.Call.Factory callFactory = this.callFactory;
+  if (callFactory == null) {
+      // 如果没有传入该对象，则默认创建一个 OkHttpClient
+    callFactory = new OkHttpClient();
+  }
+
+  // 如果没有传入自定义的线程执行器
+  Executor callbackExecutor = this.callbackExecutor;
+  if (callbackExecutor == null) {
+      // 则拿到默认的执行器，Android 平台上为 MainThreadExecutor
+    callbackExecutor = platform.defaultCallbackExecutor();
+  }
+
+  // 先添加自定义的 CallAdapter ，最后添加框架默认的 CallAdapter，即 DefaultCallAdapterFactory
+  List&lt;CallAdapter.Factory&gt; callAdapterFactories = new ArrayList&lt;&gt;(this.callAdapterFactories);
+  callAdapterFactories.addAll(platform.defaultCallAdapterFactories(callbackExecutor));
+
+  List&lt;Converter.Factory&gt; converterFactories = new ArrayList&lt;&gt;(
+      1 + this.converterFactories.size() + platform.defaultConverterFactoriesSize());
+
+   // 先添加框架的 BuiltInConverters ，然后添加自定义的 converter ，最后添加框架默认的 converter
+  converterFactories.add(new BuiltInConverters());
+  converterFactories.addAll(this.converterFactories);
+  converterFactories.addAll(platform.defaultConverterFactories());
+
+  // 返回 Retrofit 对象
+  return new Retrofit(callFactory, baseUrl, unmodifiableList(converterFactories),
+      unmodifiableList(callAdapterFactories), callbackExecutor, validateEagerly);
+}
+</code></pre><p>到此，<code>Retrofit</code> 初始化就分析完成了 ，<code>Retrofit</code> 之前定义的变量大部分都涉及到了，具体这些变量怎么使用，我们接着分析。</p>
+<h2 id="创建接口实例"><a href="#创建接口实例" class="headerlink" title="创建接口实例"></a>创建接口实例</h2><p>创建接口实例是通过 <code>Retrofit</code> 的 <code>create</code> 方法来实现的，我们看一下这个方法：</p>
+<pre><code>public &lt;T&gt; T create(final Class&lt;T&gt; service) {
+  // 提前检查接口方法
+  validateServiceInterface(service);
+  return (T) Proxy.newProxyInstance(service.getClassLoader(), new Class&lt;?&gt;[] { service },
+      new InvocationHandler() {
+        private final Platform platform = Platform.get();
+        private final Object[] emptyArgs = new Object[0];
+
+        @Override public @Nullable Object invoke(Object proxy, Method method,
+            @Nullable Object[] args) throws Throwable {
+           // 如果这个方法是声明在 Object 类中，那么不拦截，直接执行
+          if (method.getDeclaringClass() == Object.class) {
+            return method.invoke(this, args);
+          }
+          if (platform.isDefaultMethod(method)) {
+            return platform.invokeDefaultMethod(method, service, proxy, args);
+          }
+          // 这句代码非常关键
+          return loadServiceMethod(method).invoke(args != null ? args : emptyArgs);
+        }
+      });
+}
+</code></pre><p>首先调用了 <code>validateServiceInterface(service)</code> 来提前检查接口方法，这个方法是由 <code>validateEagerly</code> 变量来控制的，源码如下：</p>
+<pre><code>if (validateEagerly) {
+  Platform platform = Platform.get();
+  for (Method method : service.getDeclaredMethods()) {
+    if (!platform.isDefaultMethod(method) &amp;&amp; !Modifier.isStatic(method.getModifiers())) {
+      loadServiceMethod(method);
+    }
+  }
+}
+</code></pre><p>重点在于 <code>loadServiceMethod</code> 方法：</p>
+<pre><code>ServiceMethod&lt;?&gt; loadServiceMethod(Method method) {
+  ServiceMethod&lt;?&gt; result = serviceMethodCache.get(method);
+  if (result != null) return result;
+
+  synchronized (serviceMethodCache) {
+    result = serviceMethodCache.get(method);
+    if (result == null) {
+      result = ServiceMethod.parseAnnotations(this, method);
+      serviceMethodCache.put(method, result);
+    }
+  }
+  return result;
+}
+</code></pre><p><code>loadServiceMethod</code> 里面会根据 <code>Method</code> 生成一个 <code>ServiceMethod</code>，然后存入 <code>serviceMethodCache</code> ，这是属于提前验证，会提前把接口中每个方法进行解析得到一个 <code>ServiceMethod</code> 对象，然后放入缓存中。 在 <code>loadServiceMethod</code> 中会先取缓存中的值，如果存在就直接返回 <code>ServiceMethod</code> 。</p>
+<p>回到 <code>create</code> 方法，接下来会调用 <code>Proxy</code> 的 <code>newProxyInstance</code> 方法来生成代理对象并强转为 <code>T</code> 类型，即对应的接口类型。由于拿到的是代理对象，所以在调用相应方法时，会先走 <code>InvocationHandler</code> 中的 <code>invoke</code> 方法，里面的重点方法就是 <code>loadServiceMethod</code> ，如果启动了提前检查功能，这里可以直接拿到 <code>ServiceMethod</code> 对象，然后接着调用 <code>invoke</code> 方法。不管有没有提前开启提前检查功能，都需要经过这个方法来获取相应的 <code>ServiceMethod</code> 对象，我们详解分析一下这个方法。</p>
+<pre><code>ServiceMethod&lt;?&gt; loadServiceMethod(Method method) {
+  // 首先从缓存 serviceMethodCache 中取 ServiceMethod ，如果存在就返回，不存在继续往下走。
+  ServiceMethod&lt;?&gt; result = serviceMethodCache.get(method);
+  if (result != null) return result;
+
+  synchronized (serviceMethodCache) {
+    //这里又从缓存取了一遍，看到这里有没有一种熟悉的感觉，是不是跟 DCL 单例模式特别像，双重校验。
+    result = serviceMethodCache.get(method);
+    if (result == null) {
+      // 获取 ServiceMethod 对象
+      result = ServiceMethod.parseAnnotations(this, method);
+      // 添加到缓存
+      serviceMethodCache.put(method, result);
+    }
+  }
+  return result;
+}
+</code></pre><p>上述方法返回的 <code>ServiceMethod</code> 对象最终是通过 <code>ServiceMethod</code> 的 <code>parseAnnotations</code> 方法返回的。<code>ServiceMethod</code> 是一个抽象类，它的子类为 <code>HttpServiceMethod</code> ，<code>HttpServiceMethod</code> 其实也是一个抽象类，我们先看一下 <code>ServiceMethod</code> 的源码：</p>
+<pre><code>abstract class ServiceMethod&lt;T&gt; {
+  static &lt;T&gt; ServiceMethod&lt;T&gt; parseAnnotations(Retrofit retrofit, Method method) {
+      // 获取 RequestFactory 类，该类包含所有的请求的基本参数
+    RequestFactory requestFactory = RequestFactory.parseAnnotations(retrofit, method);
+
+    // 获取返回的类型，比如 Call&lt;ResponseBody&gt;
+    Type returnType = method.getGenericReturnType();
+
+    // 检查返回类型的有效性
+    if (Utils.hasUnresolvableType(returnType)) {
+      throw methodError(method,
+          &quot;Method return type must not include a type variable or wildcard: %s&quot;, returnType);
+    }
+
+    if (returnType == void.class) {
+      throw methodError(method, &quot;Service methods cannot return void.&quot;);
+    }
+
+    // 返回一个 HttpServiceMethod 对象
+    return HttpServiceMethod.parseAnnotations(retrofit, method, requestFactory);
+  }
+</code></pre><p>该方法首先解析请求的基本参数，将解析后的所有请求参数封装到了 <code>RequestFactory</code> 对象，然后检查了方法的返回类型的有效性，最后通过 <code>HttpServiceMethod</code> 的 <code>parseAnnotations</code> 方法来获取 <code>HttpServiceMethod</code> 对象，我们首先分析一下 <code>RequestFactory</code> 类 ，该类里面有大量的解析注解的逻辑，最终会将解析的内容赋值到类变量里面，源码如下：</p>
+<pre><code>// 对应的接口方法
+private final Method method;
+// 请求地址
+private final HttpUrl baseUrl;
+// 请求方法(GET/POST等)
+final String httpMethod;
+// 请求相对地址，比如 “blog/{id}”
+private final @Nullable String relativeUrl;
+// 请求头
+private final @Nullable Headers headers;
+// 请求报文类型
+private final @Nullable MediaType contentType;
+// 是否有请求体
+private final boolean hasBody;
+// 是否使用表单提交方式
+private final boolean isFormEncoded;
+// 是否使用 Multipart 方式，用来文件上传
+private final boolean isMultipart;
+// 方法参数处理器，用来解析方法参数注解等
+private final ParameterHandler&lt;?&gt;[] parameterHandlers;
+</code></pre><p>以上为 <code>RequestFactory</code> 最重要的字段，由这些字段可知，该类主要是保存请求参数的，而这些参数是通过解析各种注解和方法得到的。我们接着看 <code>HttpServiceMethod</code> 的 <code>parseAnnotations</code> 方法：</p>
+<pre><code>static &lt;ResponseT, ReturnT&gt; HttpServiceMethod&lt;ResponseT, ReturnT&gt; parseAnnotations(
+      Retrofit retrofit, Method method, RequestFactory requestFactory) {
+    boolean isKotlinSuspendFunction = requestFactory.isKotlinSuspendFunction;
+    boolean continuationWantsResponse = false;
+    boolean continuationBodyNullable = false;
+
+    Annotation[] annotations = method.getAnnotations();
+    Type adapterType;
+
+    ...
+
+    //比如 Call&lt;ResponseBody&gt;
+    adapterType = method.getGenericReturnType();
+
+    // 第一步，获取 CallAdapter
+    CallAdapter&lt;ResponseT, ReturnT&gt; callAdapter =
+        createCallAdapter(retrofit, method, adapterType, annotations);
+
+    // 比如 ResponseBody
+    Type responseType = callAdapter.responseType();
+
+    // 第二步，获取 Converter
+    Converter&lt;ResponseBody, ResponseT&gt; responseConverter =
+        createResponseConverter(retrofit, method, responseType);
+
+    okhttp3.Call.Factory callFactory = retrofit.callFactory;
+    if (!isKotlinSuspendFunction) {            
+        // 第三步，返回一个 CallAdapted 对象，该对象继承于 HttpServiceMethod
+      return new CallAdapted&lt;&gt;(requestFactory, callFactory, responseConverter, callAdapter);
+    } else if (continuationWantsResponse) {
+      //noinspection unchecked Kotlin compiler guarantees ReturnT to be Object.
+      return (HttpServiceMethod&lt;ResponseT, ReturnT&gt;) new SuspendForResponse&lt;&gt;(requestFactory,
+          callFactory, responseConverter, (CallAdapter&lt;ResponseT, Call&lt;ResponseT&gt;&gt;) callAdapter);
+    } else {
+      //noinspection unchecked Kotlin compiler guarantees ReturnT to be Object.
+      return (HttpServiceMethod&lt;ResponseT, ReturnT&gt;) new SuspendForBody&lt;&gt;(requestFactory,
+          callFactory, responseConverter, (CallAdapter&lt;ResponseT, Call&lt;ResponseT&gt;&gt;) callAdapter,
+          continuationBodyNullable);
+    }
+  }
+</code></pre><p>上述源码省略了一个参数的校验逻辑，主要关注整体流程，首先看第一步，最终会调用 <code>retrofit</code> 的 <code>callAdapter</code> 方法：</p>
+<pre><code> public CallAdapter&lt;?, ?&gt; callAdapter(Type returnType, Annotation[] annotations) {
+   // 注意第一个参数传入了 null
+   return nextCallAdapter(null, returnType, annotations);
+ }
+
+public CallAdapter&lt;?, ?&gt; nextCallAdapter(@Nullable CallAdapter.Factory skipPast, Type returnType,
+     Annotation[] annotations) {
+
+   ... 省略参数校验
+
+   //这里的 skipPast 是null， 所以 indexOf 肯定返回的 -1， 所以这里 start = 0
+   int start = callAdapterFactories.indexOf(skipPast) + 1;
+   for (int i = start, count = callAdapterFactories.size(); i &lt; count; i++) {
+     CallAdapter&lt;?, ?&gt; adapter = callAdapterFactories.get(i).get(returnType, annotations, this);
+     // adapter 不为null则返回，所以如果自定义的 Adapter 处理不了，返回 null 即可，交给下一个Adapter处理
+     if (adapter != null) {
+       return adapter;
+     }
+   }
+ }
+</code></pre><p>上述代码中，参数 <code>skipPast</code> 为 <code>null</code> ，则 <code>start</code> 从 <code>0</code> 开始遍历，如果我们没有自定义 <code>CallAdapter</code>，那么此时获取到的应该是框架内的 <code>DefaultCallAdapterFactory</code> 对象，接着会调用 <code>get</code> 方法来获取 <code>CallAdapter</code> 对象。</p>
+<pre><code>@Override public @Nullable CallAdapter&lt;?, ?&gt; get(
+     Type returnType, Annotation[] annotations, Retrofit retrofit) {
+   // 该默认的适配器只处理原始类型为 Call 类型的，刚好我们自定的适配类型为 Call&lt;ResponseBody&gt;，
+   // 所以这里拿到的源始类型为 Call 类型
+   if (getRawType(returnType) != Call.class) {
+     return null;
+   }
+   if (!(returnType instanceof ParameterizedType)) {
+     throw new IllegalArgumentException(
+         &quot;Call return type must be parameterized as Call&lt;Foo&gt; or Call&lt;? extends Foo&gt;&quot;);
+   }
+
+   // 获取返回类型，为 ResponseBody
+   final Type responseType = Utils.getParameterUpperBound(0, (ParameterizedType) returnType);
+
+   // 赋值回调执行器
+   final Executor executor = Utils.isAnnotationPresent(annotations, SkipCallbackExecutor.class)
+       ? null
+       : callbackExecutor;
+
+   // 构建一个 CallAdapter 返回
+   return new CallAdapter&lt;Object, Call&lt;?&gt;&gt;() {
+     @Override public Type responseType() {
+       return responseType;
+     }
+
+     @Override public Call&lt;Object&gt; adapt(Call&lt;Object&gt; call) {
+       // 如果 executor 为null ，则直接返回 call ，否则返回 ExecutorCallbackCall (该类包装了 call ，里面有线程切换处理)
+       return executor == null
+           ? call
+           : new ExecutorCallbackCall&lt;&gt;(executor, call);
+     }
+   };
+ }
+</code></pre><p>由源码可知，最后构建了一个 <code>CallAdapter</code> 返回，这个 <code>CallAdapter</code> 很重要，后面的请求流程需要用到。至此第一步分析完毕，接下来看第二步，获取 <code>Converter</code> ，流程跟获取 <code>CallAdapter</code> 类似 ，最后会调用 <code>retrofit</code> 的 <code>responseBodyConverter</code> 方法：</p>
+<pre><code>public &lt;T&gt; Converter&lt;ResponseBody, T&gt; responseBodyConverter(Type type, Annotation[] annotations) {
+  // 注意第一个参数传入了 null
+  return nextResponseBodyConverter(null, type, annotations);
+}
+
+public &lt;T&gt; Converter&lt;ResponseBody, T&gt; nextResponseBodyConverter(
+    @Nullable Converter.Factory skipPast, Type type, Annotation[] annotations) {
+
+  ... 省略参数校验
+
+  //这里的 skipPast 是null， 所以 indexOf 肯定返回的 -1， 所以这里 start = 0    
+  int start = converterFactories.indexOf(skipPast) + 1;
+  for (int i = start, count = converterFactories.size(); i &lt; count; i++) {
+    Converter&lt;ResponseBody, ?&gt; converter =
+        converterFactories.get(i).responseBodyConverter(type, annotations, this);
+      // converter 不为null则返回，所以如果自定义的 converter 处理不了，返回 null 即可，交给下一个converter 处理
+    if (converter != null) {
+      return (Converter&lt;ResponseBody, T&gt;) converter;
+    }
+  }
+}
+</code></pre><p>在 <code>retrofit</code> 初始化的时候有讲到，第一个添加的 <code>converter</code> 为框架的 <code>BuiltInConverters</code>，我们看一下它的 <code>responseBodyConverter</code> 方法：</p>
+<pre><code>@Override public @Nullable Converter&lt;ResponseBody, ?&gt; responseBodyConverter(
+    Type type, Annotation[] annotations, Retrofit retrofit) {
+  // 这里的类型为响应类型 
+  if (type == ResponseBody.class) {
+    return Utils.isAnnotationPresent(annotations, Streaming.class)
+        ? StreamingResponseBodyConverter.INSTANCE
+        : BufferingResponseBodyConverter.INSTANCE;
+  }
+  if (type == Void.class) {
+    return VoidResponseBodyConverter.INSTANCE;
+  }
+  if (checkForKotlinUnit) {
+    try {
+      if (type == Unit.class) {
+        return UnitResponseBodyConverter.INSTANCE;
+      }
+    } catch (NoClassDefFoundError ignored) {
+      checkForKotlinUnit = false;
+    }
+  }
+  return null;
+}
+</code></pre><p>这里先说明一下 <code>Type</code> 类型的种类，共有 3 种类型，一种是适配类型(比如 Call<responsebody>)，一种是源始类型(比如 Call 类型)，一种是响应类型(比如 ResponseBody)。所以该方法主要是根据不同的响应类型来返回不同的 <code>Converter</code> 实例。最后我们看看第三步：</responsebody></p>
+<pre><code>// 第三步，返回一个 CallAdapted 对象，该对象继承于 HttpServiceMethod
+return new CallAdapted&lt;&gt;(requestFactory, callFactory, responseConverter, callAdapter);
+</code></pre><p>就是构建一个 <code>CallAdapted</code> 对象，并把所有的参数都传入该对象，我们看一下它的源码：</p>
+<pre><code>static final class CallAdapted&lt;ResponseT, ReturnT&gt; extends HttpServiceMethod&lt;ResponseT, ReturnT&gt; {
+  private final CallAdapter&lt;ResponseT, ReturnT&gt; callAdapter;
+
+  CallAdapted(RequestFactory requestFactory, okhttp3.Call.Factory callFactory,
+      Converter&lt;ResponseBody, ResponseT&gt; responseConverter,
+      CallAdapter&lt;ResponseT, ReturnT&gt; callAdapter) {
+    // 参数赋值
+    super(requestFactory, callFactory, responseConverter);
+    // 这是我们获取到的 callAdapter
+    this.callAdapter = callAdapter;
+  }
+
+  // 实现 HttpServiceMethod 的抽象方法
+  @Override protected ReturnT adapt(Call&lt;ResponseT&gt; call, Object[] args) {
+    // 直接调用 callAdapter 的 adapt 方法，并把 call 传入
+    return callAdapter.adapt(call);
+  }
+}
+</code></pre><p>该类是 <code>HttpServiceMethod</code> 的内部类，<code>HttpServiceMethod</code> 是一个抽象类，有一个 <code>adapt</code> 的抽象方法。到此，我们分析了代理对象里面的     <code>loadServiceMethod(method)</code> 方法的逻辑，我们再看一下该方法：</p>
+<pre><code>// 这句代码非常关键
+return loadServiceMethod(method).invoke(args != null ? args : emptyArgs);
+</code></pre><h2 id="Call-对象获取流程分析"><a href="#Call-对象获取流程分析" class="headerlink" title="Call 对象获取流程分析"></a>Call 对象获取流程分析</h2><p>我们先看一下使用方法：  </p>
+<pre><code>Call&lt;ResponseBody&gt; call = blogService.getBlog(2);
+</code></pre><p>上述分析已经知道，最终会通过 <code>CallAdapted</code> 实例，并调用 <code>invoke</code> 方法来获取 <code>Call</code> 对象，用于接下来的同步或异步请求。那么我们就从 <code>invoke</code> 方法入手，该方法是在抽象类 <code>ServiceMethod</code> 中定义的抽象方法，具体由 <code>HttpServiceMethod</code> 类实现，那么我们直接看 <code>HttpServiceMethod</code> 的 <code>invoke</code> 方法：</p>
+<pre><code>@Override final @Nullable ReturnT invoke(Object[] args) {
+  Call&lt;ResponseT&gt; call = new OkHttpCall&lt;&gt;(requestFactory, args, callFactory, responseConverter);
+  return adapt(call, args);
+}
+</code></pre><p>该方法共有两步，第一步是构建 <code>OkHttpCall</code> 对象，第二步是调用 <code>adapt</code> 方法，并把 <code>OkHttpCall</code> 和请求参数传入。先分析第一步，直接看 <code>OkHttpCall</code> 的构建方法：</p>
+<pre><code>OkHttpCall(RequestFactory requestFactory, Object[] args,
+    okhttp3.Call.Factory callFactory, Converter&lt;ResponseBody, T&gt; responseConverter) {
+  this.requestFactory = requestFactory;
+  this.args = args;
+  this.callFactory = callFactory;
+  this.responseConverter = responseConverter;
+}
+</code></pre><p>非常简单，就是赋值操作，所以重点在于第二步的 <code>CallAdapted</code> 的 <code>adapt</code> 方法 ：</p>
+<pre><code>// 实现 HttpServiceMethod 的抽象方法
+@Override protected ReturnT adapt(Call&lt;ResponseT&gt; call, Object[] args) {
+  // 直接调用 callAdapter 的 adapt 方法，并把 call 传入
+  return callAdapter.adapt(call);
+}
+</code></pre><p>直接调用 <code>callAdapter</code> 的 <code>adapt</code> 方法，并把 <code>call</code> 传入，之前我们分析到，该 <code>callAdapter</code> 就是在 <code>DefaultCallAdapterFactory</code> 的 <code>get</code> 方法中返回的，源码再看一下：</p>
+<pre><code>@Override public @Nullable CallAdapter&lt;?, ?&gt; get(
+     Type returnType, Annotation[] annotations, Retrofit retrofit) {
+   // 该默认的适配器只处理原始类型为 Call 类型的，刚好我们自定的适配类型为 Call&lt;ResponseBody&gt;，
+   // 所以这里拿到的源始类型为 Call 类型
+   if (getRawType(returnType) != Call.class) {
+     return null;
+   }
+   if (!(returnType instanceof ParameterizedType)) {
+     throw new IllegalArgumentException(
+         &quot;Call return type must be parameterized as Call&lt;Foo&gt; or Call&lt;? extends Foo&gt;&quot;);
+   }
+
+   // 获取返回类型，为 ResponseBody
+   final Type responseType = Utils.getParameterUpperBound(0, (ParameterizedType) returnType);
+
+   // 赋值回调执行器
+   final Executor executor = Utils.isAnnotationPresent(annotations, SkipCallbackExecutor.class)
+       ? null
+       : callbackExecutor;
+
+   // 构建一个 CallAdapter 返回
+   return new CallAdapter&lt;Object, Call&lt;?&gt;&gt;() {
+     @Override public Type responseType() {
+       return responseType;
+     }
+
+     @Override public Call&lt;Object&gt; adapt(Call&lt;Object&gt; call) {
+       // 如果 executor 为null ，则直接返回 call ，否则返回 ExecutorCallbackCall (该类包装了 call ，里面有线程切换处理)
+       return executor == null
+           ? call
+           : new ExecutorCallbackCall&lt;&gt;(executor, call);
+     }
+   };
+ }
+</code></pre><p>由于我们是在 <code>Android</code> 平台上运行上，所以 <code>executor</code> 不为 <code>null</code> ，为 <code>MainThreadExecutor</code> ,上述分析 <code>Platform</code> 类时在讲到，所以这里返回了 <code>ExecutorCallbackCall</code> 对象，该对象是 <code>DefaultCallAdapterFactory</code> 的内部类。</p>
+<h2 id="发起请求和获取响应流程分析"><a href="#发起请求和获取响应流程分析" class="headerlink" title="发起请求和获取响应流程分析"></a>发起请求和获取响应流程分析</h2><p>我们接着上面的流程，看一下 ExecutorCallbackCall 的源码：</p>
+<pre><code>static final class ExecutorCallbackCall&lt;T&gt; implements Call&lt;T&gt; {
+  final Executor callbackExecutor;
+  final Call&lt;T&gt; delegate;
+
+  ExecutorCallbackCall(Executor callbackExecutor, Call&lt;T&gt; delegate) {
+    // 赋值
+    this.callbackExecutor = callbackExecutor;
+    this.delegate = delegate;
+  }
+
+  @Override public void enqueue(final Callback&lt;T&gt; callback) {
+    Objects.requireNonNull(callback, &quot;callback == null&quot;);
+      // 执行异步请求
+    delegate.enqueue(new Callback&lt;T&gt;() {
+      @Override public void onResponse(Call&lt;T&gt; call, final Response&lt;T&gt; response) {
+          // 通过线程执行器执行任务
+        callbackExecutor.execute(() -&gt; {
+          if (delegate.isCanceled()) {
+              // 失败回调
+            callback.onFailure(ExecutorCallbackCall.this, new IOException(&quot;Canceled&quot;));
+          } else {
+              // 成功回调
+            callback.onResponse(ExecutorCallbackCall.this, response);
+          }
+        });
+      }
+
+      @Override public void onFailure(Call&lt;T&gt; call, final Throwable t) {
+      // 通过线程执行器执行任务，失败回调
+        callbackExecutor.execute(() -&gt; callback.onFailure(ExecutorCallbackCall.this, t));
+      }
+    });
+  }
+
+  @Override public boolean isExecuted() {
+    return delegate.isExecuted();
+  }
+
+  @Override public Response&lt;T&gt; execute() throws IOException {
+    // 执行同步请求
+    return delegate.execute();
+  }
+
+  @Override public void cancel() {
+    // 取消请求
+    delegate.cancel();
+  }
+
+  @Override public boolean isCanceled() {
+    // 取消是否被取消
+    return delegate.isCanceled();
+  }
+
+  @SuppressWarnings(&quot;CloneDoesntCallSuperClone&quot;) // Performing deep clone.
+  @Override public Call&lt;T&gt; clone() {
+   // 深度克隆，返回一个 Call 对象
+    return new ExecutorCallbackCall&lt;&gt;(callbackExecutor, delegate.clone());
+  }
+
+  @Override public Request request() {
+    // 获取 Request
+    return delegate.request();
+  }
+}
+</code></pre><p>该方法会通过 <code>OkHttpCall</code> 方法来执行相应的同步或异步请求，而在 <code>OkHttpCall</code> 里层会生成真正的请求类来执行请求处理在成功或失败之后，通过线程执行器来切换到主线程来进行用户的回调处理，所以我们在使用时的异步回调是在主线程的，可以直接进行 UI 处理，我们先看一下真正的 <code>call</code> 的生成过程 ：</p>
+<pre><code>private okhttp3.Call createRawCall() throws IOException {
+  okhttp3.Call call = callFactory.newCall(requestFactory.create(args));
+  if (call == null) {
+    throw new NullPointerException(&quot;Call.Factory returned null.&quot;);
+  }
+  return call;
+}
+</code></pre><p>这段代码非常熟悉，就是通过 <code>OkHttp</code> 的方式，先构建 <code>Request</code> 对象，然后通过 <code>OkHttpClient</code> 对象的 <code>newCall</code> 方法生成真正的请求类来执行请求，我们看看异步请求的代码：</p>
+<pre><code>call.enqueue(new okhttp3.Callback() {
+    @Override public void onResponse(okhttp3.Call call, okhttp3.Response rawResponse) {
+      Response&lt;T&gt; response;
+      try {
+          // 解析成想要的格式
+        response = parseResponse(rawResponse);
+      } catch (Throwable e) {
+        throwIfFatal(e);
+        callFailure(e);
+        return;
+      }
+
+      try {
+          // 回调成功
+        callback.onResponse(OkHttpCall.this, response);
+      } catch (Throwable t) {
+        throwIfFatal(t);
+        t.printStackTrace(); // TODO this is not great
+      }
+    }
+
+    @Override public void onFailure(okhttp3.Call call, IOException e) {
+      callFailure(e);
+    }
+
+    private void callFailure(Throwable e) {
+      try {
+          // 回调失败
+        callback.onFailure(OkHttpCall.this, e);
+      } catch (Throwable t) {
+        throwIfFatal(t);
+        t.printStackTrace(); // TODO this is not great
+      }
+    }
+</code></pre><p><code>OkHttpCall</code> 对象里层真正发起请求的是 <code>okhttp3.Call</code> 对象，拿到响应结果后，先通过 <code>parseResponse</code> 方法进行数据格式转换，这里就需要用到 <code>converter</code> 了：</p>
+<pre><code>Response&lt;T&gt; parseResponse(okhttp3.Response rawResponse) throws IOException {
+     // 获取源始的 ResponseBody 对象
+   ResponseBody rawBody = rawResponse.body();
+
+   // Remove the body&apos;s source (the only stateful object) so we can pass the response along.
+   rawResponse = rawResponse.newBuilder()
+       .body(new NoContentResponseBody(rawBody.contentType(), rawBody.contentLength()))
+       .build();
+
+   // 根据响应码做相应处理
+   int code = rawResponse.code();
+   if (code &lt; 200 || code &gt;= 300) {
+     try {
+       // Buffer the entire body to avoid future I/O.
+       ResponseBody bufferedBody = Utils.buffer(rawBody);
+       return Response.error(bufferedBody, rawResponse);
+     } finally {
+       rawBody.close();
+     }
+   }
+
+   if (code == 204 || code == 205) {
+     rawBody.close();
+     return Response.success(null, rawResponse);
+   }
+
+   // 包装一个可以捕捉异常的对象
+   ExceptionCatchingResponseBody catchingBody = new ExceptionCatchingResponseBody(rawBody);
+   try {
+       // 进行数据转换，默认转换的就是 ResponseBody，即不转换
+     T body = responseConverter.convert(catchingBody);
+     return Response.success(body, rawResponse);
+   } catch (RuntimeException e) {
+     // If the underlying source threw an exception, propagate that rather than indicating it was
+     // a runtime exception.
+     catchingBody.throwIfCaught();
+     throw e;
+   }
+ }
+</code></pre><p>该方法如其名，就是解析响应的，根据响应码做了相应的逻辑处理，然后通过转换器来转换成我们想要的数据类型并返回。到此，我们对每一步的流程都分析了。下面是整体流程图：</p>
+<p><img src="https://cl.ly/0e851c4ccbd7/Retrofit2%E6%B5%81%E7%A8%8B%E5%88%86%E6%9E%90.png" alt=""></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/16/github/okhttp/拦截器源码分析二/" rel="next" title="缓存拦截器源码分析">
+                <i class="fa fa-chevron-left"></i> 缓存拦截器源码分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Retrofit2-使用"><span class="nav-number">1.</span> <span class="nav-text">Retrofit2 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Retrofit-初始化"><span class="nav-number">2.</span> <span class="nav-text">Retrofit 初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#创建接口实例"><span class="nav-number">3.</span> <span class="nav-text">创建接口实例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Call-对象获取流程分析"><span class="nav-number">4.</span> <span class="nav-text">Call 对象获取流程分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发起请求和获取响应流程分析"><span class="nav-number">5.</span> <span class="nav-text">发起请求和获取响应流程分析</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
