@@ -1,0 +1,1570 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="ARouter 源码分析ARouter 的源码提供两个 SDK ,分别是面向不同的阶段，本身 API 这个SDK 是面向运行期的 ，而 compiler 这个 SDK 则是作用于编译期的，我们现在分析本身 API 这个 SDK 。 初始化首先调用的是 ARouter 的 init 方法，代码如下： public static void init(Application application) {">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARouter 源码详解二">
+<meta property="og:url" content="http://yoursite.com/2019/08/27/github/Retrofit2/ARouter 源码详解二/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="ARouter 源码分析ARouter 的源码提供两个 SDK ,分别是面向不同的阶段，本身 API 这个SDK 是面向运行期的 ，而 compiler 这个 SDK 则是作用于编译期的，我们现在分析本身 API 这个 SDK 。 初始化首先调用的是 ARouter 的 init 方法，代码如下： public static void init(Application application) {">
+<meta property="og:updated_time" content="2019-08-28T04:34:32.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARouter 源码详解二">
+<meta name="twitter:description" content="ARouter 源码分析ARouter 的源码提供两个 SDK ,分别是面向不同的阶段，本身 API 这个SDK 是面向运行期的 ，而 compiler 这个 SDK 则是作用于编译期的，我们现在分析本身 API 这个 SDK 。 初始化首先调用的是 ARouter 的 init 方法，代码如下： public static void init(Application application) {">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/27/github/Retrofit2/ARouter 源码详解二/"/>
+
+
+
+
+
+     <title> ARouter 源码详解二 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/27/github/Retrofit2/ARouter 源码详解二/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ARouter 源码详解二</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-27T17:06:18+08:00">
+                2019-08-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/ARouter/" itemprop="url" rel="index">
+                    <span itemprop="name">ARouter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/27/github/Retrofit2/ARouter 源码详解二/" class="leancloud_visitors" data-flag-title="ARouter 源码详解二">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ARouter-源码分析"><a href="#ARouter-源码分析" class="headerlink" title="ARouter 源码分析"></a>ARouter 源码分析</h2><p><code>ARouter</code> 的源码提供两个 <code>SDK</code> ,分别是面向不同的阶段，本身 <code>API</code> <code>这个SDK</code> 是面向运行期的 ，而 <code>compiler</code> 这个 <code>SDK</code> 则是作用于编译期的，我们现在分析本身 <code>API</code> 这个 <code>SDK</code> 。</p>
+<h2 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h2><p>首先调用的是 <code>ARouter</code> 的 <code>init</code> 方法，代码如下：</p>
+<pre><code>public static void init(Application application) {
+    if (!hasInit) {    // 确保只初始化一次
+        hasInit = _ARouter.init(application);
+        if (hasInit) {
+            // 用于异步初始化 interceptor 
+            _ARouter.afterInit();
+        }
+}
+</code></pre><p><code>ARouter</code> 使用了门面模式，真正起作用的是 <code>_ARouter</code> 类。很明显，这个方法分两步处理，分别是 <code>_ARouter.init 方法</code> 和 <code>_ARouter.afterInit</code> 方法，先分析前一个。</p>
+<pre><code>final class _ARouter {
+    // 默认日志类
+    static ILogger logger = new DefaultLogger(Consts.TAG);
+    // 线程池
+    private volatile static ThreadPoolExecutor executor = DefaultPoolExecutor.getInstance();
+    private static Handler mHandler;
+    private static Context mContext;
+
+    private static InterceptorService interceptorService;
+
+    private _ARouter() {
+    }
+
+    protected static synchronized boolean init(Application application) {
+        mContext = application;
+        LogisticsCenter.init(mContext, executor);
+        logger.info(Consts.TAG, &quot;ARouter init success!&quot;);
+        hasInit = true;
+        mHandler = new Handler(Looper.getMainLooper());
+
+        return true;
+    }
+ }
+</code></pre><p><code>_ARouter</code> 是一个单例类，里面有一个默认的线程池对象，<code>init</code> 方法的核心代码是  <code>LogisticsCenter.init(mContext, executor)</code> ，接着看这个方法：</p>
+<pre><code>public synchronized static void init(Context context, ThreadPoolExecutor tpe) throws HandlerException {
+    mContext = context;
+    executor = tpe;
+
+    try {
+           // 通过注册表插件来加载路由表
+        loadRouterMap();
+        if (registerByPlugin) {
+            logger.info(TAG, &quot;Load router map by arouter-auto-register plugin.&quot;);
+        } else {
+            Set&lt;String&gt; routerMap;    // 保存生成类的类名集合
+            // 如果是 Debug 模式或新安装的版本，从 apt 生成的包中加载类
+            if (ARouter.debuggable() || PackageUtils.isNewVersion(context)) {
+                // 通过指定的包名，加载由 compiler 自动生成的类
+                routerMap = ClassUtils.getFileNameByPackageName(mContext, ROUTE_ROOT_PAKCAGE);
+                if (!routerMap.isEmpty()) {    // 加入 sp 缓存
+                    context.getSharedPreferences(AROUTER_SP_CACHE_KEY, Context.MODE_PRIVATE).edit().putStringSet(AROUTER_SP_KEY_MAP, routerMap).apply();
+                }
+                PackageUtils.updateVersion(context);    // Save new version name when router map update finishes.
+            } else {
+                // 从缓存中加载
+                routerMap = new HashSet&lt;&gt;(context.getSharedPreferences(AROUTER_SP_CACHE_KEY, Context.MODE_PRIVATE).getStringSet(AROUTER_SP_KEY_MAP, new HashSet&lt;String&gt;()));
+            }
+            for (String className : routerMap) {
+                if (className.startsWith(ROUTE_ROOT_PAKCAGE + DOT + SDK_NAME + SEPARATOR + SUFFIX_ROOT)) {
+                    // This one of root elements, load root.
+                    // 加载根分组，通过反射构建实例，将根分组信息保存在 Warehouse 的 groupsIndex 集合中
+                    ((IRouteRoot) (Class.forName(className).getConstructor().newInstance())).loadInto(Warehouse.groupsIndex);
+                } else if (className.startsWith(ROUTE_ROOT_PAKCAGE + DOT + SDK_NAME + SEPARATOR + SUFFIX_INTERCEPTORS)) {
+                    // Load interceptorMeta
+                    // 加载 Interceptors 相关信息
+                    ((IInterceptorGroup) (Class.forName(className).getConstructor().newInstance())).loadInto(Warehouse.interceRouteMetaptorsIndex);
+                } else if (className.startsWith(ROUTE_ROOT_PAKCAGE + DOT + SDK_NAME + SEPARATOR + SUFFIX_PROVIDERS)) {
+                    // Load providerIndex
+                    // 加载 provider   相关信息
+                    ((IProviderGroup) (Class.forName(className).getConstructor().newInstance())).loadInto(Warehouse.providersIndex);
+                }
+            }
+        }
+    } catch (Exception e) {
+        throw new HandlerException(TAG + &quot;ARouter init logistics center exception! [&quot; + e.getMessage() + &quot;]&quot;);
+    }
+}
+</code></pre><p>方法步骤总结如下：</p>
+<ol>
+<li>先判断能否通过注册表插件来加载，可以则直接通过插件来处理，否则进行第二步。</li>
+<li>如果是 <code>Debug</code> 模式或新安装的版本，则从 <code>APT</code> 生成的包中加载类并添加到缓存，否则直接从缓存中获取。  <code>ClassUtils.getFileNameByPackageName</code> 方法做的就是找到 <code>app</code> 的 <code>dex</code> 文件 ，然后遍历出其中属于 <code>com.alibaba.android.arouter.routes</code> 包下的所有类名，打包成集合返回。可以想象遍历整个 <code>dex</code> 查找指定类名的工作量有多大，所以才有第一步的通过插件来加载。</li>
+<li>遍历集合，反射实例化对象并调用方法，将注解生成的类的信息全部缓存到 <code>Warehouse</code> 类的相应变量中。之前讲注解处理器的时候有讲到，会通过 <code>APT</code> 生成一些配置信息类，现在这些信息全部缓存到 <code>Warehouse</code> 类中。</li>
+</ol>
+<p>这里再看一下，比如分组的 <code>Root</code> 类，如下：</p>
+<pre><code>// 实现 IRouteRoot 接口
+public class ARouter$$Root$$app implements IRouteRoot {
+  @Override
+  public void loadInto(Map&lt;String, Class&lt;? extends IRouteGroup&gt;&gt; routes) {
+    // key 是分组名称，value 是对应的组的索引类 
+    routes.put(&quot;service&quot;, ARouter$$Group$$service.class);
+    routes.put(&quot;test&quot;, ARouter$$Group$$test.class);
+  }
+}
+</code></pre><p>我们接着看一下 <code>Warehouse</code> 类：</p>
+<pre><code>class Warehouse {
+    // Cache route and metas
+    // Key 是根分组的名称，Value 为 对应的路由类的根类的 Class 类型
+    static Map&lt;String, Class&lt;? extends IRouteGroup&gt;&gt; groupsIndex = new HashMap&lt;&gt;();
+    static Map&lt;String, RouteMeta&gt; routes = new HashMap&lt;&gt;();
+
+    // Cache provider
+    // Key 是 provider 的全类名，Value 为 对应的路由类型
+    static Map&lt;String, RouteMeta&gt; providersIndex = new HashMap&lt;&gt;();
+    static Map&lt;Class, IProvider&gt; providers = new HashMap&lt;&gt;();
+
+    // Cache interceptor
+    // Key 是 interceptor 的优先级，Value 为 对应的interceptor的Class类型
+    static Map&lt;Integer, Class&lt;? extends IInterceptor&gt;&gt; interceptorsIndex = new UniqueKeyTreeMap&lt;&gt;(&quot;More than one interceptors use same priority [%s]&quot;);
+    static List&lt;IInterceptor&gt; interceptors = new ArrayList&lt;&gt;();
+
+    static void clear() {
+        routes.clear();
+        groupsIndex.clear();
+        providers.clear();
+        providersIndex.clear();
+        interceptors.clear();
+        interceptorsIndex.clear();
+    }
+}
+</code></pre><p><code>groupsIndex</code> 对应着 <code>Root</code> 分组的所有配置信息，<code>KEY</code> 是分组名称，<code>Value</code> 为对应的分组索引类，索引类也由 <code>APT</code> 生成，管理着分组下所有的路由信息。 <code>providersIndex</code> 对应着 <code>prvider</code> 的配置信息，所有的服务类也都是 <code>prvider</code> 类，<code>KEY</code> 是服务接口的全类名，<code>value</code> 是一个 <code>RouteMeta</code> 类。 <code>interceptorsIndex</code> 对应着拦截器配置信息， <code>Key</code> 是 <code>interceptor</code> 的优先级，<code>Value</code> 为对应的 <code>interceptor</code> 的 <code>Class</code> 类型 。这跟我们讲 <code>APT</code> 生成的类是一样的，只不过是把所有的信息都加载到内存中罢了。</p>
+<p>接下来，我们分析一下 <code>_ARouter.afterInit</code> 方法：</p>
+<pre><code>static void afterInit() {
+    // Trigger interceptor init, use byName.
+    interceptorService = (InterceptorService) ARouter.getInstance().build(&quot;/arouter/service/interceptor&quot;).navigation();
+}
+</code></pre><p><code>InterceptorService</code> 是框架提供的核心接口，这个方法是用来获取到管理拦截器的服务类(InterceptorServiceImpl)的，这个服务类在初始化时会对所有拦截器进行初始化，该方法最终会实例化 <code>InterceptorServiceImpl</code> 类，并调用其 <code>init</code> 方法进行初始化：</p>
+<pre><code>@Route(path = &quot;/arouter/service/interceptor&quot;)
+public class InterceptorServiceImpl implements InterceptorService {
+
+    @Override
+    public void init(final Context context) {
+        LogisticsCenter.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                if (MapUtils.isNotEmpty(Warehouse.interceptorsIndex)) {
+                    for (Map.Entry&lt;Integer, Class&lt;? extends IInterceptor&gt;&gt; entry : Warehouse.interceptorsIndex.entrySet()) {
+                        Class&lt;? extends IInterceptor&gt; interceptorClass = entry.getValue();
+                        try {
+                            // 反射构建拦截器实例
+                            IInterceptor iInterceptor = interceptorClass.getConstructor().newInstance();
+                            // 初始化
+                            iInterceptor.init(context);
+                            // 把实例添加到缓存中
+                            Warehouse.interceptors.add(iInterceptor);
+                        } catch (Exception ex) {
+                            throw new HandlerException(TAG + &quot;ARouter init interceptor error! name = [&quot; + interceptorClass.getName() + &quot;], reason = [&quot; + ex.getMessage() + &quot;]&quot;);
+                        }
+                    }
+
+                    interceptorHasInit = true;
+
+                    // 如果在进行路由时，拦截器还没有初始化完毕，会阻塞等待，初始完毕需要唤醒
+                    synchronized (interceptorInitLock) {
+                        interceptorInitLock.notifyAll();
+                    }
+                }
+            }
+        });
+    }
+}
+</code></pre><p>该方法是在线程池中执行的，从 <code>Warehouse</code> 的 <code>interceptorsIndex</code> 中拿到所有拦截器的配置，然后遍历反射实例化对象并进行初始化，最后把实例添加到 <code>Warehouse</code> 的 <code>interceptors</code> 变量中，这个变量存储的就是所有的拦截器对象 ：</p>
+<pre><code>//Warehouse.java
+static List&lt;IInterceptor&gt; interceptors = new ArrayList&lt;&gt;();
+</code></pre><p><strong>小结：<code>ARouter</code> 的初始化主要是把 <code>APT</code> 生成的所有配置类的信息添加到内存中，并且对所有的拦截器进行了初始化，所以说拦截器的初始化时机跟 SDK 初始化时机是一样的。</strong></p>
+<h2 id="路由操作"><a href="#路由操作" class="headerlink" title="路由操作"></a>路由操作</h2><p>标准的路由操作如下：</p>
+<pre><code>ARouter.getInstance().build(&quot;/test/Test1Activity&quot;).navigation(activity);
+</code></pre><p>那么我们先看一下 <code>_ARouter</code> 的 <code>build</code> 方法：</p>
+<pre><code>protected Postcard build(String path) {
+    if (TextUtils.isEmpty(path)) {
+        throw new HandlerException(Consts.TAG + &quot;Parameter is invalid!&quot;);
+    } else {
+        // 预留给用户实现路径动态变换功能
+        PathReplaceService pService = ARouter.getInstance().navigation(PathReplaceService.class);
+        if (null != pService) {
+            path = pService.forString(path);
+        }
+        // 默认截取路径中的第一段作为分组名
+        return build(path, extractGroup(path));
+    }
+}
+</code></pre><p>首先会尝试实例化 <code>PathReplaceService</code> 对象，它继承 <code>IProvider</code> 接口，是预留给用户实现路径动态变换功能的，我们直接看最后面的代码，又调用了 <code>build</code> 的重载方法，第二个参数是截取的路由地址的第一段，即分组名，该方法如下：</p>
+<pre><code>protected Postcard build(String path, String group) {
+    if (TextUtils.isEmpty(path) || TextUtils.isEmpty(group)) {
+        throw new HandlerException(Consts.TAG + &quot;Parameter is invalid!&quot;);
+    } else {
+        // 这里会再次尝试动态变换路径
+        PathReplaceService pService = ARouter.getInstance().navigation(PathReplaceService.class);
+        if (null != pService) {
+            path = pService.forString(path);
+        }
+        return new Postcard(path, group);
+    }
+}
+</code></pre><p>该方法返回一个 <code>Postcard</code> 类，并把 <code>path</code> 和 <code>group</code> 传入构造方法中，那么我们看一下 <code>Postcard</code> 类：</p>
+<pre><code>public final class Postcard extends RouteMeta {
+    // Base
+    private Uri uri;                
+    private Object tag;             // A tag prepare for some thing wrong.
+    private Bundle mBundle;         // 用来传输数据的
+    private int flags = -1;         // Flags of route
+    private int timeout = 300;      // 路由超时时间，默认 300 秒
+    private IProvider provider;     // 如果路由目标是一个 IProvider ，会被赋值.
+    private boolean greenChannel;    // 是否走绿色通道
+    private SerializationService serializationService;
+
+    // Animation
+    private Bundle optionsCompat;    // 界面转场动画
+    private int enterAnim = -1;
+    private int exitAnim = -1;
+
+}
+</code></pre><p><code>Postcard</code> 类继承于 <code>RouteMeta</code> ，附加了一些跳转需要用到的信息。最后调用该 <code>Postcard</code> 对象的 <code>navigation</code> 方法，层层调用，最终还是调用的 <code>_Arouter</code> 的 <code>navigation</code> 方法：</p>
+<pre><code>protected Object navigation(final Context context, final Postcard postcard, final int requestCode, final NavigationCallback callback) {
+    // 预留给用户实现的预处理服务功能
+    PretreatmentService pretreatmentService = ARouter.getInstance().navigation(PretreatmentService.class);
+    if (null != pretreatmentService &amp;&amp; !pretreatmentService.onPretreatment(context, postcard)) {
+        // Pretreatment failed, navigation canceled.
+        return null;
+    }
+    try {
+        LogisticsCenter.completion(postcard);
+    } catch (NoRouteFoundException ex) {
+        if (debuggable()) {
+            // Show friendly tips for user.
+            // 在 debug 模式下，会弹 toast 友好提示
+            runInMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(mContext, &quot;There&apos;s no route matched!\n&quot; +
+                            &quot; Path = [&quot; + postcard.getPath() + &quot;]\n&quot; +
+                            &quot; Group = [&quot; + postcard.getGroup() + &quot;]&quot;, Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+        // 回调路由找不到
+        if (null != callback) {
+            callback.onLost(postcard);
+        } else {
+            // 没有回调方法，则交给全局降级策略处理，由此可见，回调优先级大于降级策略
+            DegradeService degradeService = ARouter.getInstance().navigation(DegradeService.class);
+            if (null != degradeService) {
+                // 回调降级策略的 onLost 方法
+                degradeService.onLost(context, postcard);
+            }
+        }
+        return null;
+    }
+
+    // 回调路由被找到
+    if (null != callback) {
+        callback.onFound(postcard);
+    }
+
+    // 如果不是绿色通道，即会触发拦截器，在后台线程处理，避免 ANR ，拦截器不宜处理耗时操作，不然跳转会超过导致失败
+    if (!postcard.isGreenChannel()) {   // It must be run in async thread, maybe interceptor cost too mush time made ANR.
+        interceptorService.doInterceptions(postcard, new InterceptorCallback() {
+
+            @Override
+            public void onContinue(Postcard postcard) {
+                _navigation(context, postcard, requestCode, callback);
+            }
+
+            @Override
+            public void onInterrupt(Throwable exception) {
+                // 在子线程中回调
+                if (null != callback) {
+                    callback.onInterrupt(postcard);
+                }
+            }
+        });
+    } else {
+        // 走绿色通道，没有拦截器，并有返回值
+        return _navigation(context, postcard, requestCode, callback);
+    }
+    return null;
+}
+</code></pre><p>方法步骤总结如下：</p>
+<ol>
+<li>尝试实例化 <code>PretreatmentService</code> 对象，它继承 <code>IProvider</code> 接口，是预留给用户实现的预处理服务功能的，如果有该接口实现类，会调用其 <code>Init</code> 方法进行初始化，并调用预处理方法 <code>onPretreatment</code> 。</li>
+<li>调用 <code>LogisticsCenter.completion(postcard)</code> 方法尝试找到跳转的目标，找不到会走 <code>catch</code> 的逻辑，即第三步，否则走第四步。</li>
+<li>在 <code>debug</code> 模式下，会先弹 <code>toast</code> 友好提示，有监听回调，则回调其 <code>onLost</code> 方法，没有则会尝试寻找全局降级策略服务类，如果有该实现类，此时会回调降级策略服务类的 <code>onLost</code> 方法，否则直接返回 <code>null</code> 。</li>
+<li>如果找到目标，有监听回调，则回调其 <code>onFound</code> 方法，表示路由已经找到。</li>
+<li>判断是否走绿色通道，是则继续调用 <code>_navigation</code> 方法，否则触发拦截器。</li>
+</ol>
+<p>我们先看一下 <code>LogisticsCenter.completion(postcard)</code> 是如何寻找目标路由的，这个方法代码量比较多，我们分两步来看：</p>
+<pre><code>public synchronized static void completion(Postcard postcard) {
+        // 从缓存集合中查找，如果没有加载过，则为null
+        RouteMeta routeMeta = Warehouse.routes.get(postcard.getPath());
+        if (null == routeMeta) {    // Maybe its does&apos;t exist, or didn&apos;t load.
+            // 找到该分组的根类
+            Class&lt;? extends IRouteGroup&gt; groupMeta = Warehouse.groupsIndex.get(postcard.getGroup());  // Load route meta.
+            if (null == groupMeta) {
+                throw new NoRouteFoundException(TAG + &quot;There is no route match the path [&quot; + postcard.getPath() + &quot;], in group [&quot; + postcard.getGroup() + &quot;]&quot;);
+            } else {
+                try {
+                    // 反射构建实例并添加到内存缓存中
+                    IRouteGroup iGroupInstance = groupMeta.getConstructor().newInstance();
+                    iGroupInstance.loadInto(Warehouse.routes);
+                    // 由于已经加载实例到内存中了，则从根分组集合中移除该分组
+                    Warehouse.groupsIndex.remove(postcard.getGroup());
+                } catch (Exception e) {
+                    throw new HandlerException(TAG + &quot;Fatal exception when loading group meta. [&quot; + e.getMessage() + &quot;]&quot;);
+                }
+                // 递归再次尝试加载
+                completion(postcard);   // Reload
+            }
+        }else{
+            ....省略后面代码
+        }
+}
+</code></pre><p>方法步骤总结如下：</p>
+<ol>
+<li>先从缓存集合中查找 <code>RouteMeta</code> 对象，没有则进入 <code>if</code> 里面的逻辑。</li>
+<li>找到对应分组的索引类，索引类由 <code>APT</code> 生成的，保存着该分组的所有路由信息。</li>
+<li>如果索引类不存在，则抛异常。</li>
+<li>反射实例化该索引类，然后把所有配置信息加载到 <code>Warehouse</code> 的 <code>routes</code> 集合中，该集合的 <code>KEY</code> 是路由地址，<code>VALUE</code> 是 <code>RouteMeta</code> 对象。最后，由于已经加载实例到内存中了，则从根分组集合中移除该分组，避免重复加载。</li>
+<li>再次尝试加载，此时会走 <code>else</code> 后面的逻辑。</li>
+</ol>
+<p>我们接着分析 <code>else</code> 后面的逻辑，代码如下：</p>
+<pre><code>public synchronized static void completion(Postcard postcard) {
+           ...
+        // 从缓存集合中查找，如果没有加载过，则为null
+        RouteMeta routeMeta = Warehouse.routes.get(postcard.getPath());
+        if (null == routeMeta) {   
+            ...
+        } else {
+            // 赋值操作
+            postcard.setDestination(routeMeta.getDestination());
+            postcard.setType(routeMeta.getType());
+            postcard.setPriority(routeMeta.getPriority());
+            postcard.setExtra(routeMeta.getExtra());
+
+            Uri rawUri = postcard.getUri();
+            // 如果是 Uri 跳转
+            if (null != rawUri) {   // Try to set params into bundle.
+                //分割路径中的参数
+                Map&lt;String, String&gt; resultMap = TextUtils.splitQueryParameters(rawUri);
+                //获取Autowired注解的属性
+                Map&lt;String, Integer&gt; paramsType = routeMeta.getParamsType();
+                if (MapUtils.isNotEmpty(paramsType)) {
+                    for (Map.Entry&lt;String, Integer&gt; params : paramsType.entrySet()) {
+                        // 将对应的属性和值放入到 Postcard 对象的 Bundle 中
+                        setValue(postcard,
+                                params.getValue(),
+                                params.getKey(),
+                                resultMap.get(params.getKey()));
+                    }
+                    // 将需要自动注入的字段名称传入 Bundle
+                    postcard.getExtras().putStringArray(ARouter.AUTO_INJECT, paramsType.keySet().toArray(new String[]{}));
+                }
+                // 保存源 uri 路径到 Bundle 中
+                postcard.withString(ARouter.RAW_URI, rawUri.toString());
+            }
+
+            switch (routeMeta.getType()) {
+                // 如果是 PROVIDER 类型
+                case PROVIDER:  
+                    Class&lt;? extends IProvider&gt; providerMeta = (Class&lt;? extends IProvider&gt;) routeMeta.getDestination();
+                    IProvider instance = Warehouse.providers.get(providerMeta);
+                    if (null == instance) { // There&apos;s no instance of this provider
+                        IProvider provider;
+                        try {
+                            // 构建实例
+                            provider = providerMeta.getConstructor().newInstance();
+                            // 初始比
+                            provider.init(mContext);
+                            // 并添加到内存缓存中
+                            Warehouse.providers.put(providerMeta, provider);
+                            instance = provider;
+                        } catch (Exception e) {
+                            throw new HandlerException(&quot;Init provider failed! &quot; + e.getMessage());
+                        }
+                    }
+                    // 保存 PROVIDER 实例到 Postcard 中
+                    postcard.setProvider(instance);
+                     // Provider不经过拦截器处理 
+                    postcard.greenChannel();    // Provider should skip all of interceptors
+                    break;
+                case FRAGMENT:
+                     // Fragment 不经过拦截器处理
+                    postcard.greenChannel();    // Fragment needn&apos;t interceptors
+                default:
+                    break;
+            }
+        }
+    }
+</code></pre><p>方法步骤总结如下：</p>
+<ol>
+<li>把找到的路由目标对应的 <code>routeMeta</code> 类的相关参数赋值到传入的 <code>postcard</code> 对象，此时 <code>postcard</code> 就具备了路由的相关信息了。</li>
+<li>如果是通过 <code>Uri</code> 的方式跳转的，则分割路径中的参数并根据 <code>Autowired</code> 注解的属性，将对应的属性和值放入到 <code>Postcard</code> 对象的 <code>Bundle</code> 对象，这也就解释了为什么通过 <code>URI</code> 的方式跳转的时候，需要在属性上面加上 <code>Autowired</code> 注解，才能在对应的 <code>Bundle</code> 上获取到数据。</li>
+<li>如果是 <code>PROVIDER</code> 类型，则反射实例化对象并调用其初始化方法 ，然后添加到内存缓存中，接着保存 <code>PROVIDER</code> 实例到 <code>Postcard</code> 中，最后设置该 <code>Postcard</code> 走绿色通道，因为 <code>PROVIDER</code> 类型不需要拦截器处理。这也就解释了服务是在用到的时候才会进行初始化的。</li>
+<li>如果是 <code>FRAGMENT</code> 类型，则设置该 <code>Postcard</code> 走绿色通道，因为 <code>FRAGMENT</code> 类型也不需要拦截器处理。</li>
+</ol>
+<p>我们先忽略拦截器的处理，接着看 <code>_navigation</code> 方法，代码如下：</p>
+<pre><code>private Object _navigation(final Context context, final Postcard postcard, final int requestCode, final NavigationCallback callback) {
+    switch (postcard.getType()) {
+        case ACTIVITY:
+            // ACTIVITY 类型，构建 Intent ，并把 postcard 的 Bundle 赋值给 Intent
+            final Intent intent = new Intent(currentContext, postcard.getDestination());
+            intent.putExtras(postcard.getExtras());
+
+            // Set flags.
+            int flags = postcard.getFlags();
+            if (-1 != flags) {
+                intent.setFlags(flags);
+            } else if (!(currentContext instanceof Activity)) {    // Non activity, need less one flag.
+                // 没有传入 Activity ，会添加这个 flag ，最好调用的时候传入Activity
+                // 避免每开启一个Activity就会新开一个task，造成栈管理混乱
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
+
+            // Set Actions
+            String action = postcard.getAction();
+            if (!TextUtils.isEmpty(action)) {
+                intent.setAction(action);
+            }
+
+            // Navigation in main looper.
+            runInMainThread(new Runnable() {
+                @Override
+                public void run() {
+                    // 如果不在主线程，则切换到主线程执行
+                    startActivity(requestCode, currentContext, intent, postcard, callback);
+                }
+            });
+
+            break;
+        case PROVIDER:
+            // 直接返回
+            return postcard.getProvider();
+        case BOARDCAST:
+        case CONTENT_PROVIDER:
+        case FRAGMENT:
+            Class fragmentMeta = postcard.getDestination();
+            try {
+                // 反射构建 Fragment 实例，并调用 setArguments 把 Bundle 传入
+                Object instance = fragmentMeta.getConstructor().newInstance();
+                if (instance instanceof Fragment) {
+                    ((Fragment) instance).setArguments(postcard.getExtras());
+                } else if (instance instanceof android.support.v4.app.Fragment) {
+                    ((android.support.v4.app.Fragment) instance).setArguments(postcard.getExtras());
+                }
+
+                return instance;
+            } catch (Exception ex) {
+                logger.error(Consts.TAG, &quot;Fetch fragment instance error, &quot; + TextUtils.formatStackTrace(ex.getStackTrace()));
+            }
+        case METHOD:
+        case SERVICE:
+        default:
+            return null;
+    }
+    // Activity 类型是返回 Null 的，拿不到实例
+    return null;
+}
+</code></pre><p>方法步骤总结如下：</p>
+<ol>
+<li><code>ACTIVITY</code> 类型，构建 <code>Intent</code> 并把 <code>postcard</code> 的 <code>Bundle</code> 赋值给 <code>Intent</code>，然后设置 <code>Intent</code> 的 <code>flags</code> 和 <code>actions</code> ，如果不在主线程，会先切换到主线程进行界面跳转。(因为拦截器运行在子线程，里面也会回调这个方法，所以需要线程切换)。</li>
+<li><code>PROVIDER</code> 类型，直接返回之前设置到 <code>postcard</code> 的 <code>provider</code> 对象即可。</li>
+<li><code>FRAGMENT</code> 类型，反射实例化 <code>Fragment</code> 对象并调用其 <code>setArguments</code> 方法把 <code>Bundle</code> 传入，然后返回该实例。</li>
+</ol>
+<p><strong>注意：如果路由的时候没有传入 <code>Activity</code> 对象，但是跳转类型是 <code>Activity</code> 类型，则会调用 <code>intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)</code> 代码，这会导致每启动一个 <code>Activity</code> 就会新开一个 <code>task</code> ，所以建议普通界面跳转都传入 <code>Activity</code> ，避免栈的混乱。</strong></p>
+<h2 id="拦截过程分析"><a href="#拦截过程分析" class="headerlink" title="拦截过程分析"></a>拦截过程分析</h2><p>在分析拦截器的过程之前，我们先了解一下 <code>CountDownLatch</code> 类，简单来说 <code>CountDownLatch</code> 可以阻塞一个线程，直到内部计数器为 0 时才继续执行阻塞的线程，计数器的初始值通过构造传入，通过调用 <code>countDown()</code> 方法减少一个计数。 <code>CancelableCountDownLatch</code> 类继承自 <code>CountDownLatch</code> ，并增加了 <code>cancel</code> 方法，用于直接将计数归 0 ，放开阻塞：</p>
+<pre><code>public void cancel() {
+    // 循环调用 countDown 方法，直到 count 为 0，放开阻塞
+    while (getCount() &gt; 0) {
+        countDown();
+    }
+}
+</code></pre><p>现在正式来分析拦截过程，拦截功能是通过 <code>ARouter</code> 提供的 <code>interceptorService</code> 实现的，我们在初始化分析时已经提到过，接下来看看具体是如何拦截的：</p>
+<pre><code>interceptorService.doInterceptions(postcard, new InterceptorCallback() {
+
+    @Override
+    public void onContinue(Postcard postcard) {
+        // 继续路由跳转
+        _navigation(context, postcard, requestCode, callback);
+    }
+
+    @Override
+    public void onInterrupt(Throwable exception) {
+        // 在子线程中回调
+        if (null != callback) {
+            callback.onInterrupt(postcard);
+        }
+    }
+});
+</code></pre><p>该方法将会在子线程中运行，所以需要回调的方式来处理结果，<code>onContinue</code> 方法会接着走我们已经分析的路由跳转逻辑，而 <code>onInterrupt</code> 方法会回调到路由跳转时传入的监听回调的 <code>onInterrupt</code> 方法。我们接着分析 <code>doInterceptions</code> 方法：</p>
+<pre><code>// InterceptorServiceImpl.java
+public void doInterceptions(final Postcard postcard, final InterceptorCallback callback) {
+    // 如果有拦截器
+    if (null != Warehouse.interceptors &amp;&amp; Warehouse.interceptors.size() &gt; 0) {
+        // 检查拦截器的初始化状态
+        checkInterceptorsInitStatus();
+        if (!interceptorHasInit) {
+            callback.onInterrupt(new HandlerException(&quot;Interceptors initialization takes too much time.&quot;));
+            return;
+        }
+        LogisticsCenter.executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                // 构建 CancelableCountDownLatch ，初始计数为拦截器的数量
+                CancelableCountDownLatch interceptorCounter = new CancelableCountDownLatch(Warehouse.interceptors.size());
+                try {
+                    _excute(0, interceptorCounter, postcard);
+                    // 阻塞线程直到超时，或者计数归0
+                    // 超时时间默认为 300 秒
+                    interceptorCounter.await(postcard.getTimeout(), TimeUnit.SECONDS);
+                    if (interceptorCounter.getCount() &gt; 0) {    // Cancel the navigation this time, if it hasn&apos;t return anythings.
+                        // 拦截超时
+                        callback.onInterrupt(new HandlerException(&quot;The interceptor processing timed out.&quot;));
+                    } else if (null != postcard.getTag()) {    // Maybe some exception in the tag.
+                        // 被拦截
+                        callback.onInterrupt(new HandlerException(postcard.getTag().toString()));
+                    } else {
+                        // 放行
+                        callback.onContinue(postcard);
+                    }
+                } catch (Exception e) {
+                    callback.onInterrupt(e);
+                }
+            }
+        });
+    } else {
+        callback.onContinue(postcard);
+    }
+}
+
+private static void _excute(final int index, final CancelableCountDownLatch counter, final Postcard postcard) {
+    //如果不是最后一个拦截器
+    if (index &lt; Warehouse.interceptors.size()) {
+        // 索引从0开始，即从第一个拦截器开始获取
+        IInterceptor iInterceptor = Warehouse.interceptors.get(index);
+        iInterceptor.process(postcard, new InterceptorCallback() {
+            @Override
+            public void onContinue(Postcard postcard) {
+                // Last interceptor excute over with no exception.
+                // 计数减1，放行到下一个拦截器处理
+                counter.countDown();
+                _excute(index + 1, counter, postcard);  
+            }
+
+            @Override
+            public void onInterrupt(Throwable exception) {
+                // 拦截，将 Exception 传入到 postcard 的 tag 字段，
+                postcard.setTag(null == exception ? new HandlerException(&quot;No message.&quot;) : exception.getMessage());    // save the exception message for backup.
+                // 计数归0
+                counter.cancel();
+            }
+        });
+    }
+}
+</code></pre><p>该方法首先判断是否存在拦截器，没有则直接回调 <code>onContinue</code> 方法，有则会检查拦截器的初始化状态：</p>
+<pre><code>private static void checkInterceptorsInitStatus() {
+    synchronized (interceptorInitLock) {
+        while (!interceptorHasInit) {
+            try {
+                // 等待10秒钟
+                interceptorInitLock.wait(10 * 1000);
+            } catch (InterruptedException e) {
+                throw new HandlerException(TAG + &quot;Interceptor init cost too much time error! reason = [&quot; + e.getMessage() + &quot;]&quot;);
+            }
+        }
+    }
+}
+</code></pre><p>方法很简单，判断 <code>interceptorHasInit</code> 是否为 <code>ture</code> ，否则等待 <code>10</code> 秒让拦截器进行初始化，初始化成功后会将 <code>interceptorHasInit</code> 设置为 <code>true</code> ，否则会抛异常。因此，拦截器不宜太多，而且不要在拦截器里面做耗时操作，不然跳转响应会很慢。</p>
+<p>接着会通过线程池执行一个 <code>Runnable</code> 对象，然后会创建一个与拦截器数量相同的 <code>CancelableCountDownLatch</code> 初始计数值，每放行一个拦截器就 <code>countDown</code> ，并交给后一个拦截器处理，如果拦截了则直接归 0 计数，并将拦截的 <code>Throwable</code> 存入 <code>postcard</code> 的 <code>tag</code> 字段，<code>interceptorCounter.await()</code> 会阻塞直到计数归 0 或者阻塞超时（默认是300秒），最后通过 <code>interceptorCounter.getCount()</code> 判断是否是超时，还是拦截或者放行。</p>
+<p><strong>注意：拦截的过程都是在子线程中处理，包括 Interceptor 的 process 也是在子线程调用的，因此，如果想要在拦截过程中展示 dialog 等操作都需要切换到主线程。</strong></p>
+<h2 id="数据注入"><a href="#数据注入" class="headerlink" title="数据注入"></a>数据注入</h2><p>到此，跳转逻辑已全部分析完毕，我们接着分析一下数据注入的逻辑。我们知道自动注入功能需要实现如下代码：</p>
+<pre><code>ARouter.getInstance().inject(this);
+</code></pre><p>最终会调用 <code>_ARouter</code> 的 <code>inject</code> 方法：</p>
+<pre><code>static void inject(Object thiz) {
+    // 获取框架内的注入服务实例
+    AutowiredService autowiredService = ((AutowiredService) ARouter.getInstance().build(&quot;/arouter/service/autowired&quot;).navigation());
+    if (null != autowiredService) {
+        // 调用 autiowire 方法
+        autowiredService.autowire(thiz);
+    }
+}
+</code></pre><p><code>AutowiredService</code> 跟之前的降级服务和拦截器服务一样，都是框架提供的核心接口，我们看一下它的实现类：</p>
+<pre><code>@Route(path = &quot;/arouter/service/autowired&quot;)
+public class AutowiredServiceImpl implements AutowiredService {
+    private LruCache&lt;String, ISyringe&gt; classCache;
+    private List&lt;String&gt; blackList;
+
+    @Override
+    public void init(Context context) {
+        classCache = new LruCache&lt;&gt;(66);
+        blackList = new ArrayList&lt;&gt;();
+    }
+
+    @Override
+    public void autowire(Object instance) {
+        String className = instance.getClass().getName();
+        try {
+            if (!blackList.contains(className)) {
+                ISyringe autowiredHelper = classCache.get(className);
+                // 如果没有缓存
+                if (null == autowiredHelper) {  // No cache.
+                    //则构建一个注入辅助类，比如要注入的Activity 是 Test3Activity ，则这里获取的就是
+                    //    Test3Activity$$ARouter$$Autowired，这是通过 apt 自动生成的
+                    autowiredHelper = (ISyringe) Class.forName(instance.getClass().getName() + SUFFIX_AUTOWIRED).getConstructor().newInstance();
+                }
+                autowiredHelper.inject(instance);
+                classCache.put(className, autowiredHelper);
+            }
+        } catch (Exception ex) {
+            blackList.add(className);    // This instance need not autowired.
+        }
+    }
+}
+</code></pre><p>方法很清晰，用到了 <code>LruCache</code> 来做缓存处理，然后获取之前通过 <code>APT</code> 生成的注入辅助类，并调用其 <code>inject</code> 方法，这一部分我们之前已经分析过了，这里再看一下辅助类的代码：</p>
+<pre><code>public class Test3Activity$$ARouter$$Autowired implements ISyringe {
+  private SerializationService serializationService;
+
+  @Override
+  public void inject(Object target) {
+    serializationService = ARouter.getInstance().navigation(SerializationService.class);
+    Test3Activity substitute = (Test3Activity)target;
+    substitute.name = substitute.getIntent().getStringExtra(&quot;teacherName&quot;);
+    substitute.age = substitute.getIntent().getIntExtra(&quot;age&quot;, substitute.age);
+    substitute.testPac = substitute.getIntent().getParcelableExtra(&quot;testPac&quot;);
+    if (null != serializationService) {
+      substitute.testObj = serializationService.parseObject(substitute.getIntent().getStringExtra(&quot;testObj&quot;), new com.alibaba.android.arouter.facade.model.TypeWrapper&lt;TestObj&gt;(){}.getType());
+    } else {
+      Log.e(&quot;ARouter::&quot;, &quot;You want automatic inject the field &apos;testObj&apos; in class &apos;Test3Activity&apos; , then you should implement &apos;SerializationService&apos; to support object auto inject!&quot;);
+    }
+  }
+}
+</code></pre><p><strong>注意：这里赋值的操作是直接调用“目标类对象.属性”的方式赋值，因此, <code>private</code> 修饰的属性无法通过这种方式赋值，并且在赋值时会抛出异常，被 <code>AutowiredServiceImpl</code> 的 <code>autowire</code> 方法中的 <code>try-catch</code> 捕获，存入不需要注入的集合中，最终导致同一个类中的其他非 <code>private</code> 属性也无法注入。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/26/github/Retrofit2/ARouter 使用/" rel="next" title="ARouter 使用">
+                <i class="fa fa-chevron-left"></i> ARouter 使用
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARouter-源码分析"><span class="nav-number">1.</span> <span class="nav-text">ARouter 源码分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#初始化"><span class="nav-number">2.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#路由操作"><span class="nav-number">3.</span> <span class="nav-text">路由操作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拦截过程分析"><span class="nav-number">4.</span> <span class="nav-text">拦截过程分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数据注入"><span class="nav-number">5.</span> <span class="nav-text">数据注入</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

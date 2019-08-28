@@ -1,0 +1,1202 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="ARouter 源码详解一ARouter 的源码提供两个 SDK ,分别是面向不同的阶段，本身 API 这个 SDK 是面向运行期的 ，而 compiler 这个 SDK 则是作用于编译期的，我们首先分析一下 compiler 这个 SDK 。 BaseProcessor这是注解处理器的基类，主要进行一些工具类的初始化还有一些赋值操作，源码如下： public abstract class Bas">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARouter 源码详解一">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/github/Retrofit2/ARouter 源码详解/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="ARouter 源码详解一ARouter 的源码提供两个 SDK ,分别是面向不同的阶段，本身 API 这个 SDK 是面向运行期的 ，而 compiler 这个 SDK 则是作用于编译期的，我们首先分析一下 compiler 这个 SDK 。 BaseProcessor这是注解处理器的基类，主要进行一些工具类的初始化还有一些赋值操作，源码如下： public abstract class Bas">
+<meta property="og:updated_time" content="2019-08-27T09:26:38.571Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARouter 源码详解一">
+<meta name="twitter:description" content="ARouter 源码详解一ARouter 的源码提供两个 SDK ,分别是面向不同的阶段，本身 API 这个 SDK 是面向运行期的 ，而 compiler 这个 SDK 则是作用于编译期的，我们首先分析一下 compiler 这个 SDK 。 BaseProcessor这是注解处理器的基类，主要进行一些工具类的初始化还有一些赋值操作，源码如下： public abstract class Bas">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/26/github/Retrofit2/ARouter 源码详解/"/>
+
+
+
+
+
+     <title> ARouter 源码详解一 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/github/Retrofit2/ARouter 源码详解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ARouter 源码详解一</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-26T10:23:08+08:00">
+                2019-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/ARouter/" itemprop="url" rel="index">
+                    <span itemprop="name">ARouter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/26/github/Retrofit2/ARouter 源码详解/" class="leancloud_visitors" data-flag-title="ARouter 源码详解一">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ARouter-源码详解一"><a href="#ARouter-源码详解一" class="headerlink" title="ARouter 源码详解一"></a>ARouter 源码详解一</h2><p><code>ARouter</code> 的源码提供两个 <code>SDK</code> ,分别是面向不同的阶段，本身 <code>API</code> 这个 <code>SDK</code> 是面向运行期的 ，而 <code>compiler</code> 这个 <code>SDK</code> 则是作用于编译期的，我们首先分析一下 <code>compiler</code> 这个 <code>SDK</code> 。</p>
+<h2 id="BaseProcessor"><a href="#BaseProcessor" class="headerlink" title="BaseProcessor"></a>BaseProcessor</h2><p>这是注解处理器的基类，主要进行一些工具类的初始化还有一些赋值操作，源码如下：</p>
+<pre><code>public abstract class BaseProcessor extends AbstractProcessor {
+    Filer mFiler;
+    Logger logger;
+    Types types;
+    Elements elementUtils;
+    TypeUtils typeUtils;
+    // Module name, maybe its &apos;app&apos; or others
+    String moduleName = null;
+    // If need generate router doc
+    boolean generateDoc;
+
+    @Override
+    public synchronized void init(ProcessingEnvironment processingEnv) {
+        super.init(processingEnv);
+
+        mFiler = processingEnv.getFiler();
+        types = processingEnv.getTypeUtils();
+        elementUtils = processingEnv.getElementUtils();
+        typeUtils = new TypeUtils(types, elementUtils);
+        logger = new Logger(processingEnv.getMessager());
+
+
+        Map&lt;String, String&gt; options = processingEnv.getOptions();
+        if (MapUtils.isNotEmpty(options)) {
+            // 获取用户配置的 moduleName    
+            moduleName = options.get(KEY_MODULE_NAME);
+            // 是否需要生成路由表文档
+            generateDoc = VALUE_ENABLE.equals(options.get(KEY_GENERATE_DOC_NAME));
+        }
+
+        ...
+    }
+
+    @Override
+    public SourceVersion getSupportedSourceVersion() {
+        return SourceVersion.latestSupported();
+    }
+
+    @Override
+    public Set&lt;String&gt; getSupportedOptions() {
+        return new HashSet&lt;String&gt;() {{
+	            this.add(KEY_MODULE_NAME);
+	            this.add(KEY_GENERATE_DOC_NAME);
+	        }};
+    }
+}
+</code></pre><p>这个基类主要是初始化工具类，比如 <code>Filer、TypeUtils、Logger</code> 等和获取用户配置的 <code>moduleName</code> 和 <code>generateDoc</code> 。<br>我们先看一下当初使用时是怎样配置的：</p>
+<pre><code>android {
+    defaultConfig {
+        ...
+        //ARouter 配置
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [ AROUTER_MODULE_NAME : project.getName(), AROUTER_GENERATE_DOC: &quot;enable&quot;]
+            }
+        }
+    }
+}
+</code></pre><p>很明显，基类就是对这两个值进行的处理，可能你觉得这两个值好像不一样，其实这是一个常量值，在 <code>Consts</code> 类里，我们看一下 <code>Consts</code> 类的部分常量：</p>
+<pre><code>// Options of processor
+public static final String KEY_MODULE_NAME = &quot;AROUTER_MODULE_NAME&quot;;
+public static final String KEY_GENERATE_DOC_NAME = &quot;AROUTER_GENERATE_DOC&quot;;
+
+public static final String VALUE_ENABLE = &quot;enable&quot;;
+</code></pre><p>这些值跟配置里面的一模一样。因为 <code>ARouter</code> 支持多模块工程，所以需要配置模块名称。</p>
+<h2 id="InterceptorProcessor"><a href="#InterceptorProcessor" class="headerlink" title="InterceptorProcessor"></a>InterceptorProcessor</h2><p>该处理器主要是处理拦截器的，即处理 <code>Interceptor</code> 注解，主要的方法如下：</p>
+<pre><code>private void parseInterceptors(Set&lt;? extends Element&gt; elements) throws IOException {
+      if (CollectionUtils.isNotEmpty(elements)) {
+          logger.info(&quot;&gt;&gt;&gt; Found interceptors, size is &quot; + elements.size() + &quot; &lt;&lt;&lt;&quot;);
+
+          // Verify and cache, sort incidentally.
+          for (Element element : elements) {
+              if (verify(element)) {  // Check the interceptor meta
+                  logger.info(&quot;A interceptor verify over, its &quot; + element.asType());
+
+                  // 获取 Interceptor 注解类
+                  Interceptor interceptor = element.getAnnotation(Interceptor.class);
+                  // 先从缓存中获取，如果不为空，即设置了相同优先级的拦截器，会抛异常
+                  // 这里就解释了为什么设置相同优先级会报错
+                  Element lastInterceptor = interceptors.get(interceptor.priority());
+                  if (null != lastInterceptor) { // Added, throw exceptions
+                      throw new IllegalArgumentException(
+                              String.format(Locale.getDefault(), &quot;More than one interceptors use same priority [%d], They are [%s] and [%s].&quot;,
+                                      interceptor.priority(),
+                                      lastInterceptor.getSimpleName(),
+                                      element.getSimpleName())
+                      );
+                  }
+                  // 添加到缓存中
+                  interceptors.put(interceptor.priority(), element);
+              } else {
+                  logger.error(&quot;A interceptor verify failed, its &quot; + element.asType());
+              }
+          }
+
+          // Interface of ARouter.
+          // IInterceptor 接口
+          TypeElement type_ITollgate = elementUtils.getTypeElement(IINTERCEPTOR);
+          // IInterceptorGroup 接口
+          TypeElement type_ITollgateGroup = elementUtils.getTypeElement(IINTERCEPTOR_GROUP);
+
+           // 构建 Map&lt;Integer, Class&lt;? extends IInterceptor&gt;&gt;
+          ParameterizedTypeName inputMapTypeOfTollgate = ParameterizedTypeName.get(
+                  ClassName.get(Map.class),
+                  ClassName.get(Integer.class),
+                  ParameterizedTypeName.get(
+                          ClassName.get(Class.class),
+                          WildcardTypeName.subtypeOf(ClassName.get(type_ITollgate))
+                  )
+          );
+
+          // Build input param name.
+          // 构建成 Map&lt;Integer, Class&lt;? extends IInterceptor&gt;&gt; interceptors
+          ParameterSpec tollgateParamSpec = ParameterSpec.builder(inputMapTypeOfTollgate, &quot;interceptors&quot;).build();
+
+          // Build method : &apos;loadInto&apos;
+          // 构建方法 loadInto
+          MethodSpec.Builder loadIntoMethodOfTollgateBuilder = MethodSpec.methodBuilder(METHOD_LOAD_INTO)
+                  .addAnnotation(Override.class)
+                  .addModifiers(PUBLIC)
+                  .addParameter(tollgateParamSpec);
+
+          // Generate
+          if (null != interceptors &amp;&amp; interceptors.size() &gt; 0) {
+              // Build method body
+              for (Map.Entry&lt;Integer, Element&gt; entry : interceptors.entrySet()) {
+                  // 构建方法内容
+                  loadIntoMethodOfTollgateBuilder.addStatement(&quot;interceptors.put(&quot; + entry.getKey() + &quot;, $T.class)&quot;, ClassName.get((TypeElement) entry.getValue()));
+              }
+          }
+
+          // Write to disk(Write file even interceptors is empty.)
+          // 生成类并写入硬盘
+          JavaFile.builder(PACKAGE_OF_GENERATE_FILE,
+                  TypeSpec.classBuilder(NAME_OF_INTERCEPTOR + SEPARATOR + moduleName)
+                          .addModifiers(PUBLIC)
+                          .addJavadoc(WARNING_TIPS)
+                          .addMethod(loadIntoMethodOfTollgateBuilder.build())
+                          .addSuperinterface(ClassName.get(type_ITollgateGroup))
+                          .build()
+          ).build().writeTo(mFiler);
+
+          logger.info(&quot;&gt;&gt;&gt; Interceptor group write over. &lt;&lt;&lt;&quot;);
+      }
+  }
+</code></pre><p>该处理器主要做了以下操作：</p>
+<ol>
+<li>找到所有的 <code>Interceptor</code> 注解元素并进行检验。</li>
+<li>判断是否有相同优先级的拦截器，有则抛异常，没有则把当前元素放入缓存。</li>
+<li>利用 <code>poet</code> 库进行参数的构建、方法的构建和类的构建。</li>
+</ol>
+<p>以下是一个通过该注解处理器生成的类：</p>
+<pre><code>// 实现 IInterceptorGroup 接口
+public class ARouter$$Interceptors$$app implements IInterceptorGroup {
+  @Override
+  public void loadInto(Map&lt;Integer, Class&lt;? extends IInterceptor&gt;&gt; interceptors) {
+    // key 是优先级，value 是对应的拦截器的 Class 类型
+    interceptors.put(8, TestInterceptor.class);
+  }
+}
+</code></pre><p>实际上生成的类的类名是 <code>ARouter$$Interceptors$$xxx</code> 形式的，最后的名称是对应的模块名(moduleName) ，我这里是在 <code>app</code> 模块，所以后面的 <code>xxx</code> 是 <code>app</code>。  </p>
+<h2 id="RouteProcessor"><a href="#RouteProcessor" class="headerlink" title="RouteProcessor"></a>RouteProcessor</h2><p>该处理器主要是处理路由的，即处理 <code>Route</code> 注解，具体的操作类似于拦截器，最终会生成如下几种不同的类：</p>
+<h3 id="ARouter-Providers-app"><a href="#ARouter-Providers-app" class="headerlink" title="ARouter$$Providers$$app"></a>ARouter$$Providers$$app</h3><p>实际上生成的类的类名是 <code>ARouter$$Providers$$xxx</code> ，最后的名称对应的模块名(moduleName) </p>
+<pre><code>// 实现 IProviderGroup 接口
+public class ARouter$$Providers$$app implements IProviderGroup {
+  @Override
+  public void loadInto(Map&lt;String, RouteMeta&gt; providers) {
+    // key 是服务接口的全类名，value 是一个 RouteMeta 类
+    providers.put(&quot;com.alibaba.android.arouter.facade.service.DegradeService&quot;, RouteMeta.build(RouteType.PROVIDER, DegradeServiceImpl.class, &quot;/service/degrade&quot;, &quot;service&quot;, null, -1, -2147483648));
+    providers.put(&quot;com.alibaba.android.arouter.facade.service.SerializationService&quot;, RouteMeta.build(RouteType.PROVIDER, JsonServiceImpl.class, &quot;/service/json&quot;, &quot;service&quot;, null, -1, -2147483648));
+    providers.put(&quot;com.alibaba.android.arouter.facade.service.PretreatmentService&quot;, RouteMeta.build(RouteType.PROVIDER, PretreatmentServiceImpl.class, &quot;/service/pretreatment&quot;, &quot;service&quot;, null, -1, -2147483648));
+    providers.put(&quot;com.fanda.zeng.arouterdemo.service.TestService&quot;, RouteMeta.build(RouteType.PROVIDER, TestServiceImpl.class, &quot;/service/testService&quot;, &quot;service&quot;, null, -1, -2147483648));
+  }
+}
+</code></pre><h3 id="ARouter-Root-app"><a href="#ARouter-Root-app" class="headerlink" title="ARouter$$Root$$app"></a>ARouter$$Root$$app</h3><p>同理，类名最后面的 <code>app</code> 是模块名称，不同模块名称不一样。</p>
+<pre><code>// 实现 IRouteRoot 接口
+public class ARouter$$Root$$app implements IRouteRoot {
+  @Override
+  public void loadInto(Map&lt;String, Class&lt;? extends IRouteGroup&gt;&gt; routes) {
+    // key 是分组名称，value 是对应的组的索引类 
+    routes.put(&quot;service&quot;, ARouter$$Group$$service.class);
+    routes.put(&quot;test&quot;, ARouter$$Group$$test.class);
+  }
+}
+</code></pre><p>这个类体现了按需加载的方案，这是一个分组的 <code>Root</code> 类，负责管理所有的分组的索引类，当需要加载对应的组时，会找到相应的索引类，然后把索引类下面保存的所有页面路由加载进内存。</p>
+<h3 id="ARouter-Group-test"><a href="#ARouter-Group-test" class="headerlink" title="ARouter$$Group$$test"></a>ARouter$$Group$$test</h3><p>类名最后面的 <code>test</code> 是分组的名称，不同的分组不一样</p>
+<pre><code>// 实现 IRouteGroup 接口
+public class ARouter$$Group$$test implements IRouteGroup {
+  @Override
+  public void loadInto(Map&lt;String, RouteMeta&gt; atlas) {
+    // key 是路由地址 ，value 是 RouteMeta 类
+    atlas.put(&quot;/test/Test1Activity&quot;, RouteMeta.build(RouteType.ACTIVITY, Test1Activity.class, &quot;/test/test1activity&quot;, &quot;test&quot;, null, -1, -2147483648));
+    atlas.put(&quot;/test/Test2Activity&quot;, RouteMeta.build(RouteType.ACTIVITY, Test2Activity.class, &quot;/test/test2activity&quot;, &quot;test&quot;, new java.util.HashMap&lt;String, Integer&gt;(){{put("url", 8); }}, -1, -2147483648));
+    atlas.put(&quot;/test/Test3Activity&quot;, RouteMeta.build(RouteType.ACTIVITY, Test3Activity.class, &quot;/test/test3activity&quot;, &quot;test&quot;, new java.util.HashMap&lt;String, Integer&gt;(){{put("testObjList", 11); put("testObj", 11); put("teacherName", 8); put("testPac", 10); put("testMap", 11); put("age", 3); }}, -1, 100));
+    atlas.put(&quot;/test/Test4Activity&quot;, RouteMeta.build(RouteType.ACTIVITY, Test4Activity.class, &quot;/test/test4activity&quot;, &quot;test&quot;, null, -1, -2147483648));
+    atlas.put(&quot;/test/TestFragment&quot;, RouteMeta.build(RouteType.FRAGMENT, TestFragment.class, &quot;/test/testfragment&quot;, &quot;test&quot;, null, -1, -2147483648));
+    atlas.put(&quot;/test/webview&quot;, RouteMeta.build(RouteType.ACTIVITY, TestWebviewActivity.class, &quot;/test/webview&quot;, &quot;test&quot;, new java.util.HashMap&lt;String, Integer&gt;(){{put("url", 8); }}, -1, -2147483648));
+  }
+}
+</code></pre><h2 id="AutowiredProcessor"><a href="#AutowiredProcessor" class="headerlink" title="AutowiredProcessor"></a>AutowiredProcessor</h2><p>该处理器是用来处理 <code>Autowired</code> 注解的，用于生成数据自动注入的辅助类，自动注入时需要调用如下方法：</p>
+<pre><code>ARouter.getInstance().inject(this);
+</code></pre><p>其实就是调用这里生成的辅助类的 <code>inject</code> 方法，我们看一下生成的类：</p>
+<pre><code>// 实现 ISyringe 接口
+public class Test3Activity$$ARouter$$Autowired implements ISyringe {
+  private SerializationService serializationService;
+
+  @Override
+  public void inject(Object target) {
+    // 获取自定义对象解析服务类
+    serializationService = ARouter.getInstance().navigation(SerializationService.class);
+    Test3Activity substitute = (Test3Activity)target;
+    // 字段赋值，不用是私有
+    substitute.name = substitute.getIntent().getStringExtra(&quot;teacherName&quot;);
+    substitute.age = substitute.getIntent().getIntExtra(&quot;age&quot;, substitute.age);
+    substitute.testPac = substitute.getIntent().getParcelableExtra(&quot;testPac&quot;);
+    if (null != serializationService) {
+        // 进行解析处理
+      substitute.testObj = serializationService.parseObject(substitute.getIntent().getStringExtra(&quot;testObj&quot;), new com.alibaba.android.arouter.facade.model.TypeWrapper&lt;TestObj&gt;(){}.getType());
+    } else {
+        // 没有提供解析服务类，打印异常
+      Log.e(&quot;ARouter::&quot;, &quot;You want automatic inject the field &apos;testObj&apos; in class &apos;Test3Activity&apos; , then you should implement &apos;SerializationService&apos; to support object auto inject!&quot;);
+    }
+  }
+}
+</code></pre><p>先看一下该类的类名生成规则 <code>Test3Activity$$ARouter$$Autowired</code> ，很明显，最前面一段是对应的 <code>Activity</code> 或 <code>Fragment</code> 的名称，后面的是写死的模板名称。这里的赋值操作也说明了需要注入的字段不能是私有的，对于自定义的对象，需要 <code>serializationService</code> 进行解析。这个辅助类只是帮我们从 <code>Intent</code> 的 <code>Bundle</code> 中取出数据并进行赋值操作，如果不需要，完全可以自己手写赋值代码。</p>
+<p>前面提到在 <code>Providers</code> 中保存的 <code>value</code> 和在分组索引的 <code>value</code> 中保存的都是 <code>RouteMeta</code> 类：</p>
+<pre><code> atlas.put(&quot;/test/Test1Activity&quot;, RouteMeta.build(RouteType.ACTIVITY, Test1Activity.class, &quot;/test/test1activity&quot;, &quot;test&quot;, null, -1, -2147483648));
+
+ atlas.put(&quot;/test/Test1Activity&quot;, RouteMeta.build(RouteType.ACTIVITY, Test1Activity.class, &quot;/test/test1activity&quot;, &quot;test&quot;, null, -1, -2147483648));
+
+put(&quot;/test/TestFragment&quot;, RouteMeta.build(RouteType.FRAGMENT, TestFragment.class, &quot;/test/testfragment&quot;, &quot;test&quot;, null, -1, -2147483648));
+</code></pre><p>那么我们看一下 <code>RouteMeta</code> 的字段：</p>
+<pre><code>public class RouteMeta {
+    private RouteType type;         // Type of route，路由类型
+    private Element rawType;        // Raw type of route
+    private Class&lt;?&gt; destination;   // Destination，路由目标的 Class 类型
+    private String path;            // Path of route，路由地址
+    private String group;           // Group of route，路由分组
+    private int priority = -1;      // 优先级，越小优先级越大
+    private int extra;              // 额外的数据
+    private Map&lt;String, Integer&gt; paramsType;  // Param type
+    private String name;    // 在 Route 注解的 name 方法设置
+}
+</code></pre><p>其中 <code>paramsType</code> 是包含了所有注解了 <code>Autowired</code> 的属性的信息，<code>key</code> 为属性名，<code>value</code> 为属性类型，<code>ARouter</code> 将可被 <code>intent</code> 传递的数据类型定义了对应的 <code>int</code> 类型：    <code>BOOLEAN,BYTE,SHORT,INT,LONG,CHAR,FLOAT,DOUBLE,STRING,PARCELABLE,OBJECT</code> 分别对应 0，1，2，3…</p>
+<p><code>RouteType</code> 是一个枚举，表示被注解类的路由类型：</p>
+<pre><code>public enum RouteType {
+    ACTIVITY(0, &quot;android.app.Activity&quot;),
+    SERVICE(1, &quot;android.app.Service&quot;),
+    PROVIDER(2, &quot;com.alibaba.android.arouter.facade.template.IProvider&quot;),
+    CONTENT_PROVIDER(-1, &quot;android.app.ContentProvider&quot;),
+    BOARDCAST(-1, &quot;&quot;),
+    METHOD(-1, &quot;&quot;),
+    FRAGMENT(-1, &quot;android.app.Fragment&quot;),
+    UNKNOWN(-1, &quot;Unknown route type&quot;);
+}
+</code></pre><p>目前支持的是 <code>ACTIVITY</code>、 <code>PROVIDER</code>、 <code>FRAGMENT</code> ，<code>ACTIVITY</code> 和 <code>FRAGMENT</code> 是用来做路由跳转的，<code>PROVIDER</code> 用于提供服务实例的，用于模块解耦，这些类型的用法在 <code>ARouter</code> 使用篇已经讲过。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/20/github/Retrofit2/Retrofit2 源码详解/" rel="next" title="Retrofit2 源码详解">
+                <i class="fa fa-chevron-left"></i> Retrofit2 源码详解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/26/github/Retrofit2/ARouter 使用/" rel="prev" title="ARouter 使用">
+                ARouter 使用 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARouter-源码详解一"><span class="nav-number">1.</span> <span class="nav-text">ARouter 源码详解一</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BaseProcessor"><span class="nav-number">2.</span> <span class="nav-text">BaseProcessor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InterceptorProcessor"><span class="nav-number">3.</span> <span class="nav-text">InterceptorProcessor</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RouteProcessor"><span class="nav-number">4.</span> <span class="nav-text">RouteProcessor</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ARouter-Providers-app"><span class="nav-number">4.1.</span> <span class="nav-text">ARouter$$Providers$$app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARouter-Root-app"><span class="nav-number">4.2.</span> <span class="nav-text">ARouter$$Root$$app</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARouter-Group-test"><span class="nav-number">4.3.</span> <span class="nav-text">ARouter$$Group$$test</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AutowiredProcessor"><span class="nav-number">5.</span> <span class="nav-text">AutowiredProcessor</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

@@ -1,0 +1,1303 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="github,第三方库," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="ARouter 简介原生路由方式的缺点 显式 intent 的方式会存在直接的类依赖问题，耦合严重，隐式 intent  的方式会出现规则集中式管理，协作困难，配置规则都在 Manifest 中，扩展性较差。  跳转过程无法控制，跳转失败的情况下，无法降级，直接抛出运营级异常。   ARouter的优势在 APP 组件化开发时，自定义路由框架可以非常好地解决整个 APP 完成组件化之后模块之间没有">
+<meta name="keywords" content="github,第三方库">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ARouter 使用">
+<meta property="og:url" content="http://yoursite.com/2019/08/26/github/Retrofit2/ARouter 使用/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="ARouter 简介原生路由方式的缺点 显式 intent 的方式会存在直接的类依赖问题，耦合严重，隐式 intent  的方式会出现规则集中式管理，协作困难，配置规则都在 Manifest 中，扩展性较差。  跳转过程无法控制，跳转失败的情况下，无法降级，直接抛出运营级异常。   ARouter的优势在 APP 组件化开发时，自定义路由框架可以非常好地解决整个 APP 完成组件化之后模块之间没有">
+<meta property="og:updated_time" content="2019-08-27T07:00:08.744Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="ARouter 使用">
+<meta name="twitter:description" content="ARouter 简介原生路由方式的缺点 显式 intent 的方式会存在直接的类依赖问题，耦合严重，隐式 intent  的方式会出现规则集中式管理，协作困难，配置规则都在 Manifest 中，扩展性较差。  跳转过程无法控制，跳转失败的情况下，无法降级，直接抛出运营级异常。   ARouter的优势在 APP 组件化开发时，自定义路由框架可以非常好地解决整个 APP 完成组件化之后模块之间没有">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/08/26/github/Retrofit2/ARouter 使用/"/>
+
+
+
+
+
+     <title> ARouter 使用 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/08/26/github/Retrofit2/ARouter 使用/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">ARouter 使用</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-26T16:24:23+08:00">
+                2019-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/" itemprop="url" rel="index">
+                    <span itemprop="name">github</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/github/ARouter/" itemprop="url" rel="index">
+                    <span itemprop="name">ARouter</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/08/26/github/Retrofit2/ARouter 使用/" class="leancloud_visitors" data-flag-title="ARouter 使用">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="ARouter-简介"><a href="#ARouter-简介" class="headerlink" title="ARouter 简介"></a>ARouter 简介</h2><h3 id="原生路由方式的缺点"><a href="#原生路由方式的缺点" class="headerlink" title="原生路由方式的缺点"></a>原生路由方式的缺点</h3><ul>
+<li><p>显式 <code>intent</code> 的方式会存在直接的类依赖问题，耦合严重，隐式 <code>intent</code>  的方式会出现规则集中式管理，协作困难，配置规则都在 <code>Manifest</code> 中，扩展性较差。</p>
+</li>
+<li><p>跳转过程无法控制，跳转失败的情况下，无法降级，直接抛出运营级异常。</p>
+</li>
+</ul>
+<h3 id="ARouter的优势"><a href="#ARouter的优势" class="headerlink" title="ARouter的优势"></a>ARouter的优势</h3><p>在 <code>APP</code> 组件化开发时，自定义路由框架可以非常好地解决整个 <code>APP</code> 完成组件化之后模块之间没有耦合的问题，在原生和 <code>H5</code> 混合开发时，能够提供非常便捷和统一的跳转方式。</p>
+<p>ARouter 的优点如下：</p>
+<ul>
+<li><p>可以直接解析 <code>URL</code> 路由，解析参数并赋值到对应目标字段的页面中。</p>
+</li>
+<li><p>支持多模块项目，提供 <code>IOC</code> 容器，通过注解方式处理。</p>
+</li>
+<li><p>允许自定义拦截器，解决一些面向行为编程上出现的问题。</p>
+</li>
+<li><p>映射关系自动注册，灵活的降级策略。</p>
+</li>
+</ul>
+<h2 id="ARouter-的使用"><a href="#ARouter-的使用" class="headerlink" title="ARouter 的使用"></a>ARouter 的使用</h2><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><p>按照官方文档进行库的依赖即可，这里说一下 <code>API</code> 的使用，至于为什么这样用，源码分析的时候再讲。首先要进行 <code>ARouter</code> 的初始化，官方推荐在 <code>Application</code> 中进行，如下：</p>
+<pre><code>public class MyApplication extends Application {
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        ARouter.openLog();// 打印日志
+        // 开启调试模式(如果在InstantRun(就是AndroidStudio2.0以后新增的一个可以减少很多编译时间的运行机制)模式下
+        运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        ARouter.openDebug();
+        ARouter.init(this);
+    }
+}
+</code></pre><p><strong>注意：在线上环境记得要把日志输出和 debug 模式关闭，在 debug 模式下会有一些逻辑上的额外处理。</strong></p>
+<h3 id="添加注解"><a href="#添加注解" class="headerlink" title="添加注解"></a>添加注解</h3><p>在需要进行路由的 <code>Activity</code> 或 <code>Fragment</code> 的页面添加注解，如下：</p>
+<pre><code>// 在支持路由的页面上添加注解(必须写)
+// 这里的路径需要注意的是至少需要有两级，/xx/xx，名字你自己起
+@Route(path = &quot;/test/Test1Activity&quot;)
+public class Test1Activity extends BaseActivity {
+
+}
+</code></pre><p>这里用到了 <code>Route</code> 注解类，该类用于标注需要路由的目标页面，<code>path</code> 方法用来标明路由地址。</p>
+<p><strong>注意：路由地址必须至少有两级，第一级为默认的分组。</strong></p>
+<h3 id="路由分发"><a href="#路由分发" class="headerlink" title="路由分发"></a>路由分发</h3><p>分发的方式有很多种，可通过路由地址进行跳转，如下：</p>
+<pre><code>// activity 可传可不传，能传最好传
+ARouter.getInstance().build(&quot;/test/Test1Activity&quot;).navigation(activity);
+</code></pre><p>可通过 <code>Uri</code> 进行跳转，如下：</p>
+<pre><code>Uri uri = Uri.parse(&quot;http://www.wmzx.com/test/Test1Activity&quot;);
+ARouter.getInstance().build(uri).navigation(activity);
+</code></pre><p>带回调结果的跳转(startActivityForResult)，如下：</p>
+<pre><code>// 利用重载方法，传入请求码即可
+ARouter.getInstance().build(&quot;/test/Test2Activity&quot;).navigation(activity,666);
+</code></pre><p>上面这些都是简单的跳转方式，下面看一下带参数的跳转怎么调用：</p>
+<pre><code>TestParcelable testParcelable = new TestParcelable(&quot;fanda&quot;, &quot;man&quot;);
+TestObj testObj = new TestObj(&quot;liuhang&quot;, &quot;woman&quot;);
+List&lt;TestObj&gt; testObjList = new ArrayList&lt;&gt;();
+testObjList.add(testObj);
+
+Map&lt;String, List&lt;TestObj&gt;&gt; map = new HashMap&lt;&gt;();
+map.put(&quot;testMap&quot;, testObjList);
+
+//Activity实例是拿不到的，不能这样处理，test3Activity为null
+//仅仅这样传递自定义对象会报错，需要对象解析服务来处理 SerializationService
+Uri uri = Uri.parse(&quot;pitaya://www.wmzx.com/test/Test3Activity&quot;);
+Test3Activity test3Activity = (Test3Activity) ARouter.getInstance().build(uri)
+        .withString(&quot;teacherName&quot;, &quot;fana&quot;)
+        .withInt(&quot;age&quot;, 18)
+        .withParcelable(&quot;testPac&quot;, testParcelable)
+        .withObject(&quot;testObj&quot;, testObj)
+        .withObject(&quot;testObjList&quot;, testObjList)
+        .withObject(&quot;testMap&quot;, map)
+        .navigation(this, new NavigationCallbackImpl());//有回调的时候，会优先于全局降级，可以单独对跳转做处理
+// 如果设置了NavigationCallbackImpl ，即要使用单独降级处理，不会再触发 DegradeService
+</code></pre><p>通过各种 <code>.withXXX</code> 的方法传入各种类型的参数，<code>key</code> 为需要解析的字段名，<code>value</code> 为对应的值。</p>
+<p><strong>注意：传递自定义的对象时，需要用到对象解析服务 <code>SerializationService</code> 来处理，这是一个接口，具体的解析逻辑由开发者自己处理，开发者需要实现该接口并用 Route 注解标明路由，在需要用到该对象时，底层会通过反射构建该实例进行解析处理。</strong></p>
+<pre><code>Route(path = &quot;/service/json&quot;)
+public class JsonServiceImpl implements SerializationService {
+    @Override
+    public void init(Context context) {
+        Log.e(&quot;fanda&quot;, &quot;JsonServiceImpl init ！&quot;);
+    }
+
+    @Override
+    public &lt;T&gt; T json2Object(String input, Class&lt;T&gt; clazz) {
+        return JSON.parseObject(input,clazz);
+    }
+
+    @Override
+    public String object2Json(Object instance) {
+        return JSON.toJSONString(instance);
+    }
+
+    @Override
+    public &lt;T&gt; T parseObject(String input, Type clazz) {
+        return JSON.parseObject(input,clazz);
+    }
+}
+</code></pre><p>其实 <code>ARouter</code> 在底层的数据传递上用的还是 <code>Bundle</code> ，上面传递的各种数据，最终都会添加到 <code>Bundle</code> 对象上，最后会构建 <code>Intent</code> 对象并添加上该 <code>Bundle</code> 来进行数据传输，所以在指定路由界面上，可以通过 <code>getIntent</code> 的方式进行数据的获取。实际上，<code>ARouter</code> 提供了一种更加便捷的方式来注入数据，那就是通过注解的方式，我们只需要在需要注入数据的对象上面添加 <code>Autowired</code> 注解，然后在对应的路由界面上添加如下代码即可：</p>
+<pre><code>//依赖注入参数或服务,如果没有，参数需要手动 getIntent 获取
+ARouter.getInstance().inject(this);
+</code></pre><p>这行代码会通过 <code>APT</code> 生成的注入辅助类来对参数进行自动赋值操作，避免重复的手动赋值操作，示例代码如下：</p>
+<pre><code>@Route(path = &quot;/test/Test3Activity&quot;)
+public class Test3Activity extends BaseActivity {
+
+    @Autowired(name = &quot;teacherName&quot;)  //别名，如果设置了 name 这个属性，则传参时需要用别名
+    protected String name;  //不能设置为 private
+
+    @Autowired  //需要添加该注解才会自动注入
+    public int age;
+
+    @Autowired
+    public TestParcelable testPac;
+
+    @Autowired
+    public TestObj testObj;
+
+    @Autowired
+    public List&lt;TestObj&gt; testObjList;
+
+    @Autowired
+    public Map&lt;String, List&lt;TestObj&gt;&gt; testMap;
+
+    private TextView mContent;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_test_3);
+        mContent = findViewById(R.id.tv_content);
+
+        String params = String.format(
+                &quot;name=%s,\n age=%s,\n testPac=%s,\n testObj=%s, \n testObjList=%s, \n testMap=%s&quot;,
+                name,
+                age,
+                testPac,
+                testObj,
+                testObjList,
+                testMap
+        );
+
+        String extra = getIntent().getStringExtra(&quot;extra&quot;);
+        if (testPac != null) {
+            mContent.setText(testPac.name + &quot;---&quot; + testPac.sex + &quot;----extra---&quot; + extra);
+        }
+
+    }
+}
+</code></pre><p><strong>注意：需要注入的字段的命名需要跟之前添加数据时的 <code>key</code> 保持一至，也可以使用 <code>Autowired</code> 的 <code>name</code> 方法来给字段定义别名，这时候只需要保证 <code>key</code> 跟别名一至即可，其次，需要注入的字段不能是 <code>private</code> 的。</strong></p>
+<h3 id="Fragment-跳转"><a href="#Fragment-跳转" class="headerlink" title="Fragment 跳转"></a>Fragment 跳转</h3><p>由于 <code>Fragment</code> 不需要跳转，但是可以通过 <code>ARouter</code> 来获取 <code>Fragment</code> 实例，拿到实例后再做其他操作，使用方式跟 <code>Activity</code> 是类似的，如下：</p>
+<pre><code>@Route(path = &quot;/test/TestFragment&quot;)
+public class TestFragment extends BaseFragment{
+
+    @Autowired
+    public String name ;
+
+    public static TestFragment getInstance(Activity activity) {
+       return (TestFragment) ARouter.getInstance().build(&quot;/test/TestFragment&quot;).withString(&quot;name&quot;,&quot;fanda&quot;).navigation(activity);
+    }
+}
+</code></pre><p>注意：如果路由对象是 <code>Fragment</code> ，则调用路由操作后是有返回值的，我们只需要强转成需要的类型即可，返回的实例是通过反射调用无参构造生成的。但如果路由对象是 <code>Activity</code> ，则返回值为 <code>null</code> 。 </p>
+<h3 id="全局降级策略"><a href="#全局降级策略" class="headerlink" title="全局降级策略"></a>全局降级策略</h3><p>路由操作时发现目标路由不存在，在 <code>debug</code> 模式下，会弹出 <code>toast</code> 表明目标不存在，这时候，我们可以通过全局降级策略来处理，跳转到一个 <code>H5</code> 界面或其他界面上，为什么叫全局呢？因为所有的路由操作在发现目标不存在时，都会触发该策略，自定全局降级策略的方式也很简单，实现框架的 <code>DegradeService</code> 接口并添加上路由地址即可，代码如下：</p>
+<pre><code>@Route(path = &quot;/service/degrade&quot;)
+public class DegradeServiceImpl implements DegradeService {
+
+    @Override
+    public void onLost(Context context, Postcard postcard) {
+        ARouter.getInstance().build(&quot;/test/Test1Activity&quot;).navigation();
+    }
+
+    @Override
+    public void init(Context context) {
+         Log.e(&quot;fanda&quot;, &quot;DegradeServiceImpl init ！&quot;);
+    }
+}
+</code></pre><p><code>DegradeService</code> 是框架预留给开发者的降级处理服务，底层会在路由失败时去构建该策略实例，如果存在该策略的实现类，则会通过反射构建实例进行初始化并处理降级逻辑。</p>
+<p><strong>注意: 所有的服务都是在需要用到的时候才会进行初始化，如果用不到，就一直不会初始化，即不会生成实例对象。</strong></p>
+<h3 id="自定义服务"><a href="#自定义服务" class="headerlink" title="自定义服务"></a>自定义服务</h3><p>当我们在进行组件化开发时，模块之间都是通过暴露对应的接口来进行功能的调用的，在需要调用服务的功能时，通过 <code>ARouter</code> 的路由功能即可直接拿到服务实例，而无需直接耦合服务类，自定义服务的步骤分3步：</p>
+<p>第一步：声明接口，其他组件通过接口来调用服务。</p>
+<pre><code>// 需要继承于 IProvider 接口类
+public interface TestService extends IProvider {
+    // 定义服务功能
+    void test(String content);
+}
+</code></pre><p>第二步： 实现接口类，并添加上路由。</p>
+<pre><code>@Route(path = &quot;/service/testService&quot;)
+public class TestServiceImpl implements TestService {
+
+    Context mContext;
+
+    @Override
+    public void test(String content) {
+        Toast.makeText(mContext, &quot;Hello : &quot; + content, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void init(Context context) {
+        mContext = context;
+    }
+}
+</code></pre><p>第三步：拿到服务类进行功能调用，有两种方式拿到实现类，第一种是通过注入的方式，即通过注解 <code>Autowired</code> 来自动注入，如下：</p>
+<pre><code>@Autowired(name = &quot;/service/testService&quot;)
+TestService testService;
+</code></pre><p>第二种方式是通过 <code>byType</code> 或 <code>byName</code> 的方式拿到，如下：</p>
+<pre><code>TestService testService = ARouter.getInstance().navigation(TestService.class); // by type 
+TestService testService = (TestService) ARouter.getInstance().build(&quot;/service/testService&quot;).navigation();//by name 
+</code></pre><p><strong>注意： 当有多个服务实现类时，必须要通过 Autowired 的 name 方法来指定实现类的路由。最好使用注入方式获取，多实现时指定 <code>name</code> 即可。</strong></p>
+<h3 id="自定义全局拦截器"><a href="#自定义全局拦截器" class="headerlink" title="自定义全局拦截器"></a>自定义全局拦截器</h3><p>在进行路由跳转时，是可以通过拦截器来进行拦截处理的，拦截器是属于全局的，所有的跳转默认都会先经过拦截器。自定义全局拦截器需要实现框架的 <code>IInterceptor</code> 接口，并添加 <code>Interceptor</code> 注解，该注解有一个 <code>priority</code> 方法，用来定义拦截器的优先级，数值越小优先级越高，不能设置相同优先级，多个拦截器会按优先级顺序依次执行，拦截器内的方法都是运行在子线程的，不能直接做 UI 处理。</p>
+<pre><code>@Interceptor(priority = 8, name = &quot;测试拦截器&quot;)
+public class TestInterceptor implements IInterceptor {
+
+    private Context mContext;
+    private Postcard mPostcard;
+
+    @Override
+    public void process(Postcard postcard, final InterceptorCallback callback) {
+        mPostcard = postcard;
+        //更改路径，不会使跳转的界面改变 ,只是修改了一些参数，拦截对象，做一些操作，目标不变
+        mPostcard.setUri(Uri.parse(&quot;pitaya:www.wmzx.com/test/Test1Activity&quot;));
+        //注意： onContinue 或 onInterrupt 方法至少调用一个，不然跳转会无效
+        if (&quot;/test/Test3Activity&quot;.equals(postcard.getPath())) {
+            postcard.setUri(Uri.parse(&quot;pitaya:www.wmzx.com/test/Test1Activity&quot;));
+            final AlertDialog.Builder ab = new AlertDialog.Builder(MainActivity.getThis());
+            ab.setCancelable(false);
+            ab.setTitle(&quot;温馨提醒&quot;);
+            ab.setMessage(&quot;想要跳转到Test3Activity么？(触发了TestInterceptor拦截器，拦截了本次跳转)&quot;);
+            ab.setNegativeButton(&quot;继续&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    callback.onContinue(mPostcard);
+                }
+            });
+            ab.setNeutralButton(&quot;登录&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    // 跳到新界面，可以不执行 onContinue 和 onInterrupt ，即之前的路由目标不会继承了
+                    ARouter.getInstance().build(&quot;/test/Test1Activity&quot;).navigation();
+                    // 可以调用这个方法给出回调信息
+                    callback.onInterrupt(null);
+                }
+            });
+            ab.setPositiveButton(&quot;加点料&quot;, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    mPostcard.withString(&quot;extra&quot;, &quot;我是在拦截器中附加的参数&quot;);
+                    callback.onContinue(mPostcard);
+                }
+            });
+
+            MainLooper.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    ab.create().show();
+                }
+            });
+        } else {
+            callback.onContinue(postcard);
+        }
+    }
+
+    @Override
+    public void init(Context context) {
+        mContext = context;
+        // 在 SDK 初始化时调用该方法，仅会调用一次
+        Log.e(&quot;fanda&quot;, &quot;TestInterceptor init ！&quot;+ Thread.currentThread().getName());
+    }
+}
+</code></pre><p><strong>注意：拦截器因为其特殊性，会被任何一次路由所触发，拦截器会在ARouter初始化的时候异步初始化，如果第一次路由的时候拦截器还没有初始化结束，路由会等待，直到初始化完成。</strong></p>
+<h3 id="路由监听回调"><a href="#路由监听回调" class="headerlink" title="路由监听回调"></a>路由监听回调</h3><p>在进行路由跳转时，可以传入监听回调，如下：</p>
+<pre><code>ARouter.getInstance().build(uri).navigation(this, new NavigationCallbackImpl());
+
+private static class NavigationCallbackImpl implements NavigationCallback {
+    @Override
+    public void onFound(Postcard postcard) {
+        // 路由目标被发现时调用
+        Log.e(&quot;fanda&quot;, &quot;找到Test3Activity！&quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onLost(Postcard postcard) {
+        // 路由目标找不到时调用
+        Log.e(&quot;fanda&quot;, &quot;找不到Test3Activity！&quot; + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onArrival(Postcard postcard) {
+        // 路由到达之后调用
+        Log.e(&quot;fanda&quot;, &quot;Test3Activity跳转完了！&quot; + &quot;----分组---&quot; + postcard.getGroup() + Thread.currentThread().getName());
+    }
+
+    @Override
+    public void onInterrupt(Postcard postcard) {
+        // 路由被拦截时调用
+        // 这个回调是在子线程回调的
+        Log.e(&quot;fanda&quot;, &quot;Test3Activity被拦截了！&quot; + Thread.currentThread().getName());
+    }
+}
+</code></pre><h3 id="从外部跳转到内部页面"><a href="#从外部跳转到内部页面" class="headerlink" title="从外部跳转到内部页面"></a>从外部跳转到内部页面</h3><p>通过 <code>URI</code> 跳转的方式，可以在 <code>H5</code> 界面里面通过指定的 <code>URI</code> 来跳转到 <code>APP</code> 内的指定路由页面，而且可以自动解析 <code>URI</code> 中的参数，最佳的实践方法可以这样做：</p>
+<p>第一步：声明一个 <code>activity</code> ，这个 <code>activity</code> 不需要界面，只需要注册一个 <code>intent-filter</code> 即可，主要是用来监听 <code>Scheme</code> 的，代码如下：</p>
+<pre><code>// 用于监听Scheme事件,之后直接把url传递给ARouter即可
+public class SchemeFilterActivity extends Activity {
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        ARouter.getInstance().build(getIntent().getData()).navigation();
+        finish();
+    }
+}
+
+&lt;activity android:name=&quot;.testactivity.SchemeFilterActivity&quot;  android:exported=&quot;true&quot;&gt;
+        &lt;intent-filter&gt;
+            &lt;data android:host=&quot;www.fanda.com&quot; android:scheme=&quot;fanda&quot;/&gt;
+
+            &lt;action android:name=&quot;android.intent.action.VIEW&quot;/&gt;
+
+            &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+            &lt;category android:name=&quot;android.intent.category.BROWSABLE&quot;/&gt;
+        &lt;/intent-filter&gt;
+
+        &lt;!-- App Links --&gt;
+        &lt;intent-filter android:autoVerify=&quot;true&quot;&gt;
+            &lt;action android:name=&quot;android.intent.action.VIEW&quot;/&gt;
+
+            &lt;category android:name=&quot;android.intent.category.DEFAULT&quot;/&gt;
+            &lt;category android:name=&quot;android.intent.category.BROWSABLE&quot;/&gt;
+
+            &lt;data
+                android:host=&quot;www.fanda.com&quot;
+                android:scheme=&quot;http&quot;/&gt;
+            &lt;data
+                android:host=&quot;www.fanda.com&quot;
+                android:scheme=&quot;https&quot;/&gt;
+        &lt;/intent-filter&gt;
+
+    &lt;/activity&gt;
+</code></pre><p><code>SchemeFilterActivity</code> 是对外暴露的一个中转 <code>Activity</code> ，所有的外部路由请求都会经过这唯一的门，然后在这个 <code>activity</code> 中获取到 <code>URL</code> 并将其交给 <code>ARouter</code> 来分发。比如跳转的 <code>URI</code> 为 <code>fanda://www.fanda.com/test/Test2Activity?url=www.fanda.com</code> ，那么最终会跳转到 <code>Test2Activity</code> 界面并且把 <code>url</code> 字段赋值成 <code>www.fanda.co</code>m 。</p>
+<pre><code>@Route(path = &quot;/test/Test2Activity&quot;)
+public class Test2Activity extends BaseActivity {
+
+    @Autowired
+    String url ;
+
+}
+</code></pre><p><code>ARouter</code> 会自动解析 <code>URI</code> 中的参数并放进 <code>Intent</code> 的 <code>Bundle</code> 中，然后对 <code>Autowired</code> 注入的字段进行赋值操作。</p>
+<p><strong>注意：如果不需要自动注入功能，可能不写 <code>ARouter.getInstance().inject(this)</code> ，但是需要在对应的字段上添加 <code>Autowired</code> 注解，不然 <code>ARouter</code> 不会解析 <code>URI</code> 中的参数，即在目标页面的 <code>Intent</code> 中没有对应的字段。</strong></p>
+<h3 id="其他一些-API-使用"><a href="#其他一些-API-使用" class="headerlink" title="其他一些 API 使用"></a>其他一些 API 使用</h3><pre><code>// 使用绿色通道(跳过所有的拦截器)
+ARouter.getInstance().build(&quot;/test/Test2Activity&quot;).greenChannel().navigation();
+
+// 指定分组的路由请求，如果界面用 group 指定了分组，需要用这种方式路由
+ARouter.getInstance().build(&quot;/test/Test2Activity&quot;,&quot;test&quot;).navigation(this);
+
+// 指定 Flag
+ARouter.getInstance().build(&quot;/test/Test2Activity&quot;,&quot;test&quot;).withFlags(Intent.FLAG_ACTIVITY_NEW_TASK).navigation(this);
+</code></pre><h3 id="为目标页面声明更多信息"><a href="#为目标页面声明更多信息" class="headerlink" title="为目标页面声明更多信息"></a>为目标页面声明更多信息</h3><p>上面我们讲到在目标页面至少需要配置 <code>Route</code> 注解的 <code>path</code> 方法，其实还可以自定义分组和添加一些额外的数据，代码如下：</p>
+<pre><code>@Route(path = &quot;/test/Test3Activity&quot;, group = &quot;test&quot;, extras = 100)
+public class Test3Activity extends BaseActivity {
+
+}
+</code></pre><p>默认的分组为 <code>path</code> 定义的路由地址的第一级，可以通过 <code>group</code> 方法来自定义分组，同时可以通过 <code>extras</code> 方法来添加一个 <code>int</code> 数值，在拦截器里面可以通过该值来判断该页面是否需要登录或权限验证等操作。</p>
+<h3 id="为什么要做分组处理呢？"><a href="#为什么要做分组处理呢？" class="headerlink" title="为什么要做分组处理呢？"></a>为什么要做分组处理呢？</h3><p>当 <code>APP</code> 有一百或者几百个页面的时候，一次性将所有页面都加载到内存中本身对于内存的损耗是非常可怕的，同时对于性能的损耗也是不可忽视的。所以 <code>ARouter</code> 中提出了分组的概念，<code>ARouter</code> 允许某一个模块下有多个分组，所有的分组最终会被一个 <code>root</code> 节点管理，每个 <code>root</code> 结点都会管理整个模块中的 <code>group</code> 节点，每个 <code>group</code> 结点则包含了该分组下的所有页面，<code>ARouter</code> 在初始化的时候只会一次性地加载所有的 <code>root</code> 结点，而不会加载任何一个 <code>Group</code> 结点，这样就会极大地降低初始化时加载结点的数量。当某一个分组下的某一个页面第一次被访问的时候，整个分组的全部页面都会被加载进去，这就是 <code>ARouter</code> 的按需加载。其实在整个 <code>APP</code> 运行的周期中，并不是所有的页面都需要被访问到，可能只有 <code>20</code>% 的页面能够被访问到，所以这时候使用按需加载的策略就显得非常重要了，这样就会减轻很大的内存压力。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/github/" rel="tag"><i class="fa fa-tag"></i> github</a>
+          
+            <a href="/tags/第三方库/" rel="tag"><i class="fa fa-tag"></i> 第三方库</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/08/26/github/Retrofit2/ARouter 源码详解/" rel="next" title="ARouter 源码详解一">
+                <i class="fa fa-chevron-left"></i> ARouter 源码详解一
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/08/27/github/Retrofit2/ARouter 源码详解二/" rel="prev" title="ARouter 源码详解二">
+                ARouter 源码详解二 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">68</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">18</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ARouter-简介"><span class="nav-number">1.</span> <span class="nav-text">ARouter 简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原生路由方式的缺点"><span class="nav-number">1.1.</span> <span class="nav-text">原生路由方式的缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ARouter的优势"><span class="nav-number">1.2.</span> <span class="nav-text">ARouter的优势</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ARouter-的使用"><span class="nav-number">2.</span> <span class="nav-text">ARouter 的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初始化"><span class="nav-number">2.1.</span> <span class="nav-text">初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加注解"><span class="nav-number">2.2.</span> <span class="nav-text">添加注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由分发"><span class="nav-number">2.3.</span> <span class="nav-text">路由分发</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Fragment-跳转"><span class="nav-number">2.4.</span> <span class="nav-text">Fragment 跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#全局降级策略"><span class="nav-number">2.5.</span> <span class="nav-text">全局降级策略</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义服务"><span class="nav-number">2.6.</span> <span class="nav-text">自定义服务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#自定义全局拦截器"><span class="nav-number">2.7.</span> <span class="nav-text">自定义全局拦截器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#路由监听回调"><span class="nav-number">2.8.</span> <span class="nav-text">路由监听回调</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#从外部跳转到内部页面"><span class="nav-number">2.9.</span> <span class="nav-text">从外部跳转到内部页面</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他一些-API-使用"><span class="nav-number">2.10.</span> <span class="nav-text">其他一些 API 使用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为目标页面声明更多信息"><span class="nav-number">2.11.</span> <span class="nav-text">为目标页面声明更多信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要做分组处理呢？"><span class="nav-number">2.12.</span> <span class="nav-text">为什么要做分组处理呢？</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
