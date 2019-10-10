@@ -93,7 +93,7 @@
 <link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="基础,kotlin," />
+  <meta name="keywords" content="kotlin,基础," />
 
 
 
@@ -110,13 +110,13 @@
 
 
 <meta name="description" content="基本要素：函数和变量打印经典的 &amp;quot;Hello, world!&amp;quot; 的 Kotlin 代码如下： fun main(args: Array&amp;lt;String&amp;gt;) {     println(&amp;quot;Hello,world!&amp;quot;) } 相应的 Java 代码实现如下： public static void main(String[] args) {     Sys">
-<meta name="keywords" content="基础,kotlin">
+<meta name="keywords" content="kotlin,基础">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kotlin基础">
 <meta property="og:url" content="http://yoursite.com/2019/09/26/kotlin/KotlinBase/index.html">
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="基本要素：函数和变量打印经典的 &amp;quot;Hello, world!&amp;quot; 的 Kotlin 代码如下： fun main(args: Array&amp;lt;String&amp;gt;) {     println(&amp;quot;Hello,world!&amp;quot;) } 相应的 Java 代码实现如下： public static void main(String[] args) {     Sys">
-<meta property="og:updated_time" content="2019-09-29T02:15:50.116Z">
+<meta property="og:updated_time" content="2019-10-10T07:34:40.258Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin基础">
 <meta name="twitter:description" content="基本要素：函数和变量打印经典的 &amp;quot;Hello, world!&amp;quot; 的 Kotlin 代码如下： fun main(args: Array&amp;lt;String&amp;gt;) {     println(&amp;quot;Hello,world!&amp;quot;) } 相应的 Java 代码实现如下： public static void main(String[] args) {     Sys">
@@ -617,7 +617,7 @@ println(person.isMarried)
 <pre><code>package zeng.fanda.com.kotlinpratice.base
 
 import kotlin.random.Random
-</code></pre><p>注意： <strong><code>Kotlin</code> 不区分导入的是类还是函数，可以直接导入顶层函数的名称</strong>，在 <code>Kotlin</code> 中的函数可以单独存在，不一定要在类中声明，可以直接声明在文件中，这个函数叫做顶层函数，如果声明的是属性，就叫做顶层属性，无论是顶层函数还是属性，都可以直接导入使用。</p>
+</code></pre><p>注意： <strong><code>Kotlin</code> 不区分导入的是类还是函数，可以直接导入顶层函数的名称</strong>，在 <code>Kotlin</code> 中的函数可以单独存在，不一定要在类中声明，可以直接声明在文件中，这种函数叫做顶层函数，如果声明的是属性，就叫做顶层属性，无论是顶层函数还是属性，都可以直接导入使用。</p>
 <p>在 <code>Java</code> 中，要把类放在和包结构相匹配的文件与目录结构中。而在 <code>Kotlin</code> 中包层级机构不需要遵循目录层级结构，可以把多个类放进同一个文件中。但是不管怎样，遵循 <code>Java</code> 的目录布局更根据包结构把源码文件放到对应的目录中是个更好的选择，避免一些不期而遇的错误。</p>
 <h2 id="表示和处理选择：枚举和-“when”"><a href="#表示和处理选择：枚举和-“when”" class="headerlink" title="表示和处理选择：枚举和 “when”"></a>表示和处理选择：枚举和 “when”</h2><h3 id="声明枚举类"><a href="#声明枚举类" class="headerlink" title="声明枚举类"></a>声明枚举类</h3><p><code>Kotlin</code> 中声明枚举类如下：</p>
 <pre><code>enum class Color {
@@ -829,7 +829,7 @@ fun playGame() {
         println(&quot;$letter == $binary&quot;)
     }
 }
-</code></pre><p><code>..</code> 语法不仅可以创建数字区间，还可以创建字符区间。这里展示了 <code>for</code> 循环的展开语法，把展开的结果存到了两个独立的变量中。 <code>map</code> 中提供根据键来访问和更新 <code>map</code> 的简明语法。使用 <code>map[key]</code> 读取值，并使用 <code>map[key] = value</code> 设置它们，而不需要地调用 <code>get</code> 和 <code>put</code> 。</p>
+</code></pre><p><code>..</code> 语法不仅可以创建数字区间，还可以创建字符区间。这里展示了 <code>for</code> 循环的展开语法，把展开的结果存到了两个独立的变量中。 <code>map</code> 中提供根据键来访问和更新 <code>map</code> 的简明语法。使用 <code>map[key]</code> 读取值，并使用 <code>map[key] = value</code> 设置它们，而不需要调用 <code>get</code> 和 <code>put</code> 。</p>
 <p>你还可以使用展开语法来迭代集合的同时跟踪当前项的下标，不再需要创建一个单独的变量来存储下标并手动增加它：</p>
 <pre><code>// 打印带索引下标的集合
 fun printList() {
@@ -909,9 +909,9 @@ println(&quot;Kotlin&quot; in &quot;Java&quot;..&quot;Scala&quot;)
       
         <div class="post-tags">
           
-            <a href="/tags/基础/" rel="tag"><i class="fa fa-tag"></i> 基础</a>
-          
             <a href="/tags/kotlin/" rel="tag"><i class="fa fa-tag"></i> kotlin</a>
+          
+            <a href="/tags/基础/" rel="tag"><i class="fa fa-tag"></i> 基础</a>
           
         </div>
       
@@ -933,6 +933,10 @@ println(&quot;Kotlin&quot; in &quot;Java&quot;..&quot;Scala&quot;)
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/09/30/kotlin/KotlinFunction/" rel="prev" title="函数的定义与调用">
+                函数的定义与调用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -1006,7 +1010,7 @@ println(&quot;Kotlin&quot; in &quot;Java&quot;..&quot;Scala&quot;)
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1017,7 +1021,7 @@ println(&quot;Kotlin&quot; in &quot;Java&quot;..&quot;Scala&quot;)
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">27</span>
+                <span class="site-state-item-count">28</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1028,7 +1032,7 @@ println(&quot;Kotlin&quot; in &quot;Java&quot;..&quot;Scala&quot;)
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
