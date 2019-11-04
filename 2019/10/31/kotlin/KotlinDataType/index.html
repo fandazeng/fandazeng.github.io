@@ -1,0 +1,1232 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kotlin,数据类型," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="基本数据类型Java 把基本数据类型和引用类型做了区分。一个基本数据类型（如 int ）的变量直接存储了它的值，而一个引用类型（如 String ）的变量存储的是指向包含该对象的内存地址的引用。基本数据类型的值能够更高效地存储和传递，但是你不能对这些值调用方法，或是把他们存放在集合中。 Java 提供了特殊的包装类型（如 Integer ）在你需要对象的时候对基本数据类型进行封装。因此，你不能用">
+<meta name="keywords" content="kotlin,数据类型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 的类型">
+<meta property="og:url" content="http://yoursite.com/2019/10/31/kotlin/KotlinDataType/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="基本数据类型Java 把基本数据类型和引用类型做了区分。一个基本数据类型（如 int ）的变量直接存储了它的值，而一个引用类型（如 String ）的变量存储的是指向包含该对象的内存地址的引用。基本数据类型的值能够更高效地存储和传递，但是你不能对这些值调用方法，或是把他们存放在集合中。 Java 提供了特殊的包装类型（如 Integer ）在你需要对象的时候对基本数据类型进行封装。因此，你不能用">
+<meta property="og:updated_time" content="2019-11-04T02:26:34.321Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin 的类型">
+<meta name="twitter:description" content="基本数据类型Java 把基本数据类型和引用类型做了区分。一个基本数据类型（如 int ）的变量直接存储了它的值，而一个引用类型（如 String ）的变量存储的是指向包含该对象的内存地址的引用。基本数据类型的值能够更高效地存储和传递，但是你不能对这些值调用方法，或是把他们存放在集合中。 Java 提供了特殊的包装类型（如 Integer ）在你需要对象的时候对基本数据类型进行封装。因此，你不能用">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/10/31/kotlin/KotlinDataType/"/>
+
+
+
+
+
+     <title> Kotlin 的类型 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/31/kotlin/KotlinDataType/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kotlin 的类型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-31T14:52:42+08:00">
+                2019-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/数据类型/" itemprop="url" rel="index">
+                    <span itemprop="name">数据类型</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/10/31/kotlin/KotlinDataType/" class="leancloud_visitors" data-flag-title="Kotlin 的类型">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基本数据类型"><a href="#基本数据类型" class="headerlink" title="基本数据类型"></a>基本数据类型</h2><p><code>Java</code> 把基本数据类型和引用类型做了区分。一个基本数据类型（如 <code>int</code> ）的变量直接存储了它的值，而一个引用类型（如 <code>String</code> ）的变量存储的是指向包含该对象的内存地址的引用。基本数据类型的值能够更高效地存储和传递，但是你不能对这些值调用方法，或是把他们存放在集合中。 <code>Java</code> 提供了特殊的包装类型（如 <code>Integer</code> ）在你需要对象的时候对基本数据类型进行封装。因此，你不能用 <code>Collection&lt;int&gt;</code> 来定义一个整数的集合，而必须用 <code>Collection&lt;Integer&gt;</code> 来定义。</p>
+<p><strong>注意： <code>Kotlin</code> 并不区分基本数据类型和包装类型，你使用的永远是同一个类型(如 Int )</strong>，这样很方便，此外，你还能对一个数字类型的值调用方法。例如下面使用了标准库的函数 <code>coerceIn</code> 来把值限制在特定的范围内：</p>
+<pre><code>fun showProgress(progress: Int) {
+    val percent = progress.coerceIn(0, 100)
+    println(&quot;$percent% done&quot;)
+}
+
+showProgress(-34)   //0% done
+showProgress(300)   //100% done
+</code></pre><p>虽然 <code>kotlin</code> 是用同一个类型表示基本数据类型和引用类型，但是在运行时，数字类型会尽可能地使用最高效的方式来表示。大多数情况下，对于变量、 属性、 参数和返回类型 —— <code>kotlin</code> 的 <code>Int</code> 类型会被编译成 <code>Java</code> 基本数据类型 <code>int</code> 。唯一例外是泛型类，会被编译成对应的 <code>Java</code> 包装类。</p>
+<pre><code>fun testBaseDataType(params : Int): Int {
+    val i: Int = 2
+    val list: List&lt;Int&gt; = listOf(1, 2, 3)
+    return  i
+}
+</code></pre><p>上述 <code>Kotlin</code> 写的方法编译成 <code>Java</code> 代码是这样的：</p>
+<pre><code>// 参数和返回类型变成 int 
+public static final int testBaseDataType(int params) {    
+   int i = 2;    // 变量变成 int 
+    //集合变成 Integer
+   List list = CollectionsKt.listOf(new Integer[]{1, 2, 3});    
+   return i;
+}
+</code></pre><p>像 <code>Int</code> 这样的 <code>Kotlin</code> 类型在底层可以轻易地编译成对应的 <code>Java</code> 基本数据类型，因为两种类型都不能存储 <code>null</code> 引用。反过来也一样，当你在 <code>Kotlin</code> 中使用 <code>Java</code> 声明时，<code>Java</code> 基本数据类型会变成非空类型 ，因为他们不能持有 <code>null</code> 值。</p>
+<h2 id="可空的基本数据类型"><a href="#可空的基本数据类型" class="headerlink" title="可空的基本数据类型"></a>可空的基本数据类型</h2><p><code>Kotlin</code> 中的可空类型(如 <code>Int?</code> ) 不能用 <code>Java</code> 的基本数据类型表示 ，因为 <code>Null</code> 只能存储在 <code>Java</code> 的引用类型中。这意味着，<strong>只要使用了基本数据类型的可空版本，它就能编译成对应的包装类型</strong> <code>Int? -&gt; Integer</code> 。此外，虽然你用非空的基本数据类型作为泛型类的类型参数，但是 <code>kotlin</code> 还是会使用该类型的包装形式，这是由 <code>Java</code> 虚拟机实现泛型的方式决定的。</p>
+<pre><code>// kotLin
+class Man(val age: Int? = null) {
+
+    fun isOlderThan(other: Man): Boolean? {
+        // 先校验
+        if (age == null || other.age == null) {
+            return null
+        }
+        // 当做非空类型来处理
+        return age &gt; other.age
+    }
+}
+
+// Java
+public final class Man {
+   @Nullable
+   private final Integer age;
+
+   @Nullable
+   public final Integer getAge() {
+      return this.age;
+   }
+
+   public Man(@Nullable Integer age) {
+      this.age = age;
+   }
+
+   @Nullable
+   public final Boolean isOlderThan(@NotNull Man other) {
+      return this.age != null &amp;&amp; other.age != null ? Intrinsics.compare(this.age, other.age) &gt; 0 : null;
+   }
+}
+</code></pre><p>可以看到 <code>val age: Int?</code> 在 <code>Java</code> 中被编译成了 <code>Integer</code> 。因此，在 <code>Java</code> 中使用的时候需要注意可能为 <code>null</code> 的情况。当然在 <code>Kotlin</code> 中也需要使用 <code>?.</code> 、 <code>!!</code> 等安全调用方式。</p>
+<h2 id="数字转换"><a href="#数字转换" class="headerlink" title="数字转换"></a>数字转换</h2><p><strong><code>Kotlin</code> 不会自动地把数字从一种类型转换成另外一种，即便是转换成范围更大的类型</strong>，例如：</p>
+<pre><code>val i: Int = 2
+val l: Long = i // 不能直接这样赋值，不会自动转换，会报错
+val l: Long = i.toLong() // 需要显式转换
+</code></pre><p><strong>为了避免意外情况， <code>kotlin</code> 要求转换必须是显式的</strong>，每一种基本数据类型（ <code>Boolean</code> 除外）都定义有转换函数：<code>toByte()</code>、 <code>toShort()</code> 、<code>toChar()</code>等。这些函数支持双向转换：即可以把小范围的类型扩展到大范围 <code>Int.toLong()</code> ，也可以把大范围的类型截取到小范围 <code>Long.toInt()</code> 。</p>
+<p>比较两个装箱值的 <code>equals</code> 方法不仅会检查它们存储的值，还要比较装箱类型。所以，在 <code>Java</code> 中 <code>new Integer(42).equals(new Long(42))</code> 会返回 <code>false</code> 。而在 <code>Kotlin</code> 中，只有类型是相同的值才能比较，不支持隐式转换，所以下面这个示例会报错：</p>
+<pre><code>val longList = listOf(1L, 2L, 3L)
+println(i in longList)    //假设支持隐式转换，结果会返回 false 
+</code></pre><p>需要显式转换，如下：</p>
+<pre><code>val longList = listOf(1L, 2L, 3L)
+println(i.toLong() in longList)     // 返回 true
+</code></pre><h3 id="基本数据类型字面值"><a href="#基本数据类型字面值" class="headerlink" title="基本数据类型字面值"></a>基本数据类型字面值</h3><p><code>Kotlin</code> 除了支持简单的十进制数字之外，还支持下面这些在代码中书写数字字面值的方式：</p>
+<ul>
+<li>使用后缀 <code>L</code> 表示 <code>Long</code> 类型的字面值: 123L 。</li>
+<li>使用标准浮点数表示 <code>Double</code> 字面值: 0.12, 2.0, 1.2e10, 1.2e-10 。</li>
+<li>使用后缀 <code>F</code> 表示 <code>Float</code> 字面值： 123.4f， .456F，1e3f 。</li>
+<li>使用前缀 <code>0x</code> 或者 <code>0X</code> 表示十六进制字面值： 0xCAFEBABE, 0xbcdL 。</li>
+<li>使用前缀 <code>0b</code> 或者 <code>0B</code> 表示二进制字面值： 0b000000101 。</li>
+</ul>
+<p>当你书写数字字面值的时候一般不需要使用转换函数。算数运算符也被重载了，它们可以接收所有适当的数字类型：</p>
+<pre><code>fun testFoo() {
+    val i = 100
+    val b: Byte = 1
+    val l = b + 1L  // //Byte + Long -&gt; Long，运算符被重载，会自动处理
+
+    foo(42)     // 通过数字字面值，不用显式转换
+    foo(i.toLong())     // 不是通过数字字面值，需要显式转换
+}
+</code></pre><p><code>Kotlin</code> 标准库提供了一套相似的扩展方法，用来把字符串转换成基本数据类型： <code>&quot;42&quot;.toInt()</code> 。每个这样的函数都会尝试把字符串的内容解析成对应的类型，如果解析失败则抛出 <code>NumberFormatException</code> 。</p>
+<h2 id="“Any”-和-“Any-”-根类型"><a href="#“Any”-和-“Any-”-根类型" class="headerlink" title="“Any” 和 “Any?” :根类型"></a>“Any” 和 “Any?” :根类型</h2><p>和 <code>Object</code> 作为 <code>Java</code> 类层级结构的根差不多，<code>Any</code> 类型是 <code>Kotlin</code> 所有非空类型的超类型，如果可能持有 <code>null</code> 值，则是 <code>Any?</code> 类型。在底层，<code>Any</code> 类型对应 <code>java.lang.Object</code> 。 <code>Kotlin</code> 把 <code>Java</code> 方法参数和返回类型中用到 <code>Object</code> 类型看做 <code>Any</code>（更切确地说是平台类型，因为其可空性未知）。当 <code>Kotlin</code> 函数使用 <code>Any</code> 时，它会被编译成 <code>Java</code> 字节码的 <code>Object</code> 。</p>
+<pre><code>// Kotlin
+fun method(params: Any): Any {
+    return  params
+}
+
+// Java
+@NotNull
+public static final Object method(@NotNull Object params) {
+  return params;
+}
+</code></pre><p>所有 <code>Kotlin</code> 类都包含下面三个方法： <code>toString</code>、 <code>equals</code>、 <code>hashCode</code> 。这些方法都继承自 <code>Any</code> 。 <code>Any</code> 并不能使用其他 <code>Object</code> 的方法（如 <code>wait</code> 和 <code>notify</code> ），可以通过手动把值转换成 <code>Object</code> 来调用这些方法。</p>
+<p>我们看一下 <code>Any</code> 类的声明：</p>
+<pre><code>public open class Any public constructor() {
+    public open operator fun equals(other: kotlin.Any?): kotlin.Boolean { /* compiled code */ }
+
+    public open fun hashCode(): kotlin.Int { /* compiled code */ }
+
+    public open fun toString(): kotlin.String { /* compiled code */ }
+}
+</code></pre><h2 id="“-Unit-类型”-Kotlin-的-“void”"><a href="#“-Unit-类型”-Kotlin-的-“void”" class="headerlink" title="“ Unit 类型” :Kotlin 的 “void”"></a>“ Unit 类型” :Kotlin 的 “void”</h2><p><code>Kotlin</code> 中的 <code>Unit</code> 类型跟 <code>Java</code> 中的 <code>void</code> 功能相似，当函数不需要返回结果时，可以用作函数的返回类型。但是，在 <code>Java</code> 中，<code>void</code> 是必须加上的，而 <code>Unit</code> 是可以省略的，比如：</p>
+<pre><code>fun testUnit():Unit {}
+fun testUnit() {}   // 省略 Unit
+</code></pre><p><code>Kotlin</code> 的 <code>Unit</code> 和 <code>Java</code> 的 <code>void</code> 的区别： <code>Unit</code> 是一个完备的类型，可以作为类型参数，而 <code>void</code> 却不行。只存在一个值是 <code>Unit</code> 类型，这个值也叫做 <code>Unit</code> ，并且在函数中会被隐式返回（不需要再显式 <code>return null</code> ）。即，<code>Unit</code> 是有值的，在方法体函数中，没有显式调用 <code>return</code> 的时候，会被隐式调用返回，返回的值也是 <code>Unit</code> ，不需要像在 <code>Java</code> 中要显式返回 <code>null</code> ，这点非常方便。</p>
+<p>当你在重写返回泛型参数的函数时这非常有用，只需要让方法返回 <code>Unit</code> 类型的值：</p>
+<pre><code>interface Processor&lt;T&gt;{
+    fun process(): T
+}
+
+class NoResultProcessor : Processor&lt;Unit&gt; {
+    override fun process() {
+        //do something
+        // 不需要显式调用 return 
+    }
+}
+</code></pre><p>接口签名要求返回一个值，当实现类确实没有可返回的值时，可以用 <code>Unit</code> 类型，而且 <code>Unit</code> 是有值的，编译器会隐式加上 <code>return Unit</code> 。在 <code>Java</code> 中，可以用 <code>Void</code> (不是 <code>void</code>)类型作为类型参数，但是需要显式调用 <code>return null</code> 。</p>
+<h2 id="Nothing-类型：这个函数永不返回"><a href="#Nothing-类型：这个函数永不返回" class="headerlink" title="Nothing 类型：这个函数永不返回"></a>Nothing 类型：这个函数永不返回</h2><p>对某些 <code>Kotlin</code> 函数来说，返回类型的概念没有任何意义，因为他们从来不会成功地结束，例如，许多测试库中都有一个叫做 <code>fail</code> 的函数，它通过抛出带有特定消息的异常来让当前测试失败。一个包含无线循环的函数也永远不会成功地结束。当分析调用这样函数的代码时，知道函数永远不会正常终止时很有帮助的。<code>Kotlin</code> 使用一种特殊的返回类型 <code>Nothing</code> 来表示：</p>
+<pre><code>fun fail(message: String): Nothing {
+    throw IllegalStateException(message)
+}
+</code></pre><p>上述函数省略掉返回类型 <code>Nothing</code> 也是可以的，只是如果知道函数不会成功结束，可以显式返回 <code>Nothing</code> 。比如：</p>
+<pre><code>val address = company.address ?: fail(&quot;No address&quot;)
+println(address)
+</code></pre><p>在这例子中，编译器会把 <code>address</code> 的类型推断成非空，因为它为 <code>null</code> 时的分支处理会始终抛出异常。</p>
+<p><code>Nothing</code> 和 <code>Unit</code> 的区别：假设函数的返回值为 <code>Nothing</code> ，因为永远无法获取一个 <code>Nothing</code> 的实例，所以用户就知道这个函数永远不会返回。这与返回 <code>Unit</code> 的函数不同，它的确会返回，只不过返回值没有意义。</p>
+<h2 id="可空性与集合"><a href="#可空性与集合" class="headerlink" title="可空性与集合"></a>可空性与集合</h2><p><code>Kotlin</code> 完全支持类型参数的可空性，直接通过 <code>?</code> 就能知道参数是否支持 <code>Null</code> 类型，例如：</p>
+<pre><code>fun readNumbers(reader: BufferedReader): List&lt;Int?&gt; {
+    val result = ArrayList&lt;Int?&gt;()  //创建包含可空 int 值的列表
+    for (line in reader.lineSequence()) {
+        try {
+            val number = line.toInt()
+            result.add(number)  // 添加非空值
+        } catch (e: NumberFormatException) {
+            result.add(null)    // 添加 null 值
+        }
+    }
+    return result
+}
+</code></pre><p><code>List&lt;Int?&gt;</code> 是能够持有 <code>Int</code> 值或 <code>null</code> 值的列表。注意 <code>List&lt;Int?&gt;</code> 和 <code>List&lt;Int&gt;?</code> 的区别：前者表示列表本身是非空的，但列表中的每个值都可以为 <code>null</code> 。后者正好相反，列表本身实例可以为 <code>null</code> ，但列表中的每个值都不能为 <code>null</code> 。</p>
+<p>当你需要声明一个变量持有可空的列表，并且包含可空的元素，可以这样声明： <code>List&lt;Int?&gt;?</code> 。</p>
+<p><strong>注意： 在处理可空值的集合的元素时，要先检查是否为 <code>null</code> ，如果不想做检查处理，可以过滤掉集合中的 <code>null</code> 值，<code>kotlin</code> 标准库中提供了 <code>filterNotNull</code> 来完成它。</strong></p>
+<pre><code>val list = listOf(1, null, 4, &quot;fanda&quot;)
+println(list)   //[1, null, 4, fanda]
+
+val result = list.filterNotNull()   //过滤操作，变成非空类型的了
+println(result)   //[1, 4, fanda]
+</code></pre><p>调用 <code>filterNotNull</code> 过滤集合之后，元素类型会变成非空的，因为过滤保证了集合不会再包含 <code>null</code> 元素。</p>
+<h2 id="只读集合与可变集合"><a href="#只读集合与可变集合" class="headerlink" title="只读集合与可变集合"></a>只读集合与可变集合</h2><p><code>Kotlin</code> 将 <code>Java</code> 的集合中访问集合数据的接口和修改集合数据的接口进行了拆分。分离出只读集合 <code>kotlin.collections.Collection</code> ，使用这个接口可以遍历集合中的元素，获取集合大小、判断集合中是否包含某个元素，以及执行其他从该集合中读取数据的操作，但这个接口没有任何添加或移除元素的方法。</p>
+<pre><code>public interface Collection&lt;out E&gt; : kotlin.collections.Iterable&lt;E&gt; {
+    public abstract val size: kotlin.Int
+
+    public abstract operator fun contains(element: E): kotlin.Boolean
+
+    public abstract fun containsAll(elements: kotlin.collections.Collection&lt;E&gt;): kotlin.Boolean
+
+    public abstract fun isEmpty(): kotlin.Boolean
+
+    public abstract operator fun iterator(): kotlin.collections.Iterator&lt;E&gt;
+}
+</code></pre><p>另一个则是 <code>kotlin.collections.MutableCollection</code> 接口，使用以它可以修改集合中的数据。它继承<code>kotlin.collections.Collection</code> ，提供了方法来添加和移除元素，清空集合等：</p>
+<pre><code>public interface MutableCollection&lt;E&gt; : kotlin.collections.Collection&lt;E&gt;, kotlin.collections.MutableIterable&lt;E&gt; {
+    public abstract fun add(element: E): kotlin.Boolean
+
+    public abstract fun addAll(elements: kotlin.collections.Collection&lt;E&gt;): kotlin.Boolean
+
+    public abstract fun clear(): kotlin.Unit
+
+    public abstract operator fun iterator(): kotlin.collections.MutableIterator&lt;E&gt;
+
+    public abstract fun remove(element: E): kotlin.Boolean
+
+    public abstract fun removeAll(elements: kotlin.collections.Collection&lt;E&gt;): kotlin.Boolean
+
+    public abstract fun retainAll(elements: kotlin.collections.Collection&lt;E&gt;): kotlin.Boolean
+}
+</code></pre><p>就像 <code>val</code> 和 <code>var</code> 之间的分离一样，只读集合接口与可变集合接口的分离能让程序中的数据发生的事情更容易理解。如果函数接收 <code>Collection</code> 而不是 <code>MutableCollection</code> 作为参数，你就知道它不会修改集合，而只是读取集合中的数据。如果函数要求你传递给他 <code>MutableCollection</code> 作为参数，可以认为它将会修改数据。</p>
+<pre><code>fun &lt;T&gt; copyElements(source: Collection&lt;T&gt;, target: MutableCollection&lt;T&gt;) {
+    for (item in source) {  // 读取 source 的元素
+        target.add(item)    // 将元素添加到可变集合 target
+    }
+}
+</code></pre><p>这个例子中我们读取 <code>source</code> 中的元素添加到 <code>target</code> 中，因此声明函数的时候可以很好的区别：一个只读，一个可变。</p>
+<p><strong>注意：只读集合并不总是线程安全的，如果你在多线程环境下处理数据，你需要保证代码正确地同步了对数据的访问，或者使用支持并发访问的数据结构。</strong></p>
+<p>这种分离只在 <code>Kotlin</code> 的代码中有效，上面这个例子转换成 <code>Java</code> 代码后：</p>
+<pre><code>public static final void copyElements(@NotNull Collection source, @NotNull Collection target) {
+   Iterator var3 = source.iterator();
+   while(var3.hasNext()) {
+      Object item = var3.next();
+      target.add(item);
+   }
+
+}
+</code></pre><p>可以看到都变成了 <code>Java</code> 中 <code>Collection</code> 接口，也即是可变的完整的集合接口。也就是说，即使 <code>Kotlin</code> 中把集合声明成只读的，<code>Java</code> 代码也能够修改这个集合。 <code>kotlin</code> 的可变和不可变的集合，都能够正常地被 <code>java</code> 的方法使用。 <code>Kotlin</code> 编译器不能完全分析 <code>Java</code> 代码到底对集合做了什么，因此 <code>Kotlin</code> 无法拒绝向可以修改集合的 <code>Java</code> 代码传递只读 <code>Collection</code> 。如果你将定义的函数中会将只读集合传递给 <code>Java</code> ，你有责任将参数声明成正确的参数类型，取决于 <code>Java</code> 代码是否会修改集合。这个注意事项也同样适用于 <code>Kotlin</code> 定义的非空元素集合传递给 <code>Java</code> 时，可能会存入 <code>null</code> 值。</p>
+<p><strong>总结一下： 可变跟不可变集合只在 <code>kotlin</code> 中生效，<code>Java</code> 代码可以正常对 <code>Kotlin</code> 的集合做修改，即使声明成不可变。集合的非空声明也只在 <code>Kotlin</code> 中生效，<code>Java</code> 代码可以正常对 <code>Kotlin</code> 的集合传入 <code>null</code> 值。</strong></p>
+<p><strong>注意：当你在 <code>Kotlin</code> 中写的代码是可以传递给 <code>Java</code> 使用时，需要采取特别的预防措施，来确保 <code>kotlin</code> 类型正确地反映出集合上所有可能的修改。</strong></p>
+<h3 id="集合创建函数"><a href="#集合创建函数" class="headerlink" title="集合创建函数"></a>集合创建函数</h3><p>只读：</p>
+<pre><code>listOf 、 setOf 、 mapOf
+</code></pre><p>可变：</p>
+<pre><code>List:  mutableListOf() 、 arrayListOf()
+
+Set:   mutableSetOf() 、 hashSetOf() 、 linkedSetOf() 、 sortedSetOf()
+
+Map:   mutableMapOf() 、 hashMapOf() 、 linkedMapOf() 、 sortedMapOf()
+</code></pre><h2 id="作为平台类型的集合"><a href="#作为平台类型的集合" class="headerlink" title="作为平台类型的集合"></a>作为平台类型的集合</h2><p><code>Java</code> 中声明的集合类型的变量也被视为平台类型，一个平台类型的集合本质上就是可变性未知的集合。特别是当你在 <code>Kotlin</code> 中重写或者实现签名中有集合类型的 <code>Java</code> 方法时，就要考虑到底用哪一种类型来重写，比如：</p>
+<p>有个 <code>Java</code> 接口如下：</p>
+<pre><code>public interface TestInterface {
+    void test(List&lt;String&gt; values);
+}
+</code></pre><p>在 <code>Kotlin</code> 中可以有如下的实现方式：</p>
+<pre><code>class TestInterfaceImpl1 : TestInterface {
+    // 集合是否可空
+    override fun test(values: MutableList&lt;String&gt;?) {}
+    override fun test(values: MutableList&lt;String&gt;) {}
+
+    // 元素是否可空
+    override fun test(values: MutableList&lt;String&gt;) {}
+    override fun test(values: MutableList&lt;String?&gt;) {}
+
+    // 方法会不会修改集合
+    override fun test(values: MutableList&lt;String&gt;) {}
+    override fun test(values: List&lt;String&gt;) {}
+}    
+</code></pre><p>因此，我们在重写时需要提出三大问：</p>
+<ol>
+<li>集合是否可空？</li>
+<li>集合中的元素是否可空？</li>
+<li>你的方法会不会修改集合？</li>
+</ol>
+<p>如果你不确定，可以用最保险的方式：</p>
+<pre><code>override fun test(values: MutableList&lt;String?&gt;?) {}
+</code></pre><p>使用的时候就要考虑各种可能为空的情况。</p>
+<h2 id="对象和基本数据类型的数组"><a href="#对象和基本数据类型的数组" class="headerlink" title="对象和基本数据类型的数组"></a>对象和基本数据类型的数组</h2><p>默认情况下，应该优先使用集合而不是数组。<code>Kotlin</code> 的数组是一个带有类型参数的类，其元素类型被指定为相应的类型参数。</p>
+<pre><code>fun testArray() {
+    // 因为有初始化值，通过类型推导可知，则可以省略 &lt;String&gt;
+    val testStringArray = Array&lt;String&gt;(3) { &quot;init&quot;} // 带初始化数量的数组，且给定初始化值
+
+    println(testStringArray.size)   //5
+
+    for (i in testStringArray.indices) {    // 遍历数组的下标
+        println(&quot;index is $i and value is ${testStringArray[i]}&quot;)
+    }
+}
+</code></pre><p>系统提供了很多创建数组的函数，比如 ：</p>
+<pre><code>arrayOf()    // 创建包含任意类型实参的数组
+intArrayOf()    // 创建 Int 数组
+floatArrayOf()    // 创建 Float 数组
+booleanArrayOf()    // 创建 Boolean 数组
+</code></pre><p>创建有固定大小的且元素是非空的数组，可以用 <code>Array</code> 构造方法，该方法接收数组的大小和一个 <code>lambda</code> 表达式（用来初始化每一个元素）：</p>
+<pre><code>// 有3个元素，每个元素的值都是 init ，元素都是非空的
+val testStringArray = Array&lt;String&gt;(3) { &quot;init&quot;}
+
+// it 代表每个数组元素的下标，lambda 会生成对应的下标对应的值
+val result = Array(26){ (&apos;a&apos; + it).toString()}
+// ABCDEFGHIJKLMNOPQRSTUVWXYZ
+println(result.joinToString(&quot;&quot;){it.toUpperCase()})
+</code></pre><p>也可以创建元素是可空的数组，通过 <code>arrayOfNulls</code> 函数：</p>
+<pre><code>// 没有初始化值，不能通过类型推导知道，要加上类型参数
+val nullableArray = arrayOfNulls&lt;String&gt;(3)
+</code></pre><p>上述方法创建的数组，有 <code>3</code> 个值 ，都是 <code>null</code> 。</p>
+<p><code>Kotlin</code> 代码中最常见的创建数组的情况之一是需要调用参数为数组的 <code>Java</code> 方法时，或是调用带有 <code>vararg</code> 参数的 <code>Kotlin</code> 函数。在这些情况下，通常已经将数据存储在集合中，只需要将其转换为数组即可。可以使用 <code>toTypeArray</code> 方法的来执行：</p>
+<pre><code>val content = listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
+// toTypedArray 用来给集合转成对应数组
+println(&quot;%s/%s/%s&quot;.format(*content.toTypedArray()))    //  a/b/c
+</code></pre><p>数组类型的类型参数始终会变成对象类型。如果你声明了一个 <code>Array&lt;Int&gt;</code> 它将会是一个包含装箱整型的数组 <code>Integer[]</code> 。如果你需要创建没有装箱的基本数据类型的数组，必须使用一个基本数据类型数组的特殊类。为了表示基本数据类型的数组。 <code>Kotlin</code> 提供了若干独立的类，每一种基本数据类型都对应一个，例如 <code>Int</code> 类型的数组叫做 <code>IntArray</code> ，还有 <code>ByteArray</code> ，<code>BooleanArray</code> 等等。这些对应 <code>Java</code> 中的基本数据类型数组：<code>int[]</code>、 <code>btye[]</code>、 <code>boolean[]</code> 等等。</p>
+<p>如果你想将一个持有装箱类型的数组或者集合，可以用对应的转换函数把它们转换成基本数据类型的数组，比如 <code>toIntArray</code> 。而且，<code>kotlin</code> 标准库提供了一套跟集合相同的用于数组的扩展函数，之前说的 <code>filter</code>、 <code>map</code> 函数也同样适用于数组，非常方便。</p>
+<p>要创建一个基本数据类型的数组，有如下选择：</p>
+<p>用对应类型的构造方法接收数组大小来返回初始化好的数组：</p>
+<pre><code>// 元素为 0 0 0
+val a = IntArray(3)
+</code></pre><p>用工厂函数，接收可变参数的值，并创建存储这些值的数组：</p>
+<pre><code>// 元素为 0 0 0
+val b = intArrayOf(0, 0, 0)
+</code></pre><p>用对应类型的带 lambda 的构造方法来创建：</p>
+<pre><code>// 元素为 0 1 4
+val c = IntArray(3) { it * it }
+</code></pre><h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><code>kotlin</code> 对可空类型的支持，可以帮助我们在编译期，检测出潜在的空指针错误。</li>
+<li><code>kotlin</code> 提供了像安全调用 ( <code>?.</code> ) 、 Elvis 运算符 ( <code>?:</code> )、 非空断言 ( <code>!!</code> )  及 <code>let</code> 函数这样的工具来简洁地处理可空类型。</li>
+<li><code>as?</code> 运算符提供了一种简单的方式来把值转换成一个类型，以及处理当它拥有不同类型的情况。</li>
+<li><code>Java</code> 中的类型在 <code>kotlin</code> 中被解释成平台类型，允许开发者把它们当作可空或非空对待。</li>
+<li>可空的基本数据类型对应着 <code>Java</code> 中的装箱基本类型。</li>
+<li><code>Any</code> 类型是所有其他类型的超类型，类似于 <code>Java</code> 的 <code>Object</code> ，而 <code>Unit</code> 类比于 <code>void</code> 。</li>
+<li><code>kotlin</code> 使用标准 <code>Java</code> 集合类，并通过区分只读和可变集合来增强它们。</li>
+<li><code>kotlin</code> 基本数据类型的数组使用像 <code>IntArray</code> 这样的特殊类来表示。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"><i class="fa fa-tag"></i> kotlin</a>
+          
+            <a href="/tags/数据类型/" rel="tag"><i class="fa fa-tag"></i> 数据类型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/29/kotlin/KotlinNullable/" rel="next" title="Kotlin 的可空性">
+                <i class="fa fa-chevron-left"></i> Kotlin 的可空性
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">32</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">24</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本数据类型"><span class="nav-number">1.</span> <span class="nav-text">基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可空的基本数据类型"><span class="nav-number">2.</span> <span class="nav-text">可空的基本数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#数字转换"><span class="nav-number">3.</span> <span class="nav-text">数字转换</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本数据类型字面值"><span class="nav-number">3.1.</span> <span class="nav-text">基本数据类型字面值</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“Any”-和-“Any-”-根类型"><span class="nav-number">4.</span> <span class="nav-text">“Any” 和 “Any?” :根类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#“-Unit-类型”-Kotlin-的-“void”"><span class="nav-number">5.</span> <span class="nav-text">“ Unit 类型” :Kotlin 的 “void”</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nothing-类型：这个函数永不返回"><span class="nav-number">6.</span> <span class="nav-text">Nothing 类型：这个函数永不返回</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#可空性与集合"><span class="nav-number">7.</span> <span class="nav-text">可空性与集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只读集合与可变集合"><span class="nav-number">8.</span> <span class="nav-text">只读集合与可变集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#集合创建函数"><span class="nav-number">8.1.</span> <span class="nav-text">集合创建函数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作为平台类型的集合"><span class="nav-number">9.</span> <span class="nav-text">作为平台类型的集合</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象和基本数据类型的数组"><span class="nav-number">10.</span> <span class="nav-text">对象和基本数据类型的数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">11.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
