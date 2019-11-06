@@ -1,0 +1,1438 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kotlin,运算符重载,约定," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="重载算术运算符接下来的示例，我们都将用 UI 框架中常见的类 Point 来演示，来看下定义： data class Point(val x: Int,val y : Int) 重载二元算术运算第一个支持的运算是加号运算，这个运算需要把点的 x , y 值分别加到一起，可以这样实现： data class Point(val x: Int, val y: Int) {     // 重载加号运算">
+<meta name="keywords" content="kotlin,运算符重载,约定">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 的运算符重载及其他约定">
+<meta property="og:url" content="http://yoursite.com/2019/11/04/kotlin/KotlinOverride/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="重载算术运算符接下来的示例，我们都将用 UI 框架中常见的类 Point 来演示，来看下定义： data class Point(val x: Int,val y : Int) 重载二元算术运算第一个支持的运算是加号运算，这个运算需要把点的 x , y 值分别加到一起，可以这样实现： data class Point(val x: Int, val y: Int) {     // 重载加号运算">
+<meta property="og:updated_time" content="2019-11-06T02:41:40.763Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin 的运算符重载及其他约定">
+<meta name="twitter:description" content="重载算术运算符接下来的示例，我们都将用 UI 框架中常见的类 Point 来演示，来看下定义： data class Point(val x: Int,val y : Int) 重载二元算术运算第一个支持的运算是加号运算，这个运算需要把点的 x , y 值分别加到一起，可以这样实现： data class Point(val x: Int, val y: Int) {     // 重载加号运算">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/04/kotlin/KotlinOverride/"/>
+
+
+
+
+
+     <title> Kotlin 的运算符重载及其他约定 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/04/kotlin/KotlinOverride/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kotlin 的运算符重载及其他约定</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-04T11:26:44+08:00">
+                2019-11-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/运算符重载/" itemprop="url" rel="index">
+                    <span itemprop="name">运算符重载</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/04/kotlin/KotlinOverride/" class="leancloud_visitors" data-flag-title="Kotlin 的运算符重载及其他约定">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="重载算术运算符"><a href="#重载算术运算符" class="headerlink" title="重载算术运算符"></a>重载算术运算符</h2><p>接下来的示例，我们都将用 <code>UI</code> 框架中常见的类 <code>Point</code> 来演示，来看下定义：</p>
+<pre><code>data class Point(val x: Int,val y : Int)
+</code></pre><h3 id="重载二元算术运算"><a href="#重载二元算术运算" class="headerlink" title="重载二元算术运算"></a>重载二元算术运算</h3><p>第一个支持的运算是加号运算，这个运算需要把点的 <code>x</code> , <code>y</code> 值分别加到一起，可以这样实现：</p>
+<pre><code>data class Point(val x: Int, val y: Int) {
+    // 重载加号运算
+    operator fun plus(other: Point) = Point(x + other.x, y + other.y)
+}
+
+val p1 = Point(10, 50)
+val p2 = Point(100, 3)
+// Point(x=110, y=53)
+println(p1 + p2)
+</code></pre><p>用于重载运算符的所有函数都需要用 <code>operator</code> 关键字来标记，用来表示你打算把这个函数作为相应的约定的实现，并不是碰巧定义了一个同名函数。使用 <code>operator</code> 声明了 <code>plus</code> 函数之后，就可以直接使用 <code>+</code> 号来求和了，实际上调用的就是 <code>plus</code> 函数，比如 <code>p1+p2 ——》  p1.plus(p2)</code> 。</p>
+<p><strong>注意：除了声明成为一个成员函数外，也可以定义成一个扩展函数，同样有效。通常会用扩展函数的方式来给第三方库的类定义约定，非常方便。</strong></p>
+<p>上述的加号运算重载，用扩展函数定义如下：</p>
+<pre><code>// 要加上 operator
+operator fun Point.plus(other: Point) = Point(x + other.x, y + other.y)
+</code></pre><p>可重载的二元算术运算符如下：</p>
+<pre><code>表达式        函数名
+
+a*b            times
+a/b            div
+a%b            mod
+a+b            plus
+a-b            minus
+</code></pre><p>自定义类型的运算符与标准数字类型的运算符有着相同的优先级。例如 <code>a + b * c</code> ，乘法将在加号之前执行。运算符 <code>*</code> 、 <code>/</code> 和 <code>%</code> 具有相同的优先级，高于 <code>+</code> 和 <code>-</code> 运算符的优先级。</p>
+<p>从 <code>Java</code> 调用 <code>kotlin</code> 运算符非常容易，因为每个重载的运算符都被定义为一个函数，可以像普通函数那样调用它们，如下：</p>
+<pre><code>Point p1 = new Point(100, 50);
+Point p2 = new Point(10, 10);
+System.out.println(OverridePraticeKt.plus(p1,p2));
+</code></pre><p>当从 <code>Kotlin</code> 调用 <code>Java</code> 的时候，只要 <code>Java</code> 代码中存在函数名和参数数量都匹配的函数，就可以在 <code>Kotlin</code> 中使用。如果 <code>Java</code> 已经存在类似的方法，但是方法名不同，可以通过扩展函数来修正这个函数名，用来代替现有的 <code>Java</code> 方法。</p>
+<p>比如，在 <code>Java</code> 中有如下类：</p>
+<pre><code>public class Circle {
+    private int x;
+    private int y;
+
+    public Circle(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
+
+    // 函数名和参数数量都匹配
+    public Circle plus(Circle other) {
+        return new Circle(x + other.x, y + other.y);
+    }
+
+    // 函数名不匹配
+    public Circle reduce(Circle other) {
+        return new Circle(x - other.x, y - other.y);
+    }
+
+    @Override
+    public String toString() {
+        return &quot;Circle{&quot; +
+                &quot;x=&quot; + x +
+                &quot;, y=&quot; + y +
+                &apos;}&apos;;
+    }
+}
+</code></pre><p>在 <code>kotlin</code> 中能正常地使用 <code>+</code> 号来进行求和，但是不能直接用 <code>-</code> 号来做减法操作，因为方法名不匹配。因此，我们需要用扩展函数的方式来修正，如下：</p>
+<pre><code>operator fun Circle.minus(other: Circle) = reduce(other)
+</code></pre><p>接下来就能正常使用 <code>-</code> 号操作符了：</p>
+<pre><code>val c1 = Circle(15, 15)
+val c2 = Circle(5, 5)
+
+println(c1 + c2)    //Circle{x=20, y=20}
+println(c1 - c2)    //Circle{x=10, y=10}
+</code></pre><p>运算符函数并没要求两个运算数要相同的类型，比如我们可以用一个数字来缩放一个点：</p>
+<pre><code>operator fun Point.times(scale:Double) = Point((x*scale).toInt(), (y*scale).toInt())
+
+val p = Point(10, 50)
+// Point(x=30, y=150)
+println(p * 3.0)
+</code></pre><p>注意： <code>Kotlin</code> 运算符不会自动支持交换性（交换运算符的左右两边）。如果希望用户能够使用 <code>p * 3.0</code> 以外，还能使用 <code>3.0 * p</code> ，你需要为它定义一个单独的运算符：</p>
+<pre><code>operator fun Double.times(p: Point) = Point((this * p.x).toInt(), (this * p.y).toInt())
+</code></pre><p>运算符函数也没要求返回类型是相同的类型，比如我们可以定义一个运算符，通过多次重复单个字符来创建字符串：</p>
+<pre><code>operator fun Char.times(count: Int) = toString().repeat(count)
+
+// aaa
+println(&apos;a&apos; * 3)
+</code></pre><p>这个运算符接收一个 <code>Char</code> 作为左值，<code>Int</code> 作为右值，然后返回一个 <code>String</code> 类型。</p>
+<p><strong>注意： 和普通函数一样，可以重载 <code>operator</code> 函数，可以定义多个同名的但参数类型不同的方法，不过参数个数只能是一个。</strong></p>
+<h3 id="重载复合赋值运算符"><a href="#重载复合赋值运算符" class="headerlink" title="重载复合赋值运算符"></a>重载复合赋值运算符</h3><p>通常情况下，当你在定义像 <code>plus</code> 这样的运算符函数时，<code>Kotlin</code> 不止支持 <code>+</code> 号运算，也支持 <code>+=</code> 。像 <code>+=</code> ，<code>-=</code> 等这些运算符被称为复合赋值运算符。看这个例子：</p>
+<pre><code>// 可变属性
+data class MutablePoint(var x: Int, var y: Int) 
+
+operator fun MutablePoint.plusAssign(other: MutablePoint) {
+    x += other.x
+    y += other.y
+}
+
+val p1 = MutablePoint(10, 50)
+p1 += MutablePoint(100, 3)
+//MutablePoint(x=110, y=53)
+println(p1)
+</code></pre><p>这等同于 <code>p1 = p1 +  MutablePoint(10, 50)</code> 的写法。当然，这个只对于可变变量有效。</p>
+<p>在一些情况下，定义 <code>+=</code> 运算符可以修改使用它的变量所引用的对象，但不会重新分配引用，将一个元素添加到可变集合，就是一个很好的例子：</p>
+<pre><code>val numbers = ArrayList&lt;Int&gt;()
+numbers += 42
+// [42]
+println(numbers)
+</code></pre><p>如果你定义了一个返回值为 <code>Unit</code> ，名为 <code>plusAssign</code> 的函数，<code>Kotlin</code> 将会在用到<code>+=</code> 运算符的地方调用它，其他二元算术运算符也有命名相似的对应函数：如 <code>minusAssign</code> 、 <code>timeAssign</code> 等。<code>Kotlin</code> 标准库为可变集合定义了 <code>plusAssign</code> 函数,我们才能像例子中那样使用 <code>+=</code> ：</p>
+<pre><code>operator fun &lt;T&gt; MutableCollection&lt;T&gt; plusAssgin(element: T) {
+    this.add(element)
+}
+</code></pre><p>当你在代码中用到 <code>+=</code> 的时候，理论上 <code>plus</code> 和 <code>plusAssign</code> 都可能被调用。如果在这种情况下，两个函数都有定义且使用，编译器会报错！一种办法是直接使用普通函数的调用方式调用，另一种办法是用 <code>val</code> 代替 <code>var</code> ，这样 <code>plusAssign</code> 运算就不在适用。<strong>但是更建议只定义一种运算函数，<code>plus</code> 通常定义返回一个新对象，而 <code>plusAssign</code> 返回的是之前的对象，根据这个原则选择合适的运算函数定义即可</strong>。</p>
+<p><code>Kotlin</code> 标准库支持集合的这两种方法。 <code>+</code> 和 <code>-</code> 运算符总是返回一个新的集合。 <code>+=</code> 和 <code>-=</code> 运算符用于可变集合时，始终就地修改它们：而它们用于只读集合时，或返回一个修改过的副本（这意味着只有当引用只读集合的变量被声明为 <code>var</code> 的时候，才能使用 <code>+=</code> 和 <code>-=</code> ）。作为它们的运算数，可以使用单个元素，也可以使用元素类型一致的其他集合：</p>
+<pre><code>val list = arrayListOf(1, 2)
+list += 3   // 添加单个元素
+println(list)
+
+var list2 = listOf(100, 200)   // 这里要用 var 声明可变的
+list2+= 5   // 因为作用于只读变量，会返回一个修改过的副本，即引用被改变了
+println(list2)
+
+val newList = list + listOf(4, 5)   // 添加类型一致的其他集合
+println(newList)
+</code></pre><h3 id="重载一元运算符"><a href="#重载一元运算符" class="headerlink" title="重载一元运算符"></a>重载一元运算符</h3><p>可重载的一元算术运算符如下：</p>
+<pre><code>表达式            函数名
+
++a                unaryPlus
+-a                unaryMinus
+!a                not
+++a,a++            inc
+--a,a--            dec
+</code></pre><p>重载一元跟重载二元的方式是一样的，只不过一元的约定函数没有任何参数，比如：</p>
+<pre><code>// 没有参数
+operator fun Point.unaryMinus() = Point(-x, -y)
+
+val p1 = Point(10, 50)
+//Point(x=-10, y=-50)
+println(-p1)
+</code></pre><p>当你定义 <code>inc</code> 和 <code>dec</code> 函数来重载自增和自减的运算符时，编译器自动支持与普通数字类型的前缀和后缀自增运算符相同的语义。考虑一下用来重载 <code>BigDecimal</code> 类的 <code>++</code> 运算符的这个例子：</p>
+<pre><code>operator fun BigDecimal.inc() = this + BigDecimal.ONE
+
+var bd = BigDecimal.ZERO
+// 0
+println(bd++)
+// 2
+println(++bd)
+</code></pre><p>前一个输出是 <code>0</code> ，是因为先返回递增前的值再做递增操作，后一个输出是 <code>2</code> ，是先递增操作了，再返回值。打印的值与使用 <code>Int</code> 类型的变量所看到的相同，不需要额外做什么特别的事情就能支持。</p>
+<h2 id="重载比较运算符"><a href="#重载比较运算符" class="headerlink" title="重载比较运算符"></a>重载比较运算符</h2><p>与算术运算符一样，在 <code>Kotlin</code> 中，可以对任何对象使用比较运算符（ == 、 != 、 &gt; 、 &lt; 等），而不仅仅限于基本数据类型。不用像 <code>Java</code> 那样调用 <code>equals</code> 或 <code>compareTo</code> 函数，可以直接使用比较运算符。</p>
+<h3 id="等号运算符：equals"><a href="#等号运算符：equals" class="headerlink" title="等号运算符：equals"></a>等号运算符：equals</h3><p><code>Kotlin</code> 中使用 <code>==</code> 运算符，它将被转换成 <code>equals</code> 方法的调用。使用 <code>!=</code> 运算符也会被转换成 <code>equals</code> 函数的调用，明显的差异在于，它们的结果是相反的，和所有其他运算符不同的是： <code>==</code> 和 <code>!=</code> 可以用于可空运算数，因为这些运算符事实上会检查运算数是否为 <code>null</code> 。比较 <code>a == b</code>会检查 <code>a</code> 是否为非空，如果不是，就调用 <code>a.equals(b)</code> 否则，只有两个参数都是空引用，结果才是 <code>true</code> 。</p>
+<pre><code>a == b -&gt; a?.equals(b) ?: (b == null)
+</code></pre><p>对于 <code>Point</code> 类，因为已经被标记为数据类，<code>equals</code> 的实现将会由编译器自动生成。但如果手动实现，那么代码可以是这样的：</p>
+<pre><code>override fun equals(other: Any?): Boolean {
+    // 用了恒等运算符 ===
+    if (other === this) return true
+    if (other !is Point) return false
+    return other.x == x &amp;&amp; other.y == y
+
+}
+</code></pre><p>这里使用了恒等运算符（ <code>===</code> ）来检查参数与调用 <code>equals</code> 的对象是否相同。恒等运算符与 <code>Java</code> 中的 <code>==</code> 运算符完全相同：检查两个参数是否是同一个对象的引用（如果是基本数据类型，检查他们是否是相同的值）。</p>
+<p><code>equals</code> 函数之所以被标记 <code>override</code> ，那是因为与其他约定不同的是，这个方法的实现是在 <code>Any</code> 类中定义的、这也解释了为什么你不需要将它标记为 <code>operator</code> ，<code>Any</code> 中的基本方法就已经标记了，而且<strong>函数的 <code>operator</code> 修饰符也适用于所有实现或重写它的方法</strong>。</p>
+<p><code>!=</code> 运算符的使用也会转换为 <code>equals</code> 方法的调用，编译器会自定对返回值取反，因此，你不需要再做别的事情，就可以正常运行。</p>
+<p><strong>注意： <code>===</code> 运算符不能被重载，<code>equals</code> 不能实现为扩展方法，因为继承自 <code>Any</code> 类的实现始终优先于扩展函数。</strong></p>
+<h3 id="排序运算符：compareTo"><a href="#排序运算符：compareTo" class="headerlink" title="排序运算符：compareTo"></a>排序运算符：compareTo</h3><p>在 <code>java</code> 中，类可以实现 <code>Comparable</code> 接口，以便在比较值的算法中使用。接口中定义的 <code>compareTo</code> 方法用于确定一个对象是否大于另一个对象。但在 <code>Java</code> 中，这个方法的调用没有简明语法，只有基本数据类型能使用 <code>&lt;</code> 和 <code>&gt;</code> 来比较，所有其他类型都需要明确写为 <code>element1.conpareTo(element2)</code> 。</p>
+<p><code>Kotlin</code> 的接口中定义的 <code>compareTo</code> 方法可以按约定调用，比较运算符（ &gt; , &lt; , &lt;= 和 &gt;= ）的使用将被转换为<code>compareTo</code> ，<code>compareTo</code> 的返回类型必须为 <code>Int</code> 。 <code>p1 &lt; p2</code> 表达式等价于 <code>p1.compareTo(p2) &lt; 0</code> 。其他比较运算符的运算方式也是完全一样的。</p>
+<pre><code>// 两个对象的比较被转换为 compareTo 的函数调用，然后结果与零比较
+a &gt;= b    ——》    a.compareTo(b) &gt;= 0
+</code></pre><p>假设有一个 <code>Person</code> 类，这个实现将对地址簿排序(先比较名字中的姓，如果姓相同，再比较名字)：</p>
+<pre><code>class Person(val firstName: String, val lastName: String) : Comparable&lt;Person&gt; {
+    override fun compareTo(other: Person): Int {
+        // 按顺序调用给定的方法，并比较它们的值
+        return compareValuesBy(this,other,Person::lastName,Person::firstName)
+    }
+}
+
+fun testPerson() {
+    val p1 = Person(&quot;fanda&quot;, &quot;zeng&quot;)
+    val p2 = Person(&quot;hang&quot;, &quot;liu&quot;)
+
+    // false
+    println(p1 &lt;p2)
+}
+</code></pre><p>我们通过实现 <code>Comparable</code> 接口的方式重载 <code>compareTo</code> 方法，这样做还可以被 <code>Java</code> 函数（比如用于对集合进行排序的功能）进行比较，与 <code>equals</code> 一样，<code>operator</code> 修饰符已经被用在了基类的接口中，因此在重写该接口时无需再重复。 <code>compareValuesBy</code> 方法非常有用，会按顺序依次调用回调方法，两两一组做比较，并返回结果。如果值不同，就返回结果，如果相同，则进行下一个比较，如果没有更多比较，则返回 <code>0</code> .</p>
+<p><strong>注意：所有 <code>Java</code> 中实现了 <code>Comparable</code> 接口的类，都可以在 <code>Kotlin</code> 中使用简洁的运算符语法，不用再增加扩展函数。</strong></p>
+<h2 id="集合与区间的约定"><a href="#集合与区间的约定" class="headerlink" title="集合与区间的约定"></a>集合与区间的约定</h2><h3 id="通过下标来访问元素：-get-和-set"><a href="#通过下标来访问元素：-get-和-set" class="headerlink" title="通过下标来访问元素： get 和 set"></a>通过下标来访问元素： get 和 set</h3><p>我们已经知道在 <code>Kotlin</code> 中可以用类似 <code>Java</code> 中数组的方式来访问 <code>map</code> 中的元素：</p>
+<pre><code>val value = map[key]
+</code></pre><p>也可以用同样的运算符来改变一个<strong>可变</strong> <code>map</code> 的元素：</p>
+<pre><code>mutableMap[key] = newValue
+</code></pre><p>在 <code>kotlin</code> 中，下标运算符是一个约定，使用下标运算符读取元素会被转换为 <code>get</code> 运算符方法的调用，并且写入元素将调用 <code>set</code> 。 <code>Map</code> 和 <code>MutableMap</code> 的接口已经定义了这些方法。让我们看看如何给自定义的类添加类似的方法。</p>
+<p>我们给之前的 <code>MutablePoint</code> 类添加下标的方式来访问对应的 <code>x</code> 和 <code>y</code> 坐标：</p>
+<pre><code>operator fun MutablePoint.get(index: Int) = when (index) {
+    0 -&gt; x
+    1 -&gt; y
+    else -&gt; throw IndexOutOfBoundsException(&quot;Invalid coordinate $index&quot;)
+}
+
+val p = MutablePoint(10, 50)
+//10
+println(p[0])
+</code></pre><p>你只需要定义一个名为 <code>get</code> 的函数，并标记 <code>operator</code> 之后，像 <code>p[0]</code> 这样的表达式，其中 <code>p</code> 具有类型 <code>MutablePoint</code> ，将被转换为 <code>get</code> 方法的调用，方括号里面的值将变成 <code>get</code> 方法的参数。</p>
+<pre><code>x[a,b] ——》 x.get(a,b)
+</code></pre><p><code>get</code> 方法的函数可以是任意类型，可以有多个不同的参数，可以有多个重载方法，看成普通的函数即可，只不过通过方括号的形式来调用，因为这是一种约定。</p>
+<p>接下来我们来看一下约定的 <code>set</code> 方法：</p>
+<pre><code>operator fun MutablePoint.set(index: Int,value: Int) = when (index) {
+    0 -&gt; x = value
+    1 -&gt; y = value
+    else -&gt; throw IndexOutOfBoundsException(&quot;Invalid coordinate $index&quot;)
+}
+
+val p = MutablePoint(10, 50)
+p[1] = 100
+// MutablePoint(x=10, y=100)
+println(p)
+</code></pre><p>只需定义一个名为 <code>set</code> 的函数，就可以在赋值语句中使用下标运算符。<code>set</code> 的<strong>最后一个参数用来接收赋值语句中等号右边的值</strong>，其他参数作为方括号内的下标。</p>
+<pre><code>x[a,b] = c    ——》    x.set(a,b,c)
+</code></pre><h3 id="in-的约定"><a href="#in-的约定" class="headerlink" title="in 的约定"></a>in 的约定</h3><p>集合支持的另一个运算符是 <code>in</code> 运算符，用于检查某个对象是否属于集合，相应的函数叫作 <code>contains</code> 。我们使用 <code>in</code> 运算符来检查点是否属性一个矩形：</p>
+<pre><code>data class Rectangle(val upperLeft: Point, val lowerRight: Point)
+
+operator fun Rectangle.contains(p: Point): Boolean {
+    return p.x in upperLeft.x until lowerRight.x &amp;&amp;
+            p.y in upperLeft.y until lowerRight.y
+}
+
+fun testRectangle() {
+    val rect = Rectangle(Point(10, 20), Point(50, 50))
+    println(Point(20,20) in rect)   //true
+    println(Point(5,5) in rect)     //false
+}
+</code></pre><p><code>in</code> 右边的对象将会调用 <code>contains</code> 函数，<code>in</code> 左边的对象将会作为函数入参。</p>
+<pre><code>a in c ——》  c.contains(a)
+</code></pre><p>在 <code>Rectangle.contains</code> 的实现中，我们用到了的标准库的 <code>until</code> 函数，来构建一个开区间，然后使用运算符 <code>in</code> 来检查某个点是否属于这个区间。开区间 <code>10 until 20</code> 包括从 <code>10</code> 到 <code>19</code> 的数字，但不包括 <code>20</code> 。</p>
+<h3 id="rangeTo的约定"><a href="#rangeTo的约定" class="headerlink" title="rangeTo的约定"></a>rangeTo的约定</h3><p>要创建一个区间，请使用 <code>..</code> 语法 ，<code>..</code> 运算符是调用 <code>rangeTo</code> 函数的一个简洁语法。</p>
+<pre><code>start .. end ——》  start.rangeTo(end)
+</code></pre><p>比如，<code>1..10</code> 代表所有从 <code>1</code> 到 <code>10</code> 的数字，<code>1.rangeTo(10)</code> 。这个方法调用返回一个区间，你可以为自己的类定义这个运算符，但是如果该类已经实现了 <code>Comparable</code> 接口，那么就不需要了。你可以通过 <code>kotlin</code> 标准库创建一个任意可比较元素的区间，这个库定义了可以用于任何可比较元素的 <code>rangeTo</code> 函数。</p>
+<pre><code>operator fun &lt;T: Comparable&lt;T&gt;&gt; T.rangeTo(that: T): ClosedRange&lt;T&gt;
+</code></pre><p>这个一个 <code>Comparable</code> 的扩展函数，所以你的类实现了 <code>Comparable</code> 接口，都可以使用。这个函数返回一个区间，可以用来检测其他一些元素是否属于它。</p>
+<p>比如，我们构建一个日期的区间，检查某一天是否在区间内：</p>
+<pre><code>val now = LocalDate.now()
+val vacation = now..now.plusDays(10)
+println(now.plusWeeks(1) in vacation)   //true
+</code></pre><p><code>LocalDate</code> 实现了 <code>Comparable</code> 接口，所以 <code>now..now.plusDays(10)</code> 将会被编译器转换为 <code>now.rangeTo(now.plusDays(10))</code> 。</p>
+<p><strong>注意： <code>rangeTo</code> 运算符的优先级低于算术运算符，最好把参数括起来以免混淆。</strong></p>
+<pre><code>val n = 9
+println(0..n + 1)   //0..10
+println(0..(n + 1))   //最好这样写，用括号括起来    0..10
+</code></pre><p>还要注意，表达式 <code>0..n.forEach{}</code> 不会被编译，必须把区间表达式括起来才能调用它的方法：</p>
+<pre><code>// 0123456789
+(0..n).forEach { print(it) }
+</code></pre><h3 id="在-for-循环中使用-iterator-的约定"><a href="#在-for-循环中使用-iterator-的约定" class="headerlink" title="在 for 循环中使用 iterator 的约定"></a>在 for 循环中使用 iterator 的约定</h3><p>在 <code>Kotlin</code> 中，<code>for</code> 循环中也可以使用 <code>in</code> 运算符，和做区间检查一样。但是在这种情况下它的含义是不同的：它被用来执行迭代。这意味着一个诸如 <code>for(x in list) {}</code> 将被转换成 <code>list.iterator()</code> 的调用，然后就像在 <code>Java</code> 中一样，在它上面重复调用 <code>hasNext</code> 和 <code>next</code> 方法。</p>
+<p>在 <code>Kotlin</code> 中，这也是一种约定，这意味着 <code>iterator</code> 方法可以被定义为扩展函数。这就解释了为什么可以遍历一个常规的 <code>Java</code> 字符串：标准库已经为 <code>CharSequence</code> 定义了一个扩展函数 <code>iterator</code> ，而它是 <code>String</code> 的父类：</p>
+<pre><code>public operator fun CharSequence.iterator(): CharIterator = object : CharIterator() {
+    private var index = 0
+
+    public override fun nextChar(): Char = get(index++)
+
+    public override fun hasNext(): Boolean = index &lt; length
+}
+
+// 用 in 来遍历字符串
+for (s in &quot;adfsfsdf&quot;) {
+    print(s)
+}
+</code></pre><p>可以为自己的类定义 <code>iterator</code> 方法，让该类能够通过 <code>for</code> 来遍历数据：</p>
+<pre><code>// 定义 iterator 约定函数，用于遍历
+operator fun ClosedRange&lt;LocalDate&gt;.iterator(): Iterator&lt;LocalDate&gt; =
+    // 匿名对象，实现了遍历 LocalDate 元素的 Iterator
+    object : Iterator&lt;LocalDate&gt; {
+        var current = start
+
+        // 这里用到了 compareTo 约定
+        override fun hasNext() = current &lt;= endInclusive
+
+        @SuppressLint(&quot;NewApi&quot;)
+        override fun next(): LocalDate = current.apply { current = plusDays(1) }
+    }
+
+fun testRangeTo3() {
+    val newYear = LocalDate.ofYearDay(2017, 1)
+    val daysOff = newYear.minusDays(1)..newYear
+    for (dayOff in daysOff) {
+        println(dayOff)
+    }
+}
+</code></pre><h2 id="解构声明和组件函数"><a href="#解构声明和组件函数" class="headerlink" title="解构声明和组件函数"></a>解构声明和组件函数</h2><p>解构声明允许你展开单个复合值，并使用它来初始化多个单独的变量，比如：</p>
+<pre><code>val p = Point(50, 30)
+// 解构声明
+val (x, y) = p
+println(x)    //50
+println(y)    //30
+</code></pre><p>一个解构声明看起来像一个普通的变量声明，但它在括号中有多个变量。事实上，解构声明再次用到了约定的原理。要在结构声明中初始化每个变量，将调用名为 <code>componentN</code> 的函数，其中 <code>N</code> 是声明中变量的位置。换句话说，前面的例子可以被转换成：</p>
+<pre><code>val (a, b) = p -&gt; val a = p.component1(); val b = p.component2()
+</code></pre><p>对于数据类，编译器为每个在主构造方法中声明的属性生成一个 <code>componentN</code> 函数。下面的例子显示了如何手动为非数据类声明这些功能：</p>
+<pre><code>class OtherPoint(val x: Int,val  y: Int){
+    // 定义了约定的方法，就可以使用解构声明了
+    operator fun component1() = x
+    operator fun component2() = y
+}
+</code></pre><p>解构声明主要使用场景之一，是从一个函数返回多个值，这个非常有用。如果要这样做，可以定义一个数据类来保存返回所需的值，并将它作为函数的返回类型。在调用函数后，可以用解构声明的方式，来轻松地展开它，使用其中的值。举个例子，让我们编写一个简单的函数，来将一个文件名分割成名字和扩展名：</p>
+<pre><code>data class NameComponents(val name: String, val ext: String)
+
+fun splitFileName(fullName: String): NameComponents {
+    // 集合上也有定义约定的 componentN 函数，所以这里可以用解构声明
+    val (name ,ext) = fullName.split(&quot;.&quot;,limit = 2)
+    return NameComponents(name,ext)
+}
+
+fun testNameComponents() {
+    val (name, ext) = splitFileName(&quot;fanda.exe&quot;)
+    println(name)   //fanda
+    println(ext)    //exe
+}
+</code></pre><p>让一个函数能返回多个值有更简单的方法，是使用标准库中的 <code>Pair</code> 和 <code>Triple</code> 类，在语义表达上这种方式会差一点，因为这些类也不知道它会返回的对象中包含什么，但因为不需要定义自己的类所以可以少写代码。</p>
+<pre><code>fun splitFilename(fullName: String): Pair&lt;String, String&gt; {
+    // 集合上也有定义约定的 componentN 函数，所以这里可以用解构声明
+    val (name, ext) = fullName.split(&quot;.&quot;, limit = 2)
+    return Pair(name, ext)
+}
+</code></pre><p><strong>注意：不可以定义无限数量的 componentN 函数，标准库只允许使用此语法来访问一个对象的前五个元素。</strong></p>
+<h3 id="解构声明和循环"><a href="#解构声明和循环" class="headerlink" title="解构声明和循环"></a>解构声明和循环</h3><p>解构声明不仅可以作用函数中的顶层语句，还可以用在其他可以声明变量的地方，例如 <code>in</code> 循环。一个很好的例子，是枚举 <code>map</code> 中的条目，下面是一个小例子：</p>
+<pre><code>// 解构声明在 for 循环的运用
+fun testPrintEntries() {
+    val map = mapOf(&quot;one&quot; to &quot;first&quot;, &quot;two&quot; to &quot;second&quot;)
+    for ((key, value) in map) {
+        println(&quot;key is $key , value is $value&quot;)
+    }
+}
+</code></pre><p>这个简单的例子用到了两个 <code>Kotlin</code> 的约定：一个是迭代一个对象，另一个是用于解构声明。 <code>Kotlin</code> 标准库给 <code>map</code> 增加了一个扩展的 <code>iterator</code> 函数，用来返回 <code>Entry</code> 条目的迭代器。因此，与 <code>Java</code> 不同的是，可以直接迭代 <code>map</code> 。它还包含 <code>Map.Entry</code> 上的扩展函数 <code>component1</code> 和 <code>component2</code> ，分别返回它的键和值。实际上，前面的循环被转换成了这样的代码：</p>
+<pre><code>fun testPrintEntries2() {
+    val map = mapOf(&quot;one&quot; to &quot;first&quot;, &quot;two&quot; to &quot;second&quot;)
+    for (entry in map.entries) {
+        val key = entry.component1()
+        val value = entry.component2()
+        println(&quot;key is $key , value is $value&quot;)
+    }
+}
+</code></pre><h2 id="重用属性访问的逻辑：委托属性"><a href="#重用属性访问的逻辑：委托属性" class="headerlink" title="重用属性访问的逻辑：委托属性"></a>重用属性访问的逻辑：委托属性</h2><h3 id="委托属性的基本操作"><a href="#委托属性的基本操作" class="headerlink" title="委托属性的基本操作"></a>委托属性的基本操作</h3><p>委托属性的基本语法是这样的：</p>
+<pre><code>class Foo{
+    var p: Type by Delegate()
+}
+</code></pre><p>属性 <code>p</code> 将它的访问器逻辑委托给了另一个对象：这里是 <code>Delegate</code> 类的一个新实例。通过关键字 <code>by</code> 对其后的表达式求值来获取这个对象，<strong>关键字 by 可以用于任何符合属性委托约定规则的对象</strong>。</p>
+<p>编译器会创建一个隐藏的辅助属性，并使用委托对象的实例进行初始化，初始属性 <code>p</code> 会委托给该辅助属性对应的实例。</p>
+<pre><code>class Foo {
+    // 隐藏的辅助属性，用委托对象初始化
+    private val delegate = Delegate() //编译器自动生成
+    var p: Type //p的访问交给delegate
+        set(value: Type) = delegate.setValue(..., value)
+        get() = delegate.getValue(...)
+</code></pre><p><strong>按照约定，<code>Delegate</code> 类必须具有 <code>getValue</code> 和 <code>setValue</code> 方法（后者仅适用于可变属性）。它们可以是成员函数，也可以是扩展函数。</strong></p>
+<p>类似下面代码：</p>
+<pre><code>class Delegate{
+    operator fun getValue(...) {...}  //实现getter逻辑
+    operator fun setValue(..., value: Type) {...} //实现setter逻辑
+}
+</code></pre><p><code>var p: Type by Delegate()</code> 的 <code>by</code> 关键字把属性关联上委托对象，之后调用属性 <code>p</code> ，都会委托给 <code>delegate</code> 对象进行处理。</p>
+<h3 id="使用委托属性：惰性初始化和-by-lazy"><a href="#使用委托属性：惰性初始化和-by-lazy" class="headerlink" title="使用委托属性：惰性初始化和 by lazy()"></a>使用委托属性：惰性初始化和 by lazy()</h3><p>惰性初始化是一种常见的模式，直到第一次访问该属性的时候，才根据需要创建对象的一部分。当初始化过程消耗大量资源并且在使用对象进并不总是需要数据时，这个非常有用。</p>
+<p>举个例子，一个 <code>Person</code> 类，可以用来访问一个人写的邮件列表。邮件存储在数据库中，访问比较耗时。你希望只有在首次访问时才加载邮件，并只执行一次。假设你已经有函数 <code>loadEmails</code> ，用来从数据库中检索电子邮件：</p>
+<pre><code>class Email{/*...*/}
+
+fun loadEmail(person: Man):List&lt;Email&gt; {
+    println(&quot;Load emails for ${person.name}&quot;)
+    return listOf(/*...*/)
+}
+</code></pre><p>下面展示如何使用额外的 <code>_emails</code> 属性来实现惰性加载，在没有加载之前为 <code>null</code> ，然后加载为邮件列表：</p>
+<pre><code>class Man(val name: String) {
+    private var _emails: List&lt;Email&gt;? = null
+    val emails: List&lt;Email&gt;
+        get() {
+            if (_emails == null) {
+                _emails = loadEmail(this)
+            }
+            return _emails!!    // 非空断言
+        }
+}
+
+fun testMan() {
+    val m = Man(&quot;fanda&quot;)
+    m.emails    // 第一次访问会打印 Load emails for fanda
+    m.emails    // 这里不再打印，因为属性已经有值
+}
+</code></pre><p>这里使用了所谓的支持属性技术。你有一个属性 <code>_emails</code> 来存储这个值，而另一个 <code>emails</code> ，用来提供对属性的读取访问。你需要使用两个属性，因为属性具有不同类型： <code>_emails</code> 可空，而 <code>emails</code> 为非空。这种技术经常会使用到，值得熟练掌握。</p>
+<p><strong>缺点： 如果有多个属性都需要惰性初始化，代码量会非常多，有些啰嗦。其次，这个实现不是线程安全的。</strong></p>
+<p>那么，我们用委托属性的方式来重写一下，这里用到了 <code>lazy</code> 函数：</p>
+<pre><code>class Man(val name: String) {
+    val emails by lazy { loadEmail(this) }
+}
+</code></pre><p>代码变得非常简洁，<code>lazy</code> 函数会返回一个对象，该对象具有名为 <code>getValue</code> 且签名正确的方法，因此可以把它与 <code>by</code> 关键字一起使用来创建一个委托属性。 <code>lazy</code> 的参数是一个 <code>lambda</code> ，可以调用它来初始化值。默认情况下， <code>lazy</code> 函数是线程安全的，如果需要，可以设置其他选项来告诉它要使用哪个锁，或者完全避免开同步，如果该类永远不会在多线程中使用。</p>
+<h3 id="实现委托属性"><a href="#实现委托属性" class="headerlink" title="实现委托属性"></a>实现委托属性</h3><p>要了解委托属性的实现方式，让我们来看另一个例子：当一个对象的属性更改时通知监听器。这在许多不同的情况下都很有用：例如，当对象显示在 <code>UI</code> 时，你希望在对象变化时 <code>UI</code> 能自动刷新。<code>Java</code> 具有用于此类通知的标准机制：<code>PropertyChangeSupport</code> 和 <code>PropertyChangeEvent</code> 类。让我们看看在 <code>Kotlin</code> 中不使用委托属性的情况下，该如何使用它们，然后我们再将代码重构为用委托属性的方式。</p>
+<p><code>PropertyChangeSupport</code> 类维护了一个监听器列表，并向它们发送 <code>PropertyChangeEvent</code> 事件。要使用它，你通常需要把这个类的一个实例存储为 <code>bean</code> 类的一个字段，并将属性更改的处理委托给它。<br>为了避免要在每个类中添加这个字段，你需要创建一个小的工具类，用来存储 <code>PropertyChangeSupport</code> 的实例并监听属性更改。之后，你的类会继承这个工具类，以访问 <code>changeSupport</code> 。</p>
+<pre><code>open class PropertyChangeAware{
+    protected val changeSupport = PropertyChangeSupport(this)
+
+    fun addPropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.addPropertyChangeListener(listener)
+    }
+
+    fun removePropertyChangeListener(listener: PropertyChangeListener) {
+        changeSupport.removePropertyChangeListener(listener)
+    }
+}
+</code></pre><p>现在来写一个老师类，定义一个只读属性(姓名，一般不需要更改)和两个可写属性：年龄和工资。当这个人的年龄或工资发生变化时，这个类将通知它的监听器。</p>
+<pre><code>class Teacher(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
+    var age: Int = age
+        set(value) {
+            val oldValue = field
+            field = value
+            // 属性变化时通知监听器
+            changeSupport.firePropertyChange(&quot;age&quot;, oldValue, value)
+        }
+
+    var salary: Int = salary
+        set(value) {
+            val oldValue = field
+            field = value
+            // 属性变化时通知监听器
+            changeSupport.firePropertyChange(&quot;salary&quot;, oldValue, value)
+        }
+}
+
+fun testPropertyChange() {
+    val t = Teacher(&quot;fanda&quot;, 25, 2000)
+    // SAM 构造
+    t.addPropertyChangeListener(PropertyChangeListener { event -&gt;
+        println(&quot;Property ${event.propertyName} changed from ${event.oldValue} to ${event.newValue}&quot;)
+    })
+
+    t.age = 26
+    t.salary = 10000
+}
+
+// 输出
+Property age changed from 25 to 26
+Property salary changed from 2000 to 10000
+</code></pre><p><code>setter</code> 中有很多重复的代码，我们来提取一个委托类，用来存储这个属性的值并发起通知。</p>
+<pre><code>class ObservableProperty(val propName: String, var propValue: Int, val changeSupport: PropertyChangeSupport) {
+    fun getValue() = propValue
+    fun setValue(value: Int) {
+        val oldValue = propValue
+        propValue = value
+        changeSupport.firePropertyChange(propName, oldValue, value)
+    }
+}
+
+class Teacher(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
+    // 委托对象
+    var _age = ObservableProperty(&quot;age&quot;, age, changeSupport)
+    var age: Int
+        set(value) = _age.setValue(value)
+        get() = _age.getValue()
+
+    // 委托对象
+    var _salary = ObservableProperty(&quot;salary&quot;, salary, changeSupport)
+    var salary: Int
+        set(value) = _salary.setValue(value)
+        get() = _salary.getValue()
+}
+</code></pre><p>我们创建了一个保存属性值的委托类，并在修改属性时自动触发更改通知。但是有相当多的样板代码，所以我们使用 <code>kotlin</code> 的委托属性功能来优化上述代码，但在此之前，需要更改 <code>ObservableProperty</code> 方法的签名，来匹配 <code>kotlin</code> 约定所需的方法。</p>
+<pre><code>class ObservableProperty(var propValue: Int, val changeSupport: PropertyChangeSupport) {
+    // operator 标记
+    operator fun getValue(t: Teacher, prop: KProperty&lt;*&gt;) = propValue
+
+    // operator 标记
+    operator fun setValue(t: Teacher, prop: KProperty&lt;*&gt;, value: Int) {
+        val oldValue = propValue
+        propValue = value
+        changeSupport.firePropertyChange(prop.name, oldValue, value)
+    }
+}
+</code></pre><p>与之前的版本相比，这次代码做了一些更改：</p>
+<ul>
+<li>按照约定的需要，给 <code>getValue</code> 和 <code>setValue</code> 方法标记了 <code>operator</code> 。</li>
+<li>方法增加了两个参数，一个用于接收属性的实例，用来设置或读取属性，另一个用于表示属性本身。这个属性类型为 <code>KProperty</code>（之后章节会详细介绍它），现在你只需要知道可以通过 <code>KProperty.name</code> 的方式来访问该属性的名称。</li>
+<li>把 <code>name</code> 属性从主构造方法中删除了，因为现在已经可以通过 <code>KProperty</code> 访问属性名称。</li>
+</ul>
+<p>最后，我们用委托属性来给老师类重写一下：</p>
+<pre><code>class Teacher(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
+    var age: Int by ObservableProperty(age, changeSupport)
+    var salary: Int by ObservableProperty(salary, changeSupport)
+}
+</code></pre><p>代码变得比较简洁了。通过关键字 <code>by</code> ，<code>Kotlin</code> 编译器会自动执行之前版本的代码中手动完成的操作。如果把这份代码与之前版本的 <code>Person</code> 类进行比较：使用委托属性时生成的代码非常类似，右边的对象被称为委托。<code>Kotlin</code> 会自动将委托存储在隐藏的属性中，并在访问或修改属性时调用委托的 <code>getValue</code> 和 <code>setValue</code> 。</p>
+<p>你不用手动去实现可观察的属性逻辑，可以使用 <code>Kotlin</code> 标准库，它已经包含了类似 <code>ObserverProperty</code> 的类。标准库和这里使用的 <code>PropertyChangeSupport</code> 类没有耦合，因此，你需要传递一个 <code>lambda</code> ，来告诉它如何通知属性值得更改，可以这样做：</p>
+<pre><code>class Teacher(val name: String, age: Int, salary: Int) : PropertyChangeAware() {
+
+    // 声明一个 lambda ，告诉如何通知属性值的更改
+    private val observer = { prop: KProperty&lt;*&gt;, oldValue: Int, newValue: Int -&gt;
+        changeSupport.firePropertyChange(prop.name, oldValue, newValue)
+    }
+
+    var age: Int by Delegates.observable(age, observer)
+    var salary: Int by Delegates.observable(salary, observer)
+}
+</code></pre><p><strong> <code>by</code> 右边的表达式不一定是新创建的实例，也可以是函数调用，另一个属性或任何其他表达式，只要这个表达式的值，是能够被编译器用正确的参数类型来调用 <code>getValue</code> 和 <code>setValue</code> 的对象。与其他约定一样，<code>getValue</code> 和 <code>setValue</code> 可以是对象自己声明的方法或扩展函数。</strong></p>
+<p><strong>注意，为了让示例保持简单，我们只展示了如何使用类型为 <code>Int</code> 的委托属性，委托属性机制其实是通用的，适用于任何其他类型。</strong></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><code>kotlin</code> 允许使用对应名称来重载一些标准的数学运算，但是不能定义自己的运算符。</li>
+<li>比较运算符映射为 <code>equals</code> 和 <code>compareTo</code> 方法的调用。</li>
+<li>通过自定义名为 <code>get</code> 、 <code>set</code> 和 <code>contains</code> 的函数，就可以让你自己的类与 <code>kotlin</code> 的集合一样，使用 <code>[]</code> 和 <code>in</code> 运算符。</li>
+<li>可以通过约定来创建区间，以及迭代集合和数组。</li>
+<li>解构声明可以展开单个对象用来初始化多个变量，这可以方便地用来从函数返回多个值。编译器会自动处理数据类，可以通过给自己的类定义名为 <code>componentN</code> 的函数来支持。</li>
+<li>委托属性可以用来重用逻辑，这些逻辑控制如何存储、 初始化、 访问和修改属性值，这是用来构建框架的一个强大的工具。</li>
+<li><code>lazy</code> 函数 提供了一种实现惰性初始化属性的简单方法。</li>
+<li><code>Delegates.observable</code> 函数可以用来添加属性更改的观察者。</li>
+<li>委托属性可以使用任意 <code>map</code> 来作为属性委托，来灵活处理具有可变属性集的对象。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"><i class="fa fa-tag"></i> kotlin</a>
+          
+            <a href="/tags/运算符重载/" rel="tag"><i class="fa fa-tag"></i> 运算符重载</a>
+          
+            <a href="/tags/约定/" rel="tag"><i class="fa fa-tag"></i> 约定</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/10/31/kotlin/KotlinDataType/" rel="next" title="Kotlin 的类型">
+                <i class="fa fa-chevron-left"></i> Kotlin 的类型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">26</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#重载算术运算符"><span class="nav-number">1.</span> <span class="nav-text">重载算术运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重载二元算术运算"><span class="nav-number">1.1.</span> <span class="nav-text">重载二元算术运算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载复合赋值运算符"><span class="nav-number">1.2.</span> <span class="nav-text">重载复合赋值运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#重载一元运算符"><span class="nav-number">1.3.</span> <span class="nav-text">重载一元运算符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重载比较运算符"><span class="nav-number">2.</span> <span class="nav-text">重载比较运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#等号运算符：equals"><span class="nav-number">2.1.</span> <span class="nav-text">等号运算符：equals</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#排序运算符：compareTo"><span class="nav-number">2.2.</span> <span class="nav-text">排序运算符：compareTo</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#集合与区间的约定"><span class="nav-number">3.</span> <span class="nav-text">集合与区间的约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#通过下标来访问元素：-get-和-set"><span class="nav-number">3.1.</span> <span class="nav-text">通过下标来访问元素： get 和 set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#in-的约定"><span class="nav-number">3.2.</span> <span class="nav-text">in 的约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rangeTo的约定"><span class="nav-number">3.3.</span> <span class="nav-text">rangeTo的约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#在-for-循环中使用-iterator-的约定"><span class="nav-number">3.4.</span> <span class="nav-text">在 for 循环中使用 iterator 的约定</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解构声明和组件函数"><span class="nav-number">4.</span> <span class="nav-text">解构声明和组件函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解构声明和循环"><span class="nav-number">4.1.</span> <span class="nav-text">解构声明和循环</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重用属性访问的逻辑：委托属性"><span class="nav-number">5.</span> <span class="nav-text">重用属性访问的逻辑：委托属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#委托属性的基本操作"><span class="nav-number">5.1.</span> <span class="nav-text">委托属性的基本操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用委托属性：惰性初始化和-by-lazy"><span class="nav-number">5.2.</span> <span class="nav-text">使用委托属性：惰性初始化和 by lazy()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实现委托属性"><span class="nav-number">5.3.</span> <span class="nav-text">实现委托属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
