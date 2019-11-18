@@ -1,0 +1,1104 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kotlin,注解,反射," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="声明并应用注解一个注解允许你把额外的元数据关联到一个声明上，然后元数据就可以被相关的源代码工具访问，通过编译好的类文件或是在运行时，这取决于这个注解是如何配置的。 应用注解在 kotlin 中使用注解的方法和 Java 一样，要应用一个注解，以 @ 字符作为(注解)名字的前缀，并放在要注解的声明最前面或上面。例如，可以用 @Test 标记一个测试方法： @Test fun addition_isC">
+<meta name="keywords" content="kotlin,注解,反射">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Kotlin 的注解与反射">
+<meta property="og:url" content="http://yoursite.com/2019/11/12/kotlin/KotlinReflect/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="声明并应用注解一个注解允许你把额外的元数据关联到一个声明上，然后元数据就可以被相关的源代码工具访问，通过编译好的类文件或是在运行时，这取决于这个注解是如何配置的。 应用注解在 kotlin 中使用注解的方法和 Java 一样，要应用一个注解，以 @ 字符作为(注解)名字的前缀，并放在要注解的声明最前面或上面。例如，可以用 @Test 标记一个测试方法： @Test fun addition_isC">
+<meta property="og:updated_time" content="2019-11-18T06:40:42.686Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Kotlin 的注解与反射">
+<meta name="twitter:description" content="声明并应用注解一个注解允许你把额外的元数据关联到一个声明上，然后元数据就可以被相关的源代码工具访问，通过编译好的类文件或是在运行时，这取决于这个注解是如何配置的。 应用注解在 kotlin 中使用注解的方法和 Java 一样，要应用一个注解，以 @ 字符作为(注解)名字的前缀，并放在要注解的声明最前面或上面。例如，可以用 @Test 标记一个测试方法： @Test fun addition_isC">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/12/kotlin/KotlinReflect/"/>
+
+
+
+
+
+     <title> Kotlin 的注解与反射 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/12/kotlin/KotlinReflect/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Kotlin 的注解与反射</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-12T14:14:30+08:00">
+                2019-11-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">kotlin</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/注解/" itemprop="url" rel="index">
+                    <span itemprop="name">注解</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kotlin/注解/反射/" itemprop="url" rel="index">
+                    <span itemprop="name">反射</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/11/12/kotlin/KotlinReflect/" class="leancloud_visitors" data-flag-title="Kotlin 的注解与反射">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="声明并应用注解"><a href="#声明并应用注解" class="headerlink" title="声明并应用注解"></a>声明并应用注解</h2><p>一个注解允许你把额外的元数据关联到一个声明上，然后元数据就可以被相关的源代码工具访问，通过编译好的类文件或是在运行时，这取决于这个注解是如何配置的。</p>
+<h3 id="应用注解"><a href="#应用注解" class="headerlink" title="应用注解"></a>应用注解</h3><p>在 <code>kotlin</code> 中使用注解的方法和 <code>Java</code> 一样，要应用一个注解，以 <code>@</code> 字符作为(注解)名字的前缀，并放在要注解的声明最前面或上面。例如，可以用 <code>@Test</code> 标记一个测试方法：</p>
+<pre><code>@Test
+fun addition_isCorrect() {
+    assertEquals(4, 2 + 2)
+}
+
+@Test fun testTrue() {
+    Assert.assertTrue(true)
+}
+</code></pre><p>我们再看一下 <code>@Deprecated</code> 注解，它在 <code>kotlin</code> 中的含义和 <code>Java</code> 一样，但是 <code>kotlin</code> 用 <code>replaceWith</code> 参数增强了它，让你可以提供一个替代者的匹配模式，以支持平滑地过渡到 API 的新版本。例如：</p>
+<pre><code>@Deprecated(&quot;Use removeAt(index) instead.&quot;, ReplaceWith(&quot;removeAt(index)&quot;))
+fun remove(index: Int) {/*..*/}
+</code></pre><p>如果 <code>remove</code> 方法被调用了，IDE 会提示应该使用哪个函数来代替它，还会提供一个自动的快速修正。</p>
+<p>注解只能拥有如下类型的参数： 基本数据类型、 字符串、 枚举、 类引用、 其他的注解类，以及前面这些类型的数组。指定注解实参的语法与 <code>Java</code> 有些微小的区别。</p>
+<ul>
+<li>要把一个类指定为注解实参，在类名后加上 <code>::class</code> ，例如： <code>@MyAnnotation(MyClass::class)</code> 。</li>
+<li>要把另一个注解指定为一个实参，去掉注解名称前面的 <code>@</code> ，例如： 前面例子中的 <code>ReplaceWith</code> 是一个注解，但是你把它指定为 <code>Deprecated</code> 注解的实参时没有用 <code>@</code> 。</li>
+<li>要把一个数组指定为一个实参，使用 <code>arrayOf</code> 函数，例如: <code>@MyAnnotation(path = arrayOf(&quot;/a&quot;,&quot;/b&quot;))</code> 。</li>
+</ul>
+<p>如果注解类是在 <code>Java</code> 中声明的，命名为 <code>value</code> 的形参按需自动地被转换成可变长度的形参，所以不用 <code>arrayOf</code> 函数就可以提供多个实参。</p>
+<p>注意： 要把属性当作注解实参使用，需要用 <code>const</code> 修饰符标记它，来告知编译器这个属性是编译期常量，因为注解实参需要在编译期就是已知的。</p>
+<pre><code>// 要声明成常量才被用注解引用
+const val TEST_TIMEOUT = 100L
+
+@Test(timeout = TEST_TIMEOUT)
+fun testMethod() {
+}
+</code></pre><h3 id="注解目标"><a href="#注解目标" class="headerlink" title="注解目标"></a>注解目标</h3><p>许多情况下，<code>kotlin</code> 源代码中的单个声明会对应成多个 <code>Java</code> 声明，而且它们都可以被添加注解。例如，一个 <code>kotlin</code> 属性就对应了一个 <code>Java</code> 字段，一个 <code>getter</code> 以及一个潜在的 <code>setter</code> 方法。因为是编译器自动帮我们生成的，那么我们应该怎样给这些方法添加注解呢？答案是：使用点目标声明被用来说明要注解的元素。使用点目标被放在 <code>@</code> 符号和注解名称之间，并用冒号和注解名称分隔。例如：</p>
+<pre><code>// @Rule 注解被应用到了某个属性的 getter 方法上
+@get:Rule 
+</code></pre><p>下面我们来看一下使用这个注解的例子。 在 <code>JUnit</code> 中可以指定一个每个测试方法被执行之前都会执行的规则，要指定一个规则，在 <code>Java</code> 中需要声明一个用 <code>@Rule</code> 注解的 <code>public</code> 字段或者方法。但是如果你在 <code>Kotlin</code> 中只是用 <code>@Rule</code> 注解一个属性，运行时就会报错，因为注解的是属性(私有的)：</p>
+<pre><code>@Rule
+val folder = TemporaryFolder()
+
+fun testMethod() {
+    val createFile = folder.newFile(&quot;myfile.txt&quot;)
+}
+
+// 编译后的代码，注解的是属性
+@Rule
+private final TemporaryFolder folder = new TemporaryFolder();
+
+// 抛出异常
+org.junit.internal.runners.rules.ValidationError: The @Rule &apos;folder&apos; must be public.
+</code></pre><p>因此，我们应该显式地写出来，让 <code>@Rule</code> 注解作用到 <code>Public</code> 的 <code>getter</code> 方法中。</p>
+<pre><code>@get:Rule    
+val folder = TemporaryFolder()
+
+//编译后的代码，注解的是 getter 而不是属性
+@Rule
+public final TemporaryFolder getFolder() {
+   return this.folder;
+}
+</code></pre><p>如果你使用 <code>Java</code> 中声明的注解来注解一个属性，它会被默认地应用到相应的字段上。<code>kotlin</code> 支持的使用点目标的完整列表如下：</p>
+<ul>
+<li>property —— <code>Java</code> 的注解不能应用这种使用点目标。</li>
+<li>field —— 为属性生成的字段。</li>
+<li>get —— 属性的 <code>getter</code>。</li>
+<li>set —— 属性的 <code>setter</code>。</li>
+<li>receiver —— 扩展函数或者扩展属性的接收者参数。</li>
+<li>param —— 构造方法的参数。</li>
+<li>setParam —— 属性 <code>setter</code> 的参数。</li>
+<li>delegate —— 为委托属性存储委托实例的字段。</li>
+<li>file —— 包含在文件中声明的顶层函数和属性的类。</li>
+</ul>
+<p>我们之前就用到<code>@file:JvmName(&quot;FunctionUtil&quot;)</code> 来改变了对应类的名称，用到 <code>file</code> 目标的注解必须放在文件的顶层，放在包声明之前。</p>
+<p><strong>注意： 和 <code>Java</code> 不一样的是，<code>kotlin</code> 允许你对任意的表达式应用注解，而不仅仅是类和函数的声明及类型。</strong></p>
+<p>下面是一个注解局部变量的例子，抑制了未受检转换的警告：</p>
+<pre><code>fun test(list: List&lt;*&gt;) {
+    @Suppress(&quot;UNCHECKED_CAST&quot;)
+    val strings = list as List&lt;String&gt;
+}
+</code></pre><h3 id="用注解控制-Java-API"><a href="#用注解控制-Java-API" class="headerlink" title="用注解控制 Java API"></a>用注解控制 Java API</h3><p><code>kotlin</code> 提供了各种注解来控制 <code>kotlin</code> 编写的声明如何编译成字节码并暴露给 <code>Java</code> 调用者。其中一些注解代替了 <code>Java</code> 中对应的关键字：比如，注解 <code>@Volatile</code> 和 <code>@Strictfp</code> 直接充当了 <code>Java</code> 的关键字 <code>volatile</code> 和 <code>strictfp</code> 的替身。其他的注解则是被用来改变 <code>kotlin</code> 声明对 <code>Java</code> 调用者的可见性：</p>
+<ul>
+<li>@JvmName 将改变由 <code>kotlin</code> 生成的 <code>Java</code> 方法或字段的名称。</li>
+<li>@JvmStatic 能被用在对象声明或者伴生对象的方法上，把它们暴露成 <code>Java</code> 静态方法。</li>
+<li>@JvmOverloads 指导 <code>kotlin</code> 编译器为带默认参数值的函数生成多个重载方法。</li>
+<li>@JvmField 可以应用于一个属性，把这个属性暴露成一个没有访问器的公有 <code>Java</code> 字段。</li>
+</ul>
+<p>其实以上这些用来改变 <code>kotlin</code> 声明对 <code>Java</code> 调用者的可见性的注解我们都在之前的讲解中使用过了。</p>
+<h2 id="反射：在运行时对-kotlin-对象进行自省"><a href="#反射：在运行时对-kotlin-对象进行自省" class="headerlink" title="反射：在运行时对 kotlin 对象进行自省"></a>反射：在运行时对 kotlin 对象进行自省</h2><p>反射：一种在运行时动态访问对象属性和方法的方式，而不需要事先确定这些属性是什么。</p>
+<p>一般来说，当你访问一个对象的方法或者属性时，程序的源代码会引用一个具体的声明，编译器将静态地解析这个引用来确保这个声明是存在的。但有些时候，你需要编写能够使用任意类型的对象的代码，或者只能在运行时才能确定要访问的方法和属性的名称。<code>JSON</code> 序列化库就是这样的，它要能够把任何对象都序列化成 <code>JSON</code>，所以它不能引用具体的类和属性，反射就是用到这种场景的。</p>
+<p>当在 <code>kotlin</code> 中使用反射时，你会和两种不同的反射 <code>API</code> 打交道，分别是 <code>Java</code> 的 和 <code>kotlin</code> 的，因为 <code>kotlin</code> 类会被编译成普通的 <code>Java</code> 字节码，所以完全可以用 <code>Java</code> 的反射 <code>API</code> 对 <code>kotlin</code> 类做处理。但是<code>kotlin API</code> 提供了很多扩展功能，使用起来更加方便。</p>
+<p><strong>注意： 在一些特别在意运行时库的大小的平台上，例如 <code>Android</code> ，为了降低大小，<code>kotlin</code> 反射 <code>API</code> 被打包成了单独的 <code>.jar</code> 文件。需要使用的时候，需要手动进行库的依赖。</strong></p>
+<h3 id="kotlin-反射-API"><a href="#kotlin-反射-API" class="headerlink" title="kotlin 反射 API"></a>kotlin 反射 API</h3><p><code>kotlin</code> 反射 <code>API</code> 的主要入口就是 <code>KClass</code> 类，它代表一个类。<code>KClass</code> 对应的是  <code>java.lang.class</code> ，可以用它列举和访问类中包含的所有声明，包括超类中的声明。<code>MyClass:class</code> 的写法会带给你一个 <code>KClass</code> 的实例。要在运行时取得一个对象的类，首先使用 <code>javaClass</code> 属性获取它的 <code>Java</code> 类，这等价于 <code>Java</code> 中的 <code>java.lang.Object.getClass()</code> 。然后访问该类的 <code>.kotlin</code> 扩展属性，从 <code>Java</code> 切换到 <code>kotlin</code> 的反射 <code>API</code>：</p>
+<pre><code>fun testKotlinClass() {
+    val person = Person(&quot;fanda&quot;, 18)
+    val kClass= person.javaClass.kotlin
+    println(kClass.simpleName)
+    kClass.members.forEach { println(it) }
+    println()
+    kClass.memberProperties.forEach { println(it) }
+    println()
+    kClass.memberFunctions.forEach { println(it) }
+}
+</code></pre><p>由类的所有成员组成的列表是一个 <code>KCallable</code> 实例的集合，<code>KCallable</code> 是函数和属性的超类接口，它声明了 <code>call</code> 方法，允许你调用对应的函数或者对应属性的 <code>getter</code> 。</p>
+<pre><code>interface KCallable&lt;out R&gt; : KAnnotatedElement {
+    fun call(vararg args: Any?): R
+}
+</code></pre><p>你把被引用函数的实参放在 <code>varargs</code> 列表中提供给它，下面的代码展示了如何通过反射使用 <code>call</code> 来调用一个函数：</p>
+<pre><code>fun foo(x:Int) = println(x)
+
+val kFunction  = ::foo
+
+//    kFunction.call(44)
+kFunction.call()    //Callable expects 1 arguments, but 0 were provided.
+</code></pre><p>由于 <code>call</code> 方法是传入可变参数的，如果参数个数有误，就会报异常，在这种情况下，可以用一个更具体的方法来调用这个函数。 <code>::foo</code> 表达式的类型是 <code>Function1&lt;Int,Unit&gt;</code> ，它包含了形参类型和返回类型的信息。 1 表示这个函数接收一个形参，你可以通过 <code>invoke</code> 方法来调用函数，这个方法的参数类型和个数是确定的。</p>
+<pre><code>fun testFunctionN() {
+    fun sum(x: Int, y: Int) = x + y
+
+//    val function2 = ::sum
+    // 显式声明类型
+    val function2: Function2&lt;Int, Int, Int&gt; = ::sum
+    println(function2.invoke(1, 2) + function2(3, 4))
+}
+</code></pre><p>可以通过 <code>FunctionN</code> 的 <code>invoke</code> 方法来调用函数，也可以直接调用。 <code>call</code> 方法是对所有类型都有效的通过手段，但是它不提供类型安全性。如果你明确形参类型和返回类型，那么应该优化使用这个具体类型的 invoke 方法。</p>
+<p>你也可以在一个 <code>kProperty</code> 实例上调用 <code>call</code> 方法，它会调用该属性的 <code>getter</code> 方法，也可以调用 <code>kProperty</code> 的 <code>setter</code> 对象的 <code>call</code> 方法来设置属性的值。更好的方法是直接调用 <code>set</code> 和 <code>get</code> 方法。</p>
+<pre><code>// 顶层属性
+var counter =0
+
+fun testKProperty() {
+    val kProperty = ::counter
+      // 调用 call 方法
+//    kProperty.setter.call(42)
+//    println(kProperty.call())
+
+    // 调用 set 和 get 方法
+    kProperty.set(33)
+    println(kProperty.get())
+
+}
+</code></pre><p>注意：顶层属性表示为 <code>kProperty0</code> 接口的实例，它有一个无参数的 <code>get</code> 方法，一个成员属性由 <code>kProperty1</code> 的实例表示，它拥有一个单参数的 <code>get</code> 方法。要访问该属性的值，必须提供你需要的值所属的那个对象的实例。</p>
+<pre><code>val person = Person(&quot;fanda&quot;, 18)
+
+//    val memberProperty = Person::age
+// 显式声明
+val memberProperty:KProperty1&lt;Person,Int&gt; = Person::age
+
+println(memberProperty.call(person))
+println(memberProperty.get(person))
+</code></pre><p>注意：反射只能访问定义在最外层或者类中的属性，而不能访问函数的局部变量。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><code>kotlin</code> 中应用注解的语法和 <code>Java</code> 几乎一模一样。</li>
+<li>在 <code>kotlin</code> 中可以让你应用注解的目标的范围比 <code>Java</code> 更广，其中包括了文件和表达式。</li>
+<li>一个注解的参数可以是一个基本数据类型、 一个字符串、 一个枚举、 一个类引用、 一个其他注解类的实例，或者前面这些元素组成的数组。</li>
+<li>如果单个 <code>kotlin</code> 声明产生了多个字节码元素，像 <code>@get:Rule</code> 这样指定一个注解的使用点目标，允许你选择注解如何应用。</li>
+<li>注解类是一个拥有主构造方法且没有类主体的类，其构造方法中所有参数都被标记成 <code>val</code> 属性。</li>
+<li><code>KFunction</code> 和 <code>KProperty</code> 接口都继承了 <code>KCallable</code> ，它提供了一个通用的 <code>call</code> 方法。</li>
+<li><code>KCallable.callBy</code> 方法能用来调用带默认参数值的方法。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"><i class="fa fa-tag"></i> kotlin</a>
+          
+            <a href="/tags/注解/" rel="tag"><i class="fa fa-tag"></i> 注解</a>
+          
+            <a href="/tags/反射/" rel="tag"><i class="fa fa-tag"></i> 反射</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/08/kotlin/KotlinGeneric/" rel="next" title="Kotlin 的泛型">
+                <i class="fa fa-chevron-left"></i> Kotlin 的泛型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/images/avatar.jpg"
+               alt="Fanda" />
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#声明并应用注解"><span class="nav-number">1.</span> <span class="nav-text">声明并应用注解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用注解"><span class="nav-number">1.1.</span> <span class="nav-text">应用注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注解目标"><span class="nav-number">1.2.</span> <span class="nav-text">注解目标</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用注解控制-Java-API"><span class="nav-number">1.3.</span> <span class="nav-text">用注解控制 Java API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反射：在运行时对-kotlin-对象进行自省"><span class="nav-number">2.</span> <span class="nav-text">反射：在运行时对 kotlin 对象进行自省</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#kotlin-反射-API"><span class="nav-number">2.1.</span> <span class="nav-text">kotlin 反射 API</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style='display:none'>
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style='display:none'>
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
