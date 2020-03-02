@@ -1,0 +1,1311 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #555; /*进度条颜色*/
+        height: 2px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #555, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #555;    /*上边框颜色*/
+        border-left-color: #555;    /*左边框颜色*/
+    }
+</style>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
+
+
+  <meta name="keywords" content="git,">
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
+
+
+
+
+
+
+<meta name="description" content="版本控制系统（VCS）三大要素：版本控制、主动提交、中央仓库。 每个团队成员向中央仓库主动提交自己的改动和同步别人的改动，并在需要的时候查看和操作历史版本，这就是版本控制系统。 中央式版本控制系统（Centralized VCS） 本地没有仓库，只有一份你签出的代码和最基本的版本信息（服务器位置以及一些关于版本号的缓存等)，断网则什么都干不了，如果中央服务器出了问题，所有人都没法干活了。  分布式">
+<meta name="keywords" content="git">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git命令使用总结">
+<meta property="og:url" content="http://yoursite.com/2020/02/25/orthers/Git 命令使用总结/index.html">
+<meta property="og:site_name" content="FandaCode">
+<meta property="og:description" content="版本控制系统（VCS）三大要素：版本控制、主动提交、中央仓库。 每个团队成员向中央仓库主动提交自己的改动和同步别人的改动，并在需要的时候查看和操作历史版本，这就是版本控制系统。 中央式版本控制系统（Centralized VCS） 本地没有仓库，只有一份你签出的代码和最基本的版本信息（服务器位置以及一些关于版本号的缓存等)，断网则什么都干不了，如果中央服务器出了问题，所有人都没法干活了。  分布式">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-03-02T06:52:27.928Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git命令使用总结">
+<meta name="twitter:description" content="版本控制系统（VCS）三大要素：版本控制、主动提交、中央仓库。 每个团队成员向中央仓库主动提交自己的改动和同步别人的改动，并在需要的时候查看和操作历史版本，这就是版本控制系统。 中央式版本控制系统（Centralized VCS） 本地没有仓库，只有一份你签出的代码和最基本的版本信息（服务器位置以及一些关于版本号的缓存等)，断网则什么都干不了，如果中央服务器出了问题，所有人都没法干活了。  分布式">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/25/orthers/Git 命令使用总结/">
+
+
+
+
+
+     <title> Git命令使用总结 | FandaCode </title>
+</head>
+
+
+
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  
+  <div class="bg_content">
+    <div class="filter"></div>
+    <canvas id="canvas"></canvas>
+  </div>
+ <script src="js/src/jquery.min.js"></script>
+  
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">FandaCode</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">IT相关技术</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br>
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+	
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/25/orthers/Git 命令使用总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Fanda">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/uploads/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="FandaCode">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Git命令使用总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-25T16:18:06+08:00">
+                2020-02-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/git/" itemprop="url" rel="index">
+                    <span itemprop="name">git</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2020/02/25/orthers/Git 命令使用总结/" class="leancloud_visitors" data-flag-title="Git命令使用总结">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="版本控制系统（VCS）"><a href="#版本控制系统（VCS）" class="headerlink" title="版本控制系统（VCS）"></a>版本控制系统（VCS）</h2><p>三大要素：版本控制、主动提交、中央仓库。</p>
+<p>每个团队成员向中央仓库主动提交自己的改动和同步别人的改动，并在需要的时候查看和操作历史版本，这就是版本控制系统。</p>
+<h3 id="中央式版本控制系统（Centralized-VCS）"><a href="#中央式版本控制系统（Centralized-VCS）" class="headerlink" title="中央式版本控制系统（Centralized VCS）"></a>中央式版本控制系统（Centralized VCS）</h3><ol>
+<li>本地没有仓库，只有一份你签出的代码和最基本的版本信息（服务器位置以及一些关于版本号的缓存等)，断网则什么都干不了，如果中央服务器出了问题，所有人都没法干活了。</li>
+</ol>
+<h3 id="分布式版本控制系统（Distributed-VCS）"><a href="#分布式版本控制系统（Distributed-VCS）" class="headerlink" title="分布式版本控制系统（Distributed VCS）"></a>分布式版本控制系统（Distributed VCS）</h3><ol>
+<li><p>每个团队成员都有带版本管理的本地仓库，有所有人提交的版本记录，可以离线对仓库做一些操作，有网络时再推送到远程仓库即可。它的中央仓库虽然也保存了历史版本，但这份历史版本更多的是作为团队间的同步中转站。</p>
+</li>
+<li><p>大多数的操作可以在本地进行，所以速度更快，而且由于无需联网，所以即使不在公司甚至没有在联网，你也可以提交代码、查看历史，从而极大地减小了开发者的网络条件和物理位置的限制。</p>
+</li>
+<li><p>由于可以提交到本地，所以你可以分步提交代码，把代码提交做得更细，而不是一个提交包含很多代码，难以 review 也难以回溯。因为每个人电脑里都有完整的版本库，某个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。</p>
+</li>
+</ol>
+<h2 id="Git-的一些概念"><a href="#Git-的一些概念" class="headerlink" title="Git 的一些概念"></a>Git 的一些概念</h2><h3 id="本地仓库-Local-Repository"><a href="#本地仓库-Local-Repository" class="headerlink" title="本地仓库 (Local Repository)"></a>本地仓库 (Local Repository)</h3><p>工作区有一个隐藏目录 <code>.git</code> ，这个不算工作区，而是 <code>Git</code> 的版本库。也叫仓库(repository)，你可以简单理解成一个目录，这个目录里面的所有文件都可以被 <code>Git</code> 管理起来，每个文件的修改和删除都能被跟踪，以便任何时刻都可以追踪历史。</p>
+<h3 id="工作区（Working-Directory）"><a href="#工作区（Working-Directory）" class="headerlink" title="工作区（Working Directory）"></a>工作区（Working Directory）</h3><p>就是你在电脑里能看到的目录，它保存了你当前从仓库中签出（checkout）的内容。</p>
+<h3 id="暂存区（Stage-Area）"><a href="#暂存区（Stage-Area）" class="headerlink" title="暂存区（Stage Area）"></a>暂存区（Stage Area）</h3><p>一个汇集所有待提交的文件改动的地方。是 <code>.git</code> 目录下一个叫做 <code>index</code> 的文件，你通过 <code>add</code> 指令暂存的内容都会被写进这个文件里。</p>
+<h3 id="偏移符号"><a href="#偏移符号" class="headerlink" title="偏移符号"></a>偏移符号</h3><p><code>^</code> ：在 <code>commit</code> 的后面加一个或多个 <code>^</code> 号，可以把 <code>commit</code> 往回偏移，偏移的数量是 <code>^</code> 的数量。例如：<code>master^</code> 表示 <code>master</code> 指向的 <code>commit</code> 之前的那个 <code>commit</code>。<code>HEAD^^</code> 表示 <code>HEAD</code> 所指向的 <code>commit</code> 往前数两个 <code>commit</code> 。</p>
+<p><code>~</code> ：在 <code>commit</code> 的后面加上 <code>~</code> 号和一个数，可以把 <code>commit</code> 往回偏移，偏移的数量是 <code>~</code> 号后面的数。例如：<code>HEAD~5</code> 表示 <code>HEAD</code> 指向的 <code>commit</code> 往前数 <code>5</code> 个 <code>commit</code> 。</p>
+<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><ol>
+<li><p>当前 <code>commit</code> 在哪里，<code>HEAD</code> 就在哪里，这是一个永远自动指向当前 <code>commit</code> 的引用，所以你永远可以用 <code>HEAD</code> 来操作当前 <code>commit</code>。</p>
+</li>
+<li><p>使用 <code>checkout</code> 、 <code>reset</code> 等指令手动改变当前 <code>commit</code> 的时候，<code>HEAD</code> 也会一起跟过去。每次当有新的 <code>commit</code> 的时候，工作目录会自动与最新的 <code>commit</code> 对应，<code>HEAD</code> 也会转而指向最新的 <code>commit</code> 。</p>
+</li>
+<li><p><code>HEAD</code> 是 <code>Git</code> 中一个独特的引用，它是唯一的。<code>HEAD</code> 除了可以指向 <code>commit</code>，还可以指向一个 <code>branch</code>，当它指向某个 <code>branch</code> 的时候，会通过这个 <code>branch</code> 来间接地指向某个 <code>commit</code>。另外，当 <code>HEAD</code> 在提交时自动向前移动的时候，它会像一个拖钩一样带着它所指向的 <code>branch</code> 一起移动。</p>
+</li>
+</ol>
+<h3 id="branch"><a href="#branch" class="headerlink" title="branch"></a>branch</h3><ol>
+<li><p>是一种引用，其中 <code>master</code> 是 <code>Git</code> 的默认 <code>branch</code>（俗称主 <code>branch</code> / 主分支）。新创建的仓库是没有任何 <code>commit</code> 的，但在它创建第一个 <code>commit</code> 时，会把 <code>master</code> 指向它，并把 <code>HEAD</code> 指向 <code>master</code>。</p>
+</li>
+<li><p>当使用 <code>git clone</code> 时，除了从远程仓库把 <code>.git</code> 这个仓库目录下载到工作目录中，还会 <code>checkout</code> （签出） <code>master</code>（<code>checkout</code> 的意思就是把某个 <code>commit</code> 作为当前 <code>commit</code>，把 <code>HEAD</code> 移动过去，并把工作目录的文件内容替换成这个 <code>commit</code> 所对应的内容）。所以刚 <code>clone</code> 的代码默认是处于 <code>master</code> 分支的最新提交位置内容。</p>
+</li>
+<li><p><code>branch</code> 包含了从初始 <code>commit</code> 到它的所有路径，而不是一条路径。并且，这些路径之间是彼此平等的。</p>
+</li>
+</ol>
+<p>注意：</p>
+<p>由于 <code>Git</code> 中的 <code>branch</code> 只是一个引用，所以删除 <code>branch</code> 的操作也只会删掉这个引用，并不会删除任何的 <code>commit</code> 。（不过如果一个 <code>commit</code> 不在任何一个 <code>branch</code> 的「路径」上，或者换句话说，如果没有任何一个 <code>branch</code> 可以回溯到这条 <code>commit</code>，那么在一定时间后，它会被 <code>Git</code> 的回收机制删除掉。）</p>
+<p>比如：有分㕚的不同分支，其中的一个分支有提交过，但是从来没被合并，但是分支引用却被删除了，那么这些还没被合并的 <code>commits</code> 将会在一定时间后被回收掉。</p>
+<h2 id="Git-基本命令"><a href="#Git-基本命令" class="headerlink" title="Git 基本命令"></a>Git 基本命令</h2><h3 id="clone"><a href="#clone" class="headerlink" title="clone"></a>clone</h3><ol>
+<li><p>用于将远程仓库取下来，要克隆一个仓库，首先必须知道仓库的地址，然后使用 <code>git clone</code> 指令。 <code>Git</code> 支持多种协议，包括 <code>https</code> ，但通过 <code>ssh</code> 支持的原生 <code>git</code> 协议速度最快。而且，把项目 <code>clone</code> 下来时不用 <code>https</code> 协议，而是用 <code>ssh</code> 协议，就不需要每次操作都要输入用户名和密码了。</p>
+</li>
+<li><p>可以加一个额外参数来手动指定本地仓库的根目录名称。<br>   <code>git-practice-another 为指定目录名称</code><br>  <code>git clone git@github.com:fandazeng/git-practice.git git-practice-another</code></p>
+</li>
+</ol>
+<h3 id="关联本地仓库和远程仓库"><a href="#关联本地仓库和远程仓库" class="headerlink" title="关联本地仓库和远程仓库"></a>关联本地仓库和远程仓库</h3><ol>
+<li><p>要关联一个远程库，使用指令 <code>git remote add origin git@server-name:path/repo-name.git</code> 。</p>
+</li>
+<li><p>然后，使用指令 <code>git push -u origin master</code> 来推送 <code>master</code> 分支的所有内容(第一次推送才需要用到 <code>-u</code> 将本地的 <code>master</code> 分支和远程的 <code>master</code> 分支关联起来)。</p>
+</li>
+<li><p>此后，本地提交后就可以使用指令 <code>git push origin master</code> 推送最新修改。</p>
+</li>
+</ol>
+<h3 id="init"><a href="#init" class="headerlink" title="init"></a>init</h3><p>初始化一个 <code>Git</code> 仓库，使用 <code>git init</code> 。</p>
+<h3 id="add"><a href="#add" class="headerlink" title="add"></a>add</h3><p>将具体的文件改动添加进暂存区(不是文件名)，在 <code>add</code> 之后的新改动并不会自动被添加进暂存区。</p>
+<ul>
+<li><code>git add -A</code>  ：提交所有变化。</li>
+<li><code>git add -u</code>  ：提交被修改和被删除文件，不包括新文件。</li>
+<li><code>git add .</code>  ：提交新文件和被修改文件，不包括被删除文件。</li>
+</ul>
+<h3 id="commit"><a href="#commit" class="headerlink" title="commit"></a>commit</h3><p>将暂存区的内容提交到仓库。 <code>commit</code> 的时候会进入到编辑界面：</p>
+<p> <code>i</code> (插入模式) - <code>esc</code> (变回命令模式) - 大写两次 <code>ZZ</code> 退出并保存 )。</p>
+<ol>
+<li><p>可以通过 <code>-m</code> 直接在后面添加本次提交的说明，这样就不会进入编辑模式了。</p>
+</li>
+<li><p>有时候，提交了之后才发现改错了，又不想增加一个 <code>commit</code> ，可以在提交时加上 <code>--amend</code> 参数，<code>Git</code> 说不会在当前 <code>commit</code> 上增加 <code>commit</code>，而是会把当前 <code>commit</code> 里的内容和暂存区里的内容合并起来后创建一个新的 <code>commit</code>，用这个新的 <code>commit</code> 把当前 <code>commit</code> 替换掉。</p>
+<p> <code>git commit -m &quot;reset last line&quot; --amend</code></p>
+</li>
+<li><p>在<code>android studio</code> 上，可以在提交界面右边的 <code>Amend commit</code> 打勾。</p>
+</li>
+</ol>
+<h3 id="status"><a href="#status" class="headerlink" title="status"></a>status</h3><p>用来查看工作目录当前状态的指令，可以知道哪些文件被 <code>add</code> 过，哪些文件被修改过等等。</p>
+<h3 id="log"><a href="#log" class="headerlink" title="log"></a>log</h3><p>该命令会列出你的提交历史。在 <code>android studio</code> 的命令行使用 <code>git log</code> 会处于特殊状态，可以通过双击大写的 <code>Z</code> 来退出。</p>
+<ul>
+<li><p><code>git log -p</code> ：查看具体 <code>commit</code> 的改动细节。</p>
+</li>
+<li><p><code>git log --stat</code>：查看简要统计，没有 <code>-p</code> 那么深入细节。</p>
+</li>
+<li><p><code>git log --graph</code>：查看分支合并图，再加上 <code>--pretty=oneline --abbrev-commit</code> 参数，可以更简洁。</p>
+</li>
+</ul>
+<h3 id="show"><a href="#show" class="headerlink" title="show"></a>show</h3><ul>
+<li><p><code>git show</code> : 查看当前 <code>commit</code> 的改动内容。</p>
+</li>
+<li><p><code>git show &lt;commitId&gt;</code> : 查看任意 <code>commitId</code> 的改动内容。</p>
+</li>
+<li><p><code>git show &lt;tagName&gt;</code> : 查看 <code>tag</code> (<code>tag</code> 和 <code>commitId</code> 是绑定的)的改动内容。</p>
+</li>
+<li><p><code>git show &lt;commitId&gt; &lt;fileName&gt;</code> : 查看指定 <code>commit</code> 中的指定文件。</p>
+</li>
+</ul>
+<h3 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h3><ul>
+<li><p><code>git diff</code> : 显示工作区和暂存区之间的不同，「如果你现在把所有文件都 <code>add</code> ，你会向暂存区中增加哪些内容」。</p>
+</li>
+<li><p><code>git diff --staged/--cached</code> : 显示暂存区和上一条提交之间的不同，[如果你立即 <code>commit</code>，你将会提交什么」。</p>
+</li>
+<li><p><code>git diff HEAD</code> : 显示工作目录和上一条提交之间的不同，它是上面二者的内容相加。[如果你现在把所有文件都 <code>add</code> 然后 <code>commit</code>，你将会提交什么」。</p>
+</li>
+</ul>
+<p>注意：从来没有被 <code>add</code> 过 的文件并不会显示出来，因此 <code>Git</code> 没跟踪它们，识别不出来。</p>
+<h3 id="branch-1"><a href="#branch-1" class="headerlink" title="branch"></a>branch</h3><ul>
+<li><code>git branch</code>：查看分支。</li>
+<li><code>git branch &lt;name&gt;</code>：创建分支。</li>
+<li><code>git checkout &lt;name&gt;</code> 或者 <code>git switch &lt;name&gt;</code>：切换分支。</li>
+<li><code>git checkout -b &lt;name&gt;</code> 或者 <code>git switch -c &lt;name&gt;</code>：创建 + 切换分支。</li>
+<li><code>git merge &lt;name&gt;</code> :合并某分支到当前分支。</li>
+<li><code>git branch -d &lt;name&gt;</code> 或 <code>git branch -D &lt;name&gt;</code>：删除分支。</li>
+<li><code>git push origin -d &lt;name&gt;</code> ：删除远程分支。</li>
+</ul>
+<p>注意：</p>
+<p>出于安全考虑，没有被合并过的 <code>branch</code> 在删除时会失败（因为怕你误删掉「未完成」的 <code>branch</code> ），如果你确定是要删除这个 <code>branch</code> （例如某个未完成的功能被团队确认永久毙掉了），可以把 <code>-d</code> 改成 <code>-D</code>，就能删除了。</p>
+<h3 id="stash"><a href="#stash" class="headerlink" title="stash"></a>stash</h3><p>用于临时存放工作目录的改动。</p>
+<p>常用场景：</p>
+<p>你在某个分支上工作，但功能还没完成，不想提交，又必须切换到其他分支进行版本发布或 <code>bug</code> 修复，就可以使用 <code>git stash</code> 来把工作现场保存起来，之后到切换回该分支进行恢复 <code>git stash pop</code> 或 <code>git stash apply</code> 。</p>
+<p>注意：</p>
+<ol>
+<li><p>没有被跟踪的文件（即从来没有被 <code>add</code> 过的文件不会被 <code>stash</code> 起来，因为 <code>Git</code> 会忽略它们。如果想把这些文件也一起 <code>stash</code>，可以加上 <code>-u</code> 参数，它是 <code>--include-untracked</code> 的简写。</p>
+<p> <code>git stash -u</code></p>
+</li>
+<li><p>每次调用 <code>stash</code> 都会有一条记录，可以用 <code>git stash list</code> 查看所有的 <code>stash</code> 记录，记录中有索引。</p>
+</li>
+<li><p>通过 <code>git stash pop &lt;索引&gt;</code> 或者 <code>stash apply &lt;索引&gt;</code> 就可以使用对应的 <code>stash</code> 。 <code>apply</code> 可以保留 <code>stash</code> 空间，<code>pop</code> 用于恢复的同时把 <code>stash</code> 内容也删除。为了避免 <code>pop</code> 完产生奇怪的问题，所以优先使用 <code>apply</code> 而不是 <code>pop</code> 。</p>
+</li>
+</ol>
+<h3 id="tag"><a href="#tag" class="headerlink" title="tag"></a>tag</h3><p>发布一个版本时，我们通常先在版本库中打一个标签，这样就唯一确定了打标签时刻的版本。将来想取指定标签的版本，就是把那个打标签的时刻的历史版本取出来。 <code>tag</code> 就是一个让人容易记住的有意义的名字，它跟某个 <code>commit</code> 绑在一起。标签是指向 <code>commit</code> 的死指针，分支是指向 <code>commit</code> 的活指针。</p>
+<ul>
+<li><code>git tag &lt;tagname&gt;</code> ：新建一个标签，默认为 <code>HEAD</code> ，也可以指定 <code>commit</code>。</li>
+<li><code>git tag -a &lt;tagname&gt; -m &quot;说明信息&quot;</code> ：新建一个带说明信息的标签。</li>
+<li><code>git tag</code> ：查看所有标签。</li>
+<li><code>git push origin &lt;tagname&gt;</code> ：推送一个本地标签。</li>
+<li><code>git push origin --tags</code>：推送全部未推送过的本地标签。</li>
+<li><code>git tag -d &lt;tagname&gt;</code>：删除一个本地标签。</li>
+<li><code>git push origin :refs/tags/&lt;tagname&gt;</code> ：删除一个远程标签。</li>
+<li><code>git show &lt;tagname&gt;</code>： 查看标签详细信息：</li>
+</ul>
+<p>注意：</p>
+<ol>
+<li><p>标签总是和某个 <code>commit</code> 挂钩。如果这个 <code>commit</code> 都出现在不同分支，那么在这些分支上都可以看到这个标签。</p>
+</li>
+<li><p>默认情况下，<code>git push</code> 命令并不会上传标签到远程仓库，必须显式地推送标签到服务器上。 这个过程就像共享远程分支一样。 (在 <code>studio</code> 上，需要在 <code>push</code> 界面给 <code>tags</code> 选项打勾。)</p>
+<p>  <code>git push origin [tagname]</code>。</p>
+</li>
+<li><p><code>git tag</code> 和 <code>git stash list</code> 都分别列出所有分支下的所有 <code>tag</code> 或 <code>stash</code> ,而不管你此刻处于哪个分支。这样做是为了使用便利性,你可以在任意分支中选择想要的 <code>tag</code> 或 <code>stash</code> 进行处理，而不用记得指定分支下有哪些 <code>tag</code> 或 <code>stash</code> 。</p>
+</li>
+</ol>
+<h3 id="push"><a href="#push" class="headerlink" title="push"></a>push</h3><p>把当前的分支上传到远程仓库，并把分支路径上的所有 <code>commit</code> 也一并上传。</p>
+<p>常用场景：</p>
+<p><code>push</code> 到远程的内容有问题，但分支是独立开发的，不会影响到其他人，那可以用 <code>--amend</code> 或 <code>reset</code> 把写错的 <code>commit</code> 修改或者删除掉，然后再 <code>push</code> 上去就好了。不过由于你在本地对已有的 <code>commit</code> 做了修改，这时你再 <code>push</code> 就会失败，因为中央仓库包含本地没有的 <code>commit</code>。但这个冲突不是因为同事 <code>push</code> 了新的提交，而是因为你刻意修改了一些内容，这个冲突是你预料到的，这时要选择强行 <code>push</code> ：<code>git push origin branch1 -f</code></p>
+<p>注意：</p>
+<ol>
+<li><p>默认情况下，你用不加参数的 <code>git push</code> 只能上传那些之前从远端 <code>clone</code> 下来或者 <code>pull</code> 下来的分支，而如果需要 <code>push</code> 你本地自己创建的分支，则需要手动指定目标仓库和目标分支（并且目标分支的名称必须和本地分支完全相同）。</p>
+</li>
+<li><p><code>push</code> 只上传当前分支，并不会上传 <code>HEAD</code>，远程仓库的 <code>HEAD</code> 是永远指向默认分支（即 <code>master</code>）的。</p>
+</li>
+<li><p>也可以让远程仓库的分支名称跟本地的不一样，(其实是将本地的提交推送到远程已有的指定分支)。 <code>git push&lt;远程主机名&gt; &lt;本地分支名&gt; : &lt;远程分支名&gt;</code> 。</p>
+<p> <code>git push origin testBranch:test</code></p>
+</li>
+<li><p><code>git push origin &lt;分支名&gt; --force</code> 是强制让你本地的 <code>commit</code> 覆盖远程的 <code>commit</code> ，要慎用。</p>
+</li>
+<li><p>有时候在 <code>studio</code> 上 <code>commit</code> 时没有记录，是因为已经用命令 <code>commit</code> 了，可以直接 <code>push</code> 到远程。</p>
+</li>
+</ol>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><p>将远程仓库的最新内容拉到本地，用户在检查了以后决定是否合并到工作分支中。</p>
+<ul>
+<li><code>git fetch</code>：将远程主机的更新全部取回本地 。</li>
+<li><code>git fetch &lt;远程主机名&gt; &lt;分支名&gt;</code> ：取回指定分支的更新，比如： <code>git fetch origin master</code> 。</li>
+</ul>
+<p>取回更新后，会返回一个 <code>FETCH_HEAD</code> ，指的是某个 <code>branch</code> 在服务器上的最新状态，我们可以在本地通过它查看刚取回的更新信息： <code>git log -p FETCH_HEAD</code> 。</p>
+<h3 id="merge"><a href="#merge" class="headerlink" title="merge"></a>merge</h3><p>定义： 从目标 <code>commit</code> 和当前 <code>commit</code> （即 <code>HEAD</code> 所指向的 <code>commit</code>）分叉的位置起，把目标 <code>commit</code> 的路径上的所有 <code>commit</code> 的内容一并应用到当前 <code>commit</code>，然后自动生成一个新的 <code>commit</code>。(即合并自己没有的 <code>commit</code>)。</p>
+<p>冲突： 当合并不同分支时，没有修改同一部分内容，算法会自动完成。如果两个分支修改了同一部分内容，<code>merge</code> 的自动算法就搞不定了。这种情况称为冲突（Conflict）。</p>
+<p>常用命令：</p>
+<ul>
+<li><code>git merge branch</code> : 将 <code>branch</code> 合并到当前分支。</li>
+<li><code>git merge --abort</code> ，取消合并操作。合并的时候发生冲突，会处于一种待解决的中间状态，此时可以取消操作。</li>
+</ul>
+<p>注意： </p>
+<ol>
+<li><p>如果 <code>HEAD</code> 和目标 <code>commit</code> 不存在分叉，但 <code>HEAD</code> 落后于目标 <code>commit</code>，那么 <code>Git</code> 会直接把 <code>HEAD</code>（以及它所指向的 <code>branch</code>）移动到目标 <code>commit</code> 。这种操作叫做 <code>fast-forward</code>（快速前移）。经典使用场景：本地的 <code>master</code> 没有新提交，而远端仓库中有同事提交了新内容到 <code>master</code>。</p>
+</li>
+<li><p>合并分支时，加上<code>--no-f</code>f 参数就可以禁止使用 <code>fast forward</code> 模式合并 <code>git merge --no-ff -m &quot;merge dev no-ff&quot; dev</code> ，因为合并后的历史有分叉，就能看出来曾经做过合并，而 <code>fast forward</code> 方式看不出来曾经做过合并。</p>
+</li>
+</ol>
+<h3 id="pull"><a href="#pull" class="headerlink" title="pull"></a>pull</h3><p>将远程仓库的最新内容拉下来后直接合并，即： <code>git pull = git fetch + git merge</code> ，这样可能会产生冲突，需要手动解决。比如： <code>git pull origin master</code> 。</p>
+<p><code>pull</code> 的过程可以理解为： </p>
+<pre><code>git fetch origin master //从远程仓库的master分支拉取最新内容 
+git merge FETCH_HEAD     //将拉取下来的最新内容合并到当前分支
+</code></pre><h3 id="reset"><a href="#reset" class="headerlink" title="reset"></a>reset</h3><p>常用场景：</p>
+<ol>
+<li>想把之前的 <code>commit</code> 丢弃，回到某个 <code>commit</code> 的位置。比如某个修改提交导致整个项目编译不了，想要撤销提交，可以用 <code>git reset --hard 目标commit(SHA1 值)</code> 回到某个提交位置。</li>
+</ol>
+<p>常用命令：</p>
+<ol>
+<li><code>git reset --hard HEAD^</code> ：<code>HEAD^</code> 表示你要恢复到哪个 <code>commit</code> 。因为你要撤销最新的一个 <code>commit</code> ，所以你需要恢复到它的父 <code>commit</code> ，也就是 <code>HEAD^</code>。那么在这行之后，你的最新一条 <code>commit</code> 就被撤销了。</li>
+</ol>
+<p><code>reset</code> 的本质：</p>
+<ol>
+<li><code>reset</code> 的本质是移动 <code>HEAD</code> 以及它所指向的 <code>branch</code> 到某一个 <code>commit</code> 上，它的实质行为并不是撤销。也就是说，在版本回退之后，之前的 <code>commit</code> 还在，可以使用 <code>git reflog</code> 查看原先的 <code>commit SHA-1</code> 码，然后 <code>git reset --hard commitid</code> 回退到刚才那个 <code>commit</code> 版本。</li>
+</ol>
+<p><code>reset</code> 的参数分析：</p>
+<p><code>reset</code> 指令可以重置 <code>HEAD</code> 和 <code>branch</code> 的位置，不过在重置它们的同时，对工作目录可以选择不同的操作，而对工作目录的操作的不同，就是通过 <code>reset</code> 后面跟的参数来确定的。</p>
+<ol>
+<li><p><code>git reset --soft HEAD^</code> ，首先移动 <code>HEAD</code> 的指向，本质是撤销了上一次 <code>commit</code> 命令，但是保留着 <code>add</code> 命令。因此，上一次提交的内容会重新回到暂存区。因为当前的工作目录是在上一次提交的基础上的，所以工作目录内容不会有任何变动。此时你可以修改代码，再次 <code>add</code> 并 <code>commit</code> ,就能实现 <code>git commit --amend</code> 所要做的事情了。</p>
+</li>
+<li><p><code>git reset (--mixed) HEAD^</code> ,首先移动 <code>HEAD</code> 的指向，然后清空暂存区所有的内容。本质撤销了上一次的 <code>git add</code> 和 <code>git commit</code> 命令。因为当前的工作目录是在上一次提交的基础上的，所以工作目录内容也不会有任何变动。这种方式比较安全，会保留工作目录的改动。</p>
+</li>
+<li><p><code>git reset --hard HEAD^</code>，首先移动 <code>HEAD</code> 的指向，然后清空暂存区所有的内容，最后清空了工作目录中所有的改动。此时就将 <code>HEAD</code> 指向的目标 <code>commit</code> 的内容跟暂存区的内容和工作目录的内容统一了，也就是<code>working clean</code> 了。这种方式会比较危险，它会把当前工作的内容丢掉。</p>
+</li>
+</ol>
+<h3 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h3><p><code>checkout</code> 并不止可以切换分支 。<code>git checkout branch名</code> 的本质，其实是把 <code>HEAD</code> 指向指定的 <code>branch</code>，然后签出这个 <code>branch</code> 所对应的 <code>commit</code> 的工作目录。所以 <code>checkout</code> 的目标也可以不是 <code>branch</code> ，而是某个 <code>commit</code> 。</p>
+<pre><code>git checkout HEAD^^
+git checkout master~5
+git checkout 78a4bc
+git checkout 78a4bc^
+</code></pre><p>上面这些操作都是可以的。也可以 <code>checkout</code> 文件 来达到撤销本地改动的目的(删除在 <code>git</code> 里面也是修改操作)。</p>
+<p>场景一：在工作区修改了某个文件，还没有 <code>add</code> ，突然想撤销了，希望恢复到版本一开始的状态。</p>
+<ol>
+<li><code>vi readme.txt</code> ，修改了一些内容。</li>
+<li><code>git restore readme.txt</code> 或使用 <code>git checkout -- readme.txt</code> 来直接撤销所有的修改。</li>
+</ol>
+<p>场景二： 新建了一个文件，并 <code>commit</code> 到了仓库。然后在本地不小心删除了该文件，想要恢复回来。</p>
+<ol>
+<li><code>rm test.txt</code> ，在本地把 <code>test.txt</code> 文件删除掉。</li>
+<li><code>git checkout -- test.txt</code> ，重新签出文件即可恢复 。</li>
+</ol>
+<p>注意：</p>
+<ol>
+<li><code>reset</code> 会移动 <code>HEAD</code> 分支的指向，而 <code>checkout</code> 只会移动 <code>HEAD</code> 自身来指向另一个分支( <code>checkout</code> 是带着 <code>HEAD</code> 走，<code>reset</code> 是带着 <code>HEAD</code> 和 <code>branch</code> 一起走)。例如，假设我们有 <code>master</code> 和 <code>develop</code> 分支，我们现在在 <code>develop</code> 上（所以 <code>HEAD</code> 指向它）。 如果我们运行<code>git reset master</code>，那么 <code>develop</code> 自身现在会和 <code>master</code> 指向同一个提交。 而如果我们运行 <code>git checkout master</code> 的话，<code>develop</code> 不会移动，<code>HEAD</code> 自身会移动。 现在 <code>HEAD</code> 将会指向 <code>master</code>。</li>
+</ol>
+<h3 id="revert"><a href="#revert" class="headerlink" title="revert"></a>revert</h3><p>撤销某个 <code>commit</code> ，比如说某个 <code>commit</code> 新增了一些内容，而此时这些内容不需要了，那么有人可能会想到用 <code>amend</code> 来修改之前的 <code>commit</code> ，这样也可以。但是，如果新增的内容比较多，你要把所有的内容删掉再用 <code>amend</code> 提交就非常麻烦了。应该用 <code>revert</code> ，直接撤销指定 <code>commit</code> 的所有改动。</p>
+<pre><code>git revert commitID ： 撤销指定的 commitID 。
+git revert HEAD^^ ：revert 的是倒数第二次提交 。
+git revert HEAD ： 反转最后一次提交。
+</code></pre><p>注意：</p>
+<ol>
+<li><p><code>revert</code> 是强行在你的 <code>commits</code> 链条上去除某一个环节(即让某一个提交的内容去除了)，因此不是非常确定对后续的 <code>commit</code> 没有任何影响的话，最好还是不要乱用。</p>
+</li>
+<li><p>在 <code>revert</code> 完成之后，把新的 <code>commit</code> 再 <code>push</code> 上去，这个 <code>commit</code> 的内容就被撤销了。它和前面所介绍的撤销方式相比，最主要的区别是，这次改动只是被「反转」了，并没有在历史中消失掉，你的历史中会存在两条 <code>commit</code> ：一个原始 <code>commit</code> ，一个对它的反转 <code>commit</code> 。如果反转的提交后悔了，可以再次把反转的提交再反转或撤销。</p>
+</li>
+<li><p><code>git reset --hard HEAD^</code> 是撤销当前 <code>commit</code> , <code>git revert HEAD</code> 是反转最后一次提交 ，注意两者的区别。 <code>reset</code> 其实是回滚到指定的分支，所以用 <code>HEAD^</code> ，即回到倒数第二提交，也就是最后最新的提交去掉了。</p>
+</li>
+<li><p>可以用 <code>rebase -i</code> 的方式执行 <code>drop</code> 指令来丢弃某个提交。</p>
+</li>
+</ol>
+<h3 id="reflog"><a href="#reflog" class="headerlink" title="reflog"></a>reflog</h3><p>用来查看 <code>Git</code> 仓库中的引用的移动记录。默认查看 <code>HEAD</code> 的移动历史，除此之外，也可以手动加上名称来查看其他引用的移动记录，<code>git reflog master</code> 查看 <code>master</code> 的移动记录。</p>
+<p>常用场景：我在某个 <code>commit</code> 中删除了某个分支，在以后想要恢复。</p>
+<ol>
+<li><p>可以使用 <code>git reflog</code> 查看删除分支的移动记录，最后找到对应的 <code>commitId</code> 。</p>
+</li>
+<li><p>签出对应 <code>commitId</code> 的版本，然后再创建分支，这个分支就是之前被删除的分支。比如：<code>git checkout c08de9a</code> ，<br><code>git checkout -b branch1</code> 。</p>
+</li>
+<li><p>再签回 <code>Head</code> 的版本，就回到之前的版本了。</p>
+</li>
+</ol>
+<p>注意：不再被引用直接或间接指向的 <code>commits</code> 会在一定时间后被 <code>Git</code> 回收，所以使用 <code>reflog</code> 来找回删除的 <code>branch</code> 的操作一定要及时，不然有可能会由于 <code>commit</code> 被回收而再也找不回来。</p>
+<h3 id="cherry-pick"><a href="#cherry-pick" class="headerlink" title="cherry-pick"></a>cherry-pick</h3><p>在 <code>master</code> 分支上修复的 <code>bug</code> ，想要合并到当前 <code>dev</code> 分支，可以用 <code>git cherry-pick &lt;commit&gt;</code> 命令，把 <code>bug</code> 提交的修改“复制”到当前分支，避免重复劳动。</p>
+<h3 id="rebase"><a href="#rebase" class="headerlink" title="rebase"></a>rebase</h3><p>使用场景一：</p>
+<pre><code>git rebase 目标基础点 。
+</code></pre><p><code>rebase</code> 的意思是，给你的 <code>commit</code> 序列重新设置基础点（也就是父 <code>commit</code>）。展开来说就是，把你指定的 <code>commit</code> 以及它所在的 <code>commit</code> 串，以指定的目标 <code>commit</code> 为基础，依次重新提交一次。当两个不同的分支都有提交的话，此时将它们 <code>merge</code> 就会出现分叉的情况，如果不想出现这样的情况，可以不用 <code>merge</code> ，而用 <code>rebase</code> 。比如：</p>
+<pre><code>git checkout branch1 
+git rebase master 
+</code></pre><p>这两句命令的效果就是，以 <code>master</code> 的 <code>HEAD</code> 为基点，把 <code>branch1</code> 的提交全部移到 <code>master</code> 上。另外，在 <code>rebase</code> 之后，记得切回 <code>master</code> 再 <code>merge</code> 一下，把 <code>master</code> 移到最新的 <code>commit</code> 。</p>
+<pre><code>git checkout master
+git merge branch1
+</code></pre><p>需要说明的是，<code>rebase</code> 是站在需要被 <code>rebase</code> 的 <code>commit</code> 上进行操作，这点和 <code>merge</code> 是不同的。</p>
+<p>使用场景二：</p>
+<pre><code>rebase -i：交互式 rebase
+</code></pre><p>比如，我们要修改某一个 <code>commit</code> ，不是最新的哦(修改最新的可以用 <code>commit --amend</code>)，所谓「交互式 <code>rebase</code>」，就是在 <code>rebase</code> 的操作执行之前，你可以指定要 <code>rebase</code> 的 <code>commit</code> 链中的每一个 <code>commit</code> 是否需要进一步修改。</p>
+<p>比如 ： <code>git rebase -i HEAD^^</code> （加上 <code>-i</code> 就是变为交互式的）。如果没有 <code>-i</code> 参数的话，这种「原地 <code>rebase</code>」相当于空操作，会直接结束。而在加了 <code>-i</code> 后，就会跳到一个新的界面。然后，选择对应的操作，操作的命令有如下种类：</p>
+<pre><code>pick：保留该commit（缩写:p）
+reword：保留该commit，但我需要修改该commit的注释（缩写:r）
+edit：保留该commit, 但我要停下来修改该提交(不仅仅修改注释)（缩写:e）
+squash：将该commit和前一个commit合并（缩写:s）
+fixup：将该commit和前一个commit合并，但我不要保留该提交的注释信息（缩写:f）
+exec：执行shell命令（缩写:x）
+drop：我要丢弃该commit（缩写:d）,可以用这个命令来删除之前的指定 commit ，在
+Android studio 上是通过 skip 选项来移除的。
+</code></pre><p>假如我们改成了 <code>edit</code> 并退出，此时就会进入修正状态，此时可以 <code>add</code> 和 <code>commit</code> ，在修复完成之后，就可以用<code>rebase --continue</code> 来继续 <code>rebase</code> 过程，把后面的 <code>commit</code> 直接应用上去。</p>
+<pre><code>git rebase --continue
+</code></pre><p>小结:</p>
+<ol>
+<li>使用方式是 <code>git rebase -i 目标commit</code>；</li>
+<li>在编辑界面中指定需要操作的 <code>commits</code> 以及操作类型；</li>
+<li>操作完成之后用 <code>git rebase --continue</code> 来继续 <code>rebase</code> 过程。</li>
+</ol>
+<h2 id="添加文件到-Git-仓库"><a href="#添加文件到-Git-仓库" class="headerlink" title="添加文件到 Git 仓库"></a>添加文件到 Git 仓库</h2><p>分两步：</p>
+<ul>
+<li><p>使用命令 <code>git add &lt;file&gt;</code>，可反复多次使用来添加多个文件；</p>
+</li>
+<li><p>使用命令 <code>git commit -m &lt;message&gt;</code> ;</p>
+</li>
+</ul>
+<h2 id="文件状态"><a href="#文件状态" class="headerlink" title="文件状态"></a>文件状态</h2><p>每个文件都有 <code>&quot;changed / unstaged&quot;（已修改）&quot;</code> ,<code>&quot;staged&quot;（已修改并暂存）</code> ,<code>&quot;commited&quot;（已提交）</code> 三种状态，以及一种特殊状态 <code>&quot;untracked&quot;</code>（未跟踪）。</p>
+<p>详解：</p>
+<ol>
+<li>文件从来没被 <code>add</code> 过，是处于特殊状态 <code>&quot;untracked&quot;</code>（未跟踪）。</li>
+<li>文件被 <code>add</code> 了，但并没 <code>commit</code> ，处于 <code>&quot;staged&quot;</code>（已修改并暂存）。</li>
+<li>文件被 <code>commit</code> 了 ，处于<code>&quot;commited&quot;（已提交）</code>。</li>
+<li>文件曾经被 <code>add</code> 过并提交过，此时文件被修改了，处于 <code>&quot;changed / unstaged&quot;</code>（已修改），此时文件需要再次被 <code>add</code> ，就会处于状态 2，被 <code>commit</code> 后就会处于状态 3 。</li>
+</ol>
+<h2 id="引用的本质"><a href="#引用的本质" class="headerlink" title="引用的本质"></a>引用的本质</h2><ol>
+<li><p>所谓「引用」（<code>reference</code>），其实就是一个个的字符串。这个字符串可以是一个 <code>commit</code> 的 <code>SHA-1</code> 码（例：c08de9a…），也可以是一个 <code>branch</code>（例：ref: refs/heads/feature3）。</p>
+</li>
+<li><p><code>Git</code> 中的 <code>HEAD</code> 和每一个 <code>branch</code> 以及其他的引用，都是以文本文件的形式存储在本地仓库 <code>.git</code> 目录中，而 <code>Git</code> 在工作的时候，就是通过这些文本文件的内容来判断这些所谓的「引用」是指向谁的。</p>
+</li>
+</ol>
+<h2 id="分支策略"><a href="#分支策略" class="headerlink" title="分支策略"></a>分支策略</h2><p>首先，<code>master</code> 分支应该是非常稳定的，也就是仅用来发布新版本，平时不能在上面干活。干活都在 <code>dev</code> 分支上，<code>dev</code> 分支是不稳定的，到某个时候，比如 <code>1.0</code> 版本发布时，再把 <code>dev</code> 分支合并到 <code>master</code> 上，在 <code>master</code> 分支发布 <code>1.0</code> 版本；每个人都在 <code>dev</code> 分支上干活，每个人都有自己的分支，时不时地往 <code>dev</code> 分支上合并就可以了。</p>
+<h3 id="feature-分支"><a href="#feature-分支" class="headerlink" title="feature 分支"></a>feature 分支</h3><p>每添加一个新功能，最好新建一个 <code>feature</code> 分支，在上面开发，完成后，合并，最后，删除该 <code>feature</code> 分支。这样做有两个好处：代码分享和一人多任务。一人多任务的场景非常简单，根本分开的功能来创建不同的 <code>feature</code> 分支来开发就是多任务。</p>
+<p>代码分享使用场景：</p>
+<ol>
+<li>分开一个新功能，新建一个 <code>feature</code> 分支： <code>git switch -c feature</code> 。</li>
+<li>提交了很多代码并推送到远程： <code>git push origin feature</code> 。</li>
+<li>你的同事通过 <code>fetch</code> 或 <code>pull</code> 把你的代码拉下来，并切换到你的功能分支。</li>
+<li>这时候，你的同事就可以帮你 <code>review</code> 代码，如果有问题，你就反复修改即可。</li>
+<li>没有问题即可合并到 <code>master</code> 分支了，切换到 <code>master</code> 并 <code>pull</code> 一下来更新最新代码，然后 <code>merge feature</code> 分支。</li>
+<li>最后，删除本地和远程分支： <code>git branch -d feature ,git push origin -d feature</code> 。</li>
+</ol>
+<p>注意：如果发现 <code>feature</code> 分支代码太烂，不准备再要了，就可以直接删除本地和远程分支，非常方便，由于分支还没有被合并，如果删除，将丢失掉修改，如果要强行删除，需要使用大写的 <code>-D</code> 参数。</p>
+<h2 id="多人协作"><a href="#多人协作" class="headerlink" title="多人协作"></a>多人协作</h2><p>当你从远程仓库克隆时，实际上 <code>Git</code> 自动把本地的 <code>master</code> 分支和远程的 <code>master</code> 分支对应起来了，远程仓库的默认名称是 <code>origin</code> 。</p>
+<p>要查看远程库的信息，用 <code>git remote</code> ，加上参数 <code>-v</code> 显示更详细的信息。</p>
+<p>本地新建的分支如果不推送到远程，对其他人就是不可见的；</p>
+<p>从本地推送分支，使用 <code>git push origin branch-name</code> ，如果推送失败，先用 <code>git pull</code> 抓取远程的新提交；</p>
+<p>在本地创建和远程分支对应的分支，使用 <code>git checkout -b branch-name origin/branch-name</code> ，本地和远程分支的名称最好一致；</p>
+<p>建立本地分支和远程分支的关联，使用 <code>git branch --set-upstream branch-name origin/branch-name</code>；</p>
+<p>从远程抓取分支，使用 <code>git pull</code> ，如果有冲突，要先处理冲突。</p>
+<h2 id="配置别名"><a href="#配置别名" class="headerlink" title="配置别名"></a>配置别名</h2><p><code>--global</code> 参数是全局参数，也就是这些命令在这台电脑的所有 <code>Git</code> 仓库下都有用,针对当前用户。如果不加，那只针对当前的仓库起作用。</p>
+<pre><code>git config --global alias.st status （为查看状态配置别名）
+git config --global alias.last &apos;log -1&apos; （为显示最后一次提交信息配置别名）
+git config --global alias.unstage &apos;reset HEAD&apos; (为暂存区的修改撤销回工作区配置别名)
+git config --global alias.lg &quot;log --color --graph --pretty=format:&apos;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&apos; --abbrev-commit&quot;
+</code></pre><p>那么配置文件放在哪里呢：</p>
+<ol>
+<li>每个仓库的 <code>Git</code> 配置文件都放在 <code>.git/config</code> 文件中</li>
+<li>当前用户的 <code>Git</code> 配置文件放在用户主目录下的一个隐藏文件 <code>.gitconfig</code> 中 </li>
+<li>我们可以直接在配置文件中进行配置</li>
+</ol>
+<h2 id="基本命令操作步骤演示"><a href="#基本命令操作步骤演示" class="headerlink" title="基本命令操作步骤演示"></a>基本命令操作步骤演示</h2><h3 id="创建仓库"><a href="#创建仓库" class="headerlink" title="创建仓库"></a>创建仓库</h3><ol>
+<li><code>mkdir git-learning</code> ，创建一个名为 <code>git-learning</code> 的文件夹。</li>
+<li><code>cd git-learning</code> ，切换到该文件夹目录。</li>
+<li><code>pwd</code> ，该命令可以显示当前目录，比如(<code>/e/2020_mine_repo/git-learning</code>)。</li>
+<li><code>git init</code> ，把这个目录变成 <code>Git</code> 可以管理的仓库，目录下会多了一个 <code>.git</code> 目录，该目录是 <code>Git</code> 来跟踪管理版本库的。</li>
+</ol>
+<h3 id="把文件添加到版本库"><a href="#把文件添加到版本库" class="headerlink" title="把文件添加到版本库"></a>把文件添加到版本库</h3><ol>
+<li><code>vi readme.txt</code> ，然后进入编辑界面，点击 <code>i</code> 变成插入模式，写完内容后双击大写 <code>Z</code> ，就能创建一个文件，文件一定要在版本库内。</li>
+<li><code>git add readme.txt</code> ，把文件添加到暂存区。</li>
+<li><code>git commit -m &quot;wrote a readme file&quot;</code> ，把文件提交到仓库。</li>
+</ol>
+<h3 id="修改文件再添加到版本库"><a href="#修改文件再添加到版本库" class="headerlink" title="修改文件再添加到版本库"></a>修改文件再添加到版本库</h3><ol>
+<li><code>vi readme.txt</code> ，更改内容。</li>
+<li>用 <code>git status</code> 看看仓库当前的状态。</li>
+<li>用 <code>git diff readme.txt</code> ，查看一下修改了什么内容。</li>
+<li>用 <code>git add readme.txt</code> ，添加到暂存区。</li>
+<li>用 <code>git status</code> 再看看仓库当前的状态。</li>
+<li>用 <code>git commit -m &quot;add distributed&quot;</code>，提交到仓库。</li>
+<li>用 <code>git status</code> 再看看仓库当前的状态。</li>
+</ol>
+<h3 id="对文件多次修改的操作演示"><a href="#对文件多次修改的操作演示" class="headerlink" title="对文件多次修改的操作演示"></a>对文件多次修改的操作演示</h3><ol>
+<li><code>vi readme.txt</code> ，编辑内容。</li>
+<li><code>cat readme.txt</code> ，看一下内容。</li>
+<li><code>git add readme.txt</code> ，添加到暂存区。</li>
+<li><code>git status</code> ，查看一下状态。</li>
+<li><code>vi readme.txt</code> ，再编辑一下内容。</li>
+<li><code>git commit -m &quot;git tracks changes&quot;</code>，提交到仓库。</li>
+<li><code>git status</code> ，查看一下状态。</li>
+<li><code>git diff HEAD -- readme.txt</code>，查看当前文件和仓库里最新版本的区别。</li>
+<li>再次 <code>add</code> 和 <code>commit</code> 第二次修改的内容。</li>
+</ol>
+<h3 id="查看文件状态的操作演示"><a href="#查看文件状态的操作演示" class="headerlink" title="查看文件状态的操作演示"></a>查看文件状态的操作演示</h3><ol>
+<li><code>vi readme.txt</code> ，修改内容。</li>
+<li><code>vi LICENSE.txt</code>，新增一个文件。</li>
+<li><code>ls -ah</code> ，可以查看一下所有的文件，<code>-ah</code> 是把隐藏文件都查看，默认不查看。</li>
+<li><code>git status</code> ，查看一下状态。</li>
+<li><code>git add .</code> ，该指令可以把所有的修改一次性 <code>add</code> 到暂存区。</li>
+<li><code>git status</code> 再查看一下文件状态。</li>
+<li><code>git commit -m &quot;understand how stage works&quot;</code>，提交到仓库。</li>
+<li><code>git status</code> 再查看一下文件状态。此时 <code>nothing to commit, working tree clean</code>。</li>
+</ol>
+<h3 id="版本回退"><a href="#版本回退" class="headerlink" title="版本回退"></a>版本回退</h3><ol>
+<li><code>vi readme.txt</code> ，更改内容，然后 <code>add</code> 和 <code>commit</code> 。</li>
+<li><code>git log</code> ，查看历史记录，也可以用 <code>git log --pretty=oneline</code> 来输出更少的内容。</li>
+<li><code>git reset --hard HEAD^</code>，回退到上一个版本。</li>
+<li><code>cat readme.txt</code> ，该命令可以查看一下文件的内容，回退到了上一版本的内容。</li>
+<li>再用 <code>log</code> 命令查看一下历史记录，只能看到当前的版本和以前的版本信息，最新的信息看不到了。</li>
+<li>如果再想回到之前的版本，可以用 <code>reflog</code> 命令，来查看一下仓库的移动记录，默认是查看 <code>HEAD</code> 的。</li>
+<li>找到之前的 <code>commitId</code>(比如是 <code>9360cd0</code> ) ，然后 <code>git reset --hard 9360cd0</code> ，回到之前的版本。</li>
+</ol>
+<p>小结：</p>
+<p><code>HEAD</code> 指向的版本就是当前版本，因此，<code>Git</code> 允许我们在版本的历史之间穿梭，使用命令 <code>git reset --hard commit_id</code> 。穿梭前，用<code>git log</code> 可以查看提交历史，以便确定要回退到哪个版本。要重返未来，用 <code>git reflog</code> 查看命令历史，以便确定要回到未来的哪个版本。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/21/orthers/Git使用系列一/" rel="next" title>
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+	  <div id="gitalk-container"></div>   
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image" src="/uploads/images/avatar.jpg" alt="Fanda">
+          <p class="site-author-name" itemprop="name">Fanda</p>
+           
+              <p class="site-description motion-element" itemprop="description">IT相关技术</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="掘金">
+                  
+                    <i class="fa fa-fw fa-group"></i>
+                  
+                  掘金
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/fandazeng" target="_blank" title="JianShu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  JianShu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#版本控制系统（VCS）"><span class="nav-number">1.</span> <span class="nav-text">版本控制系统（VCS）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#中央式版本控制系统（Centralized-VCS）"><span class="nav-number">1.1.</span> <span class="nav-text">中央式版本控制系统（Centralized VCS）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#分布式版本控制系统（Distributed-VCS）"><span class="nav-number">1.2.</span> <span class="nav-text">分布式版本控制系统（Distributed VCS）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-的一些概念"><span class="nav-number">2.</span> <span class="nav-text">Git 的一些概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地仓库-Local-Repository"><span class="nav-number">2.1.</span> <span class="nav-text">本地仓库 (Local Repository)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#工作区（Working-Directory）"><span class="nav-number">2.2.</span> <span class="nav-text">工作区（Working Directory）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#暂存区（Stage-Area）"><span class="nav-number">2.3.</span> <span class="nav-text">暂存区（Stage Area）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#偏移符号"><span class="nav-number">2.4.</span> <span class="nav-text">偏移符号</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HEAD"><span class="nav-number">2.5.</span> <span class="nav-text">HEAD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branch"><span class="nav-number">2.6.</span> <span class="nav-text">branch</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-基本命令"><span class="nav-number">3.</span> <span class="nav-text">Git 基本命令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#clone"><span class="nav-number">3.1.</span> <span class="nav-text">clone</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联本地仓库和远程仓库"><span class="nav-number">3.2.</span> <span class="nav-text">关联本地仓库和远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#init"><span class="nav-number">3.3.</span> <span class="nav-text">init</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#add"><span class="nav-number">3.4.</span> <span class="nav-text">add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commit"><span class="nav-number">3.5.</span> <span class="nav-text">commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#status"><span class="nav-number">3.6.</span> <span class="nav-text">status</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#log"><span class="nav-number">3.7.</span> <span class="nav-text">log</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#show"><span class="nav-number">3.8.</span> <span class="nav-text">show</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#diff"><span class="nav-number">3.9.</span> <span class="nav-text">diff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#branch-1"><span class="nav-number">3.10.</span> <span class="nav-text">branch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stash"><span class="nav-number">3.11.</span> <span class="nav-text">stash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tag"><span class="nav-number">3.12.</span> <span class="nav-text">tag</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#push"><span class="nav-number">3.13.</span> <span class="nav-text">push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fetch"><span class="nav-number">3.14.</span> <span class="nav-text">fetch</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#merge"><span class="nav-number">3.15.</span> <span class="nav-text">merge</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pull"><span class="nav-number">3.16.</span> <span class="nav-text">pull</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reset"><span class="nav-number">3.17.</span> <span class="nav-text">reset</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#checkout"><span class="nav-number">3.18.</span> <span class="nav-text">checkout</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#revert"><span class="nav-number">3.19.</span> <span class="nav-text">revert</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#reflog"><span class="nav-number">3.20.</span> <span class="nav-text">reflog</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cherry-pick"><span class="nav-number">3.21.</span> <span class="nav-text">cherry-pick</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rebase"><span class="nav-number">3.22.</span> <span class="nav-text">rebase</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加文件到-Git-仓库"><span class="nav-number">4.</span> <span class="nav-text">添加文件到 Git 仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件状态"><span class="nav-number">5.</span> <span class="nav-text">文件状态</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#引用的本质"><span class="nav-number">6.</span> <span class="nav-text">引用的本质</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支策略"><span class="nav-number">7.</span> <span class="nav-text">分支策略</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#feature-分支"><span class="nav-number">7.1.</span> <span class="nav-text">feature 分支</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多人协作"><span class="nav-number">8.</span> <span class="nav-text">多人协作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置别名"><span class="nav-number">9.</span> <span class="nav-text">配置别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基本命令操作步骤演示"><span class="nav-number">10.</span> <span class="nav-text">基本命令操作步骤演示</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建仓库"><span class="nav-number">10.1.</span> <span class="nav-text">创建仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#把文件添加到版本库"><span class="nav-number">10.2.</span> <span class="nav-text">把文件添加到版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改文件再添加到版本库"><span class="nav-number">10.3.</span> <span class="nav-text">修改文件再添加到版本库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对文件多次修改的操作演示"><span class="nav-number">10.4.</span> <span class="nav-text">对文件多次修改的操作演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看文件状态的操作演示"><span class="nav-number">10.5.</span> <span class="nav-text">查看文件状态的操作演示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本回退"><span class="nav-number">10.6.</span> <span class="nav-text">版本回退</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+	
+	<div id="music163player">
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+	</div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-Fanda"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Fanda</span>
+</div>
+
+<div>
+<script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<span id="busuanzi_container_site_pv" style="display:none">
+    本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
+    <span class="post-meta-divider">|</span>
+</span>
+<span id="busuanzi_container_site_uv" style="display:none">
+    有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
+</span>
+</div>
+
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/canvasline.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/baidu_tools.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+   <script type="text/javascript">
+        var gitalk = new Gitalk({
+          clientID: '0a24ec23db863f69c94e',
+          clientSecret: '454d8ed43ceaa65490b7a854f7cef0b95b7e3be6',
+          repo: 'fandazeng.github.io',
+          owner: 'fandazeng',
+          admin: ['fandazeng'],
+          id: md5(location.pathname),
+          distractionFreeMode: 'true'
+        })
+        gitalk.render('gitalk-container')           
+       </script>
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("eROyoFH3H91PrCEieToSBnny-gzGzoHsz", "D5CAVRJl32bxjAlfHhdpWlAA");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+
+
+</body>
+</html>

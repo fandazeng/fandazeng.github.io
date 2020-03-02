@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
 <link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
@@ -35,8 +35,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -54,7 +54,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -88,21 +88,21 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
-
-
-  <meta name="keywords" content="android,IPC通信," />
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css">
 
 
+  <meta name="keywords" content="android,IPC通信,">
 
 
 
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1" />
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico?v=5.1.1">
 
 
 
@@ -116,6 +116,7 @@
 <meta property="og:url" content="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/index.html">
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="参考：写给 Android 应用工程师的 Binder 原理剖析参考：Android Bander设计与实现 - 设计篇参考：Android跨进程通信：图文详解 Binder机制 原理参考：Android 开发艺术探索 这里的原理分析大量参考了上述文章内容，源码参考了刚哥的 Android 开发艺术探索书籍第二章，只作学习笔记之用，感谢各位大佬。 一.知识储备Android IPC 简介IPC 是">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png">
 <meta property="og:image" content="https://cl.ly/c5911ad10c69/Linux%20%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.jpg">
 <meta property="og:image" content="https://cl.ly/0ef76b94e2f0/Binder%20IPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png">
@@ -156,7 +157,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/02/13/android/ipc/Binder机制及AIDL/">
 
 
 
@@ -200,13 +201,13 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
+	<a href="https://github.com/fandazeng" class="github-corner" aria-label="View source on Github"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; left: 0; transform: scale(-1, 1);" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style></a>    
       <div class="header-inner"><div class="site-brand-wrapper">
   <div class="site-meta ">
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">FandaCode</span>
         <span class="logo-line-after"><i></i></span>
@@ -236,7 +237,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -246,7 +247,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -256,7 +257,7 @@
         <li class="menu-item menu-item-about">
           <a href="/about/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-user-circle-o"></i> <br>
             
             关于
           </a>
@@ -266,7 +267,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -276,7 +277,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -316,7 +317,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Fanda">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/uploads/images/avatar.jpg">
     </span>
 
@@ -352,7 +353,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -420,7 +421,7 @@
       
 
       
-        <p>参考：<a href="https://juejin.im/post/5acccf845188255c3201100f" target="_blank" rel="external">写给 Android 应用工程师的 Binder 原理剖析</a><br>参考：<a href="https://blog.csdn.net/universus/article/details/6211589" target="_blank" rel="external">Android Bander设计与实现 - 设计篇</a><br>参考：<a href="https://blog.csdn.net/carson_ho/article/details/73560642" target="_blank" rel="external">Android跨进程通信：图文详解 Binder机制 原理</a><br>参考：Android 开发艺术探索</p>
+        <p>参考：<a href="https://juejin.im/post/5acccf845188255c3201100f" target="_blank" rel="noopener">写给 Android 应用工程师的 Binder 原理剖析</a><br>参考：<a href="https://blog.csdn.net/universus/article/details/6211589" target="_blank" rel="noopener">Android Bander设计与实现 - 设计篇</a><br>参考：<a href="https://blog.csdn.net/carson_ho/article/details/73560642" target="_blank" rel="noopener">Android跨进程通信：图文详解 Binder机制 原理</a><br>参考：Android 开发艺术探索</p>
 <p>这里的原理分析大量参考了上述文章内容，源码参考了刚哥的 Android 开发艺术探索书籍第二章，只作学习笔记之用，感谢各位大佬。</p>
 <h1 id="一-知识储备"><a href="#一-知识储备" class="headerlink" title="一.知识储备"></a>一.知识储备</h1><h2 id="Android-IPC-简介"><a href="#Android-IPC-简介" class="headerlink" title="Android IPC 简介"></a>Android IPC 简介</h2><p>IPC 是 Inter-Process Communication 的缩写，为进程间或者跨进程通信，是指两个进程之间进行数据交换的过程。在Android中最有特色的进程间通信方式就是 Binder 。</p>
 <h2 id="多进程的使用场景"><a href="#多进程的使用场景" class="headerlink" title="多进程的使用场景"></a>多进程的使用场景</h2><ol>
@@ -529,7 +530,7 @@ public class Book implements Parcelable {
     }
 }
 </code></pre><p>Parcel 内部包装了可序列化的数据，可以在 Binder 中自由传输，详细的方法说明如下表所示：</p>
-<p><img src="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png" alt=""></p>
+<p><img src="https://cl.ly/d1aa35223ede/Parcel%E5%8A%9F%E8%83%BD%E6%8F%8F%E8%BF%B0.png" alt></p>
 <p>系统为我们提供了许多实现了 Parcelable 接口的类，它们都是可以直接序列化的，比如 Intent 、 Bundle 、 Bitmap ，同时 List 和 Map 也可以序列化，前提是它们里面的每个元素都可以序列化。</p>
 <h3 id="Parcelable-和-Serializable-的区别"><a href="#Parcelable-和-Serializable-的区别" class="headerlink" title="Parcelable 和 Serializable 的区别"></a>Parcelable 和 Serializable 的区别</h3><p>Serializable ： 使用简单，开销很大，序列化和反序列化过程需要大量 I/O 操作。</p>
 <p>Parcelable ： 使用麻烦，效率高，是 Android 提供的序列化方式，主要用在内存序列化上，首选。</p>
@@ -547,7 +548,7 @@ public class Book implements Parcelable {
 <pre><code>copy_from_user()，将用户空间数据拷贝到内核空间
 
 copy_to_user()，将内核空间数据拷贝到用户空间
-</code></pre><h2 id="Linux-跨进程通信原理"><a href="#Linux-跨进程通信原理" class="headerlink" title="Linux 跨进程通信原理"></a>Linux 跨进程通信原理</h2><p><img src="https://cl.ly/c5911ad10c69/Linux%20%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.jpg" alt=""></p>
+</code></pre><h2 id="Linux-跨进程通信原理"><a href="#Linux-跨进程通信原理" class="headerlink" title="Linux 跨进程通信原理"></a>Linux 跨进程通信原理</h2><p><img src="https://cl.ly/c5911ad10c69/Linux%20%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.jpg" alt></p>
 <p>工作流程：</p>
 <ol>
 <li>发送进程通过系统调用，将需要发送的数据拷贝到 Linux 进程的内核空间中的缓存区中</li>
@@ -566,9 +567,9 @@ copy_to_user()，将内核空间数据拷贝到用户空间
 <li>发送方进程通过系统调用 copy_from_user() 将数据 copy 到内核中的内核缓存区，由于内核缓存区和接收进程的用户空间存在内存映射，因此也就相当于把数据发送到了接收进程的用户空间，这样便完成了一次进程间的通信。</li>
 </ol>
 <p>原理如下图：</p>
-<p><img src="https://cl.ly/0ef76b94e2f0/Binder%20IPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png" alt=""></p>
+<p><img src="https://cl.ly/0ef76b94e2f0/Binder%20IPC%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86.png" alt></p>
 <h2 id="Binder-通信模型"><a href="#Binder-通信模型" class="headerlink" title="Binder 通信模型"></a>Binder 通信模型</h2><h3 id="Client-Server-ServiceManager-驱动"><a href="#Client-Server-ServiceManager-驱动" class="headerlink" title="Client/Server/ServiceManager/驱动"></a>Client/Server/ServiceManager/驱动</h3><p>Binder 是基于 C/S 架构的。由一系列的组件组成，包括 Client、 Server、 ServiceManager、 Binder 驱动。其中 Client 、Server 、Service Manager 运行在用户空间，Binder 驱动运行在内核空间。其中 Service Manager 和 Binder 驱动由系统提供，而 Client、 Server 由应用程序来实现。Client、 Server 和 ServiceManager 均是通过系统调用 <code>open</code>、 <code>mmap</code> 和 <code>ioctl</code> 来访问设备文件 <code>/dev/binder</code>，从而实现与 Binder 驱动的交互来间接的实现跨进程通信。</p>
-<p><img src="https://cl.ly/2157b6904b97/Binder%20%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B.png" alt=""></p>
+<p><img src="https://cl.ly/2157b6904b97/Binder%20%E9%80%9A%E4%BF%A1%E6%A8%A1%E5%9E%8B.png" alt></p>
 <h3 id="Binder-驱动"><a href="#Binder-驱动" class="headerlink" title="Binder 驱动"></a>Binder 驱动</h3><p>是一种虚拟设备驱动，负责进程之间 Binder 通信的建立，Binder 在进程之间的传递，Binder 引用计数管理，数据包在进程之间的传递和交互等一系列底层支持。 </p>
 <h3 id="ServiceManager"><a href="#ServiceManager" class="headerlink" title="ServiceManager"></a>ServiceManager</h3><p>ServiceManager 是一个独立进程，管理各种服务，主要是将字符形式的 Binder 名字转化成 Client 中对该 Binder 的引用，使得 Client 能够通过 Binder 的名字获得对 Binder 实体的引用。Server 创建了 Binder，并为它起一个字符形式，可读易记得名字，将这个 Binder 实体连同名字一起以数据包的形式通过 Binder 驱动发送给 ServiceManager ，通知 ServiceManager 注册一个名为“张三”的 Binder，它位于某个 Server 中。驱动为这个穿越进程边界的 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager。ServiceManger 收到数据后从中取出名字和引用填入查找表。</p>
 <p>ServierManager 是一个进程，Server 是另一个进程，Server 向 ServiceManager 中注册 Binder 必然涉及到进程间通信。ServiceManager 和其他进程同样采用 Bidner 通信，ServiceManager 是 Server 端，有自己的 Binder 实体，其他进程都是 Client，需要通过这个 Binder 的引用来实现 Binder 的注册，查询和获取。ServiceManager 提供的 Binder 比较特殊，它没有名字也不需要注册。当一个进程使用 BINDER_SET_CONTEXT_MGR 命令将自己注册成 ServiceManager 时 Binder 驱动会自动为它创建 Binder 实体。其次这个 Binder 实体的引用在所有 Client 中都固定为 0 而无需通过其它手段获得。Framework提供了一个系统函数，可以获取该 ServierManager 对应的 Binder 引用，那就是BinderInternal.getContextObject()。其他服务进程就可以通过该引用提供的方法来注册或获取对应的 Binder 引用来进行跨进程通信了。</p>
@@ -615,9 +616,9 @@ private static IServiceManager getIServiceManager() {
 <li>Server 通过驱动向 ServiceManager 中注册 Binder（Server 中的 Binder 实体），表明可以对外提供服务。驱动为这个 Binder 创建位于内核中的实体节点以及 ServiceManager 对实体的引用，将名字以及新建的引用打包传给 ServiceManager，ServiceManger 将其填入查找表。</li>
 <li>Client 通过名字，在 Binder 驱动的帮助下从 ServiceManager 中获取到对 Binder 实体的引用，通过这个引用就能实现和 Server 进程的通信。</li>
 </ol>
-<p><img src="https://cl.ly/83d1f00329c5/Binder%20%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png" alt=""></p>
+<p><img src="https://cl.ly/83d1f00329c5/Binder%20%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png" alt></p>
 <p>下表是详细的通信过程：</p>
-<p><img src="https://cl.ly/88a5fefae3a7/Binder%E8%AF%A6%E7%BB%86%E7%9A%84%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png" alt=""></p>
+<p><img src="https://cl.ly/88a5fefae3a7/Binder%E8%AF%A6%E7%BB%86%E7%9A%84%E9%80%9A%E4%BF%A1%E8%BF%87%E7%A8%8B.png" alt></p>
 <h2 id="Binder-通信中的代理模式"><a href="#Binder-通信中的代理模式" class="headerlink" title="Binder 通信中的代理模式"></a>Binder 通信中的代理模式</h2><p>A 进程想要 B 进程中某个对象（object）是如何实现的呢？毕竟它们分属不同的进程，A 进程 没法直接使用 B 进程中的 object。</p>
 <p>前面我们介绍过跨进程通信的过程都有 Binder 驱动的参与，因此在数据流经 Binder 驱动的时候驱动会对数据做一层转换。当 A 进程想要获取 B 进程中的 object 时，驱动并不会真的把 object 返回给 A，而是返回了一个跟 object 看起来一模一样的代理对象 objectProxy，这个 objectProxy 具有和 object 一摸一样的方法，但是这些方法并没有 B 进程中 object 对象那些方法的能力，这些方法只需要把把请求参数交给驱动即可。对于 A 进程来说和直接调用 object 中的方法是一样的。</p>
 <p>当 Binder 驱动接收到 A 进程的消息后，发现这是个 objectProxy 就去查询自己维护的表单，一查发现这是 B 进程 object 的代理对象。于是就会去通知 B 进程调用 object 的方法，并要求 B 进程把返回结果发给自己。当驱动拿到 B 进程的返回结果后就会转发给 A 进程，一次通信就完成了。</p>
@@ -638,7 +639,7 @@ private static IServiceManager getIServiceManager() {
 </li>
 </ul>
 <h2 id="手写实现过程讲解"><a href="#手写实现过程讲解" class="headerlink" title="手写实现过程讲解"></a>手写实现过程讲解</h2><p>首先，项目结构如下：</p>
-<p><img src="https://cl.ly/950ce1dcc383/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png" alt=""></p>
+<p><img src="https://cl.ly/950ce1dcc383/%E8%B7%A8%E8%BF%9B%E7%A8%8B%E9%80%9A%E4%BF%A1%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.png" alt></p>
 <p><code>RemoteService</code> 类是 Server 端，提供远程服务；<code>ClientActivity</code> 类是 Client 端，请求获取远程服务；<code>Proxy</code> 类是远程服务的本地代理类；<code>IBookManager</code> 类是一个接口，继承了 IInterface 接口，定义了 Server 进程提供的方法。<code>Stub</code> 类如上述描述一样，是一个 Binder 的本地对象。<code>Book</code> 类是一个实现了 Parcelable 接口的实体类，能够序列化和反序列化。</p>
 <p>下面将分别展示各个类的实现代码：</p>
 <h3 id="IBookManager"><a href="#IBookManager" class="headerlink" title="IBookManager"></a><strong>IBookManager</strong></h3><pre><code>/**
@@ -1000,7 +1001,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 &lt;/service&gt;
 </code></pre><p><strong>注：在代码调试时，要注意选中的调试进程，有 Client 和 Server 两个进程。</strong></p>
 <h2 id="用AIDL方式实现并扩展上述案例"><a href="#用AIDL方式实现并扩展上述案例" class="headerlink" title="用AIDL方式实现并扩展上述案例"></a>用AIDL方式实现并扩展上述案例</h2><p>项目结构如下：</p>
-<p><img src="https://cl.ly/9e3445158e58/AIDL%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.jpg" alt=""></p>
+<p><img src="https://cl.ly/9e3445158e58/AIDL%E7%A4%BA%E4%BE%8B%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84.jpg" alt></p>
 <p>首先，我们创建一个后缀为 AIDL 的文件，在里面声明 Server 提供的功能。</p>
 <pre><code>// IBookManager.aidl
 package zeng.fanda.com.aidldemo;
@@ -1669,7 +1670,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 
       
         <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
             文章目录
           </li>
           <li class="sidebar-nav-overview" data-target="site-overview">
@@ -1680,9 +1681,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 
       <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <img class="site-author-image" itemprop="image"
-               src="/uploads/images/avatar.jpg"
-               alt="Fanda" />
+          <img class="site-author-image" itemprop="image" src="/uploads/images/avatar.jpg" alt="Fanda">
           <p class="site-author-name" itemprop="name">Fanda</p>
            
               <p class="site-description motion-element" itemprop="description">IT相关技术</p>
@@ -1693,7 +1692,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">78</span>
+                <span class="site-state-item-count">82</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1704,7 +1703,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">37</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1715,7 +1714,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-count">33</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1801,7 +1800,7 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
     </div>
 	
 	<div id="music163player">
-		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
+		<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=38358214&auto=0&height=66"></iframe>
 	</div>
   </aside>
 
@@ -1812,10 +1811,10 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright" >
+        <div class="copyright">
   
   &copy;  2017 - 
-  <span itemprop="copyrightYear">2019</span>
+  <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-Fanda"></i>
   </span>
@@ -1824,11 +1823,11 @@ public class ClientActivity extends AppCompatActivity implements View.OnClickLis
 
 <div>
 <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-<span id="busuanzi_container_site_pv" style='display:none'>
+<span id="busuanzi_container_site_pv" style="display:none">
     本站总访问量 <span id="busuanzi_value_site_pv"></span> 次
     <span class="post-meta-divider">|</span>
 </span>
-<span id="busuanzi_container_site_uv" style='display:none'>
+<span id="busuanzi_container_site_uv" style="display:none">
     有<span id="busuanzi_value_site_uv"></span>人看过我的博客啦
 </span>
 </div>
