@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="Lambda 表达式和成员引用Lambda 表达式，简称 Lambda ，本质上就是可以传递给其他函数的一小段代码。 Lambda 简介： 作为函数参数的代码块我们来看一个例子，假设你要定义一个按钮的点击行为，添加一个负责处理点击的监听器，监听器实现了相应的接口 OnClickListener 和它的一个方法 onClick： /* Java */ button.setOnClickListene">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-25T08:07:15.662Z">
+<meta property="og:updated_time" content="2020-03-13T06:53:24.819Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Lambda 编程">
 <meta name="twitter:description" content="Lambda 表达式和成员引用Lambda 表达式，简称 Lambda ，本质上就是可以传递给其他函数的一小段代码。 Lambda 简介： 作为函数参数的代码块我们来看一个例子，假设你要定义一个按钮的点击行为，添加一个负责处理点击的监听器，监听器实现了相应的接口 OnClickListener 和它的一个方法 onClick： /* Java */ button.setOnClickListene">
@@ -660,8 +660,8 @@ println(personList.groupBy { it.age })
 <pre><code>val list = listOf(&quot;a&quot;, &quot;ab&quot;, &quot;dad&quot;, &quot;rs&quot;)
 // {a=[a, ab], d=[dad], r=[rs]}
 println(list.groupBy(String::first))
-</code></pre><p>这里的 <code>first</code> 并不是 <code>String</code> 类的成员，而是一个扩展，也可以把它当做成成员引用访问。</p>
-<h3 id="flatMap-和-flatten-：处理嵌套集合中的元素"><a href="#flatMap-和-flatten-：处理嵌套集合中的元素" class="headerlink" title="flatMap 和 flatten ：处理嵌套集合中的元素"></a>flatMap 和 flatten ：处理嵌套集合中的元素</h3><p><code>flatMap</code> 函数做了两件事：首先根据作为实参给定的函数对集合中生个元素做变换，然后把多个列表平铺成一个列表，示例如下：</p>
+</code></pre><p>这里的 <code>first</code> 并不是 <code>String</code> 类的成员，而是一个扩展，也可以把它当做成员引用访问。</p>
+<h3 id="flatMap-和-flatten-：处理嵌套集合中的元素"><a href="#flatMap-和-flatten-：处理嵌套集合中的元素" class="headerlink" title="flatMap 和 flatten ：处理嵌套集合中的元素"></a>flatMap 和 flatten ：处理嵌套集合中的元素</h3><p><code>flatMap</code> 函数做了两件事：首先根据作为实参给定的函数对集合中单个元素做变换，然后把多个列表平铺成一个列表，示例如下：</p>
 <pre><code>data class Book(val title: String, val authors: List&lt;String&gt;)
 
 val books = listOf(
@@ -765,7 +765,7 @@ public static void postponeCoputation(int delay, Runnable computation) {
         println(this.hashCode())
     }
 })
-</code></pre><p>这里打印的是匿名内部类的 <code>hashCode</code> ，通过 <code>this</code> 来引用改类，上述没有显式创建对象的 <code>lambda</code> 是引用不了 <code>this</code> 的。</p>
+</code></pre><p>这里打印的是匿名内部类的 <code>hashCode</code> ，通过 <code>this</code> 来引用该类，上述没有显式创建对象的 <code>lambda</code> 是引用不了 <code>this</code> 的。</p>
 <p>注意：当你显式地声明对象时，每次调用都会创建一个新的实例。而如果 <code>lambda</code> 没有访问任何来自定义它的函数的变量，相应的匿名类实例可以在多次调用之间重用。</p>
 <p>因此完全等价的实现应该是下面这段代码中显示 <code>object</code> 声明，它把 <code>Runnable</code> 实例存储在一个变量中，并且每次调用的时候都使用这个变量：</p>
 <pre><code>val runnable = object : Runnable {
@@ -1010,7 +1010,7 @@ secondButton.setOnClickListener(listener)
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1021,7 +1021,7 @@ secondButton.setOnClickListener(listener)
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1032,7 +1032,7 @@ secondButton.setOnClickListener(listener)
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

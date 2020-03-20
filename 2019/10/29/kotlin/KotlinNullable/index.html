@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="可空性可空性是 kotlin 类型系统中帮助你避免空指针错误的特性，方案是把运行时的错误转变成编译期的错误。 可空类型如果一个变量可以为 null ，那么对变量的方法的调用就是不安全的，可能会报空指针错误，如下函数： public int strLen(String s) {     // 当 s 为 null 时，会报空指针异常     return s.length(); } 在 kotlin">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-04T01:37:33.460Z">
+<meta property="og:updated_time" content="2020-03-16T06:21:29.104Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin 的可空性">
 <meta name="twitter:description" content="可空性可空性是 kotlin 类型系统中帮助你避免空指针错误的特性，方案是把运行时的错误转变成编译期的错误。 可空类型如果一个变量可以为 null ，那么对变量的方法的调用就是不安全的，可能会报空指针错误，如下函数： public int strLen(String s) {     // 当 s 为 null 时，会报空指针异常     return s.length(); } 在 kotlin">
@@ -625,7 +625,7 @@ fun &lt;T : Any&gt; printHashCode(t: T) {
     // 不需要安全调用
     println(t.hashCode())
 }
-</code></pre><p><strong>注意： 必须使用问题结尾来标记类型为可空的，没有问号就是非空的，类型参数是这个规则唯一的例外。</strong></p>
+</code></pre><p><strong>注意： 必须使用问号结尾来标记类型为可空的，没有问号就是非空的，类型参数是这个规则唯一的例外。</strong></p>
 <h3 id="可空性和Java"><a href="#可空性和Java" class="headerlink" title="可空性和Java"></a>可空性和Java</h3><p>我们在 <code>Kotlin</code> 中通过可空性可以完美地处理 <code>null</code> 了，但是如果是与 <code>Java</code> 交叉的项目呢？ <code>Java</code> 的类型系统是不支持可空性的，那么该如果处理呢？ <code>Java</code> 中可空性信息通常是通过注解来表达的，当代码中出现这种信息时，<code>Kotlin</code> 就会识别它，转换成对应的 <code>Kotlin</code> 类型。例如： <code>@Nullable String -&gt; String?</code> ，<code>@NotNull String -&gt; String</code> 。 <code>Kotlin</code> 可以识别多种不同风格的可空性注解，包括 <code>JSR-305</code> 标准的注解（ <code>javax.annotation</code> 包下）、 <code>Android</code> 的注解（ <code>android.support.annitation</code> ） 和 <code>JetBrans</code> 工具支持的注解（ <code>org.jetbrains.annotations</code> ）。</p>
 <h3 id="平台类型"><a href="#平台类型" class="headerlink" title="平台类型"></a>平台类型</h3><p>如果没有上述所说的注解， <code>Java</code> 类型会变成 <code>kotlin</code> 中的平台类型，本质上就是 <code>kotlin</code> 不知道可空性信息的类型。即可以把它当作可空类型处理，也可以当作非空类型处理。你要像在 <code>Java</code> 中一样，对你在这个类型上做的操作负全部责任。如果你看作非空类型处理，但传入的是 <code>null</code> 值，就会报空指针异常。</p>
 <p>比方说，我们在 <code>Java</code> 中定义了一个 <code>Baby</code> 类：</p>
@@ -807,7 +807,7 @@ public static void main(String[] args) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -818,7 +818,7 @@ public static void main(String[] args) {
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -829,7 +829,7 @@ public static void main(String[] args) {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

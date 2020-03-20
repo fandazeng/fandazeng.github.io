@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="在 kotlin 中创建集合利用 kotlin 提供的标准库，来创建常见的集合： // 创建常见的集合类 val hasSet = hashSetOf(3, 6, 4) val arrayList = arrayListOf(3, 6, 8) val hasMap = hashMapOf(1 to &amp;quot;one&amp;quot;, 2 to &amp;quot;two&amp;quot;) 注意： to 并不是一">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-10-10T08:14:50.392Z">
+<meta property="og:updated_time" content="2020-03-05T07:08:30.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数的定义与调用">
 <meta name="twitter:description" content="在 kotlin 中创建集合利用 kotlin 提供的标准库，来创建常见的集合： // 创建常见的集合类 val hasSet = hashSetOf(3, 6, 4) val arrayList = arrayListOf(3, 6, 8) val hasMap = hashMapOf(1 to &amp;quot;one&amp;quot;, 2 to &amp;quot;two&amp;quot;) 注意： to 并不是一">
@@ -496,8 +496,8 @@ println(joinToString(hasSet,postfix = &quot;]&quot;,prefix = &quot;[&quot;))
 package zeng.fanda.com.kotlinpratice.function
 </code></pre><p>现在需要用新类名来调用函数了：</p>
 <pre><code>FuctionUtil.joinToString(list, &quot;;&quot;);
-</code></pre><h3 id="顶层属性"><a href="#顶层属性" class="headerlink" title="顶层属性"></a>顶层属性</h3><p>和函数一样，属性也可以放到文件的顶层。从 <code>Java</code> 的角度来看就是静态属性，没啥特别的，而且由于没有了类的存在，这种属性用到的机会也不多。<br>需要注意的是顶层函数和其他任意属性一样，默认是通过访问器暴露给 <code>Java</code> 使用的（也就是通过 <code>getter</code> 和 <code>setter</code> 方法）。</p>
-<pre><code>// 直接写在文件顶层
+</code></pre><h3 id="顶层属性"><a href="#顶层属性" class="headerlink" title="顶层属性"></a>顶层属性</h3><p>和函数一样，属性也可以放到文件的顶层。从 <code>Java</code> 的角度来看就是静态属性，没啥特别的，而且由于没有了类的存在，这种属性用到的机会也不多。<br>需要注意的是顶层属性和其他任意属性一样，默认是通过访问器暴露给 <code>Java</code> 使用的（也就是通过 <code>getter</code> 和 <code>setter</code> 方法）。</p>
+<pre><code>// 直接写在文件顶层参数的类型决定了调
 val son = &quot;son&quot;
 var father = &quot;father&quot;
 </code></pre><p>生成的相应 <code>Java</code> 代码如下：</p>
@@ -603,7 +603,7 @@ public static final void showOff(@NotNull Button $this$showOff) {
    String var1 = &quot;I am a button&quot;;
    System.out.print(var1);
 }
-</code></pre><p>参数的类型决定了调用那个静态函数，想要调用 <code>Button</code> 的扩展函数，则必须先将参数转成 <code>Button</code> 类型才行： <code>XxKt.showOff((Button)view)</code> ;</p>
+</code></pre><p>参数的类型决定了调用哪个静态函数，想要调用 <code>Button</code> 的扩展函数，则必须先将参数转成 <code>Button</code> 类型才行： <code>XxKt.showOff((Button)view)</code> ;</p>
 <p><strong>注意： 如果一个类的成员函数和扩展函数有相同的签名，成员函数往往会被优先使用，扩展函数并不起作用，相当于没有定义。</strong></p>
 <h3 id="扩展属性"><a href="#扩展属性" class="headerlink" title="扩展属性"></a>扩展属性</h3><p>扩展属性提供了一种方法，用于扩展类的 <code>API</code> ，可以用来访问属性，用的是属性语法而不是函数的语法。尽管他们被称为属性，但它们可以没有任何状态，因为没有合适的地方来存储它，不可能给现有的 <code>Java</code> 对象的实例添加额外的字段，举个例子吧：</p>
 <pre><code>val String.lastChar: Char
@@ -673,7 +673,7 @@ println(&quot;num:$num , value:$value&quot;)
 </code></pre><p><code>to</code> 函数是一个扩展函数，可以创建一对任何元素，这意味着它是泛型接受者的扩展：可以使用 <code>1 to &quot;one&quot;</code>、 <code>&quot;one&quot; to 1</code> 、<code>list to list.size()</code> 等写法。我们来看看 <code>mapOf</code> 函数的声明：</p>
 <pre><code>public fun &lt;K, V&gt; mapOf(vararg pairs: Pair&lt;K, V&gt;): Map&lt;K, V&gt;
 </code></pre><p>与 <code>listOf</code> 一样，<code>mapOf</code> 接受可变数量的参数，但这次他们应该是键值对。尽管在 <code>Kotlin</code> 中创建 <code>map</code> 可能看起来像特殊的解构，而它不过是一个具有简明语法的常规函数。</p>
-<h2 id="字符串和正则表达式的处理"><a href="#字符串和正则表达式的处理" class="headerlink" title="字符串和正则表达式的处理"></a>字符串和正则表达式的处理</h2><p><code>Java</code> 中我们会使用 <code>String</code> 的 <code>split</code> 方法分割字符串。但有时候会产生一些意外的情况，例如当我们这样写 <code>&quot;12.345-6.A&quot;.split(&quot;.&quot;)</code> 的时候，我们期待的结果是得到一个 <code>[12, 345-6, A]</code> 数组。但是 <code>Java</code> 的 <code>split</code> 方法竟然返回一个空数组！这是应为它将一个正则表达式作为参数，并根据表达式将字符串分割成多个字符串。这里的点<code>(.)</code> 是表示任何字符的正则表达式。在 <code>Kotlin</code> 中不会出现这种令人费解的情况，因为正则表达式需要一个 <code>Regex</code> 类型承载，而不是 <code>String</code> 。这样确保了字符串不会被当做正则表达式。</p>
+<h2 id="字符串和正则表达式的处理"><a href="#字符串和正则表达式的处理" class="headerlink" title="字符串和正则表达式的处理"></a>字符串和正则表达式的处理</h2><p><code>Java</code> 中我们会使用 <code>String</code> 的 <code>split</code> 方法分割字符串。但有时候会产生一些意外的情况，例如当我们这样写 <code>&quot;12.345-6.A&quot;.split(&quot;.&quot;)</code> 的时候，我们期待的结果是得到一个 <code>[12, 345-6, A]</code> 数组。但是 <code>Java</code> 的 <code>split</code> 方法竟然返回一个空数组！这是因为它将一个正则表达式作为参数，并根据表达式将字符串分割成多个字符串。这里的点<code>(.)</code> 是表示任何字符的正则表达式。在 <code>Kotlin</code> 中不会出现这种令人费解的情况，因为正则表达式需要一个 <code>Regex</code> 类型承载，而不是 <code>String</code> 。这样确保了字符串不会被当做正则表达式。</p>
 <pre><code>// 用点号或破折号来分割字符串
 // 输出 [12, 345, 6, A]
 println(&quot;12.345-6.A&quot;.split(&quot;[.-]&quot;.toRegex()))
@@ -774,7 +774,7 @@ fun saveUserLocal(user: User) {
 </ol>
 <p><strong>注意：局部函数可以让代码更加简洁，但不建议使用多层嵌套。</strong></p>
 <h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
-<li><code>Kotlin</code> 没有下定义自己的集合类，而是在 <code>Java</code> 集合类的基础上提供了更多丰富的扩展 <code>API</code>。</li>
+<li><code>Kotlin</code> 没有自定义自己的集合类，而是在 <code>Java</code> 集合类的基础上提供了更多丰富的扩展 <code>API</code>。</li>
 <li><code>Kotlin</code> 可以给函数参数设置默认值，降低了重载函数的必要性，并且命名函数参数让函数调用更加清晰易读。</li>
 <li><code>Kotlin</code> 允许定义顶层属性和函数，而不仅仅定义在类中。</li>
 <li><code>Kotlin</code> 可以利用扩展函数和属性的方式来扩展类的功能，而不需要修改源码。</li>
@@ -909,7 +909,7 @@ fun saveUserLocal(user: User) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -920,7 +920,7 @@ fun saveUserLocal(user: User) {
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -931,7 +931,7 @@ fun saveUserLocal(user: User) {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="声明并应用注解一个注解允许你把额外的元数据关联到一个声明上，然后元数据就可以被相关的源代码工具访问，通过编译好的类文件或是在运行时，这取决于这个注解是如何配置的。 应用注解在 kotlin 中使用注解的方法和 Java 一样，要应用一个注解，以 @ 字符作为(注解)名字的前缀，并放在要注解的声明最前面或上面。例如，可以用 @Test 标记一个测试方法： @Test fun addition_isC">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-18T06:40:42.686Z">
+<meta property="og:updated_time" content="2020-03-20T06:14:00.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin 的注解与反射">
 <meta name="twitter:description" content="声明并应用注解一个注解允许你把额外的元数据关联到一个声明上，然后元数据就可以被相关的源代码工具访问，通过编译好的类文件或是在运行时，这取决于这个注解是如何配置的。 应用注解在 kotlin 中使用注解的方法和 Java 一样，要应用一个注解，以 @ 字符作为(注解)名字的前缀，并放在要注解的声明最前面或上面。例如，可以用 @Test 标记一个测试方法： @Test fun addition_isC">
@@ -539,7 +539,7 @@ kFunction.call()    //Callable expects 1 arguments, but 0 were provided.
     val function2: Function2&lt;Int, Int, Int&gt; = ::sum
     println(function2.invoke(1, 2) + function2(3, 4))
 }
-</code></pre><p>可以通过 <code>FunctionN</code> 的 <code>invoke</code> 方法来调用函数，也可以直接调用。 <code>call</code> 方法是对所有类型都有效的通过手段，但是它不提供类型安全性。如果你明确形参类型和返回类型，那么应该优化使用这个具体类型的 invoke 方法。</p>
+</code></pre><p>可以通过 <code>FunctionN</code> 的 <code>invoke</code> 方法来调用函数，也可以直接调用。 <code>call</code> 方法是对所有类型都有效的通用手段，但是它不提供类型安全性。如果你明确形参类型和返回类型，那么应该优先使用这个具体类型的 invoke 方法。</p>
 <p>你也可以在一个 <code>kProperty</code> 实例上调用 <code>call</code> 方法，它会调用该属性的 <code>getter</code> 方法，也可以调用 <code>kProperty</code> 的 <code>setter</code> 对象的 <code>call</code> 方法来设置属性的值。更好的方法是直接调用 <code>set</code> 和 <code>get</code> 方法。</p>
 <pre><code>// 顶层属性
 var counter =0
@@ -704,7 +704,7 @@ println(memberProperty.get(person))
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -715,7 +715,7 @@ println(memberProperty.get(person))
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -726,7 +726,7 @@ println(memberProperty.get(person))
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

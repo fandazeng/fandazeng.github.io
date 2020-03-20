@@ -117,7 +117,7 @@
 <meta property="og:site_name" content="FandaCode">
 <meta property="og:description" content="基本数据类型Java 把基本数据类型和引用类型做了区分。一个基本数据类型（如 int ）的变量直接存储了它的值，而一个引用类型（如 String ）的变量存储的是指向包含该对象的内存地址的引用。基本数据类型的值能够更高效地存储和传递，但是你不能对这些值调用方法，或是把他们存放在集合中。 Java 提供了特殊的包装类型（如 Integer ）在你需要对象的时候对基本数据类型进行封装。因此，你不能用">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-11-04T02:26:34.321Z">
+<meta property="og:updated_time" content="2020-03-16T07:44:00.466Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Kotlin 的类型">
 <meta name="twitter:description" content="基本数据类型Java 把基本数据类型和引用类型做了区分。一个基本数据类型（如 int ）的变量直接存储了它的值，而一个引用类型（如 String ）的变量存储的是指向包含该对象的内存地址的引用。基本数据类型的值能够更高效地存储和传递，但是你不能对这些值调用方法，或是把他们存放在集合中。 Java 提供了特殊的包装类型（如 Integer ）在你需要对象的时候对基本数据类型进行封装。因此，你不能用">
@@ -535,7 +535,7 @@ class NoResultProcessor : Processor&lt;Unit&gt; {
     }
 }
 </code></pre><p>接口签名要求返回一个值，当实现类确实没有可返回的值时，可以用 <code>Unit</code> 类型，而且 <code>Unit</code> 是有值的，编译器会隐式加上 <code>return Unit</code> 。在 <code>Java</code> 中，可以用 <code>Void</code> (不是 <code>void</code>)类型作为类型参数，但是需要显式调用 <code>return null</code> 。</p>
-<h2 id="Nothing-类型：这个函数永不返回"><a href="#Nothing-类型：这个函数永不返回" class="headerlink" title="Nothing 类型：这个函数永不返回"></a>Nothing 类型：这个函数永不返回</h2><p>对某些 <code>Kotlin</code> 函数来说，返回类型的概念没有任何意义，因为他们从来不会成功地结束，例如，许多测试库中都有一个叫做 <code>fail</code> 的函数，它通过抛出带有特定消息的异常来让当前测试失败。一个包含无线循环的函数也永远不会成功地结束。当分析调用这样函数的代码时，知道函数永远不会正常终止时很有帮助的。<code>Kotlin</code> 使用一种特殊的返回类型 <code>Nothing</code> 来表示：</p>
+<h2 id="Nothing-类型：这个函数永不返回"><a href="#Nothing-类型：这个函数永不返回" class="headerlink" title="Nothing 类型：这个函数永不返回"></a>Nothing 类型：这个函数永不返回</h2><p>对某些 <code>Kotlin</code> 函数来说，返回类型的概念没有任何意义，因为他们从来不会成功地结束，例如，许多测试库中都有一个叫做 <code>fail</code> 的函数，它通过抛出带有特定消息的异常来让当前测试失败。一个包含无限循环的函数也永远不会成功地结束。当分析调用这样函数的代码时，知道函数永远不会正常终止时很有帮助的。<code>Kotlin</code> 使用一种特殊的返回类型 <code>Nothing</code> 来表示：</p>
 <pre><code>fun fail(message: String): Nothing {
     throw IllegalStateException(message)
 }
@@ -600,7 +600,7 @@ println(result)   //[1, 4, fanda]
         target.add(item)    // 将元素添加到可变集合 target
     }
 }
-</code></pre><p>这个例子中我们读取 <code>source</code> 中的元素添加到 <code>target</code> 中，因此声明函数的时候可以很好的区别：一个只读，一个可变。</p>
+</code></pre><p>这个例子中我们读取 <code>source</code> 中的元素添加到 <code>target</code> 中，因此声明函数的时候可以很好的区分：一个只读，一个可变。</p>
 <p><strong>注意：只读集合并不总是线程安全的，如果你在多线程环境下处理数据，你需要保证代码正确地同步了对数据的访问，或者使用支持并发访问的数据结构。</strong></p>
 <p>这种分离只在 <code>Kotlin</code> 的代码中有效，上面这个例子转换成 <code>Java</code> 代码后：</p>
 <pre><code>public static final void copyElements(@NotNull Collection source, @NotNull Collection target) {
@@ -682,7 +682,7 @@ val nullableArray = arrayOfNulls&lt;String&gt;(3)
 <pre><code>val content = listOf(&quot;a&quot;, &quot;b&quot;, &quot;c&quot;)
 // toTypedArray 用来给集合转成对应数组
 println(&quot;%s/%s/%s&quot;.format(*content.toTypedArray()))    //  a/b/c
-</code></pre><p>数组类型的类型参数始终会变成对象类型。如果你声明了一个 <code>Array&lt;Int&gt;</code> 它将会是一个包含装箱整型的数组 <code>Integer[]</code> 。如果你需要创建没有装箱的基本数据类型的数组，必须使用一个基本数据类型数组的特殊类。为了表示基本数据类型的数组。 <code>Kotlin</code> 提供了若干独立的类，每一种基本数据类型都对应一个，例如 <code>Int</code> 类型的数组叫做 <code>IntArray</code> ，还有 <code>ByteArray</code> ，<code>BooleanArray</code> 等等。这些对应 <code>Java</code> 中的基本数据类型数组：<code>int[]</code>、 <code>btye[]</code>、 <code>boolean[]</code> 等等。</p>
+</code></pre><p>数组类型的类型参数始终会变成对象类型。如果你声明了一个 <code>Array&lt;Int&gt;</code> 它将会是一个包含装箱整型的数组 <code>Integer[]</code> 。如果你需要创建没有装箱的基本数据类型的数组，必须使用一个基本数据类型数组的特殊类。为了表示基本数据类型的数组。 <code>Kotlin</code> 提供了若干独立的类，每一种基本数据类型都对应一个，例如 <code>Int</code> 类型的数组叫做 <code>IntArray</code> ，还有 <code>ByteArray</code> ，<code>BooleanArray</code> 等等。这些对应 <code>Java</code> 中的基本数据类型数组：<code>int[]</code>、 <code>byte[]</code>、 <code>boolean[]</code> 等等。</p>
 <p>如果你想将一个持有装箱类型的数组或者集合，可以用对应的转换函数把它们转换成基本数据类型的数组，比如 <code>toIntArray</code> 。而且，<code>kotlin</code> 标准库提供了一套跟集合相同的用于数组的扩展函数，之前说的 <code>filter</code>、 <code>map</code> 函数也同样适用于数组，非常方便。</p>
 <p>要创建一个基本数据类型的数组，有如下选择：</p>
 <p>用对应类型的构造方法接收数组大小来返回初始化好的数组：</p>
@@ -832,7 +832,7 @@ val c = IntArray(3) { it * it }
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">81</span>
+                <span class="site-state-item-count">80</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -843,7 +843,7 @@ val c = IntArray(3) { it * it }
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">39</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -854,7 +854,7 @@ val c = IntArray(3) { it * it }
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">33</span>
+                <span class="site-state-item-count">31</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
