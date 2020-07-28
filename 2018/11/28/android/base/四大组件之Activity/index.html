@@ -134,7 +134,7 @@
 <meta property="og:image" content="https://cl.ly/7af17b3f8e93/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E5%9B%9B.jpg">
 <meta property="og:image" content="https://cl.ly/88f335a5c071/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E5%9B%9B.jpg">
 <meta property="og:image" content="https://cl.ly/28032465c79b/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeInstance.jpg">
-<meta property="og:updated_time" content="2018-12-12T09:13:17.146Z">
+<meta property="og:updated_time" content="2020-05-09T04:23:04.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之Activity">
 <meta name="twitter:description" content="参考：Android 四大组件 参考：开发艺术探索书籍 Activity 生命周期 正常启动流程：  onCreate() —— onStart() —— onResume()  正常销毁流程：  onPause() —— onStop() —— onDestroy() 操作情况： 1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPau">
@@ -438,7 +438,7 @@
 <p>正常销毁流程： </p>
 <p>onPause() —— onStop() —— onDestroy()</p>
 <p>操作情况：</p>
-<p>1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop() ,这里有<br>一种特殊情况，如果新打开的界面采用了透明主题，那么当前的 Activity 只回调 onPause() 不回调 onStop()</p>
+<p>1.处于 onResume() 的时候，用户按 Home 键或锁屏或打开新界面时，导致界面不可见，会回调 onPause() —— onStop() ,这里有一种特殊情况，如果新打开的界面采用了透明主题，那么当前的 Activity 只回调 onPause() 不回调 onStop()</p>
 <p>2.处于 onPause() 的时候，用户操作使界面回到前台时，直接回调 onResume()</p>
 <p>3.处于 onStop() 的时候，用户操作使界面重新可见时，回调 onRestart() —— onStart() —— onResume()</p>
 <p>4.处于 onPause() 或 onStop() 的时候 ，界面被回收了，会重新走周期流程 onCreate() —— onStart() —— onResume() </p>
@@ -511,7 +511,7 @@ public void onConfigurationChanged(Configuration newConfig) {
 <p>案例打印的日志如下：</p>
 <p><img src="https://cl.ly/3cc83a0b5882/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BStandard.jpg" alt></p>
 <p>日志分析：</p>
-<p>系统先创建了 MainLaunchModeActivity ，该界面的 taskAffinity 是 zeng.fanda.com.fourmoduledemo ，taskId 是 753 ，然后再创建了两次 StandardModeActivity ，而且 taskAffinity 和 taskId 都跟 MainLaunchModeActivity 的一样。<br>结合上述 standard 模式的描述，由于 MainLaunchModeActivity 启动了 StandardModeActivity ，所以 StandardModeActivity 就属于 MainLaunchModeActivity 的任务栈，再次打开的 StandardModeActivity 就属于原 StandardModeActivity 的任务栈，所以三个界面的任务栈是一样的。而且每个 Activity 的 hashCode 都是不一样，说明他们都是不同的实例，即每次启动都会重新创建一个新实例。onCreate()-&gt;onStart()-&gt;onResume()都会执行，日志里没做打印而已。</p>
+<p>系统先创建了 MainLaunchModeActivity ，该界面的 taskAffinity 是 zeng.fanda.com.fourmoduledemo ，taskId 是 753 ，然后再创建了两次 StandardModeActivity ，而且 taskAffinity 和 taskId 都跟 MainLaunchModeActivity 的一样。结合上述 standard 模式的描述，由于 MainLaunchModeActivity 启动了 StandardModeActivity ，所以 StandardModeActivity 就属于 MainLaunchModeActivity 的任务栈，再次打开的 StandardModeActivity 就属于原 StandardModeActivity 的任务栈，所以三个界面的任务栈是一样的。而且每个 Activity 的 hashCode 都是不一样，说明他们都是不同的实例，即每次启动都会重新创建一个新实例。onCreate()-&gt;onStart()-&gt;onResume()都会执行，日志里没做打印而已。</p>
 <h3 id="singleTop-模式"><a href="#singleTop-模式" class="headerlink" title="singleTop 模式"></a>singleTop 模式</h3><p>这个模式分3种情况。第一，Activity 没创建过，此时打开该模式的 Activity 就跟 Standard 模式一模一样。第二，Activity 创建了，但是不在栈顶，也跟 Standard 模式一模一样。第三，当 Activity 处于栈顶，此时再次打开该模式的 Activity ，该 Activity 不会重新创建实例，直接复用，而且不会调用 onCreate() 和 onStart() ，但是会执行 onNewIntent(Intent intent) 和 onResume() 方法。</p>
 <p>清单文件配置如下：</p>
 <pre><code>&lt;activity android:name=&quot;.activity.SingleTopModeActivity&quot;  android:launchMode=&quot;singleTop&quot;/&gt;
@@ -537,7 +537,7 @@ public void onConfigurationChanged(Configuration newConfig) {
 <pre><code>&lt;activity android:name=&quot;.activity.MainLaunchModeActivity&quot; 
     android:configChanges=&quot;orientation|screenSize&quot; 
     android:taskAffinity=&quot;zeng.fanda.com.fourmoduledemo.launch&quot;&gt;
-</code></pre><h3 id="singleTask-模式"><a href="#singleTask-模式" class="headerlink" title="singleTask 模式"></a>singleTask 模式</h3><p>栈内复用模式，这是一种栈内单例模式，不同的栈内可以存在不同的实例。创建这种模式的 Activity 的时候,系统会先确认它所需任务栈是否已经创建,否则先创建任务栈（任务栈通过 taskAffinity 体内体内指定）.然后放入 Activity ,如果所需的栈已经存在而且已经有一个 Activity 实例,那么这个 Activity 就会被复用,会将当前 Activity 上面所有的 Activity 出栈，并且会回调 onNewIntent()-&gt;onResume() 。</p>
+</code></pre><h3 id="singleTask-模式"><a href="#singleTask-模式" class="headerlink" title="singleTask 模式"></a>singleTask 模式</h3><p>栈内复用模式，这是一种栈内单例模式，不同的栈内可以存在不同的实例。创建这种模式的 Activity 存在的时候,系统会先确认它所需任务栈是否已经创建,否则先创建任务栈（任务栈通过 taskAffinity 属性指定）.然后放入 Activity ,如果所需的栈已经存在而且已经有一个 Activity 实例,那么这个 Activity 就会被复用,会将当前 Activity 上面所有的 Activity 出栈，并且会回调 onNewIntent()-&gt;onResume() 。</p>
 <p>清单文件配置如下：</p>
 <pre><code>&lt;activity android:name=&quot;.activity.SingleTaskModeActivity&quot;  android:launchMode=&quot;singleTask&quot;/&gt;
 </code></pre><p>使用案例一：从一个主界面，打开一个 singleTask 模式的界面，在该界面再次打开该界面。</p>
@@ -561,7 +561,7 @@ public void onConfigurationChanged(Configuration newConfig) {
 <p>当没跳回到 SingleTaskModeActivity 时，日志信息和栈内信息如下：</p>
 <p><img src="https://cl.ly/83ac2cff18f9/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E4%BA%8C.jpg" alt></p>
 <p><img src="https://cl.ly/f4bd3c9750dc/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E4%B8%89.jpg" alt></p>
-<p>日志分析： SingleTaskModeActivity 的 TaskId 和 taskAffinity 跟 MainLaunchModeActivity 的不一样了，说明新开启了一个任务栈 SingleTaskModeActivity 放在了一个新栈上面。因为 因为OtherTaskModeActivity 没指定 taskAffinity 属性，所以OtherTaskModeActivity 的 TaskId 和 taskAffinity 跟 MainLaunchModeActivity 的一样，说明没建新的任务栈，放在了 MainLaunchModeActivity 所处的栈上面了。栈内信息充分说明了这一点。</p>
+<p>日志分析： SingleTaskModeActivity 的 TaskId 和 taskAffinity 跟 MainLaunchModeActivity 的不一样了，说明新开启了一个任务栈 SingleTaskModeActivity 放在了一个新栈上面。因为 OtherTaskModeActivity 没指定 taskAffinity 属性，所以OtherTaskModeActivity 的 TaskId 和 taskAffinity 跟 MainLaunchModeActivity 的一样，说明没建新的任务栈，放在了 MainLaunchModeActivity 所处的栈上面了。栈内信息充分说明了这一点。</p>
 <p>当跳回到 SingleTaskModeActivity 时，日志信息和栈内信息如下：</p>
 <p><img src="https://cl.ly/7af17b3f8e93/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E5%9B%9B.jpg" alt></p>
 <p><img src="https://cl.ly/88f335a5c071/Activity%E5%90%AF%E5%8A%A8%E6%A8%A1%E5%BC%8F%E4%B9%8BSinlgeTask%E6%A0%88%E4%BF%A1%E6%81%AF%E5%9B%9B.jpg" alt></p>
@@ -579,9 +579,9 @@ public void onConfigurationChanged(Configuration newConfig) {
 <p>A应用的主界面的 TaskId 是 809 ， SingleInstanceModeActivity 的 TaskId 是 810 ，证明为SingleInstanceModeActivity 新建了一个任务栈 。B应用的主界面的 TaskId 是 811 ，在B应用打开 SingleInstanceModeActivity 时，回调了 onNewIntent ,且 TaskId 是 810 ，证明SingleInstanceModeActivity 被调到前台重用了，没有新建任务栈和新建实例，具有系统全局唯一性。</p>
 <h3 id="配合-allowTaskReparenting-使用"><a href="#配合-allowTaskReparenting-使用" class="headerlink" title="配合 allowTaskReparenting 使用"></a>配合 allowTaskReparenting 使用</h3><pre><code>android:allowTaskReparenting=&quot;true&quot;
 </code></pre><p>当应用A启动应用B的某个 Activity 后，如果这个 Activity 设置了该属性，那么当B应用启动后，该 Activity 会从应用A的任务栈转移到应用B的任务栈中。具体一点，A应用启动了B的界面，B的界面此时应该放在启动它的应用A的任务栈里，当B应用启动后，B的任务栈就生成了，界面检测到了之后，就不放在A应用了，转移到自己的应用的任务栈里，所以打开B应用后，会看到从A应用打开的界面。这个效果比较特殊。</p>
-<h3 id="前后台任务栈"><a href="#前后台任务栈" class="headerlink" title="前后台任务栈"></a>前后台任务栈</h3><p>前台任务栈表示该任务栈正在前台，比如前台任务栈里有 A-B 三个界面。后台任务栈中的界面位于暂停状态，用户可以通过切换将后台任务栈再次调到前台，比如后台任务栈里有 C-D 两个界面 。现在从前台任务栈请求D界面，此时整个后台任务栈将切换到前台，如果此时返回，将从D返回到C 界面，C再返回B，B再返回A。即前台任务栈的界面全部出栈后，后台任务栈再切到前台继续出栈。</p>
+<h3 id="前后台任务栈"><a href="#前后台任务栈" class="headerlink" title="前后台任务栈"></a>前后台任务栈</h3><p>前台任务栈表示该任务栈正在前台，比如前台任务栈里有 A-B 两个界面。后台任务栈中的界面位于暂停状态，用户可以通过切换将后台任务栈再次调到前台，比如后台任务栈里有 C-D 两个界面 。现在从前台任务栈请求D界面，此时整个后台任务栈将切换到前台，如果此时返回，将从D返回到C 界面，C再返回B，B再返回A。即前台任务栈的界面全部出栈后，后台任务栈再切到前台继续出栈。</p>
 <h3 id="Activity-启动模式的使用场景"><a href="#Activity-启动模式的使用场景" class="headerlink" title="Activity 启动模式的使用场景"></a>Activity 启动模式的使用场景</h3><ol>
-<li><p>SingleTask 模式的运用场景，最常见的应用场景就是保持我们应用开启后仅仅有一个Activity 的实例。最典型的样例就是应用中展示的主页（Home页）。</p>
+<li><p>SingleTask 模式的运用场景，最常见的应用场景就是保持我们应用开启后仅仅有一个Activity 的实例。最典型的案例就是应用中展示的主页（Home页）。</p>
 </li>
 <li><p>SingleTop模式的运用场景，假设你在当前的 Activity 中又要启动同类型的 Activity，此时建议将此类型 Activity 的启动模式指定为 SingleTop，能够降低 Activity 的创建，节省内存！</p>
 </li>

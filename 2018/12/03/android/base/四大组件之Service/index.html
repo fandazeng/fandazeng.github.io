@@ -121,7 +121,7 @@
 <meta property="og:image" content="https://cl.ly/f93ec53611ab/IntentService.jpg">
 <meta property="og:image" content="https://cl.ly/5b70df22cc67/service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F.jpg">
 <meta property="og:image" content="https://cl.ly/9ad4d786d616/Service%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E4%BA%8C.jpg">
-<meta property="og:updated_time" content="2018-12-12T09:20:54.298Z">
+<meta property="og:updated_time" content="2020-05-09T07:21:12.931Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之Service">
 <meta name="twitter:description" content="参考：Android 四大组件 参考：Android Service组件深入解析 Service 简介Service 是 Android 中实现程序后台运行的解决方案，非常适合于去执行那些不需要和用户交互而且还要求长期运行的任务。不能运行在一个独立的进程中，而是依赖与创建服务时所在的应用程序进程。Service 不会自动开启线程，默认运行在主进程的 main 线程中，所以不能进行耗时操作，可以采用">
@@ -571,7 +571,7 @@
 bindService(new Intent(this, BindService.class),mServiceConnection,BIND_AUTO_CREATE);
 </code></pre><p>第四步：</p>
 <pre><code>unbindService(mServiceConnection);
-</code></pre><p>以上这两种销毁的方式都很好理解。那么如果我们既点击了 Start Service 按钮，又点击了 Bind Service 按钮会怎么样呢？这个时候你会发现，不管你是单独点击 Stop Service 按钮还是 Unbind Service 按钮，Service 都不会被销毁，必要将 Unbind Service 按钮和 Stop Service 按钮都点击一下（没有先后顺序），Service 才会被销毁。也就是说，点击 Stop Service 按钮只会让 Service 停止，点击 Unbind Service 按钮只会让 Service 和  Activity 解除关联，一个 Service 必须要在既没有和任何 Activity 关联又处理停止状态的时候才会被销毁，即回调 onDestroy() 方法。我们细说一下这种情况的生命周期。</p>
+</code></pre><p>以上这两种销毁的方式都很好理解。那么如果我们既点击了 Start Service 按钮，又点击了 Bind Service 按钮会怎么样呢？这个时候你会发现，不管你是单独点击 Stop Service 按钮还是 Unbind Service 按钮，Service 都不会被销毁，必需将 Unbind Service 按钮和 Stop Service 按钮都点击一下（没有先后顺序），Service 才会被销毁。也就是说，点击 Stop Service 按钮只会让 Service 停止，点击 Unbind Service 按钮只会让 Service 和  Activity 解除关联，一个 Service 必须要在既没有和任何 Activity 关联又处于停止状态的时候才会被销毁，即回调 onDestroy() 方法。我们细说一下这种情况的生命周期。</p>
 <p>情况一：start - bind</p>
 <p>生命周期：onCreate -&gt; onStartCommand -&gt; onBind -&gt; onUnbind -&gt; onDestroy</p>
 <p>情况三：bind -start </p>

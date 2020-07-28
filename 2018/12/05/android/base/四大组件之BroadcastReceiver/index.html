@@ -119,7 +119,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://cl.ly/faf683d8b351/%E6%97%A0%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97.jpg">
 <meta property="og:image" content="https://cl.ly/9ff60ea533b4/%E6%9C%89%E5%BA%8F%E5%B9%BF%E6%92%AD%E6%97%A5%E5%BF%97%E4%B8%80.jpg">
-<meta property="og:updated_time" content="2018-12-12T09:18:30.034Z">
+<meta property="og:updated_time" content="2020-05-09T08:13:26.888Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="四大组件之BroadcastReceiver">
 <meta name="twitter:description" content="参考：Android 四大组件 参考：BroadcastReceiver广播接收器 BroadcastReceiver 简介广播的生命周期很短（调用对象–&amp;gt;回调 onReceive –&amp;gt;结束），广播对象也是在应用进程的主线程中被构造，不适合耗时的操作，也不推荐开启新线程，因为往往线程还没结束，广播对象就已经执行完毕而被系统销毁了。每次广播到来时 , 会重新创建 BroadcastRec">
@@ -448,7 +448,7 @@ intentFilter.addAction(&quot;android.net.conn.CONNECTIVITY_CHANGE&quot;);
 registerReceiver(mNetworkChangeReceiver, intentFilter);
 </code></pre><p>第四步：</p>
 <pre><code>unregisterReceiver(netWorkChangeReceiver);
-</code></pre><h2 id="静态注册方式"><a href="#静态注册方式" class="headerlink" title="静态注册方式"></a>静态注册方式</h2><p>动态注册的方式比较灵活，但缺点是：必须在程序启动之后才能接收到广播，因为注册的逻辑是通过代码方式的。为了让程序在未启动的情况下就能接收到广播，这里就需要使用到静态注册。</p>
+</code></pre><h2 id="静态注册方式"><a href="#静态注册方式" class="headerlink" title="静态注册方式"></a>静态注册方式</h2><p>动态注册的方式比较灵活，但缺点是：必须在程序启动之后才能接收到广播，因为注册的逻辑是通过代码方式实现的。为了让程序在未启动的情况下就能接收到广播，这里就需要使用到静态注册。</p>
 <p>案例使用：</p>
 <p>第一和第二步：</p>
 <pre><code>public class TestReceiver extends BroadcastReceiver {
@@ -469,7 +469,8 @@ registerReceiver(mNetworkChangeReceiver, intentFilter);
         &lt;action android:name=&quot;zeng.fanda.com.fourmoduledemo.test&quot;/&gt;
     &lt;/intent-filter&gt;
 &lt;/receiver&gt;
-</code></pre><h1 id="BroadcastReceiver-发送"><a href="#BroadcastReceiver-发送" class="headerlink" title="BroadcastReceiver 发送"></a>BroadcastReceiver 发送</h1><p>广播被分为两种不同的类型：普通广播（无序广播或标准广播）和有序广播。</p>
+</code></pre><p>注意： Android 8.0 的广播对静态注册做了限制，需要用动态注册的方式，不然会报 Background execution not allowed(不允许后台执行)的日志信息，广播也无法正常工作。</p>
+<h1 id="BroadcastReceiver-发送"><a href="#BroadcastReceiver-发送" class="headerlink" title="BroadcastReceiver 发送"></a>BroadcastReceiver 发送</h1><p>广播被分为两种不同的类型：普通广播（无序广播或标准广播）和有序广播。</p>
 <h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
 <li>无序广播：</li>
 </ul>
@@ -580,7 +581,7 @@ mLocalBroadcastManager.unregisterReceiver(mNetworkChangeReceiver);
 <ol>
 <li>优先级高的先接收</li>
 <li>同优先级的广播接收器，动态优先于静态</li>
-<li>同优先级的同类广播接收器，静态：先扫描的优先于后扫描的，动态：先注册的优 先于后注册的。</li>
+<li>同优先级的同类广播接收器，静态：先扫描的优先于后扫描的，动态：先注册的优先于后注册的。</li>
 </ol>
 </li>
 <li><p>当广播为普通广播时：</p>
